@@ -1,0 +1,89 @@
+import { useState } from 'react'
+import pillarsImg from '../assets/figma/pillars.png'
+import heroImg from '../assets/figma/hero.png'
+import vistaImg from '../assets/figma/vista.png'
+
+const defaultSlides = [
+  {
+    image: pillarsImg,
+    caption: 'Meeting & Focus Rooms',
+    title: 'Private offices',
+    description:
+      'Progress starts with the right environment. Design is a tool. Hospitality makes the difference. Communities build naturally. Every detail matters.',
+    ctaLabel: 'Learn more',
+  },
+  {
+    image: heroImg,
+    caption: 'Coworking · Palas Campus',
+    title: 'Coworking',
+    description:
+      'Flexible desks in a thoughtfully designed shared space, surrounded by a community of people who care about their work.',
+    ctaLabel: 'Learn more',
+  },
+  {
+    image: vistaImg,
+    caption: 'Panoramic Lounge · 7th floor',
+    title: 'Vista Lounge',
+    description:
+      'A panoramic workspace above the city — the backdrop for focus, conversation, events, and professional relationships.',
+    ctaLabel: 'Learn more',
+  },
+]
+
+function ArrowIcon({ direction }) {
+  return (
+    <svg viewBox="0 0 7.5 11.5" fill="none" aria-hidden="true">
+      <path
+        d={direction === 'left' ? 'M6.75 0.75L0.75 5.75L6.75 10.75' : 'M0.75 0.75L6.75 5.75L0.75 10.75'}
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  )
+}
+
+export default function ServicesSlider({ slides = defaultSlides }) {
+  const [index, setIndex] = useState(0)
+  const slide = slides[index]
+
+  return (
+    <section className="services">
+      <div className="services__media">
+        <img src={slide.image} alt="" />
+        <span className="caption-pill">{slide.caption}</span>
+      </div>
+      <div className="services__panel">
+        <div className="services__content">
+          <h3 className="services__title">{slide.title}</h3>
+          <p className="services__desc">{slide.description}</p>
+          <button type="button" className="text-button text-button--forest">
+            <span>{slide.ctaLabel}</span>
+            <span>→</span>
+          </button>
+        </div>
+        <div className="slider-arrows services__arrows">
+          <button
+            type="button"
+            className="slider-arrow"
+            aria-label="Previous service"
+            disabled={index === 0}
+            onClick={() => setIndex((i) => Math.max(0, i - 1))}
+          >
+            <ArrowIcon direction="left" />
+          </button>
+          <button
+            type="button"
+            className="slider-arrow"
+            aria-label="Next service"
+            disabled={index === slides.length - 1}
+            onClick={() => setIndex((i) => Math.min(slides.length - 1, i + 1))}
+          >
+            <ArrowIcon direction="right" />
+          </button>
+        </div>
+      </div>
+    </section>
+  )
+}

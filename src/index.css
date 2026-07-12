@@ -1,0 +1,218 @@
+/* ============================================
+   Extind Design System — tokens & base
+   Source: Figma Styleguide (v1.0)
+   ============================================ */
+
+:root {
+  /* Brand */
+  --brand-charcoal: #1f2326;
+  --brand-cream: #f6f2ef;
+  --brand-forest: #465248;
+  --brand-warm-gray: #d1ccc4;
+  --brand-mid-gray: #999c9e;
+  --brand-white: #ffffff;
+  --brand-near-black: #232321;
+
+  /* Semantic */
+  --background: var(--brand-cream);
+  --surface: var(--brand-white);
+  --border: var(--brand-warm-gray);
+  --text-primary: var(--brand-charcoal);
+  --text-secondary: var(--brand-mid-gray);
+  --accent: var(--brand-forest);
+  --error: #c94040;
+
+  /* Typography */
+  --font-sans: 'Instrument Sans', system-ui, -apple-system, sans-serif;
+  --font-serif: 'Libre Baskerville', Georgia, serif;
+
+  /* Font-size tokens — mirror the Figma `font-size/*` variables.
+     Token name = original scale step, value = current setting. */
+  --fs-10: 12px;
+  --fs-12: 14px;
+  --fs-14: 16px;
+  --fs-16: 18px;
+  --fs-18: 21px;
+  --fs-20: 23px;
+  --fs-24: 28px;
+  --fs-32: 37px;
+  --fs-40: 46px;
+  --fs-48: 55px;
+  --fs-64: 74px;
+  --fs-72: 83px;
+
+  /* Elevation (Figma: 10 Shadow & Elevation) */
+  --elevation-1: 0 1px 2px rgba(0, 0, 0, 0.06);
+  --elevation-2: 0 4px 8px rgba(0, 0, 0, 0.1);
+  --elevation-3: 0 8px 16px rgba(0, 0, 0, 0.14);
+
+  /* Radii */
+  --radius-sm: 8px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-2xl: 28px;
+  --radius-full: 9999px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--background);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: normal;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+input {
+  font-family: inherit;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul {
+  list-style: none;
+}
+
+/* ---------- Page frame (1440 design, 80px gutters) ---------- */
+.page {
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 0 24px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* ---------- Buttons ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 20px;
+  border-radius: var(--radius-md);
+  border: none;
+  font-family: var(--font-sans);
+  font-size: var(--fs-14);
+  font-weight: 600;
+  line-height: 20px;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+  transition: background-color 0.15s ease;
+}
+
+/* Hover states from the Figma Button component set:
+   Primary → Forest Green, Secondary/Ghost → Cream fill */
+.btn--primary {
+  background: var(--text-primary);
+  color: var(--background);
+}
+
+.btn--primary:hover {
+  background: var(--accent);
+}
+
+.btn--outline {
+  background: var(--surface);
+  border: 1.5px solid var(--brand-charcoal);
+  color: var(--text-primary);
+}
+
+.btn--outline:hover {
+  background: var(--background);
+}
+
+.btn--ghost {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-primary);
+}
+
+.btn--ghost:hover {
+  background: var(--background);
+}
+
+/* ---------- Caption pill (image overlays) ---------- */
+.caption-pill {
+  display: inline-flex;
+  align-items: center;
+  background: var(--text-primary);
+  color: var(--background);
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 14px;
+  padding: 6px 14px;
+  border-radius: 100px;
+  white-space: nowrap;
+}
+
+/* ---------- Section scaffolding ---------- */
+.section {
+  padding-top: 48px;
+  display: flex;
+  flex-direction: column;
+}
+
+.section-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  padding: 48px 0;
+  text-align: center;
+}
+
+.section-header__eyebrow-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  color: var(--text-primary);
+}
+
+.section-header__eyebrow {
+  font-size: var(--fs-12);
+  font-weight: 600;
+  text-transform: uppercase;
+  line-height: 16px;
+  letter-spacing: 0.8px;
+}
+
+.section-header__title {
+  font-size: var(--fs-40);
+  font-weight: 700;
+  line-height: 48px;
+  letter-spacing: -0.5px;
+  text-align: center;
+}
+
+.section-header__note {
+  font-size: var(--fs-12);
+  font-weight: 400;
+  color: var(--text-secondary);
+  line-height: 16px;
+}

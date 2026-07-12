@@ -1,0 +1,296 @@
+{
+  "components": [
+    {
+      "name": "page",
+      "display_name": "Page",
+      "is_root": true,
+      "is_nestable": false,
+      "schema": {
+        "body": {
+          "type": "bloks",
+          "restrict_components": true,
+          "component_whitelist": [
+            "hero",
+            "central_idea",
+            "pillars",
+            "vista_lounge",
+            "memberships",
+            "values_section",
+            "faq_section",
+            "book_visit",
+            "cta_section"
+          ]
+        }
+      }
+    },
+    {
+      "name": "hero",
+      "display_name": "Hero",
+      "is_root": false,
+      "is_nestable": true,
+      "schema": {
+        "eyebrow": { "type": "text" },
+        "title": { "type": "textarea" },
+        "lede": { "type": "textarea" },
+        "primary_label": { "type": "text" },
+        "secondary_label": { "type": "text" },
+        "slides": {
+          "type": "bloks",
+          "restrict_components": true,
+          "component_whitelist": ["slide"]
+        }
+      }
+    },
+    {
+      "name": "slide",
+      "display_name": "Image Slide",
+      "is_root": false,
+      "is_nestable": true,
+      "schema": {
+        "image": { "type": "asset", "filetypes": ["images"] },
+        "caption": { "type": "text" }
+      }
+    },
+    {
+      "name": "central_idea",
+      "display_name": "Idea Cards",
+      "is_root": false,
+      "is_nestable": true,
+      "schema": {
+        "eyebrow": { "type": "text" },
+        "title": { "type": "text" },
+        "note": { "type": "text" },
+        "cards": {
+          "type": "bloks",
+          "restrict_components": true,
+          "component_whitelist": ["idea_card"]
+        }
+      }
+    },
+    {
+      "name": "idea_card",
+      "display_name": "Idea Card",
+      "is_root": false,
+      "is_nestable": true,
+      "schema": {
+        "number": { "type": "text" },
+        "title": { "type": "text" },
+        "description": { "type": "textarea" },
+        "variant": {
+          "type": "option",
+          "default_value": "light",
+          "options": [
+            { "name": "Light", "value": "light" },
+            { "name": "Forest Green", "value": "forest" },
+            { "name": "Charcoal", "value": "dark" }
+          ]
+        }
+      }
+    },
+    {
+      "name": "pillars",
+      "display_name": "Services Slider",
+      "is_root": false,
+      "is_nestable": true,
+      "schema": {
+        "slides": {
+          "type": "bloks",
+          "restrict_components": true,
+          "component_whitelist": ["service_slide"]
+        }
+      }
+    },
+    {
+      "name": "service_slide",
+      "display_name": "Service Slide",
+      "is_root": false,
+      "is_nestable": true,
+      "schema": {
+        "image": { "type": "asset", "filetypes": ["images"] },
+        "caption": { "type": "text" },
+        "title": { "type": "text" },
+        "description": { "type": "textarea" },
+        "cta_label": { "type": "text" }
+      }
+    },
+    {
+      "name": "vista_lounge",
+      "display_name": "Feature Spotlight",
+      "is_root": false,
+      "is_nestable": true,
+      "schema": {
+        "eyebrow": { "type": "text" },
+        "title": { "type": "text" },
+        "note": { "type": "text" },
+        "card_title": { "type": "text" },
+        "card_subtitle": { "type": "text" },
+        "description": { "type": "textarea" },
+        "cta_label": { "type": "text" },
+        "slides": {
+          "type": "bloks",
+          "restrict_components": true,
+          "component_whitelist": ["slide"]
+        }
+      }
+    },
+    {
+      "name": "memberships",
+      "display_name": "Memberships / Pricing",
+      "is_root": false,
+      "is_nestable": true,
+      "schema": {
+        "eyebrow": { "type": "text" },
+        "title": { "type": "text" },
+        "note": { "type": "text" },
+        "plans": {
+          "type": "bloks",
+          "restrict_components": true,
+          "component_whitelist": ["pricing_plan"]
+        },
+        "office": {
+          "type": "bloks",
+          "restrict_components": true,
+          "maximum": 1,
+          "component_whitelist": ["private_office"]
+        }
+      }
+    },
+    {
+      "name": "pricing_plan",
+      "display_name": "Pricing Plan",
+      "is_root": false,
+      "is_nestable": true,
+      "schema": {
+        "name": { "type": "text" },
+        "subtitle": { "type": "text" },
+        "price": { "type": "text" },
+        "period": { "type": "text" },
+        "features": {
+          "type": "bloks",
+          "restrict_components": true,
+          "component_whitelist": ["benefit"]
+        },
+        "cta_label": { "type": "text" },
+        "accent": { "type": "boolean" }
+      }
+    },
+    {
+      "name": "benefit",
+      "display_name": "Benefit",
+      "is_root": false,
+      "is_nestable": true,
+      "schema": {
+        "text": { "type": "text" }
+      }
+    },
+    {
+      "name": "private_office",
+      "display_name": "Private Office Banner",
+      "is_root": false,
+      "is_nestable": true,
+      "schema": {
+        "title": { "type": "text" },
+        "description": { "type": "textarea" },
+        "cta_label": { "type": "text" },
+        "benefits_left": {
+          "type": "bloks",
+          "restrict_components": true,
+          "component_whitelist": ["benefit"]
+        },
+        "benefits_right": {
+          "type": "bloks",
+          "restrict_components": true,
+          "component_whitelist": ["benefit"]
+        }
+      }
+    },
+    {
+      "name": "values_section",
+      "display_name": "Values",
+      "is_root": false,
+      "is_nestable": true,
+      "schema": {
+        "eyebrow": { "type": "text" },
+        "title": { "type": "text" },
+        "note": { "type": "text" },
+        "cards": {
+          "type": "bloks",
+          "restrict_components": true,
+          "component_whitelist": ["value_card"]
+        }
+      }
+    },
+    {
+      "name": "value_card",
+      "display_name": "Value Card",
+      "is_root": false,
+      "is_nestable": true,
+      "schema": {
+        "title": { "type": "text" },
+        "description": { "type": "textarea" }
+      }
+    },
+    {
+      "name": "faq_section",
+      "display_name": "FAQ",
+      "is_root": false,
+      "is_nestable": true,
+      "schema": {
+        "eyebrow": { "type": "text" },
+        "title": { "type": "text" },
+        "note": { "type": "text" },
+        "items": {
+          "type": "bloks",
+          "restrict_components": true,
+          "component_whitelist": ["faq_item"]
+        }
+      }
+    },
+    {
+      "name": "faq_item",
+      "display_name": "FAQ Item",
+      "is_root": false,
+      "is_nestable": true,
+      "schema": {
+        "question": { "type": "text" },
+        "answer": { "type": "textarea" }
+      }
+    },
+    {
+      "name": "book_visit",
+      "display_name": "Book a Visit",
+      "is_root": false,
+      "is_nestable": true,
+      "schema": {
+        "title": { "type": "text" },
+        "subtitle": { "type": "text" },
+        "description": { "type": "textarea" },
+        "cta_label": { "type": "text" }
+      }
+    },
+    {
+      "name": "cta_section",
+      "display_name": "Call to Action",
+      "is_root": false,
+      "is_nestable": true,
+      "schema": {
+        "title": { "type": "text" },
+        "subtitle": { "type": "text" },
+        "buttons": {
+          "type": "bloks",
+          "restrict_components": true,
+          "component_whitelist": ["cta_button"]
+        }
+      }
+    },
+    {
+      "name": "cta_button",
+      "display_name": "CTA Button",
+      "is_root": false,
+      "is_nestable": true,
+      "schema": {
+        "label": { "type": "text" }
+      }
+    }
+  ]
+}
