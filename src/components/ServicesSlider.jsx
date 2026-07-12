@@ -7,26 +7,29 @@ const defaultSlides = [
   {
     image: pillarsImg,
     caption: 'Meeting & Focus Rooms',
+    label: 'FOCUS',
     title: 'Private offices',
     description:
-      'Progress starts with the right environment. Design is a tool. Hospitality makes the difference. Communities build naturally. Every detail matters.',
-    ctaLabel: 'Learn more',
+      'Designed for businesses that need more than an office. Fully serviced private workspaces that support focus, team collaboration and a professional environment for welcoming clients as your business grows.',
+    ctaLabel: 'Private offices overview',
   },
   {
     image: heroImg,
     caption: 'Coworking · Palas Campus',
+    label: 'FLEX',
     title: 'Coworking',
     description:
       'Flexible desks in a thoughtfully designed shared space, surrounded by a community of people who care about their work.',
-    ctaLabel: 'Learn more',
+    ctaLabel: 'Coworking overview',
   },
   {
     image: vistaImg,
     caption: 'Panoramic Lounge · 7th floor',
+    label: 'CONNECT',
     title: 'Vista Lounge',
     description:
       'A panoramic workspace above the city — the backdrop for focus, conversation, events, and professional relationships.',
-    ctaLabel: 'Learn more',
+    ctaLabel: 'Vista Lounge overview',
   },
 ]
 
@@ -56,6 +59,7 @@ export default function ServicesSlider({ slides = defaultSlides }) {
       </div>
       <div className="services__panel">
         <div className="services__content">
+          <p className="services__label">{slide.label}</p>
           <h3 className="services__title">{slide.title}</h3>
           <p className="services__desc">{slide.description}</p>
           <button type="button" className="text-button text-button--forest">

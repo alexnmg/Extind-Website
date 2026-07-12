@@ -72,6 +72,7 @@ export function PillarsBlok({ blok }) {
             ? blok.slides.map((s) => ({
                 image: s.image?.filename,
                 caption: s.caption,
+                label: s.label,
                 title: s.title,
                 description: s.description,
                 ctaLabel: s.cta_label || 'Learn more',

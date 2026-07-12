@@ -108,6 +108,7 @@
       "schema": {
         "image": { "type": "asset", "filetypes": ["images"] },
         "caption": { "type": "text" },
+        "label": { "type": "text" },
         "title": { "type": "text" },
         "description": { "type": "textarea" },
         "cta_label": { "type": "text" }
