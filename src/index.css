@@ -181,7 +181,7 @@ ul {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 24px;
+  gap: 32px;
   padding: 48px 0;
   text-align: center;
 }
@@ -190,29 +190,31 @@ ul {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 12px;
+  gap: 16px;
   color: var(--text-primary);
 }
 
 .section-header__eyebrow {
-  font-size: var(--fs-12);
+  font-size: var(--fs-14);
   font-weight: 600;
-  text-transform: uppercase;
   line-height: 16px;
   letter-spacing: 0.8px;
 }
 
 .section-header__title {
-  font-size: var(--fs-40);
+  font-size: var(--fs-48);
   font-weight: 700;
   line-height: 48px;
   letter-spacing: -0.5px;
   text-align: center;
 }
 
-.section-header__note {
-  font-size: var(--fs-12);
+.section-header__desc {
+  max-width: 600px;
+  font-family: var(--font-serif);
+  font-size: var(--fs-16);
   font-weight: 400;
   color: var(--text-secondary);
-  line-height: 16px;
+  line-height: 25px;
+  text-align: center;
 }

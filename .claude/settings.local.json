@@ -38,7 +38,14 @@
       "Bash(curl -s -o /dev/null -w \"fonts-css:%{http_code} %{time_total}s\\\\n\" \"https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Libre+Baskerville&display=swap\")",
       "Bash(curl -s -o /dev/null -w \"gstatic:%{http_code} %{time_total}s\\\\n\" https://fonts.gstatic.com)",
       "mcp__claude-in-chrome__read_network_requests",
-      "mcp__claude-in-chrome__javascript_tool"
+      "mcp__claude-in-chrome__javascript_tool",
+      "Bash(curl -s -o /dev/null -w \"status:%{http_code} type:%{content_type} size:%{size_download}\\\\n\" https://extind-website.vercel.app/)",
+      "Bash(curl -s https://extind-website.vercel.app/)",
+      "Bash(curl -s -o /dev/null -w \"/about status:%{http_code}\\\\n\" https://extind-website.vercel.app/about)",
+      "PowerShell(Write-Output \"=== node/vite processes ===\"; Get-CimInstance Win32_Process -Filter \"Name='node.exe'\" | ForEach-Object { $_.ProcessId.ToString\\(\\) + \"  \" + $_.CommandLine }; Write-Output \"=== stray C: folder ===\"; if \\(Test-Path \"C:\\\\Users\\\\Alex\\\\extind-website\"\\) { Write-Output \"EXISTS\"; Get-ChildItem \"C:\\\\Users\\\\Alex\\\\extind-website\" -Force | Select-Object Name | Format-Table -HideTableHeaders; Write-Output \"--- git remote in it? ---\"; if \\(Test-Path \"C:\\\\Users\\\\Alex\\\\extind-website\\\\.git\"\\) { git -C \"C:\\\\Users\\\\Alex\\\\extind-website\" remote -v } else { Write-Output \"no .git\" } } else { Write-Output \"does not exist\" })",
+      "PowerShell($procs = Get-CimInstance Win32_Process -Filter \"Name='node.exe'\" | Where-Object { $_.CommandLine -match 'extind-website' -and $_.CommandLine -match 'vite|run dev' }; if \\($procs\\) { $procs | ForEach-Object { Write-Output \\(\"stopping PID \" + $_.ProcessId\\); Stop-Process -Id $_.ProcessId -Force -ErrorAction SilentlyContinue } } else { Write-Output \"no project dev servers running\" }; Start-Sleep -Seconds 1; Write-Output \"=== port 5173 ===\"; $c = Get-NetTCPConnection -LocalPort 5173 -State Listen -ErrorAction SilentlyContinue; if \\($c\\) { Write-Output \"still in use\" } else { Write-Output \"free\" }; Write-Output \"=== remaining project node ===\"; $r = Get-CimInstance Win32_Process -Filter \"Name='node.exe'\" | Where-Object { $_.CommandLine -match 'extind-website' }; if \\($r\\) { $r | ForEach-Object { Write-Output $_.ProcessId } } else { Write-Output \"none\" })",
+      "Bash(git add *)",
+      "Bash(git commit -m 'Sync homepage with updated Figma design *)"
     ]
   }
 }

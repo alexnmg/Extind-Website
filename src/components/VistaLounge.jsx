@@ -11,22 +11,21 @@ const defaultVistaSlides = [
 ]
 
 export default function VistaLounge({
-  eyebrow = 'Spaces',
-  title = 'Vista Lounge',
-  note = 'A panoramic workspace above the city — designed for focus, conversation, and community.',
-  cardTitle = 'Vista Lounge',
-  cardSubtitle = 'The heart of the community',
-  description = 'The panorama over the Palace of Culture becomes the backdrop for conversations, events, and professional relationships.',
+  eyebrow = 'Vista Lounge',
+  title = 'Community & Events',
+  cardLabel = 'Vista Lounge',
+  cardTitle = 'A panoramic workspace above the city',
+  description = 'More than a lounge, Vista is where the Extind community comes together. Host informal meetings, connect with other professionals or attend curated business events—all overlooking the Palace of Culture.',
   ctaLabel = 'Discover Vista Lounge',
   slides = defaultVistaSlides,
 }) {
   return (
     <section className="section">
-      <SectionHeader eyebrow={eyebrow} title={title} note={note} />
+      <SectionHeader eyebrow={eyebrow} title={title} />
       <div className="vista__row">
         <div className="vista__card">
+          <p className="vista__card-label">{cardLabel}</p>
           <h3 className="vista__card-title">{cardTitle}</h3>
-          <p className="vista__card-sub">{cardSubtitle}</p>
           <p className="vista__card-desc">{description}</p>
           <button type="button" className="text-button">
             <span>{ctaLabel}</span>

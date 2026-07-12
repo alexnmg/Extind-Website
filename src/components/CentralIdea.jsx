@@ -3,33 +3,33 @@ import SectionHeader from './SectionHeader'
 const defaultCards = [
   {
     number: '01',
-    title: 'Space is the infrastructure.',
-    desc: 'The physical environment shapes how people think, collaborate, and produce.',
+    title: 'The Right Environment',
+    desc: 'The workplace influences how teams collaborate, how clients perceive your business and how people feel about coming to work every day.',
     variant: 'light',
   },
   {
     number: '02',
-    title: 'Services are the support.',
-    desc: 'Seamless logistics, hospitality, and operations let teams focus on what matters.',
+    title: 'The Right Support',
+    desc: 'Hospitality, service and day-to-day operations work quietly in the background, giving your team more time to focus on what matters most.',
     variant: 'forest',
   },
   {
     number: '03',
-    title: 'Relationships are the catalyst.',
-    desc: 'Community and proximity create serendipitous connections that accelerate growth.',
+    title: 'The Right Connections',
+    desc: 'Meaningful business relationships rarely happen by accident. We create places and moments where companies, ideas and people naturally come together.',
     variant: 'dark',
   },
 ]
 
 export default function CentralIdea({
-  eyebrow = 'Memberships',
+  eyebrow = 'Why Extind',
   title = 'Spaces to grow',
-  note = 'Prices exclude VAT',
+  description = 'Extind combines thoughtfully designed workspaces, hospitality and a curated business community into one ecosystem that helps companies perform, build relationships and grow.',
   cards = defaultCards,
 }) {
   return (
     <section className="section">
-      <SectionHeader eyebrow={eyebrow} title={title} note={note} />
+      <SectionHeader eyebrow={eyebrow} title={title} description={description} />
       <div className="cards-row-3">
         {cards.map(({ number, title: cardTitle, desc, variant }) => (
           <article key={number + cardTitle} className={`idea-card idea-card--${variant}`}>

@@ -15,9 +15,9 @@ export default function Home() {
       <Hero />
       <CentralIdea />
       <ServicesSlider />
-      <VistaLounge />
-      <Memberships />
       <Values />
+      <Memberships />
+      <VistaLounge />
       <Faq />
       <BookVisit />
       <Cta />

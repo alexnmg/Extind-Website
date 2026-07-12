@@ -105,15 +105,15 @@ function PricingCard({ plan, sub, price, period, features, cta, accent }) {
 }
 
 export default function Memberships({
-  eyebrow = 'Memberships',
-  title = 'One membership, many perks & benefits',
-  note = 'Prices exclude VAT',
+  eyebrow = 'Pricing',
+  title = 'Memberships',
+  description = 'Prices exclude VAT',
   plans = defaultPlans,
   office = defaultOffice,
 }) {
   return (
     <section className="section">
-      <SectionHeader eyebrow={eyebrow} title={title} note={note} />
+      <SectionHeader eyebrow={eyebrow} title={title} description={description} />
       <div className="memberships__cards">
         <div className="pricing-grid">
           {plans.map((p) => (

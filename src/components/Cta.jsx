@@ -1,20 +1,16 @@
-const defaultButtons = ['Find the right space', 'Discover our spaces', "Let's connect"]
-
 export default function Cta({
-  title = 'Spaces that support ambition.',
-  subtitle = 'Less friction. More focus.',
-  buttons = defaultButtons,
+  title = 'Ready to see how Extind works?',
+  description = 'The best way to understand Extind is to spend time here. Book a visit, meet the team and discover the environment behind the business.',
+  ctaLabel = 'Visit us',
 }) {
   return (
     <section className="cta">
       <h2 className="cta__title">{title}</h2>
-      <p className="cta__sub">{subtitle}</p>
+      <p className="cta__sub">{description}</p>
       <div className="cta__buttons">
-        {buttons.map((label) => (
-          <button key={label} type="button" className="btn btn--outline">
-            {label}
-          </button>
-        ))}
+        <button type="button" className="btn btn--outline">
+          {ctaLabel}
+        </button>
       </div>
     </section>
   )

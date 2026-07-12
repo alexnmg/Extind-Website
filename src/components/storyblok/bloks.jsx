@@ -47,7 +47,7 @@ export function CentralIdeaBlok({ blok }) {
       <CentralIdea
         eyebrow={t(blok.eyebrow)}
         title={t(blok.title)}
-        note={t(blok.note)}
+        description={t(blok.description)}
         cards={
           blok.cards?.length
             ? blok.cards.map((c) => ({
@@ -89,9 +89,8 @@ export function VistaLoungeBlok({ blok }) {
       <VistaLounge
         eyebrow={t(blok.eyebrow)}
         title={t(blok.title)}
-        note={t(blok.note)}
+        cardLabel={t(blok.card_label)}
         cardTitle={t(blok.card_title)}
-        cardSubtitle={t(blok.card_subtitle)}
         description={t(blok.description)}
         ctaLabel={t(blok.cta_label)}
         slides={mapSlides(blok.slides)}
@@ -106,7 +105,7 @@ export function MembershipsBlok({ blok }) {
       <Memberships
         eyebrow={t(blok.eyebrow)}
         title={t(blok.title)}
-        note={t(blok.note)}
+        description={t(blok.description)}
         plans={
           blok.plans?.length
             ? blok.plans.map((p) => ({
@@ -159,7 +158,7 @@ export function FaqBlok({ blok }) {
       <Faq
         eyebrow={t(blok.eyebrow)}
         title={t(blok.title)}
-        note={t(blok.note)}
+        description={t(blok.description)}
         items={
           blok.items?.length
             ? blok.items.map((i) => ({ q: i.question, a: i.answer }))
@@ -188,8 +187,8 @@ export function CtaBlok({ blok }) {
     <div {...storyblokEditable(blok)}>
       <Cta
         title={t(blok.title)}
-        subtitle={t(blok.subtitle)}
-        buttons={blok.buttons?.length ? blok.buttons.map((b) => b.label) : undefined}
+        description={t(blok.description)}
+        ctaLabel={t(blok.cta_label)}
       />
     </div>
   )

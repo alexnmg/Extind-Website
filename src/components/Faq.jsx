@@ -21,14 +21,14 @@ const defaultItems = [
 export default function Faq({
   eyebrow = 'FAQ',
   title = 'Questions? Answered.',
-  note = 'The principles that shape every space, interaction, and decision at Extind.',
+  description = 'The principles that shape every space, interaction, and decision at Extind.',
   items = defaultItems,
 }) {
   const [openIndex, setOpenIndex] = useState(0)
 
   return (
     <section className="section faq">
-      <SectionHeader eyebrow={eyebrow} title={title} note={note} />
+      <SectionHeader eyebrow={eyebrow} title={title} description={description} />
       <div className="faq__column">
         {items.map(({ q, a }, i) => {
           const open = openIndex === i

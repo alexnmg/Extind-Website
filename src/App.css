@@ -46,7 +46,7 @@
   border-radius: 6px;
   font-size: var(--fs-14);
   font-weight: 500;
-  line-height: 28px;
+  line-height: 22px;
   color: var(--text-primary);
   background: none;
   border: none;
@@ -247,9 +247,9 @@
 }
 
 .idea-card {
-  min-height: 182px;
+  min-height: 230px;
   border-radius: var(--radius-xl);
-  padding: 32px;
+  padding: 40px;
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -272,7 +272,7 @@
 .idea-card__desc {
   font-family: var(--font-serif);
   font-size: var(--fs-14);
-  line-height: 20px;
+  line-height: 22px;
 }
 
 .idea-card--light {
@@ -377,7 +377,7 @@
 }
 
 .vista__card {
-  flex: 0 0 419px;
+  flex: 0 0 628px;
   min-width: 0;
   background: var(--text-primary);
   border-radius: var(--radius-xl);
@@ -388,26 +388,27 @@
   align-items: flex-start;
 }
 
+.vista__card-label {
+  font-size: var(--fs-14);
+  font-weight: 600;
+  color: var(--brand-cream);
+  line-height: normal;
+  letter-spacing: 0.8px;
+}
+
 .vista__card-title {
   font-size: var(--fs-32);
   font-weight: 700;
   color: var(--background);
-  line-height: 40px;
+  line-height: 46px;
   letter-spacing: -0.3px;
-}
-
-.vista__card-sub {
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--border);
-  line-height: 18px;
 }
 
 .vista__card-desc {
   font-family: var(--font-serif);
   font-size: var(--fs-16);
   color: var(--border);
-  line-height: 24px;
+  line-height: 25px;
 }
 
 .text-button {
@@ -449,7 +450,7 @@
 }
 
 .pricing-card {
-  min-height: 543px;
+  min-height: 613px;
   gap: 32px;
   background: var(--surface);
   border-radius: var(--radius-2xl);
@@ -535,7 +536,7 @@
 .benefit__text {
   font-family: var(--font-serif);
   font-size: var(--fs-14);
-  line-height: 20px;
+  line-height: 22px;
   color: var(--text-primary);
 }
 
@@ -645,27 +646,30 @@
 }
 
 .value-card__title {
-  font-size: var(--fs-16);
+  font-size: var(--fs-18);
   font-weight: 600;
   color: var(--text-primary);
-  line-height: 22px;
+  line-height: 24px;
 }
 
 .value-card__desc {
-  font-size: 13px;
+  font-size: var(--fs-14);
   font-weight: 400;
   color: var(--text-secondary);
-  line-height: 18px;
+  line-height: 22px;
 }
 
 /* ---------- FAQ ---------- */
+/* FAQ is now a white rounded card */
 .faq {
   align-items: center;
-  padding-bottom: 100px;
+  background: var(--surface);
+  border-radius: var(--radius-2xl);
+  padding: 48px;
 }
 
 .faq__column {
-  width: 760px;
+  width: 800px;
   max-width: 100%;
   display: flex;
   flex-direction: column;
@@ -695,7 +699,7 @@
   flex: 1;
   font-size: var(--fs-18);
   font-weight: 500;
-  line-height: 26px;
+  line-height: 29px;
   color: var(--text-primary);
 }
 
@@ -707,7 +711,7 @@
 
 .faq-item__answer {
   font-family: var(--font-serif);
-  font-size: 15px;
+  font-size: var(--fs-16);
   line-height: 25px;
   color: var(--text-secondary);
   padding-bottom: 24px;
@@ -1225,10 +1229,11 @@ textarea.field__input {
 }
 
 .cta__sub {
+  max-width: 600px;
   font-family: var(--font-serif);
   font-size: var(--fs-16);
   color: var(--text-secondary);
-  line-height: 24px;
+  line-height: 25px;
 }
 
 .cta__buttons {
