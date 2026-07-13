@@ -110,6 +110,9 @@ ul {
 
 /* ---------- Buttons ---------- */
 .btn {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -122,28 +125,61 @@ ul {
   line-height: 20px;
   letter-spacing: 0.5px;
   white-space: nowrap;
-  transition: background-color 0.15s ease;
+  transition: background-color 0.15s ease, border-color 0.15s ease,
+    color 0.15s ease;
 }
 
-/* Hover states from the Figma Button component set:
-   Primary → Forest Green, Secondary/Ghost → Cream fill */
+/* Fluid swipe hover — the accent green sweeps in from the left as the right
+   side of a hexagon: straight edges meeting at a broad (~120deg) softly
+   rounded point. The point sits beyond the button so the body fully fills it
+   once swept in. Applies to every .btn; the text-button (a different class)
+   is intentionally excluded. */
+.btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 200%;
+  background: var(--accent);
+  clip-path: polygon(
+    0% 0%,
+    50% 0%,
+    54.5% 45%,
+    55% 50%,
+    54.5% 55%,
+    50% 100%,
+    0% 100%
+  );
+  transform: translateX(-101%);
+  transition: transform 0.55s cubic-bezier(0.7, 0, 0.2, 1);
+  z-index: -1;
+  will-change: transform;
+}
+
+.btn:hover::before,
+.btn:focus-visible::before {
+  transform: translateX(0);
+}
+
+/* Text turns cream so the label stays legible over the green swipe */
+.btn:hover,
+.btn:focus-visible {
+  color: var(--background);
+}
+
+/* Primary: dark base + cream text at rest, so the swipe just adds green */
 .btn--primary {
   background: var(--text-primary);
   color: var(--background);
 }
 
-.btn--primary:hover {
-  background: var(--accent);
-}
-
+/* Light variants: flip the base dark on hover so cream text is readable
+   across the whole button while the green point sweeps over it */
 .btn--outline {
   background: var(--surface);
   border: 1.5px solid var(--brand-charcoal);
   color: var(--text-primary);
-}
-
-.btn--outline:hover {
-  background: var(--background);
 }
 
 .btn--ghost {
@@ -152,8 +188,32 @@ ul {
   color: var(--text-primary);
 }
 
-.btn--ghost:hover {
-  background: var(--background);
+.btn--outline:hover,
+.btn--outline:focus-visible,
+.btn--ghost:hover,
+.btn--ghost:focus-visible {
+  background: var(--text-primary);
+  border-color: var(--text-primary);
+}
+
+/* No swipe on disabled buttons */
+.btn:disabled::before {
+  display: none;
+}
+.btn:disabled:hover {
+  color: var(--background);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn::before {
+    display: none;
+  }
+  /* Plain green fill instead of the sweep */
+  .btn:hover,
+  .btn:focus-visible {
+    background: var(--accent);
+    border-color: var(--accent);
+  }
 }
 
 /* ---------- Caption pill (image overlays) ---------- */
