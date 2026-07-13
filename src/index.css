@@ -47,11 +47,13 @@
   --elevation-3: 0 8px 16px rgba(0, 0, 0, 0.14);
 
   /* Radii */
+  --radius-xs: 4px;
   --radius-sm: 8px;
-  --radius-md: 10px;
+  --radius-md: 12px;
   --radius-lg: 16px;
   --radius-xl: 24px;
   --radius-2xl: 28px;
+  --radius-3xl: 32px;
   --radius-full: 9999px;
 }
 
@@ -73,6 +75,9 @@ body {
   line-height: normal;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  /* Contain full-bleed elements (testimonials carousel) without a horizontal
+     scrollbar. `clip` (not hidden) keeps the sticky navbar working. */
+  overflow-x: clip;
 }
 
 img {
@@ -114,7 +119,7 @@ ul {
   align-items: center;
   justify-content: center;
   padding: 12px 20px;
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-sm);
   border: none;
   font-family: var(--font-sans);
   font-size: var(--fs-14);
@@ -162,11 +167,11 @@ ul {
   align-items: center;
   background: var(--text-primary);
   color: var(--background);
-  font-size: 11px;
+  font-size: var(--fs-10);
   font-weight: 500;
-  line-height: 14px;
-  padding: 6px 14px;
-  border-radius: 100px;
+  line-height: 16px;
+  padding: 4px 12px;
+  border-radius: var(--radius-3xl);
   white-space: nowrap;
 }
 
@@ -199,13 +204,13 @@ ul {
   font-weight: 600;
   line-height: 16px;
   letter-spacing: 0.8px;
+  text-transform: uppercase;
 }
 
 .section-header__title {
   font-size: var(--fs-48);
   font-weight: 700;
-  line-height: 48px;
-  letter-spacing: -0.5px;
+  line-height: 46px;
   text-align: center;
 }
 

@@ -17,6 +17,7 @@
             "memberships",
             "values_section",
             "faq_section",
+            "testimonials",
             "book_visit",
             "cta_section"
           ]
@@ -227,6 +228,7 @@
       "is_root": false,
       "is_nestable": true,
       "schema": {
+        "icon": { "type": "asset", "filetypes": ["images"] },
         "title": { "type": "text" },
         "description": { "type": "textarea" }
       }
@@ -255,6 +257,33 @@
       "schema": {
         "question": { "type": "text" },
         "answer": { "type": "textarea" }
+      }
+    },
+    {
+      "name": "testimonials",
+      "display_name": "Testimonials",
+      "is_root": false,
+      "is_nestable": true,
+      "schema": {
+        "eyebrow": { "type": "text" },
+        "title": { "type": "text" },
+        "description": { "type": "textarea" },
+        "items": {
+          "type": "bloks",
+          "restrict_components": true,
+          "component_whitelist": ["testimonial"]
+        }
+      }
+    },
+    {
+      "name": "testimonial",
+      "display_name": "Testimonial",
+      "is_root": false,
+      "is_nestable": true,
+      "schema": {
+        "quote": { "type": "textarea" },
+        "name": { "type": "text" },
+        "role": { "type": "text" }
       }
     },
     {

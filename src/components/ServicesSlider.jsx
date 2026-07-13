@@ -53,20 +53,16 @@ export default function ServicesSlider({ slides = defaultSlides }) {
 
   return (
     <section className="services">
-      <div className="services__media">
-        <img src={slide.image} alt="" />
-        <span className="caption-pill">{slide.caption}</span>
-      </div>
-      <div className="services__panel">
-        <div className="services__content">
-          <p className="services__label">{slide.label}</p>
-          <h3 className="services__title">{slide.title}</h3>
-          <p className="services__desc">{slide.description}</p>
-          <button type="button" className="text-button text-button--forest">
-            <span>{slide.ctaLabel}</span>
-            <span>→</span>
-          </button>
-        </div>
+      <img className="services__img" src={slide.image} alt="" />
+      <span className="caption-pill services__caption">{slide.caption}</span>
+      <div className="services__card">
+        <p className="services__label">{slide.label}</p>
+        <h3 className="services__title">{slide.title}</h3>
+        <p className="services__desc">{slide.description}</p>
+        <button type="button" className="text-button text-button--dark">
+          <span>{slide.ctaLabel}</span>
+          <span className="text-button__arrow" aria-hidden="true" />
+        </button>
         <div className="slider-arrows services__arrows">
           <button
             type="button"

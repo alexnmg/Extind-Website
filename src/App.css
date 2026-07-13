@@ -4,13 +4,19 @@
    ============================================ */
 
 /* ---------- Navbar ---------- */
-/* Sticky cream wrapper: keeps a clean 24px backdrop above the pill as
-   content scrolls underneath (Figma "Navbar Container"). */
+/* Sticky wrapper with a cream→transparent gradient so page content softly
+   fades out behind the pill as it scrolls underneath (Figma "Navbar
+   Container": cream to 75%, then fading to transparent). */
 .navbar-container {
   position: sticky;
   top: 0;
   z-index: 50;
-  background: var(--background);
+  background: linear-gradient(
+    to bottom,
+    var(--background) 0%,
+    var(--background) 75%,
+    rgba(246, 242, 239, 0) 100%
+  );
   padding-top: 24px;
 }
 
@@ -21,7 +27,7 @@
   min-height: 92px;
   padding: 24px;
   background: var(--surface);
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-xl);
   transition: box-shadow 0.2s ease;
 }
 
@@ -41,9 +47,9 @@
 .navbar__link {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
   padding: 8px 12px;
-  border-radius: 6px;
+  border-radius: var(--radius-xs);
   font-size: var(--fs-14);
   font-weight: 500;
   line-height: 22px;
@@ -76,10 +82,9 @@
   top: 100%;
   left: 0;
   margin-top: 4px;
-  min-width: 127px;
+  width: 139px;
   background: var(--brand-white);
-  border: 1px solid rgba(0, 0, 0, 0.06);
-  border-radius: 12px;
+  border-radius: var(--radius-md);
   padding: 8px;
   display: none;
   flex-direction: column;
@@ -95,6 +100,87 @@
 
 .navbar__dropdown--open {
   display: flex;
+}
+
+/* Hamburger — hidden on desktop, revealed by the ≤1024px media query */
+.navbar__burger {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  background: none;
+  border: none;
+  color: var(--text-primary);
+  cursor: pointer;
+}
+
+/* Full-screen mobile menu overlay (Figma "Mobile Menu") */
+.mobile-menu {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: var(--background);
+  display: flex;
+  flex-direction: column;
+  padding: 24px 32px 32px;
+}
+
+.mobile-menu__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.mobile-menu__close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  background: none;
+  border: none;
+  border-radius: var(--radius-xl);
+  color: var(--text-primary);
+  cursor: pointer;
+}
+
+.mobile-menu__links {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  padding-top: 48px;
+}
+
+.mobile-menu__link {
+  font-family: var(--font-sans);
+  font-size: var(--fs-32);
+  font-weight: 700;
+  line-height: 37px;
+  color: var(--text-primary);
+  text-decoration: none;
+}
+
+.mobile-menu__footer {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  align-items: center;
+}
+
+.mobile-menu__cta {
+  width: 100%;
+  gap: 12px;
+  font-size: var(--fs-16);
+}
+
+.mobile-menu__email {
+  font-family: var(--font-serif);
+  font-size: var(--fs-12);
+  color: var(--text-secondary);
 }
 
 /* Logo (96×18 wordmark composed of letter SVGs, matches Figma geometry) */
@@ -131,7 +217,7 @@
   min-height: 540px;
   background: var(--brand-white);
   border-radius: var(--radius-xl);
-  padding: 56px;
+  padding: 48px;
   display: flex;
   flex-direction: column;
   gap: 32px;
@@ -151,15 +237,14 @@
 .hero__title {
   font-size: var(--fs-48);
   font-weight: 700;
-  line-height: 56px;
-  letter-spacing: -1px;
+  line-height: 55px;
   color: var(--text-primary);
 }
 
 .hero__lede {
   font-family: var(--font-serif);
   font-size: var(--fs-16);
-  line-height: 24px;
+  line-height: 25px;
   color: var(--text-secondary);
 }
 
@@ -213,7 +298,7 @@
 .slider-arrow {
   width: 36px;
   height: 36px;
-  border-radius: 18px;
+  border-radius: var(--radius-lg);
   background: var(--background);
   color: var(--text-primary);
   border: none;
@@ -252,21 +337,20 @@
   padding: 40px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
   align-items: flex-start;
 }
 
 .idea-card__number {
   font-size: var(--fs-10);
   font-weight: 600;
-  letter-spacing: 1px;
-  line-height: 14px;
+  line-height: 16px;
 }
 
 .idea-card__title {
   font-size: var(--fs-20);
   font-weight: 600;
-  line-height: 28px;
+  line-height: 29px;
 }
 
 .idea-card__desc {
@@ -297,51 +381,42 @@
 
 /* ---------- Pillars ---------- */
 /* ---------- Services Slider ---------- */
+/* Full-bleed image with a white CTA card floating at top-left (Figma
+   "Services Slider": image 1552×650, card 517×434 at 40/40, caption
+   bottom-right, arrows inside the card's lower-left). */
 .services {
-  display: flex;
-  gap: 24px;
-  min-height: 373px;
-}
-
-.services__media {
-  flex: 1;
-  min-width: 0;
-  min-height: 260px;
   position: relative;
+  height: 650px;
   border-radius: var(--radius-2xl);
   overflow: hidden;
 }
-
-.services__media img {
+.services__img {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
-
-.services__media .caption-pill {
+.services__caption {
   position: absolute;
-  left: 20px;
+  right: 20px;
   bottom: 20px;
 }
-
-.services__panel {
-  flex: 1;
-  min-width: 0;
-  position: relative;
+.services__card {
+  position: absolute;
+  top: 40px;
+  left: 40px;
+  width: 517px;
+  max-width: calc(100% - 80px);
+  height: 434px;
   background: var(--surface);
-  border-radius: var(--radius-2xl);
-  overflow: hidden;
-}
-
-.services__content {
+  border-radius: var(--radius-xl);
   padding: 48px;
-  max-width: 628px;
   display: flex;
   flex-direction: column;
   gap: 16px;
   align-items: flex-start;
+  overflow: hidden;
 }
 
 .services__label {
@@ -349,6 +424,7 @@
   font-weight: 600;
   line-height: normal;
   letter-spacing: 0.8px;
+  text-transform: uppercase;
   color: var(--text-primary);
 }
 
@@ -356,7 +432,6 @@
   font-size: var(--fs-32);
   font-weight: 700;
   line-height: 46px;
-  letter-spacing: -0.3px;
   color: var(--text-primary);
 }
 
@@ -368,13 +443,136 @@
 }
 
 .services__arrows {
-  position: absolute;
-  left: 48px;
-  bottom: 32px;
+  margin-top: auto;
 }
 
-.text-button--forest {
-  color: var(--accent);
+/* ---------- Testimonials ---------- */
+/* Generous vertical padding + 64px between header / carousel / indicator */
+.testimonials {
+  padding: 120px 0;
+  gap: 64px;
+}
+
+/* Carousel spans the full viewport width (both edges); the track's inline
+   padding keeps the first/last cards aligned with the centred page content
+   while the row clips at the true screen edges as it scrolls. */
+.testimonials__viewport {
+  width: 100vw;
+  margin-inline: calc(50% - 50vw);
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  cursor: grab;
+}
+
+.testimonials__viewport.is-dragging {
+  cursor: grabbing;
+  user-select: none;
+}
+
+.testimonials__viewport::-webkit-scrollbar {
+  display: none;
+}
+
+.testimonials__track {
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+  width: max-content;
+  /* Align first/last card with the 1552px content column, min 24px gutter */
+  padding-left: max(24px, calc((100vw - 1552px) / 2));
+  padding-right: max(24px, calc((100vw - 1552px) / 2));
+  padding-bottom: 8px;
+}
+
+.testimonial-card {
+  flex: 0 0 420px;
+  background: var(--surface);
+  border-radius: var(--radius-xl);
+  box-shadow: 0 4px 6px rgba(31, 35, 38, 0.03);
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  align-items: flex-start;
+}
+
+.testimonial-card__stars {
+  display: flex;
+  gap: 4px;
+}
+
+.testimonial-card__stars img {
+  width: 16px;
+  height: 16px;
+}
+
+.testimonial-card__quote {
+  font-family: var(--font-serif);
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--text-primary);
+}
+
+.testimonial-card__author {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  width: 100%;
+}
+
+.testimonial-card__avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.testimonial-card__meta {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.testimonial-card__name {
+  font-size: var(--fs-14);
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: normal;
+}
+
+.testimonial-card__role {
+  font-size: var(--fs-12);
+  font-weight: 500;
+  color: var(--text-secondary);
+  line-height: normal;
+}
+
+.testimonials__indicator {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.testimonials__dot {
+  height: 4px;
+  width: 8px;
+  border: none;
+  padding: 0;
+  border-radius: 2px;
+  background: var(--brand-mid-gray);
+  opacity: 0.3;
+  transition: width 0.3s ease, background-color 0.3s ease, opacity 0.3s ease;
+}
+
+.testimonials__dot--active {
+  width: 40px;
+  background: var(--text-primary);
+  opacity: 1;
 }
 
 /* ---------- Vista Lounge ---------- */
@@ -421,6 +619,7 @@
 
 .text-button {
   display: inline-flex;
+  align-items: center;
   gap: 8px;
   padding: 4px 0;
   background: none;
@@ -429,6 +628,60 @@
   font-weight: 500;
   color: var(--background);
   line-height: 20px;
+  cursor: pointer;
+}
+
+/* Color variants — defined after the base so their color wins.
+   Light (base) = cream; Dark = charcoal; Forest = forest green. */
+.text-button--dark {
+  color: var(--text-primary);
+}
+
+.text-button--forest {
+  color: var(--accent);
+}
+
+/* Arrow built from a shaft (::before) + chevron head (::after) so it can
+   elongate to the right on hover. Uses currentColor to match each button. */
+.text-button__arrow {
+  position: relative;
+  display: inline-block;
+  width: 16px;
+  height: 12px;
+  flex-shrink: 0;
+}
+
+.text-button__arrow::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  height: 1.5px;
+  width: 11px;
+  background: currentColor;
+  transform: translateY(-50%);
+  transition: width 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.text-button__arrow::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 8px;
+  width: 6px;
+  height: 6px;
+  border-top: 1.5px solid currentColor;
+  border-right: 1.5px solid currentColor;
+  transform: translateY(-50%) rotate(45deg);
+  transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.text-button:hover .text-button__arrow::before {
+  width: 16px;
+}
+
+.text-button:hover .text-button__arrow::after {
+  transform: translate(5px, -50%) rotate(45deg);
 }
 
 .vista__media {
@@ -482,19 +735,17 @@
 }
 
 .pricing-card__plan {
-  font-size: var(--fs-12);
+  font-size: var(--fs-24);
   font-weight: 600;
-  text-transform: uppercase;
   color: var(--text-primary);
-  line-height: 16px;
-  letter-spacing: 0.8px;
+  line-height: 29px;
 }
 
 .pricing-card__sub {
   font-family: var(--font-serif);
   font-size: var(--fs-14);
   color: var(--text-secondary);
-  line-height: 20px;
+  line-height: 22px;
 }
 
 .price-row {
@@ -526,7 +777,7 @@
 .feature-list {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 16px;
 }
 
 .benefit {
@@ -543,7 +794,7 @@
 
 .benefit__text {
   font-family: var(--font-serif);
-  font-size: var(--fs-14);
+  font-size: var(--fs-12);
   line-height: 22px;
   color: var(--text-primary);
 }
@@ -567,20 +818,22 @@
 /* Private office banner */
 .private-office {
   display: flex;
-  background: var(--border);
+  background: var(--surface);
   border-radius: var(--radius-2xl);
+  overflow: hidden;
 }
 
 /* Left column matches one pricing-grid column + gutter, so the dark panel
    aligns with the second pricing card above it */
 .private-office__left {
-  flex: 0 0 calc((100% - 48px) / 3 + 24px);
+  flex: 1;
   min-width: 0;
-  padding: 40px;
+  padding: 48px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: flex-start;
+  gap: 16px;
 }
 
 .private-office__intro {
@@ -591,15 +844,16 @@
 }
 
 .private-office__title {
-  font-size: var(--fs-24);
-  font-weight: 600;
-  line-height: normal;
+  font-size: var(--fs-32);
+  font-weight: 700;
+  line-height: 46px;
 }
 
 .private-office__desc {
   font-family: var(--font-serif);
-  font-size: var(--fs-14);
-  line-height: 1.5;
+  font-size: var(--fs-16);
+  color: var(--text-secondary);
+  line-height: 25px;
 }
 
 .private-office__btn {
@@ -607,11 +861,11 @@
 }
 
 .private-office__right {
-  flex: 1;
+  flex: 2;
   min-width: 0;
-  background: var(--text-primary);
+  background: var(--border);
   border-radius: var(--radius-2xl);
-  padding: 32px;
+  padding: 48px;
   display: flex;
   gap: 24px;
   align-items: flex-start;
@@ -626,7 +880,7 @@
 }
 
 .private-office__right .benefit__text {
-  color: var(--background);
+  color: var(--text-primary);
 }
 
 /* ---------- Values ---------- */
@@ -638,33 +892,44 @@
 
 .value-card {
   background: var(--surface);
-  border-radius: 20px;
-  padding: 24px;
+  border-radius: var(--radius-lg);
+  padding: 40px;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 16px;
   align-items: flex-start;
 }
 
 .value-card__icon {
-  width: 32px;
-  height: 32px;
+  width: 48px;
+  height: 48px;
   border-radius: var(--radius-sm);
   background: var(--background);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  flex-shrink: 0;
+}
+
+.value-card__icon img {
+  width: 22px;
+  height: 22px;
 }
 
 .value-card__title {
-  font-size: var(--fs-18);
-  font-weight: 600;
+  font-size: var(--fs-24);
+  font-weight: 700;
   color: var(--text-primary);
-  line-height: 24px;
+  line-height: 37px;
 }
 
 .value-card__desc {
-  font-size: var(--fs-14);
+  font-family: var(--font-serif);
+  font-size: var(--fs-16);
   font-weight: 400;
   color: var(--text-secondary);
-  line-height: 22px;
+  line-height: 25px;
 }
 
 /* ---------- FAQ ---------- */
@@ -701,6 +966,7 @@
   background: none;
   border: none;
   text-align: left;
+  cursor: pointer;
 }
 
 .faq-item__question-text {
@@ -715,6 +981,27 @@
   width: 24px;
   height: 24px;
   flex-shrink: 0;
+  transition: transform 0.32s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.faq-item--open .faq-item__chevron {
+  transform: rotate(180deg);
+}
+
+/* Smooth open/close via animatable grid rows (0fr → 1fr) */
+.faq-item__answer-wrap {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.32s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.faq-item--open .faq-item__answer-wrap {
+  grid-template-rows: 1fr;
+}
+
+.faq-item__answer-inner {
+  overflow: hidden;
+  min-height: 0;
 }
 
 .faq-item__answer {
@@ -745,8 +1032,8 @@
   min-width: 0;
   background: var(--surface);
   border: 1.5px solid var(--border);
-  border-radius: var(--radius-lg);
-  padding: 32px;
+  border-radius: var(--radius-xl);
+  padding: 48px;
   display: flex;
   flex-direction: column;
   gap: 24px;
@@ -794,10 +1081,11 @@
 .radio-pill {
   flex: 1 1 0;
   min-width: 0;
+  min-height: 48px;
   display: flex;
   gap: 12px;
   align-items: center;
-  padding: 13px 14px;
+  padding: 12px;
   background: var(--surface);
   border: 1.5px solid var(--border);
   border-radius: var(--radius-sm);
@@ -836,8 +1124,8 @@
 
 .radio-pill__label {
   font-family: var(--font-serif);
-  font-size: var(--fs-14);
-  line-height: 20px;
+  font-size: var(--fs-12);
+  line-height: 22px;
   color: var(--text-primary);
   flex: 1;
   min-width: 0;
@@ -859,13 +1147,13 @@
   min-width: 0;
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 4px;
 }
 
 .field__label {
   font-size: var(--fs-12);
   font-weight: 600;
-  line-height: 18px;
+  line-height: 16px;
   color: var(--text-primary);
 }
 
@@ -875,10 +1163,10 @@
   background: var(--surface);
   border: 1.5px solid var(--border);
   border-radius: var(--radius-sm);
-  padding: 0 14px;
+  padding: 0 16px;
   font-family: var(--font-serif);
-  font-size: var(--fs-16);
-  line-height: 24px;
+  font-size: var(--fs-14);
+  line-height: 25px;
   color: var(--text-primary);
   outline: none;
   transition: border-color 0.15s ease;
@@ -894,7 +1182,7 @@
 
 textarea.field__input {
   height: 120px;
-  padding: 12px 14px;
+  padding: 16px;
   resize: vertical;
 }
 
@@ -1054,7 +1342,7 @@ textarea.field__input {
   flex: 1;
   min-width: 0;
   height: 40px;
-  border-radius: 20px;
+  border-radius: var(--radius-lg);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1115,7 +1403,7 @@ textarea.field__input {
   min-width: 100px;
   max-width: 200px;
   padding: 8px 16px;
-  border-radius: 20px;
+  border-radius: var(--radius-lg);
   background: var(--background);
   border: none;
   font-size: var(--fs-14);
@@ -1133,10 +1421,10 @@ textarea.field__input {
 /* Cream bar of pill segments split by white vertical dividers (fit-content) */
 .booking-summary {
   display: inline-flex;
-  align-items: stretch;
+  align-items: center;
+  gap: 12px;
   background: var(--background);
   border-radius: var(--radius-sm);
-  overflow: hidden;
   font-size: var(--fs-12);
   color: var(--text-primary);
 }
@@ -1144,13 +1432,14 @@ textarea.field__input {
 .booking-summary__pill {
   display: flex;
   align-items: center;
-  padding: 6px 14px;
+  padding: 4px 12px;
   white-space: nowrap;
 }
 
 .booking-summary__divider {
   width: 1px;
-  background: var(--brand-white);
+  height: 16px;
+  background: var(--border);
   flex-shrink: 0;
 }
 
@@ -1160,7 +1449,7 @@ textarea.field__input {
   display: flex;
   gap: 12px;
   align-items: center;
-  padding: 13px 14px;
+  padding: 12px;
   background: var(--surface);
   border: 1.5px solid var(--border);
   border-radius: var(--radius-sm);
@@ -1172,7 +1461,7 @@ textarea.field__input {
   width: 20px;
   height: 20px;
   border: 1.5px solid var(--border);
-  border-radius: 4px;
+  border-radius: var(--radius-xs);
   flex-shrink: 0;
   display: flex;
   align-items: center;
@@ -1188,8 +1477,8 @@ textarea.field__input {
 
 .checkbox-row__label {
   font-family: var(--font-serif);
-  font-size: var(--fs-14);
-  line-height: 20px;
+  font-size: var(--fs-12);
+  line-height: 22px;
   color: var(--text-primary);
 }
 
@@ -1219,7 +1508,7 @@ textarea.field__input {
 .cta {
   background: var(--text-primary);
   border-radius: var(--radius-2xl);
-  padding: 60px;
+  padding: 64px;
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -1231,8 +1520,7 @@ textarea.field__input {
 .cta__title {
   font-size: var(--fs-40);
   font-weight: 700;
-  line-height: 48px;
-  letter-spacing: -0.5px;
+  line-height: 46px;
   color: var(--background);
 }
 
@@ -1256,34 +1544,30 @@ textarea.field__input {
   border-radius: var(--radius-xl);
   padding: 48px 40px;
   display: flex;
-  gap: 128px;
+  gap: 80px;
   align-items: flex-start;
 }
 
 .footer__brand {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 16px;
+  align-items: flex-start;
 }
 
-.footer__logo {
-  font-size: var(--fs-18);
-  font-weight: 500;
-  color: var(--text-primary);
-  line-height: 28px;
-}
-
-.footer__tagline {
-  font-size: 13px;
+.footer__copyright {
+  font-size: var(--fs-12);
+  font-weight: 400;
   color: var(--text-secondary);
-  line-height: 18px;
+  line-height: 20px;
+  white-space: nowrap;
 }
 
 .footer__cols {
   flex: 1;
   min-width: 0;
   display: flex;
-  gap: 64px;
+  gap: 80px;
   align-items: flex-start;
 }
 
@@ -1299,14 +1583,13 @@ textarea.field__input {
   font-weight: 600;
   color: var(--text-primary);
   line-height: 16px;
-  letter-spacing: 0.8px;
 }
 
 .footer__link {
-  font-size: 13px;
+  font-size: var(--fs-12);
   font-weight: 400;
   color: var(--text-secondary);
-  line-height: 18px;
+  line-height: 20px;
   white-space: nowrap;
 }
 
@@ -1329,7 +1612,7 @@ textarea.field__input {
 .email-field {
   flex: 1;
   min-width: 0;
-  height: 41px;
+  height: 44px;
   display: flex;
   gap: 8px;
   align-items: center;
@@ -1377,8 +1660,15 @@ textarea.field__input {
     display: none;
   }
 
+  .navbar__cta {
+    display: none;
+  }
+
+  .navbar__burger {
+    display: inline-flex;
+  }
+
   .hero,
-  .services,
   .vista__row,
   .private-office,
   .footer {
@@ -1390,8 +1680,32 @@ textarea.field__input {
     flex: initial;
   }
 
-  .services__content {
+  /* Services Slider stacks on mobile: image on top, card in normal flow below */
+  .services {
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .services__img {
+    position: relative;
+    height: 300px;
+  }
+
+  .services__caption {
+    top: 264px;
+    right: 20px;
+    bottom: auto;
+  }
+
+  .services__card {
+    position: relative;
+    top: auto;
+    left: auto;
+    width: 100%;
     max-width: none;
+    height: auto;
   }
 
   .vista__card {

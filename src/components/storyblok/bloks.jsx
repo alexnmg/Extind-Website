@@ -6,6 +6,7 @@ import VistaLounge from '../VistaLounge'
 import Memberships from '../Memberships'
 import Values from '../Values'
 import Faq from '../Faq'
+import Testimonials from '../Testimonials'
 import BookVisit from '../BookVisit'
 import Cta from '../Cta'
 
@@ -142,10 +143,13 @@ export function ValuesBlok({ blok }) {
       <Values
         eyebrow={t(blok.eyebrow)}
         title={t(blok.title)}
-        note={t(blok.note)}
         cards={
           blok.cards?.length
-            ? blok.cards.map((c) => ({ title: c.title, desc: c.description }))
+            ? blok.cards.map((c) => ({
+                icon: c.icon?.filename,
+                title: c.title,
+                desc: c.description,
+              }))
             : undefined
         }
       />
@@ -163,6 +167,23 @@ export function FaqBlok({ blok }) {
         items={
           blok.items?.length
             ? blok.items.map((i) => ({ q: i.question, a: i.answer }))
+            : undefined
+        }
+      />
+    </div>
+  )
+}
+
+export function TestimonialsBlok({ blok }) {
+  return (
+    <div {...storyblokEditable(blok)}>
+      <Testimonials
+        eyebrow={t(blok.eyebrow)}
+        title={t(blok.title)}
+        description={t(blok.description)}
+        items={
+          blok.items?.length
+            ? blok.items.map((i) => ({ quote: i.quote, name: i.name, role: i.role }))
             : undefined
         }
       />

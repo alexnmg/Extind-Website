@@ -8,6 +8,7 @@ import {
   MembershipsBlok,
   ValuesBlok,
   FaqBlok,
+  TestimonialsBlok,
   BookVisitBlok,
   CtaBlok,
 } from '../components/storyblok/bloks'
@@ -31,6 +32,7 @@ export function initStoryblok() {
       memberships: MembershipsBlok,
       values_section: ValuesBlok,
       faq_section: FaqBlok,
+      testimonials: TestimonialsBlok,
       book_visit: BookVisitBlok,
       cta_section: CtaBlok,
     },

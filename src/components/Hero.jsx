@@ -10,17 +10,15 @@ const defaultHeroSlides = [
 ]
 
 export default function Hero({
-  eyebrow = 'Coworking - private offices - Meeting rooms',
-  title = 'Thoughtfully designed places for people who care about their work.',
-  lede = 'Thoughtfully designed workspaces, genuine hospitality and a community built around people who enjoy what they do—all in the heart of Iași.',
-  primaryLabel = 'Find the right space',
-  secondaryLabel = 'Discover our spaces →',
+  title = 'Thoughtfully designed environments for business growth.',
+  lede = 'Located in Palas Campus, Iași, Extind offers private offices, coworking spaces, meeting rooms and business events designed for companies looking for a professional environment that supports growth, collaboration and everyday performance.',
+  primaryLabel = 'Book a visit',
+  secondaryLabel = 'Discover our community →',
   slides = defaultHeroSlides,
 }) {
   return (
     <section className="hero">
       <div className="hero__content">
-        <p className="hero__eyebrow">{eyebrow}</p>
         <h1 className="hero__title">{title}</h1>
         <p className="hero__lede">{lede}</p>
         <div className="hero__buttons">

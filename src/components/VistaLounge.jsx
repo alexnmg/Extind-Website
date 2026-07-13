@@ -14,7 +14,7 @@ export default function VistaLounge({
   eyebrow = 'Vista Lounge',
   title = 'Community & Events',
   cardLabel = 'Vista Lounge',
-  cardTitle = 'A panoramic workspace above the city',
+  cardTitle = 'A panoramic event space above the city',
   description = 'More than a lounge, Vista is where the Extind community comes together. Host informal meetings, connect with other professionals or attend curated business events—all overlooking the Palace of Culture.',
   ctaLabel = 'Discover Vista Lounge',
   slides = defaultVistaSlides,
@@ -29,7 +29,7 @@ export default function VistaLounge({
           <p className="vista__card-desc">{description}</p>
           <button type="button" className="text-button">
             <span>{ctaLabel}</span>
-            <span>→</span>
+            <span className="text-button__arrow" aria-hidden="true" />
           </button>
         </div>
         <ImageCardSlider className="vista__media" slides={slides} />

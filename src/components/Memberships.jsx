@@ -15,16 +15,16 @@ const defaultPlans = [
   {
     plan: 'Day Pass',
     sub: 'One-day access',
-    price: '€35',
+    price: '€25',
     period: '/day',
     features: standardFeatures,
     cta: 'Get a Day Pass',
     accent: false,
   },
   {
-    plan: 'Flex B',
+    plan: '8 Day Pass',
     sub: '8 days per month',
-    price: '€250',
+    price: '€150',
     period: '/month',
     features: standardFeatures,
     cta: 'Get Flex B',
@@ -32,8 +32,8 @@ const defaultPlans = [
   },
   {
     plan: 'Resident',
-    sub: 'Monthly price',
-    price: '€350',
+    sub: 'Monthly pass',
+    price: '€250',
     period: '/month',
     features: [
       'Fixed desk',
@@ -55,17 +55,35 @@ const defaultOffice = {
     'Lockable, customisable offices with 24/7 access, fixed or sit-stand desks, storage, and custom internet.',
   cta: 'Book a Tour',
   benefitsLeft: [
-    'Smart lockable and customizable private office',
-    '24/7 access Monday to Sunday',
-    'Fully functional with ergonomic chairs and desks (option for height-adjustable)',
-    'Specialty coffee, milk, water, bar of unlimited snacks, fruits, cocktails, depending on the selected plan',
-    'Meeting rooms access (2-3 hours depending on availability, no additional costs)',
+    'Fully furnished private offices',
+    'Smart lockable offices with customizable layouts',
+    '24/7 secure access for private office members',
+    'Ergonomic desks and premium task chairs',
+    'Height-adjustable desks available on request',
+    'Specialty coffee, tea, milk and filtered water',
+    'Fresh fruit and refreshments throughout the week',
+    'Unlimited printing',
+  ],
+  benefitsMid: [
+    'Fully equipped shared kitchen',
+    'Complimentary meeting room hours',
+    'Beautifully designed coworking spaces',
+    'Vista Lounge access',
+    'Community events and networking evenings',
+    'Workshop and event space discounts',
+    'High-speed Wi-Fi',
+    'Dedicated internet options for private offices',
   ],
   benefitsRight: [
-    'Restroom amenities: Thoughtfully stocked with hand cream, dental floss, and other hygiene essentials for your comfort',
-    'Kitchen amenities: Fully equipped office kitchen and pantry area buffet for all utensils you need for everyday use',
-    'Coworking area access',
-    'Flexible access during other co-locations depending on availability',
+    'Phone booths for private calls',
+    'Reception and guest welcome',
+    'Mail and package handling',
+    'Personal storage options',
+    'Pet-friendly environment',
+    'Balcony and terrace access',
+    'Premium restroom amenities',
+    'Daily cleaning and maintenance',
+    'On-site support throughout the day',
   ],
 }
 
@@ -127,15 +145,16 @@ export default function Memberships({
                 <h3 className="private-office__title">{office.title}</h3>
                 <p className="private-office__desc">{office.description}</p>
               </div>
-              <button type="button" className="btn btn--primary private-office__btn">
-                {office.cta}
+              <button type="button" className="text-button text-button--dark private-office__btn">
+                <span>{office.cta}</span>
+                <span className="text-button__arrow" aria-hidden="true" />
               </button>
             </div>
             <div className="private-office__right">
-              {[office.benefitsLeft, office.benefitsRight].map((column, i) => (
+              {[office.benefitsLeft, office.benefitsMid, office.benefitsRight].filter(Boolean).map((column, i) => (
                 <ul key={i} className="private-office__col">
                   {column.map((text) => (
-                    <Benefit key={text} text={text} light />
+                    <Benefit key={text} text={text} />
                   ))}
                 </ul>
               ))}

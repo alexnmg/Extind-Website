@@ -37,9 +37,9 @@ function StepDots({ step }) {
 }
 
 export default function BookVisit({
-  title = 'Book a Visit',
-  subtitle = 'See the space in person',
-  description = 'Schedule a guided tour of our coworking space. Meet the community, explore the amenities, and find the perfect workspace for your needs.',
+  title = 'Book a visit',
+  subtitle = 'Visit Extind',
+  description = 'Fill in the form and schedule a 20 minute visit to explore the spaces, guided by our host. Fill in your info, choose your desired date and time. Coffee is on us!',
   ctaLabel = 'Call us now',
 }) {
   const today = new Date()
@@ -86,12 +86,12 @@ export default function BookVisit({
   return (
     <section className="book-visit">
       <div className="vista__card book-visit__card">
+        <p className="vista__card-label">{subtitle}</p>
         <h3 className="vista__card-title">{title}</h3>
-        <p className="vista__card-sub">{subtitle}</p>
         <p className="vista__card-desc">{description}</p>
         <button type="button" className="text-button">
           <span>{ctaLabel}</span>
-          <span>→</span>
+          <span className="text-button__arrow" aria-hidden="true" />
         </button>
       </div>
 
@@ -132,17 +132,17 @@ export default function BookVisit({
                     <input
                       className="field__input"
                       type="text"
-                      placeholder="Enter text..."
+                      placeholder="Enter your full name"
                       value={name}
                       onChange={(e) => setName(e.target.value)}
                     />
                   </label>
                   <label className="field">
-                    <span className="field__label">Email</span>
+                    <span className="field__label">Email address</span>
                     <input
                       className="field__input"
                       type="email"
-                      placeholder="you@email.com"
+                      placeholder="you@example.com"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                     />
@@ -276,7 +276,7 @@ export default function BookVisit({
                     <input
                       className="field__input"
                       type="email"
-                      placeholder="you@email.com"
+                      placeholder="you@example.com"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                     />

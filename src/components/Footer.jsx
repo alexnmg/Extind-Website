@@ -1,13 +1,15 @@
+import Logo from './Logo'
 import iconEmail from '../assets/figma/icon-email.svg'
 
-const menuLinks = ['About us', 'Coworking', 'Private offices', 'Meeting rooms', 'Vista Lounge']
+const menuLinks = ['Private Offices', 'Meeting Rooms', 'Coworking', 'Day Pass', 'Community & Events']
+const companyLinks = ['About Us', 'Community & Events']
 
 export default function Footer() {
   return (
     <footer className="footer">
       <div className="footer__brand">
-        <p className="footer__logo">EXTIND</p>
-        <p className="footer__tagline">Spaces to grow</p>
+        <Logo />
+        <p className="footer__copyright">© 2026 Extind. All rights reserved.</p>
       </div>
       <div className="footer__cols">
         <div className="footer__col">
@@ -19,22 +21,25 @@ export default function Footer() {
           ))}
         </div>
         <div className="footer__col">
-          <p className="footer__col-title">Contact</p>
-          <p className="footer__link">Palas Campus, Iași</p>
-          <p className="footer__link">Instagram · LinkedIn</p>
+          <p className="footer__col-title">Company</p>
+          {companyLinks.map((label) => (
+            <a key={label} className="footer__link" href="#">
+              {label}
+            </a>
+          ))}
         </div>
         <div className="footer__col">
-          <p className="footer__col-title">Book a Tour</p>
+          <p className="footer__col-title">Contact</p>
           <button type="button" className="btn btn--primary">
             Book a tour
           </button>
         </div>
         <div className="footer__col footer__newsletter">
-          <p className="footer__col-title">Subscribe to our newsletter</p>
+          <p className="footer__col-title">Join our newsletter</p>
           <form className="email-row" onSubmit={(e) => e.preventDefault()}>
             <label className="email-field">
               <img src={iconEmail} alt="" />
-              <input type="email" placeholder="Your email address" aria-label="Email address" />
+              <input type="email" placeholder="Iași, Romania" aria-label="Email address" />
             </label>
             <button type="submit" className="btn btn--outline">
               Subscribe
