@@ -7,7 +7,6 @@ import Memberships from '../components/Memberships'
 import Values from '../components/Values'
 import Faq from '../components/Faq'
 import BookVisit from '../components/BookVisit'
-import Cta from '../components/Cta'
 
 /** Static homepage — the built-in content used until Storyblok is connected. */
 export default function Home() {
@@ -22,7 +21,6 @@ export default function Home() {
       <Testimonials />
       <Faq />
       <BookVisit />
-      <Cta />
     </>
   )
 }
