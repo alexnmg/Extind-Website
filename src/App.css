@@ -2307,15 +2307,22 @@ textarea.field__input {
     flex-direction: column;
   }
 
-  /* The navbar's own height reveals the menu now, so the panel no longer
-     animates its max-height — it just fills whatever room it's given.
-     Needs to out-specify the base `.navbar--open .navbar__mobile` cap. */
+  /* Closed: out of the layout entirely, not merely clipped. The panel holds
+     ~366px of links and CTA; collapsing it with max-height + overflow keeps it
+     invisible, but Chrome on iOS still counts it against the scrollable area
+     and reserves that much dead space below the page on every route. Safari
+     and desktop Chrome don't, which is what made it look fine here.
+   *
+   * Open: the navbar's own height reveals it, so it just fills the card
+   * rather than animating a max-height of its own. */
   .navbar__mobile {
-    flex: 1;
-    min-height: 0;
+    display: none;
   }
 
   .navbar--open .navbar__mobile {
+    display: block;
+    flex: 1;
+    min-height: 0;
     max-height: none;
   }
 
