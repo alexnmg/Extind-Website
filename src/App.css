@@ -1682,7 +1682,8 @@ textarea.field__input {
   flex: 1;
   min-width: 0;
   display: flex;
-  gap: 80px;
+  justify-content: space-between;
+  gap: 48px;
   align-items: flex-start;
 }
 
@@ -1712,8 +1713,9 @@ textarea.field__input {
   color: var(--text-primary);
 }
 
+/* Capped so the email field doesn't stretch across all leftover width */
 .footer__newsletter {
-  flex: 1;
+  flex: 0 1 400px;
   min-width: 0;
 }
 
@@ -1941,6 +1943,12 @@ textarea.field__input {
 
   .faq {
     padding: 0;
+  }
+
+  /* Column-direction footer must stretch its children, otherwise they size
+     to max-content and the newsletter row overflows the card */
+  .footer {
+    align-items: stretch;
   }
 
   .footer__newsletter {
