@@ -619,7 +619,9 @@
 .testimonials__track {
   display: flex;
   gap: 24px;
-  align-items: flex-start;
+  /* Cards stretch to the tallest in the row on desktop; below 1024px they
+     hug their content so a long quote can't pad out the whole carousel. */
+  align-items: stretch;
   width: max-content;
   /* Align first/last card with the 1552px content column, min 24px gutter */
   padding-left: max(24px, calc((100vw - 1552px) / 2));
@@ -1139,7 +1141,6 @@
 .faq-item {
   width: 100%;
   background: var(--surface);
-  border: 1.5px solid var(--border);
   border-radius: var(--radius-sm);
   padding: 0 24px;
 }
@@ -1254,12 +1255,8 @@
   line-height: normal;
 }
 
-.book-visit__label {
-  font-size: var(--fs-12);
-  font-weight: 500;
-  color: var(--text-primary);
-  line-height: normal;
-}
+/* Shares its rule with .time-picker__label (step 2's "Available times") so the
+   two form labels can't drift apart — see the combined rule further down. */
 
 /* Radio pills */
 .radio-group {
@@ -1576,6 +1573,9 @@ textarea.field__input {
   gap: 24px;
 }
 
+/* Step 1's "I'm interested in" and step 2's "Available times" are the same
+   kind of label, so they share one rule. */
+.book-visit__label,
 .time-picker__label {
   font-size: 16px;
   font-weight: 600;
@@ -2177,6 +2177,10 @@ textarea.field__input {
 
   .private-office__col {
     flex: 0 0 calc(50% - 12px);
+  }
+
+  .testimonials__track {
+    align-items: flex-start;
   }
 
   .testimonial-card {
