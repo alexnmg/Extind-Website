@@ -795,7 +795,11 @@
 
 .text-button {
   display: inline-flex;
-  align-items: center;
+  /* Baseline, not centre: the arrow is positioned from the text's real
+     baseline (see .text-button__arrow), which is the only anchor the browser
+     reports exactly. Centring instead ties it to the line box, whose height
+     includes ascender/descender space the glyphs don't fill. */
+  align-items: baseline;
   gap: 8px;
   padding: 4px 0;
   background: none;
@@ -821,12 +825,26 @@
    anchored to the container's right edge and the shaft always runs to the
    tip, so animating the container width elongates the whole arrow without
    the parts ever disconnecting. Both strokes share the same 1.5px weight. */
+/* Optically centre the arrow on the x-height band — the body of the lowercase
+   letters, ignoring ascenders and descenders.
+ *
+ * The parent aligns on the baseline, so the arrow's box bottom starts level
+ * with it; this drops the arrow's centre from `height/2` above the baseline
+ * to half an x-height above it. Anchoring to the baseline rather than the
+ * line box matters because Chrome rounds the baseline to whole pixels, which
+ * breaks any fixed em offset at some font sizes.
+ *
+ * --x-half is half of Instrument Sans's x-height (0.51em), in em so it tracks
+ * the font size across breakpoints. */
 .text-button__arrow {
+  --arrow-h: 12px;
+  --x-half: 0.255em;
   position: relative;
   display: inline-block;
   width: 17px;
-  height: 12px;
+  height: var(--arrow-h);
   flex-shrink: 0;
+  transform: translateY(calc(var(--arrow-h) / 2 - var(--x-half)));
   transition: width 0.28s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
