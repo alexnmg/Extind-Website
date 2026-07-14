@@ -1659,14 +1659,49 @@ textarea.field__input {
 }
 
 /* ---------- About page ---------- */
+/* Full-viewport hero: the wide static wordmark on top, eyebrow + lede pinned
+   bottom-left and a square image bottom-right. 140px ≈ navbar + page gap. */
 .about-hero {
   background: var(--surface);
   border-radius: var(--radius-2xl);
   padding: 64px 48px;
+  min-height: calc(100svh - 140px);
   display: flex;
   flex-direction: column;
-  gap: 24px;
-  align-items: flex-start;
+  justify-content: space-between;
+  gap: 48px;
+  align-items: stretch;
+}
+
+/* Hero wordmark — full width, photos crossfade inside the static shape */
+.logo-hero {
+  display: block;
+  width: 100%;
+  height: auto;
+  color: var(--text-primary);
+}
+
+.logo-hero__img {
+  opacity: 0;
+  transition: opacity 1.2s ease;
+}
+
+.logo-hero__img--active {
+  opacity: 1;
+}
+
+.about-hero__bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 48px;
+}
+
+.about-hero__text {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 560px;
 }
 
 .about-hero__eyebrow {
@@ -1678,27 +1713,21 @@ textarea.field__input {
   color: var(--text-primary);
 }
 
-.about-hero__title {
-  font-size: var(--fs-64);
-  font-weight: 700;
-  line-height: var(--lh-heading);
-  color: var(--text-primary);
-  max-width: 900px;
-}
-
 .about-hero__lede {
   font-family: var(--font-serif);
   font-size: var(--fs-16);
   line-height: 1.5;
   color: var(--text-secondary);
-  max-width: 680px;
 }
 
 .about-media {
   position: relative;
-  height: 480px;
-  border-radius: var(--radius-2xl);
+  width: 380px;
+  max-width: 100%;
+  aspect-ratio: 1;
+  border-radius: var(--radius-xl);
   overflow: hidden;
+  flex-shrink: 0;
 }
 
 .about-media img {
@@ -1731,18 +1760,12 @@ textarea.field__input {
   align-items: flex-start;
 }
 
-/* Initials tile until real portraits are available */
-.team-card__avatar {
-  width: 64px;
-  height: 64px;
-  border-radius: 50%;
-  background: var(--background);
-  color: var(--accent);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: var(--font-serif);
-  font-size: var(--fs-20);
+/* Portrait placeholder until real team photos are available */
+.team-card__photo {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  border-radius: var(--radius-md);
 }
 
 .team-card__meta {
@@ -1762,9 +1785,10 @@ textarea.field__input {
   color: var(--text-secondary);
 }
 
+/* Instagram-style 3-column gallery of latest posts */
 .social-grid {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 16px;
 }
 
@@ -1787,10 +1811,20 @@ textarea.field__input {
   transform: scale(1.04);
 }
 
-.social-grid__pill {
+.social-grid__overlay {
   position: absolute;
-  left: 12px;
-  bottom: 12px;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(31, 35, 38, 0.45);
+  color: var(--brand-cream);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.social-grid__item:hover .social-grid__overlay {
+  opacity: 1;
 }
 
 /* ---------- Footer ---------- */
@@ -2182,19 +2216,16 @@ textarea.field__input {
   /* About page */
   .about-hero {
     padding: 40px 32px;
+    min-height: calc(100svh - 100px);
   }
 
   .about-media {
-    height: 360px;
+    width: 300px;
   }
 
   .team-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 20px;
-  }
-
-  .social-grid {
-    grid-template-columns: repeat(3, 1fr);
   }
 
   .vista__panel,
@@ -2343,10 +2374,17 @@ textarea.field__input {
   /* About page */
   .about-hero {
     padding: 24px;
+    min-height: calc(100svh - 84px);
+  }
+
+  .about-hero__bottom {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 24px;
   }
 
   .about-media {
-    height: 260px;
+    width: 100%;
   }
 
   .team-grid {
