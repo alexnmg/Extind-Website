@@ -1659,9 +1659,59 @@ textarea.field__input {
   border-radius: var(--radius-xl);
   padding: 48px 40px;
   display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+/* The upper row: brand · Menu · Company · newsletter */
+.footer__main {
+  display: flex;
   justify-content: space-between;
   gap: 48px;
   align-items: flex-start;
+}
+
+.footer__mark {
+  width: 56px;
+  height: 56px;
+  display: block;
+}
+
+/* Reusable 1px separator (Figma "Divider") */
+.divider {
+  height: 1px;
+  width: 100%;
+  background: var(--border);
+  flex-shrink: 0;
+}
+
+.footer__bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+}
+
+.footer__socials {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}
+
+.footer__social {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-sm);
+  color: var(--text-secondary);
+  transition: color 0.15s ease, background-color 0.15s ease;
+}
+
+.footer__social:hover {
+  color: var(--text-primary);
+  background: var(--background);
 }
 
 .footer__brand {
@@ -1676,7 +1726,7 @@ textarea.field__input {
   font-weight: 400;
   color: var(--text-secondary);
   line-height: 20px;
-  white-space: nowrap;
+  min-width: 0;
 }
 
 /* On desktop the wrapper dissolves (display: contents) so brand, Menu,
@@ -1786,7 +1836,7 @@ textarea.field__input {
 
   .hero,
   .private-office,
-  .footer {
+  .footer__main {
     flex-direction: column;
     height: auto;
   }
@@ -1889,8 +1939,8 @@ textarea.field__input {
     min-width: 0;
   }
 
-  .footer {
-    gap: 48px;
+  .footer__main {
+    gap: 32px;
   }
 
   .footer__cols {
@@ -1955,7 +2005,7 @@ textarea.field__input {
 
   /* Column-direction footer must stretch its children, otherwise they size
      to max-content and the newsletter row overflows the card */
-  .footer {
+  .footer__main {
     align-items: stretch;
   }
 
