@@ -1682,9 +1682,14 @@ textarea.field__input {
   flex: 1;
   min-width: 0;
   display: flex;
-  justify-content: space-between;
   gap: 48px;
   align-items: flex-start;
+}
+
+/* Link columns share the space evenly; the newsletter keeps its fixed cap */
+.footer__cols > .footer__col:not(.footer__newsletter) {
+  flex: 1;
+  min-width: 0;
 }
 
 .footer__col {
