@@ -1599,15 +1599,12 @@ textarea.field__input {
 
 .book-visit__footer {
   display: flex;
+  justify-content: flex-end;
   width: 100%;
-}
-/* Single action (step 1) spans the row; paired actions split it evenly */
-.book-visit__footer .btn {
-  flex: 1;
 }
 
 .book-visit__footer--split {
-  gap: 16px;
+  justify-content: space-between;
   align-items: center;
 }
 
@@ -2085,6 +2082,16 @@ textarea.field__input {
 
   .faq-item__answer {
     padding-bottom: 16px;
+  }
+
+  /* Booking form actions span the row on mobile: the single step-1 CTA is
+     full width; Back/Continue pairs stay side by side but split it evenly */
+  .book-visit__footer .btn {
+    flex: 1;
+  }
+
+  .book-visit__footer--split {
+    gap: 16px;
   }
 
   /* Step-3 summary pills stack instead of a pill row */
