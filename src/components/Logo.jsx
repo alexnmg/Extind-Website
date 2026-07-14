@@ -26,12 +26,21 @@ import {
  * Unlike the brand shape (which has rigid caps and a ~62-unit floor), a
  * line can start at zero width — so it tracks the letters from the very
  * first pixel of scroll with no empty gap.
+ *
+ * Desktop only: below 1024px the navbar hides on scroll, so the mark would
+ * animate out of sight. There it stays the standard collapsed logo.
  */
 
 const LOGO_H = 24 // px — matches .logo height in CSS
 
+// Widths above which the navbar stays put (see the 1024px block in App.css)
+const DESKTOP_QUERY = '(min-width: 1025px)'
+
 // Measured from the wordmark itself, in viewBox units
 const LETTER_STROKE = 14.53 // the I's stem — the wordmark's stroke weight
+// A long horizontal bar reads heavier than a vertical stem of the same
+// measure, so trim 10% to match the letters optically rather than literally.
+const LINE_STROKE = LETTER_STROKE * 0.9
 const INK_CENTER_Y = 48.15
 const X_LEFT_INK_R = 121.1 // right edge of the X's left half (fixed)
 const X_RIGHT_INK_L = 130.9 // left edge of the X's right half, collapsed
@@ -54,18 +63,25 @@ export default function Logo() {
   const [progress, setProgress] = useState(0)
 
   useEffect(() => {
+    const mq = window.matchMedia(DESKTOP_QUERY)
     // Scroll events are already frame-coalesced by the browser, so a direct
     // (passive) handler is enough — no extra rAF throttling needed.
-    const onScroll = () => {
+    const update = () => {
+      if (!mq.matches) {
+        setProgress(0)
+        return
+      }
       const max = document.documentElement.scrollHeight - window.innerHeight
       setProgress(max > 0 ? clamp01(window.scrollY / max) : 0)
     }
-    onScroll()
-    window.addEventListener('scroll', onScroll, { passive: true })
-    window.addEventListener('resize', onScroll, { passive: true })
+    update()
+    window.addEventListener('scroll', update, { passive: true })
+    window.addEventListener('resize', update, { passive: true })
+    mq.addEventListener('change', update)
     return () => {
-      window.removeEventListener('scroll', onScroll)
-      window.removeEventListener('resize', onScroll)
+      window.removeEventListener('scroll', update)
+      window.removeEventListener('resize', update)
+      mq.removeEventListener('change', update)
     }
   }, [])
 
@@ -105,7 +121,7 @@ export default function Logo() {
         {/* The line, elongating with scroll progress. No fill attribute, so
             it inherits the wordmark's own charcoal via currentColor. */}
         {lineW > 0 && (
-          <rect x={lineL} y={INK_CENTER_Y - LETTER_STROKE / 2} width={lineW} height={LETTER_STROKE} />
+          <rect x={lineL} y={INK_CENTER_Y - LINE_STROKE / 2} width={lineW} height={LINE_STROKE} />
         )}
 
         {/* Right half of the X + TIND — travel as the mark opens */}
