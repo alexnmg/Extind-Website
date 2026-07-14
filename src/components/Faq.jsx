@@ -22,7 +22,7 @@ export default function Faq({
   title = 'Questions? Answered.',
   items = defaultItems,
 }) {
-  const [openIndex, setOpenIndex] = useState(0)
+  const [openIndex, setOpenIndex] = useState(-1)
 
   return (
     <section className="section faq">

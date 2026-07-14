@@ -23,12 +23,22 @@ function Chevron() {
 export default function Navbar() {
   const [aboutOpen, setAboutOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const [hidden, setHidden] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
   const dropdownRef = useRef(null)
   const navRef = useRef(null)
 
+  // Hide on scroll down, reveal on scroll up (the CSS only applies the
+  // hidden transform at mobile/tablet widths, so desktop never hides).
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20)
+    let lastY = window.scrollY
+    const onScroll = () => {
+      const y = window.scrollY
+      setScrolled(y > 20)
+      if (y > lastY + 4 && y > 120) setHidden(true)
+      else if (y < lastY - 4 || y <= 120) setHidden(false)
+      lastY = y
+    }
     onScroll()
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
@@ -70,7 +80,7 @@ export default function Navbar() {
   }, [mobileOpen])
 
   return (
-    <div className="navbar-container">
+    <div className={`navbar-container${hidden && !mobileOpen ? ' navbar-container--hidden' : ''}`}>
       <header
         ref={navRef}
         className={`navbar${scrolled ? ' navbar--scrolled' : ''}${mobileOpen ? ' navbar--open' : ''}`}

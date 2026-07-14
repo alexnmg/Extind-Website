@@ -25,6 +25,7 @@
   /* Typography */
   --font-sans: 'Instrument Sans', system-ui, -apple-system, sans-serif;
   --font-serif: 'Libre Baskerville', Georgia, serif;
+  --lh-heading: 1.15;
 
   /* Font-size tokens — mirror the Figma `font-size/*` variables.
      Token name = original scale step, value = current setting. */
@@ -257,7 +258,7 @@ ul {
 .section-header__title {
   font-size: var(--fs-48);
   font-weight: 700;
-  line-height: 0.84;
+  line-height: var(--lh-heading);
   text-align: center;
 }
 

@@ -347,7 +347,7 @@ export default function BookVisit({
                     ←&ensp;Back
                   </button>
                   <button type="button" className="btn btn--primary" onClick={() => setSubmitted(true)}>
-                    Book tour
+                    Book visit
                   </button>
                 </div>
               </>
