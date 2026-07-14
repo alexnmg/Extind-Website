@@ -65,6 +65,7 @@ export default function About() {
       <section className="about-hero">
         <LogoHero />
         <div className="about-hero__bottom">
+          <h1 className="about-hero__title">Better workdays, one desk at a time.</h1>
           <div className="about-hero__text">
             <p className="about-hero__eyebrow">About Extind</p>
             <p className="about-hero__lede">
@@ -73,10 +74,6 @@ export default function About() {
               hospitality and a curated business community — so teams can focus on the work that
               matters.
             </p>
-          </div>
-          <div className="about-media">
-            <img src={vistaImg} alt="Vista Lounge overlooking the Palace of Culture" />
-            <span className="caption-pill about-media__caption">Palas Campus · Iași</span>
           </div>
         </div>
       </section>

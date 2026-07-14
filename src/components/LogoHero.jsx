@@ -24,10 +24,28 @@ import {
  * expansion than the animated navbar logo and never moves — only the photos
  * inside it crossfade. Same geometry module, same rigid end caps. */
 
-// Extra viewBox units beyond the standard expanded logo
-const EXTRA = 700
-const W = VB_W + EXTRA
+/* Extra viewBox units beyond the standard expanded logo. The mark renders at
+ * the container's full width, so this width *is* the aspect ratio: a narrower
+ * shape means fewer viewBox units across, and therefore a taller mark. Small
+ * screens get a much narrower shape so the wordmark doesn't shrink to a hair.
+ *
+ * Negative values pull the shape in tighter than the expanded logo; the floor
+ * is about -308, where the two end caps meet and the shape can go no narrower. */
+const EXTRA_DESKTOP = 700
+const EXTRA_TABLET = 150
+const EXTRA_MOBILE = -250
+
 const CYCLE = 5000
+
+const MOBILE_Q = '(max-width: 600px)'
+const TABLET_Q = '(max-width: 1024px)'
+
+const extraFor = () => {
+  if (typeof window === 'undefined') return EXTRA_DESKTOP
+  if (window.matchMedia(MOBILE_Q).matches) return EXTRA_MOBILE
+  if (window.matchMedia(TABLET_Q).matches) return EXTRA_TABLET
+  return EXTRA_DESKTOP
+}
 
 function Chain({ children }) {
   return (
@@ -41,6 +59,7 @@ function Chain({ children }) {
 
 export default function LogoHero() {
   const [idx, setIdx] = useState(0)
+  const [extra, setExtra] = useState(extraFor)
 
   useEffect(() => {
     if (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) return
@@ -48,7 +67,18 @@ export default function LogoHero() {
     return () => clearInterval(timer)
   }, [])
 
-  const xR = BAR_XR_MAX + EXTRA
+  // Only breakpoint crossings can change the shape's width, so listen to the
+  // queries themselves rather than every resize frame.
+  useEffect(() => {
+    const queries = [MOBILE_Q, TABLET_Q].map((q) => window.matchMedia(q))
+    const update = () => setExtra(extraFor())
+    update()
+    queries.forEach((mq) => mq.addEventListener('change', update))
+    return () => queries.forEach((mq) => mq.removeEventListener('change', update))
+  }, [])
+
+  const xR = BAR_XR_MAX + extra
+  const W = VB_W + extra
 
   return (
     <svg
@@ -93,7 +123,7 @@ export default function LogoHero() {
       </g>
 
       {/* Right half of the X + TIND, shifted out by the wider shape */}
-      <g transform={`translate(${EXTRA},0)`}>
+      <g transform={`translate(${extra},0)`}>
         <Chain>
           <g transform={M_LETTER}>
             <path d={X_RIGHT} />

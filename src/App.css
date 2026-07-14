@@ -1810,6 +1810,7 @@ textarea.field__input {
   opacity: 1;
 }
 
+/* Title bottom-left, label + supporting text bottom-right */
 .about-hero__bottom {
   display: flex;
   justify-content: space-between;
@@ -1817,11 +1818,20 @@ textarea.field__input {
   gap: 48px;
 }
 
+.about-hero__title {
+  flex: 1 1 0;
+  max-width: 640px;
+  font-size: var(--fs-64);
+  font-weight: 700;
+  line-height: var(--lh-heading);
+  color: var(--text-primary);
+}
+
 .about-hero__text {
+  flex: 0 1 480px;
   display: flex;
   flex-direction: column;
   gap: 16px;
-  max-width: 560px;
 }
 
 .about-hero__eyebrow {
@@ -1838,30 +1848,6 @@ textarea.field__input {
   font-size: var(--fs-16);
   line-height: 1.5;
   color: var(--text-secondary);
-}
-
-.about-media {
-  position: relative;
-  width: 380px;
-  max-width: 100%;
-  aspect-ratio: 1;
-  border-radius: var(--radius-xl);
-  overflow: hidden;
-  flex-shrink: 0;
-}
-
-.about-media img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.about-media__caption {
-  position: absolute;
-  right: 20px;
-  bottom: 20px;
 }
 
 .team-grid {
@@ -2364,8 +2350,12 @@ textarea.field__input {
     min-height: calc(100svh - 100px);
   }
 
-  .about-media {
-    width: 300px;
+  .about-hero__bottom {
+    gap: 32px;
+  }
+
+  .about-hero__text {
+    flex: 0 1 340px;
   }
 
   .team-grid {
@@ -2549,14 +2539,17 @@ textarea.field__input {
     min-height: calc(100svh - 84px);
   }
 
+  /* Title above the label + text once there's no room for two columns */
   .about-hero__bottom {
     flex-direction: column;
     align-items: stretch;
     gap: 24px;
   }
 
-  .about-media {
-    width: 100%;
+  .about-hero__title,
+  .about-hero__text {
+    flex: initial;
+    max-width: none;
   }
 
   .team-grid {
