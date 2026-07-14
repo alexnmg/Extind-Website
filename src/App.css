@@ -229,26 +229,13 @@
 }
 
 /* Logo (96×18 wordmark composed of letter SVGs, matches Figma geometry) */
-/* Letter parts are positioned in percentages, so the 16:3 ratio is kept
-   exactly when scaling (96×18 → 128×24, ~33% larger). */
+/* Inline SVG wordmark — width follows the viewBox ratio from the height */
 .logo {
-  position: relative;
-  display: inline-block;
-  width: 128px;
+  display: block;
   height: 24px;
+  width: auto;
   flex-shrink: 0;
-  vertical-align: middle;
-}
-
-.logo__part {
-  position: absolute;
-  top: 0;
-  bottom: 0.93%;
-}
-
-.logo__part img {
-  width: 100%;
-  height: 100%;
+  color: var(--text-primary);
 }
 
 /* ---------- Hero ---------- */
