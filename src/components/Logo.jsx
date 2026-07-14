@@ -2,10 +2,7 @@ import { useEffect, useState } from 'react'
 import {
   VB_W,
   VB_H,
-  BAR_XL,
-  BAR_XR_MAX,
   SHIFT,
-  barPath,
   M_XLEFT,
   M_E,
   M_LETTER,
@@ -19,18 +16,26 @@ import {
   LETTER_N,
 } from './logoGeometry'
 
-/* EXTIND wordmark as a scroll progress indicator (navbar).
+/* EXTIND wordmark as a scroll indicator (navbar).
  *
  * Page progress scrubs a single motion: the X's right half and TIND travel
- * outward while the brand's own vector shape grows to fill the gap they
- * leave — rigid end caps, no track, no fill. At the top it's the standard
- * collapsed logo; at the end of the page it's exactly the expanded logo.
+ * outward while a horizontal line elongates to fill the gap they leave. At
+ * the top it's the standard collapsed logo; at the end of the page the
+ * letters sit at the expanded logo's exact geometry.
  *
- * The shape can't be narrower than its two caps (~62 units), so it stays
- * hidden until the letters have parted far enough to clear it.
+ * Unlike the brand shape (which has rigid caps and a ~62-unit floor), a
+ * line can start at zero width — so it tracks the letters from the very
+ * first pixel of scroll with no empty gap.
  */
 
 const LOGO_H = 24 // px — matches .logo height in CSS
+
+// Measured from the wordmark itself, in viewBox units
+const LETTER_STROKE = 14.53 // the I's stem — the wordmark's stroke weight
+const INK_CENTER_Y = 48.15
+const X_LEFT_INK_R = 121.1 // right edge of the X's left half (fixed)
+const X_RIGHT_INK_L = 130.9 // left edge of the X's right half, collapsed
+const LINE_GAP = 9.8 // breathing room between the line and each X half
 
 const clamp01 = (v) => Math.min(1, Math.max(0, v))
 
@@ -64,12 +69,12 @@ export default function Logo() {
     }
   }, [])
 
-  // One motion, linear in scroll: letters travel and the shape's right edge
-  // rides just ahead of them, landing on the expanded logo at the bottom.
+  // One motion, linear in scroll: the letters travel and the line's right
+  // end rides with them, holding a constant gap to the X's right half.
   const gap = SHIFT * (1 - progress)
   const contentW = VB_W - gap
-  const xR = Math.max(BAR_XL, BAR_XR_MAX - gap)
-  const shapeOpacity = clamp01((progress - 0.14) / 0.14)
+  const lineL = X_LEFT_INK_R + LINE_GAP
+  const lineW = Math.max(0, X_RIGHT_INK_L + SHIFT * progress - LINE_GAP - lineL)
 
   return (
     <span className="logo" style={{ width: `${(contentW / VB_H) * LOGO_H}px` }}>
@@ -97,8 +102,11 @@ export default function Logo() {
           </g>
         </Chain>
 
-        {/* The brand shape, growing with scroll progress */}
-        {shapeOpacity > 0 && <path d={barPath(xR)} fill="var(--accent)" opacity={shapeOpacity} />}
+        {/* The line, elongating with scroll progress. No fill attribute, so
+            it inherits the wordmark's own charcoal via currentColor. */}
+        {lineW > 0 && (
+          <rect x={lineL} y={INK_CENTER_Y - LETTER_STROKE / 2} width={lineW} height={LETTER_STROKE} />
+        )}
 
         {/* Right half of the X + TIND — travel as the mark opens */}
         <g transform={`translate(${-gap},0)`}>
