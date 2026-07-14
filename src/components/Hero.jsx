@@ -15,12 +15,23 @@ export default function Hero({
   primaryLabel = 'Book a visit',
   secondaryLabel = 'Discover our community →',
   slides = defaultHeroSlides,
+  pills = null,
 }) {
   return (
     <section className="hero">
       <div className="hero__content">
         <h1 className="hero__title">{title}</h1>
         <p className="hero__lede">{lede}</p>
+        {pills?.length > 0 && (
+          <ul className="hero__pills">
+            {pills.map(({ icon, label }) => (
+              <li key={label} className="hero-pill">
+                <span className="hero-pill__icon">{icon}</span>
+                <span className="hero-pill__label">{label}</span>
+              </li>
+            ))}
+          </ul>
+        )}
         <div className="hero__buttons">
           <button type="button" className="btn btn--primary">
             {primaryLabel}

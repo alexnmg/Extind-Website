@@ -7,12 +7,17 @@ const aboutItems = [
   { label: 'FAQ', to: '#' },
   { label: 'Contact', to: '#' },
 ]
-const links = ['Private offices', 'Meeting rooms', 'Coworking', 'Community & Events']
+const links = [
+  { label: 'Private offices', to: '/private-offices' },
+  { label: 'Meeting rooms', to: '#' },
+  { label: 'Coworking', to: '#' },
+  { label: 'Community & Events', to: '#' },
+]
 // Mobile menu keeps its own order per the Figma "Mobile Menu" component.
 const mobileLinks = [
   { label: 'About us', to: '/about' },
   { label: 'Coworking', to: '#' },
-  { label: 'Private offices', to: '#' },
+  { label: 'Private offices', to: '/private-offices' },
   { label: 'Meeting rooms', to: '#' },
   { label: 'Community & Events', to: '#' },
 ]
@@ -129,11 +134,17 @@ export default function Navbar() {
                   )}
                 </div>
               </div>
-              {links.map((label) => (
-                <a key={label} className="navbar__link" href="#">
-                  {label}
-                </a>
-              ))}
+              {links.map(({ label, to }) =>
+                to.startsWith('/') ? (
+                  <Link key={label} className="navbar__link" to={to}>
+                    {label}
+                  </Link>
+                ) : (
+                  <a key={label} className="navbar__link" href={to}>
+                    {label}
+                  </a>
+                )
+              )}
             </nav>
             <button type="button" className="btn btn--primary navbar__cta">
               Book a visit

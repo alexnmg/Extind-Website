@@ -73,13 +73,17 @@ export default function ServicesSlider({ slides = defaultSlides }) {
           <p className="services__label">{slide.label}</p>
           <h3 className="services__title">{slide.title}</h3>
           <p className="services__desc">{slide.description}</p>
-          <button
-            type="button"
-            className={`text-button${variant === 'dark' ? '' : ' text-button--dark'}`}
-          >
-            <span>{slide.ctaLabel}</span>
-            <span className="text-button__arrow" aria-hidden="true" />
-          </button>
+          {/* Slides without a ctaLabel (e.g. the Private Offices benefits
+              slider) simply render no button. */}
+          {slide.ctaLabel && (
+            <button
+              type="button"
+              className={`text-button${variant === 'dark' ? '' : ' text-button--dark'}`}
+            >
+              <span>{slide.ctaLabel}</span>
+              <span className="text-button__arrow" aria-hidden="true" />
+            </button>
+          )}
         </div>
         <div className="slider-arrows services__arrows">
           <button

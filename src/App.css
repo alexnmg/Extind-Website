@@ -303,6 +303,41 @@
   gap: 12px;
 }
 
+/* Optional feature pills under the hero lede (service pages) */
+.hero__pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.hero-pill {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 20px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+}
+
+.hero-pill__icon {
+  display: flex;
+  flex-shrink: 0;
+  color: var(--text-primary);
+}
+
+.hero-pill__icon svg {
+  width: 24px;
+  height: 24px;
+}
+
+.hero-pill__label {
+  font-size: var(--fs-14);
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--text-primary);
+}
+
 .hero__media {
   flex: 1 1 calc(50% - 12px);
   min-width: 0;
@@ -1658,6 +1693,54 @@ textarea.field__input {
   justify-content: center;
 }
 
+/* ---------- Benefit groups (Private Offices) ---------- */
+.benefit-groups {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  align-items: start;
+}
+
+.benefit-group {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.benefit-group__header {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+}
+
+.benefit-group__number {
+  font-family: var(--font-serif);
+  font-size: var(--fs-14);
+  color: var(--accent);
+}
+
+.benefit-group__title {
+  font-size: var(--fs-20);
+  font-weight: 700;
+  line-height: var(--lh-heading);
+  color: var(--text-primary);
+}
+
+.benefit-group__divider {
+  border: 0;
+  border-top: 1px solid var(--border);
+}
+
+.benefit-group__list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
 /* ---------- About page ---------- */
 /* Full-viewport hero: the wide static wordmark on top, eyebrow + lede pinned
    bottom-left and a square image bottom-right. 140px ≈ navbar + page gap. */
@@ -2214,6 +2297,27 @@ textarea.field__input {
     min-height: 0;
   }
 
+  /* Benefit groups drop to a single column so the lists stay readable */
+  .benefit-groups {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .benefit-group {
+    padding: 24px;
+    gap: 20px;
+  }
+
+  .hero-pill {
+    padding: 10px 16px;
+    gap: 10px;
+  }
+
+  .hero-pill__icon svg {
+    width: 22px;
+    height: 22px;
+  }
+
   /* About page */
   .about-hero {
     padding: 40px 32px;
@@ -2374,6 +2478,29 @@ textarea.field__input {
 
   .book-visit__footer--split {
     gap: 16px;
+  }
+
+  .benefit-groups {
+    gap: 16px;
+  }
+
+  .benefit-group {
+    padding: 20px;
+    gap: 16px;
+  }
+
+  .hero__pills {
+    gap: 8px;
+  }
+
+  .hero-pill {
+    padding: 10px 14px;
+    gap: 8px;
+  }
+
+  .hero-pill__icon svg {
+    width: 20px;
+    height: 20px;
   }
 
   /* About page */
