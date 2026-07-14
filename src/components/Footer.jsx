@@ -1,8 +1,9 @@
 import Logo from './Logo'
 import iconEmail from '../assets/figma/icon-email.svg'
 
-const menuLinks = ['Private Offices', 'Meeting Rooms', 'Coworking', 'Day Pass', 'Community & Events']
-const companyLinks = ['About Us', 'Community & Events']
+// Mirrors the navbar's menu order
+const menuLinks = ['About us', 'Private offices', 'Meeting rooms', 'Coworking', 'Community & Events']
+const companyLinks = ['FAQ', 'Contact']
 
 export default function Footer() {
   return (
@@ -27,12 +28,6 @@ export default function Footer() {
               {label}
             </a>
           ))}
-        </div>
-        <div className="footer__col">
-          <p className="footer__col-title">Contact</p>
-          <button type="button" className="btn btn--primary">
-            Book a tour
-          </button>
         </div>
         <div className="footer__col footer__newsletter">
           <p className="footer__col-title">Join our newsletter</p>
