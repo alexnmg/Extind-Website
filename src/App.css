@@ -669,7 +669,7 @@
 .vista {
   position: relative;
   height: 650px;
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-2xl);
   overflow: hidden;
 }
 .vista__img {
