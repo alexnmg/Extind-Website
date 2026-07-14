@@ -57,6 +57,53 @@
   --radius-full: 9999px;
 }
 
+/* ---- Responsive scaling ----
+   The whole UI is driven by these font-size and radius tokens, so shrinking
+   them at each breakpoint scales all text and rounding down in one place.
+   Tablet ≈ 0.9×, mobile ≈ 0.8× (small sizes are floored for legibility). */
+@media (max-width: 1024px) {
+  :root {
+    --fs-12: 13px;
+    --fs-14: 15px;
+    --fs-16: 17px;
+    --fs-18: 19px;
+    --fs-20: 21px;
+    --fs-24: 25px;
+    --fs-32: 32px;
+    --fs-40: 40px;
+    --fs-48: 47px;
+    --fs-64: 60px;
+    --fs-72: 66px;
+
+    --radius-md: 10px;
+    --radius-lg: 14px;
+    --radius-xl: 20px;
+    --radius-2xl: 24px;
+    --radius-3xl: 28px;
+  }
+}
+
+@media (max-width: 600px) {
+  :root {
+    --fs-12: 13px;
+    --fs-14: 15px;
+    --fs-16: 16px;
+    --fs-18: 18px;
+    --fs-20: 20px;
+    --fs-24: 22px;
+    --fs-32: 27px;
+    --fs-40: 32px;
+    --fs-48: 36px;
+    --fs-64: 44px;
+    --fs-72: 48px;
+
+    --radius-lg: 12px;
+    --radius-xl: 18px;
+    --radius-2xl: 20px;
+    --radius-3xl: 24px;
+  }
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -202,7 +249,7 @@ ul {
 .section-header__eyebrow {
   font-size: var(--fs-14);
   font-weight: 600;
-  line-height: 16px;
+  line-height: 1;
   letter-spacing: 0.8px;
   text-transform: uppercase;
 }
@@ -210,7 +257,7 @@ ul {
 .section-header__title {
   font-size: var(--fs-48);
   font-weight: 700;
-  line-height: 46px;
+  line-height: 0.84;
   text-align: center;
 }
 

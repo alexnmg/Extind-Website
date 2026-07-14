@@ -21,14 +21,19 @@
 }
 
 .navbar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  min-height: 92px;
+  display: block;
   padding: 24px;
   background: var(--surface);
   border-radius: var(--radius-xl);
   transition: box-shadow 0.2s ease;
+}
+
+/* The always-visible top row of the navbar (logo · links · CTA · burger) */
+.navbar__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 44px;
 }
 
 /* Downward-only shadow: negative spread pulls the sides in so it doesn't
@@ -103,6 +108,8 @@
 }
 
 /* Hamburger — hidden on desktop, revealed by the ≤1024px media query */
+/* Hamburger — hidden on desktop, revealed by the ≤1024px media query.
+   Three bars morph into an X when the menu is open. */
 .navbar__burger {
   display: none;
   align-items: center;
@@ -116,71 +123,108 @@
   cursor: pointer;
 }
 
-/* Full-screen mobile menu overlay (Figma "Mobile Menu") */
-.mobile-menu {
-  position: fixed;
-  inset: 0;
-  z-index: 100;
-  background: var(--background);
+.navbar__burger-box {
+  position: relative;
+  width: 24px;
+  height: 18px;
+}
+
+.navbar__burger-box span {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2px;
+  border-radius: 2px;
+  background: currentColor;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s ease;
+}
+
+.navbar__burger-box span:nth-child(1) { top: 0; }
+.navbar__burger-box span:nth-child(2) { top: 8px; }
+.navbar__burger-box span:nth-child(3) { top: 16px; }
+
+.navbar--open .navbar__burger-box span:nth-child(1) {
+  transform: translateY(8px) rotate(45deg);
+}
+.navbar--open .navbar__burger-box span:nth-child(2) {
+  opacity: 0;
+}
+.navbar--open .navbar__burger-box span:nth-child(3) {
+  transform: translateY(-8px) rotate(-45deg);
+}
+
+/* Expanding menu — grows out of the navbar pill via an animatable grid row
+   (0fr → 1fr); items fade/slide in with a stagger as it opens. */
+.navbar__mobile {
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.42s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.navbar--open .navbar__mobile {
+  max-height: 480px;
+}
+
+.navbar__mobile-inner {
+  min-height: 0;
+}
+
+.navbar__mobile-links {
   display: flex;
   flex-direction: column;
-  padding: 24px 32px 32px;
+  gap: 4px;
+  padding-top: 16px;
 }
 
-.mobile-menu__header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.mobile-menu__close {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 44px;
-  height: 44px;
-  padding: 0;
-  background: none;
-  border: none;
-  border-radius: var(--radius-xl);
-  color: var(--text-primary);
-  cursor: pointer;
-}
-
-.mobile-menu__links {
-  display: flex;
-  flex-direction: column;
-  gap: 32px;
-  padding-top: 48px;
-}
-
-.mobile-menu__link {
+.navbar__mobile-link {
   font-family: var(--font-sans);
-  font-size: var(--fs-32);
+  font-size: var(--fs-24);
   font-weight: 700;
-  line-height: 37px;
   color: var(--text-primary);
   text-decoration: none;
+  padding: 8px 0;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
-.mobile-menu__footer {
-  margin-top: auto;
+.navbar--open .navbar__mobile-link {
+  opacity: 1;
+  transform: translateY(0);
+}
+.navbar--open .navbar__mobile-link:nth-child(1) { transition-delay: 0.10s; }
+.navbar--open .navbar__mobile-link:nth-child(2) { transition-delay: 0.15s; }
+.navbar--open .navbar__mobile-link:nth-child(3) { transition-delay: 0.20s; }
+.navbar--open .navbar__mobile-link:nth-child(4) { transition-delay: 0.25s; }
+.navbar--open .navbar__mobile-link:nth-child(5) { transition-delay: 0.30s; }
+
+.navbar__mobile-footer {
   display: flex;
   flex-direction: column;
-  gap: 24px;
-  align-items: center;
+  gap: 16px;
+  align-items: stretch;
+  padding-top: 20px;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.navbar--open .navbar__mobile-footer {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.34s;
 }
 
-.mobile-menu__cta {
+.navbar__mobile-cta {
   width: 100%;
   gap: 12px;
   font-size: var(--fs-16);
 }
 
-.mobile-menu__email {
+.navbar__mobile-email {
   font-family: var(--font-serif);
   font-size: var(--fs-12);
   color: var(--text-secondary);
+  text-align: center;
 }
 
 /* Logo (96×18 wordmark composed of letter SVGs, matches Figma geometry) */
@@ -237,7 +281,7 @@
 .hero__title {
   font-size: var(--fs-48);
   font-weight: 700;
-  line-height: 55px;
+  line-height: 1.05;
   color: var(--text-primary);
 }
 
@@ -350,7 +394,7 @@
 .idea-card__title {
   font-size: var(--fs-20);
   font-weight: 600;
-  line-height: 29px;
+  line-height: 1.26;
 }
 
 .idea-card__desc {
@@ -431,7 +475,7 @@
 .services__title {
   font-size: var(--fs-32);
   font-weight: 700;
-  line-height: 46px;
+  line-height: 1.24;
   color: var(--text-primary);
 }
 
@@ -640,7 +684,7 @@
   font-size: var(--fs-32);
   font-weight: 700;
   color: var(--background);
-  line-height: 46px;
+  line-height: 1.24;
   letter-spacing: -0.3px;
 }
 
@@ -760,7 +804,7 @@
   font-size: var(--fs-24);
   font-weight: 600;
   color: var(--text-primary);
-  line-height: 29px;
+  line-height: 1.04;
 }
 
 .pricing-card__sub {
@@ -868,7 +912,7 @@
 .private-office__title {
   font-size: var(--fs-32);
   font-weight: 700;
-  line-height: 46px;
+  line-height: 1.24;
 }
 
 .private-office__desc {
@@ -943,7 +987,7 @@
   font-size: var(--fs-24);
   font-weight: 700;
   color: var(--text-primary);
-  line-height: 37px;
+  line-height: 1.32;
 }
 
 .value-card__desc {
@@ -997,7 +1041,7 @@
   flex: 1;
   font-size: var(--fs-18);
   font-weight: 500;
-  line-height: 29px;
+  line-height: 1.38;
   color: var(--text-primary);
 }
 
@@ -1775,7 +1819,7 @@ textarea.field__input {
   .cards-row-3,
   .pricing-grid,
   .values-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
   }
 
   .pricing-card {
@@ -1822,11 +1866,101 @@ textarea.field__input {
     flex-wrap: wrap;
   }
 
-  .section-header__title {
-    font-size: 32px;
+  /* Tablet spacing — tighter gutters, section rhythm and card padding */
+  .page {
+    padding: 0 20px 20px;
   }
 
-  .hero__title {
-    font-size: 36px;
+  .navbar-container {
+    padding-top: 16px;
+  }
+
+  .navbar {
+    padding: 20px;
+  }
+
+  .section {
+    padding-top: 40px;
+  }
+
+  .section-header {
+    padding: 40px 0;
+    gap: 24px;
+  }
+
+  .cards-row-3,
+  .values-grid,
+  .pricing-grid {
+    gap: 20px;
+  }
+
+  .value-card,
+  .idea-card,
+  .pricing-card {
+    padding: 28px;
+  }
+
+  .vista__panel,
+  .services__card,
+  .hero__content,
+  .private-office__left,
+  .private-office__right,
+  .book-visit {
+    padding: 32px;
+  }
+
+  .footer {
+    padding: 32px 24px;
+  }
+}
+
+/* ---- Mobile (≤600px) — single-column grids and the tightest spacing ---- */
+@media (max-width: 600px) {
+  .cards-row-3,
+  .values-grid,
+  .pricing-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .page {
+    padding: 0 16px 16px;
+  }
+
+  .navbar-container {
+    padding-top: 12px;
+  }
+
+  .navbar {
+    padding: 16px;
+  }
+
+  .section {
+    padding-top: 28px;
+  }
+
+  .section-header {
+    padding: 28px 0;
+    gap: 20px;
+  }
+
+  .value-card,
+  .idea-card,
+  .pricing-card,
+  .vista__panel,
+  .services__card,
+  .hero__content,
+  .private-office__left,
+  .private-office__right,
+  .book-visit {
+    padding: 24px;
+  }
+
+  .footer {
+    padding: 28px 20px;
+  }
+
+  .faq {
+    padding-bottom: 28px;
   }
 }
