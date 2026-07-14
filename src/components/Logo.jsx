@@ -1,13 +1,8 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import {
-  IMAGES,
   VB_W,
   VB_H,
-  BAR_XL,
-  BAR_XR_MAX,
-  CAP,
   SHIFT,
-  barPath,
   M_XLEFT,
   M_E,
   M_LETTER,
@@ -21,28 +16,28 @@ import {
   LETTER_N,
 } from './logoGeometry'
 
-/* Animated EXTIND wordmark (navbar).
+/* EXTIND wordmark with a scroll progress bar (navbar).
  *
- * The mark is drawn in the "expanded" geometry (viewBox 885×98) where the two
- * halves of the X are pushed apart by a shape. Collapsing that gap by SHIFT
- * reproduces the standard logo exactly, so a single SVG covers both states:
- *
- *   progress 0 → standard logo (shape hidden, X closed)
- *   progress 1 → expanded logo (shape at full width)
- *
- * The shape's end caps are rigid: only its right edge travels, in lockstep
- * with the trailing letters, so the caps never stretch.
+ * At the top of the page the mark is the standard collapsed logo. As the
+ * user starts scrolling, the X opens over the first ~160px of scroll and a
+ * thin progress bar appears in the gap where the image mask used to sit.
+ * The bar's fill tracks overall page progress — full at the end of scroll —
+ * and everything collapses back when scrolling returns to the top.
  */
 
 const LOGO_H = 24 // px — matches .logo height in CSS
 
-// Timing
-const CYCLE = 7000
-const EXPAND = 700
-const HOLD = 2200
-const COLLAPSE = 600
+// Scroll distance over which the mark opens up
+const OPEN_DISTANCE = 160
 
-const easeInOut = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2)
+// Track geometry (viewBox units). The opening between the X halves spans
+// from ~121 (left X ink edge) to 130.9 + SHIFT·e (right X ink edge).
+const TRACK_L = 133
+const X_RIGHT_START = 130.9
+const TRACK_PAD = 12
+const BAR_H = 9 // ≈2px at the rendered 24px height
+
+const easeOut = (t) => 1 - Math.pow(1 - t, 3)
 const clamp01 = (v) => Math.min(1, Math.max(0, v))
 
 // The three outer transforms every letter sits inside (straight from the file)
@@ -57,50 +52,37 @@ function Chain({ children }) {
 }
 
 export default function Logo() {
-  const [progress, setProgress] = useState(0)
-  const [imgIdx, setImgIdx] = useState(0)
-  const rafRef = useRef(0)
+  const [state, setState] = useState({ open: 0, fill: 0 })
 
   useEffect(() => {
-    if (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) return
-    let cancelled = false
-
-    const play = () => {
-      const start = performance.now()
-      const step = (now) => {
-        if (cancelled) return
-        const t = now - start
-        if (t >= EXPAND + HOLD + COLLAPSE) {
-          setProgress(0)
-          return
-        }
-        let p
-        if (t < EXPAND) p = easeInOut(t / EXPAND)
-        else if (t < EXPAND + HOLD) p = 1
-        else p = 1 - easeInOut((t - EXPAND - HOLD) / COLLAPSE)
-        setProgress(p)
-        rafRef.current = requestAnimationFrame(step)
-      }
-      rafRef.current = requestAnimationFrame(step)
+    // Scroll events are already frame-coalesced by the browser, so a direct
+    // (passive) handler is enough — no extra rAF throttling needed.
+    const onScroll = () => {
+      const y = window.scrollY
+      const max = document.documentElement.scrollHeight - window.innerHeight
+      setState({
+        open: easeOut(clamp01(y / OPEN_DISTANCE)),
+        fill: max > 0 ? clamp01(y / max) : 0,
+      })
     }
-
-    const timer = setInterval(() => {
-      setImgIdx((i) => (i + 1) % IMAGES.length)
-      play()
-    }, CYCLE)
-
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    window.addEventListener('resize', onScroll, { passive: true })
     return () => {
-      cancelled = true
-      clearInterval(timer)
-      cancelAnimationFrame(rafRef.current)
+      window.removeEventListener('scroll', onScroll)
+      window.removeEventListener('resize', onScroll)
     }
   }, [])
 
-  const gap = SHIFT * (1 - progress)
-  const xR = Math.max(BAR_XL, BAR_XR_MAX - gap)
-  // Shape only fits once the X has opened far enough for both caps
-  const barOpacity = clamp01((progress - 0.14) / 0.14)
+  const { open, fill } = state
+  const gap = SHIFT * (1 - open)
   const contentW = VB_W - gap
+
+  // Progress track sits in the opening; fades in as the X separates
+  const trackR = X_RIGHT_START + SHIFT * open - TRACK_PAD
+  const trackW = Math.max(0, trackR - TRACK_L)
+  const barOpacity = clamp01((open - 0.25) / 0.35)
+  const trackY = VB_H / 2 - BAR_H / 2
 
   return (
     <span className="logo" style={{ width: `${(contentW / VB_H) * LOGO_H}px` }}>
@@ -118,12 +100,6 @@ export default function Logo() {
           clipRule: 'evenodd',
         }}
       >
-        <defs>
-          <clipPath id="extind-bar-clip">
-            <path d={barPath(xR)} />
-          </clipPath>
-        </defs>
-
         {/* E and the left half of the X — always fixed */}
         <Chain>
           <g transform={M_XLEFT}>
@@ -134,21 +110,32 @@ export default function Logo() {
           </g>
         </Chain>
 
-        {/* The shape — a window onto the current image */}
-        {barOpacity > 0 && (
-          <g clipPath="url(#extind-bar-clip)" opacity={barOpacity}>
-            <image
-              href={IMAGES[imgIdx]}
-              x={BAR_XL - CAP}
-              y={0}
-              width={BAR_XR_MAX + CAP - (BAR_XL - CAP)}
-              height={VB_H}
-              preserveAspectRatio="xMidYMid slice"
+        {/* Scroll progress bar in the opening between the X halves */}
+        {barOpacity > 0 && trackW > 0 && (
+          <g opacity={barOpacity}>
+            <rect
+              x={TRACK_L}
+              y={trackY}
+              width={trackW}
+              height={BAR_H}
+              rx={BAR_H / 2}
+              fill="currentColor"
+              opacity="0.15"
             />
+            {fill > 0 && (
+              <rect
+                x={TRACK_L}
+                y={trackY}
+                width={Math.max(BAR_H, trackW * fill)}
+                height={BAR_H}
+                rx={BAR_H / 2}
+                fill="var(--accent)"
+              />
+            )}
           </g>
         )}
 
-        {/* Right half of the X + TIND — travel with the shape */}
+        {/* Right half of the X + TIND — travel as the mark opens */}
         <g transform={`translate(${-gap},0)`}>
           <Chain>
             <g transform={M_LETTER}>
