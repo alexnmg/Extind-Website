@@ -29,12 +29,22 @@
   transition: box-shadow 0.2s ease;
 }
 
-/* The always-visible top row of the navbar (logo · links · CTA · burger) */
+/* The always-visible top row of the navbar: logo left, everything else in a
+   single right-hand group. With only two flex items, space-between pins that
+   group to the right edge, so the logo's expand animation can't shift it. */
 .navbar__bar {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 24px;
   min-height: 44px;
+}
+
+.navbar__right {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  flex-shrink: 0;
 }
 
 /* Downward-only shadow: negative spread pulls the sides in so it doesn't
@@ -229,13 +239,19 @@
 }
 
 /* Logo (96×18 wordmark composed of letter SVGs, matches Figma geometry) */
-/* Inline SVG wordmark — width follows the viewBox ratio from the height */
+/* Animated wordmark. The wrapper masks the SVG's expanded width; its width
+   animates in step with the shape so the mark grows rightward. */
 .logo {
-  display: block;
+  display: inline-block;
   height: 24px;
-  width: auto;
+  overflow: hidden;
   flex-shrink: 0;
   color: var(--text-primary);
+  vertical-align: middle;
+}
+
+.logo__svg {
+  display: block;
 }
 
 /* ---------- Hero ---------- */

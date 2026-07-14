@@ -89,48 +89,52 @@ export default function Navbar() {
           <a href="/" aria-label="Extind home">
             <Logo />
           </a>
-          <nav className="navbar__links">
-            <div className="navbar__dropdown-wrap" ref={dropdownRef}>
-              <button
-                type="button"
-                className={`navbar__link${aboutOpen ? ' is-active' : ''}`}
-                aria-haspopup="true"
-                aria-expanded={aboutOpen}
-                onClick={() => setAboutOpen((v) => !v)}
-              >
-                About us
-                <Chevron />
-              </button>
-              <div className={`navbar__dropdown${aboutOpen ? ' navbar__dropdown--open' : ''}`}>
-                {aboutItems.map((label) => (
-                  <a key={label} className="navbar__link" href="#" onClick={() => setAboutOpen(false)}>
-                    {label}
-                  </a>
-                ))}
+          {/* Grouped right-hand side: pinned to the right edge so the logo's
+              expand animation never shifts the menu */}
+          <div className="navbar__right">
+            <nav className="navbar__links">
+              <div className="navbar__dropdown-wrap" ref={dropdownRef}>
+                <button
+                  type="button"
+                  className={`navbar__link${aboutOpen ? ' is-active' : ''}`}
+                  aria-haspopup="true"
+                  aria-expanded={aboutOpen}
+                  onClick={() => setAboutOpen((v) => !v)}
+                >
+                  About us
+                  <Chevron />
+                </button>
+                <div className={`navbar__dropdown${aboutOpen ? ' navbar__dropdown--open' : ''}`}>
+                  {aboutItems.map((label) => (
+                    <a key={label} className="navbar__link" href="#" onClick={() => setAboutOpen(false)}>
+                      {label}
+                    </a>
+                  ))}
+                </div>
               </div>
-            </div>
-            {links.map((label) => (
-              <a key={label} className="navbar__link" href="#">
-                {label}
-              </a>
-            ))}
-          </nav>
-          <button type="button" className="btn btn--primary navbar__cta">
-            Book a visit
-          </button>
-          <button
-            type="button"
-            className="navbar__burger"
-            aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
-            aria-expanded={mobileOpen}
-            onClick={() => setMobileOpen((v) => !v)}
-          >
-            <span className="navbar__burger-box" aria-hidden="true">
-              <span />
-              <span />
-              <span />
-            </span>
-          </button>
+              {links.map((label) => (
+                <a key={label} className="navbar__link" href="#">
+                  {label}
+                </a>
+              ))}
+            </nav>
+            <button type="button" className="btn btn--primary navbar__cta">
+              Book a visit
+            </button>
+            <button
+              type="button"
+              className="navbar__burger"
+              aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
+              aria-expanded={mobileOpen}
+              onClick={() => setMobileOpen((v) => !v)}
+            >
+              <span className="navbar__burger-box" aria-hidden="true">
+                <span />
+                <span />
+                <span />
+              </span>
+            </button>
+          </div>
         </div>
 
         <div className="navbar__mobile">
