@@ -1976,6 +1976,11 @@ textarea.field__input {
     padding: 28px;
   }
 
+  /* Cards hug their content so padding reads even on all sides */
+  .idea-card {
+    min-height: 0;
+  }
+
   .vista__panel,
   .vista__card,
   .services__card,
