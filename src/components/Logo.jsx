@@ -2,7 +2,10 @@ import { useEffect, useState } from 'react'
 import {
   VB_W,
   VB_H,
+  BAR_XL,
+  BAR_XR_MAX,
   SHIFT,
+  barPath,
   M_XLEFT,
   M_E,
   M_LETTER,
@@ -16,26 +19,20 @@ import {
   LETTER_N,
 } from './logoGeometry'
 
-/* EXTIND wordmark with a scroll progress bar (navbar).
+/* EXTIND wordmark as a scroll progress indicator (navbar).
  *
- * At the top of the page the mark is the standard collapsed logo. As the
- * user starts scrolling, the X opens over the first ~160px of scroll and a
- * thin progress bar appears in the gap where the image mask used to sit.
- * The bar's fill tracks overall page progress — full at the end of scroll —
- * and everything collapses back when scrolling returns to the top.
+ * At the top of the page the mark is the standard collapsed logo. Once the
+ * user starts scrolling the X opens over OPEN_DISTANCE, and the brand's own
+ * vector shape becomes the progress indicator: it appears in the gap and
+ * grows rightward — rigid end caps, no track, no fill — reaching its full
+ * expanded-logo width exactly at the end of the page. Scrolling back to the
+ * top collapses everything into the standard logo again.
  */
 
 const LOGO_H = 24 // px — matches .logo height in CSS
 
-// Scroll distance over which the mark opens up
-const OPEN_DISTANCE = 160
-
-// Track geometry (viewBox units). The opening between the X halves spans
-// from ~121 (left X ink edge) to 130.9 + SHIFT·e (right X ink edge).
-const TRACK_L = 133
-const X_RIGHT_START = 130.9
-const TRACK_PAD = 12
-const BAR_H = 9 // ≈2px at the rendered 24px height
+// Scroll distance over which the X opens up
+const OPEN_DISTANCE = 320
 
 const easeOut = (t) => 1 - Math.pow(1 - t, 3)
 const clamp01 = (v) => Math.min(1, Math.max(0, v))
@@ -52,7 +49,7 @@ function Chain({ children }) {
 }
 
 export default function Logo() {
-  const [state, setState] = useState({ open: 0, fill: 0 })
+  const [state, setState] = useState({ open: 0, progress: 0 })
 
   useEffect(() => {
     // Scroll events are already frame-coalesced by the browser, so a direct
@@ -62,7 +59,7 @@ export default function Logo() {
       const max = document.documentElement.scrollHeight - window.innerHeight
       setState({
         open: easeOut(clamp01(y / OPEN_DISTANCE)),
-        fill: max > 0 ? clamp01(y / max) : 0,
+        progress: max > 0 ? clamp01(y / max) : 0,
       })
     }
     onScroll()
@@ -74,15 +71,15 @@ export default function Logo() {
     }
   }, [])
 
-  const { open, fill } = state
+  const { open, progress } = state
   const gap = SHIFT * (1 - open)
   const contentW = VB_W - gap
 
-  // Progress track sits in the opening; fades in as the X separates
-  const trackR = X_RIGHT_START + SHIFT * open - TRACK_PAD
-  const trackW = Math.max(0, trackR - TRACK_L)
-  const barOpacity = clamp01((open - 0.25) / 0.35)
-  const trackY = VB_H / 2 - BAR_H / 2
+  // The shape itself is the progress bar: its right edge travels with page
+  // progress, landing on the expanded logo's exact geometry at the bottom.
+  const xR = BAR_XL + (BAR_XR_MAX - BAR_XL) * progress
+  // Only fades in once the X has parted far enough to clear both caps
+  const shapeOpacity = clamp01((open - 0.25) / 0.35)
 
   return (
     <span className="logo" style={{ width: `${(contentW / VB_H) * LOGO_H}px` }}>
@@ -110,30 +107,8 @@ export default function Logo() {
           </g>
         </Chain>
 
-        {/* Scroll progress bar in the opening between the X halves */}
-        {barOpacity > 0 && trackW > 0 && (
-          <g opacity={barOpacity}>
-            <rect
-              x={TRACK_L}
-              y={trackY}
-              width={trackW}
-              height={BAR_H}
-              rx={BAR_H / 2}
-              fill="currentColor"
-              opacity="0.15"
-            />
-            {fill > 0 && (
-              <rect
-                x={TRACK_L}
-                y={trackY}
-                width={Math.max(BAR_H, trackW * fill)}
-                height={BAR_H}
-                rx={BAR_H / 2}
-                fill="var(--accent)"
-              />
-            )}
-          </g>
-        )}
+        {/* The brand shape, growing with scroll progress */}
+        {shapeOpacity > 0 && <path d={barPath(xR)} fill="var(--accent)" opacity={shapeOpacity} />}
 
         {/* Right half of the X + TIND — travel as the mark opens */}
         <g transform={`translate(${-gap},0)`}>
