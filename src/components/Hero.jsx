@@ -11,7 +11,7 @@ const defaultHeroSlides = [
 
 export default function Hero({
   title = 'Thoughtfully designed environments for business growth.',
-  lede = 'Located in Palas Campus, Iași, Extind offers private offices, coworking spaces, meeting rooms and business events designed for companies looking for a professional environment that supports growth, collaboration and everyday performance.',
+  lede = 'Private offices and business community for companies and professionals looking for growth, collaboration and friction-free workdays.',
   primaryLabel = 'Book a visit',
   secondaryLabel = 'Discover our community →',
   slides = defaultHeroSlides,

@@ -12,6 +12,7 @@ const defaultSlides = [
     description:
       'Designed for businesses that need more than an office. Fully serviced private workspaces that support focus, team collaboration and a professional environment for welcoming clients as your business grows.',
     ctaLabel: 'Private offices overview',
+    variant: 'light',
   },
   {
     image: heroImg,
@@ -21,6 +22,7 @@ const defaultSlides = [
     description:
       'Flexible desks in a thoughtfully designed shared space, surrounded by a community of people who care about their work.',
     ctaLabel: 'Coworking overview',
+    variant: 'cream',
   },
   {
     image: vistaImg,
@@ -30,6 +32,7 @@ const defaultSlides = [
     description:
       'A panoramic workspace above the city — the backdrop for focus, conversation, events, and professional relationships.',
     ctaLabel: 'Vista Lounge overview',
+    variant: 'dark',
   },
 ]
 
@@ -50,19 +53,34 @@ function ArrowIcon({ direction }) {
 export default function ServicesSlider({ slides = defaultSlides }) {
   const [index, setIndex] = useState(0)
   const slide = slides[index]
+  const variant = slide.variant || 'light'
 
   return (
     <section className="services">
-      <img className="services__img" src={slide.image} alt="" />
+      {/* All images stay mounted and crossfade via opacity */}
+      {slides.map((s, i) => (
+        <img
+          key={s.image + i}
+          className={`services__img${i === index ? ' services__img--active' : ''}`}
+          src={s.image}
+          alt=""
+        />
+      ))}
       <span className="caption-pill services__caption">{slide.caption}</span>
-      <div className="services__card">
-        <p className="services__label">{slide.label}</p>
-        <h3 className="services__title">{slide.title}</h3>
-        <p className="services__desc">{slide.description}</p>
-        <button type="button" className="text-button text-button--dark">
-          <span>{slide.ctaLabel}</span>
-          <span className="text-button__arrow" aria-hidden="true" />
-        </button>
+      <div className={`services__card services__card--${variant}`}>
+        {/* key remount replays the fade/slide-in animation on slide change */}
+        <div key={index} className="services__card-content">
+          <p className="services__label">{slide.label}</p>
+          <h3 className="services__title">{slide.title}</h3>
+          <p className="services__desc">{slide.description}</p>
+          <button
+            type="button"
+            className={`text-button${variant === 'dark' ? '' : ' text-button--dark'}`}
+          >
+            <span>{slide.ctaLabel}</span>
+            <span className="text-button__arrow" aria-hidden="true" />
+          </button>
+        </div>
         <div className="slider-arrows services__arrows">
           <button
             type="button"

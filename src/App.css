@@ -434,12 +434,18 @@
   border-radius: var(--radius-2xl);
   overflow: hidden;
 }
+/* Images stay stacked and crossfade between slides */
 .services__img {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+.services__img--active {
+  opacity: 1;
 }
 .services__caption {
   position: absolute;
@@ -458,9 +464,46 @@
   padding: 48px;
   display: flex;
   flex-direction: column;
-  gap: 16px;
   align-items: flex-start;
   overflow: hidden;
+  transition: background-color 0.45s ease;
+}
+/* Remounted on slide change so the copy fades/slides back in */
+.services__card-content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: flex-start;
+  animation: card-content-in 0.45s ease both;
+}
+@keyframes card-content-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+/* Card color variants per slide: white → cream → charcoal */
+.services__card--cream {
+  background: var(--background);
+}
+.services__card--cream .slider-arrow {
+  background: var(--surface);
+}
+.services__card--dark {
+  background: var(--text-primary);
+}
+.services__card--dark .services__label {
+  color: var(--brand-cream);
+}
+.services__card--dark .services__title {
+  color: var(--background);
+}
+.services__card--dark .services__desc {
+  color: var(--border);
 }
 
 .services__label {
@@ -719,47 +762,46 @@
   color: var(--accent);
 }
 
-/* Arrow built from a shaft (::before) + chevron head (::after) so it can
-   elongate to the right on hover. Uses currentColor to match each button. */
+/* Arrow built from a shaft (::before) + chevron head (::after). The head is
+   anchored to the container's right edge and the shaft always runs to the
+   tip, so animating the container width elongates the whole arrow without
+   the parts ever disconnecting. Both strokes share the same 1.5px weight. */
 .text-button__arrow {
   position: relative;
   display: inline-block;
-  width: 16px;
+  width: 17px;
   height: 12px;
   flex-shrink: 0;
+  transition: width 0.28s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+/* The shaft is drawn as a border (not a background) so the browser snaps
+   its width exactly like the chevron's borders — identical stroke weight. */
 .text-button__arrow::before {
   content: '';
   position: absolute;
   top: 50%;
   left: 0;
-  height: 1.5px;
-  width: 11px;
-  background: currentColor;
+  right: 1px;
+  height: 0;
+  border-top: 1.5px solid currentColor;
   transform: translateY(-50%);
-  transition: width 0.28s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .text-button__arrow::after {
   content: '';
   position: absolute;
   top: 50%;
-  left: 8px;
-  width: 6px;
-  height: 6px;
+  right: 2px;
+  width: 7px;
+  height: 7px;
   border-top: 1.5px solid currentColor;
   border-right: 1.5px solid currentColor;
   transform: translateY(-50%) rotate(45deg);
-  transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.text-button:hover .text-button__arrow::before {
-  width: 16px;
-}
-
-.text-button:hover .text-button__arrow::after {
-  transform: translate(5px, -50%) rotate(45deg);
+.text-button:hover .text-button__arrow {
+  width: 23px;
 }
 
 
@@ -1029,7 +1071,7 @@
   width: 100%;
   display: flex;
   gap: 16px;
-  align-items: flex-start;
+  align-items: center;
   padding: 24px 0;
   background: none;
   border: none;
@@ -1635,7 +1677,8 @@ textarea.field__input {
   flex: 1;
   min-width: 0;
   display: flex;
-  gap: 80px;
+  flex-wrap: wrap;
+  gap: 48px 80px;
   align-items: flex-start;
 }
 
@@ -1665,9 +1708,13 @@ textarea.field__input {
   color: var(--text-primary);
 }
 
+/* Newsletter sits on its own row below the link columns */
 .footer__newsletter {
-  flex: 1;
+  flex-basis: 100%;
   min-width: 0;
+}
+.footer__newsletter .email-row {
+  max-width: 480px;
 }
 
 .email-row {
@@ -1742,68 +1789,53 @@ textarea.field__input {
     height: auto;
   }
 
-  /* Vista Lounge stacks on mobile like the Services Slider */
+  /* Services & Vista keep the card overlay on tablet/mobile: the card flows
+     inside the section's padding and the image extends beneath it. */
+  .services,
   .vista {
     height: auto;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
+    padding: 24px 24px 240px;
   }
 
-  .vista__img {
-    position: relative;
-    height: 300px;
-  }
-
+  .services__card,
   .vista__panel {
     position: relative;
     top: auto;
     left: auto;
     width: 100%;
     max-width: none;
-  }
-
-  .vista__caption {
-    top: 264px;
-    right: 20px;
-    bottom: auto;
+    height: auto;
   }
 
   .vista__arrows {
-    top: 20px;
+    top: auto;
     right: 20px;
+    bottom: 20px;
+  }
+
+  .vista__caption {
+    right: auto;
+    left: 20px;
+  }
+
+  .field-row {
+    flex-direction: column;
+  }
+
+  .private-office__right {
+    flex-wrap: wrap;
+  }
+
+  .private-office__col {
+    flex: 0 0 calc(50% - 12px);
+  }
+
+  .testimonial-card {
+    flex: 0 0 calc((100vw - 72px) / 2.5);
   }
 
   .hero__media {
     flex: initial;
-  }
-
-  /* Services Slider stacks on mobile: image on top, card in normal flow below */
-  .services {
-    height: auto;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-  }
-
-  .services__img {
-    position: relative;
-    height: 300px;
-  }
-
-  .services__caption {
-    top: 264px;
-    right: 20px;
-    bottom: auto;
-  }
-
-  .services__card {
-    position: relative;
-    top: auto;
-    left: auto;
-    width: 100%;
-    max-width: none;
-    height: auto;
   }
 
   .vista__card {
@@ -1901,11 +1933,13 @@ textarea.field__input {
   }
 
   .vista__panel,
+  .vista__card,
   .services__card,
   .hero__content,
   .private-office__left,
   .private-office__right,
-  .book-visit {
+  .book-visit,
+  .book-visit__form {
     padding: 32px;
   }
 
@@ -1948,11 +1982,13 @@ textarea.field__input {
   .idea-card,
   .pricing-card,
   .vista__panel,
+  .vista__card,
   .services__card,
   .hero__content,
   .private-office__left,
   .private-office__right,
-  .book-visit {
+  .book-visit,
+  .book-visit__form {
     padding: 24px;
   }
 
@@ -1962,5 +1998,51 @@ textarea.field__input {
 
   .faq {
     padding-bottom: 28px;
+  }
+
+  /* Overlay sliders: tighter frame, image still extends beneath the card */
+  .services,
+  .vista {
+    padding: 16px 16px 200px;
+  }
+
+  /* 1.5 cards visible before horizontal scroll; card padding matches
+     the other content cards on mobile */
+  .testimonial-card {
+    flex: 0 0 calc((100vw - 48px) / 1.5);
+    padding: 24px;
+  }
+
+  /* Bring the testimonials rhythm in line with other sections on mobile */
+  .testimonials {
+    padding: 28px 0;
+    gap: 32px;
+  }
+
+  .private-office__col {
+    flex-basis: 100%;
+  }
+
+  .faq-item {
+    padding: 0 16px;
+  }
+
+  .faq-item__question {
+    padding: 16px 0;
+  }
+
+  .faq-item__answer {
+    padding-bottom: 16px;
+  }
+
+  /* Step-3 summary pills stack instead of a pill row */
+  .booking-summary {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .booking-summary__divider {
+    display: none;
   }
 }

@@ -49,7 +49,13 @@ const defaultItems = [
 ]
 
 const GAP = 24
-const CARD_STEP = 420 + GAP
+
+// Card width is responsive (2.5 cards on tablet, 1.5 on mobile), so the
+// scroll step is measured from the first rendered card instead of hardcoded.
+const getStep = (vp) => {
+  const card = vp?.querySelector('.testimonial-card')
+  return (card ? card.getBoundingClientRect().width : 420) + GAP
+}
 
 function TestimonialCard({ quote, name, role }) {
   return (
@@ -95,7 +101,7 @@ export default function Testimonials({
       const track = vp.firstElementChild
       const cs = track ? getComputedStyle(track) : null
       const pad = cs ? parseFloat(cs.paddingLeft) + parseFloat(cs.paddingRight) : 48
-      const visible = Math.max(1, Math.floor((vp.clientWidth - pad + GAP) / CARD_STEP))
+      const visible = Math.max(1, Math.floor((vp.clientWidth - pad + GAP) / getStep(vp)))
       setPages(Math.max(1, items.length - visible + 1))
     }
     measure()
@@ -114,7 +120,7 @@ export default function Testimonials({
     const idx =
       vp.scrollLeft >= maxScroll - 4
         ? pages - 1
-        : Math.min(pages - 1, Math.round(vp.scrollLeft / CARD_STEP))
+        : Math.min(pages - 1, Math.round(vp.scrollLeft / getStep(vp)))
     setActive(Math.max(0, idx))
   }
 
@@ -130,7 +136,7 @@ export default function Testimonials({
     setActive(i)
     const maxScroll = vp.scrollWidth - vp.clientWidth
     // Last dot always lands on the true end so the final card is fully shown
-    const target = i >= pages - 1 ? maxScroll : Math.min(i * CARD_STEP, maxScroll)
+    const target = i >= pages - 1 ? maxScroll : Math.min(i * getStep(vp), maxScroll)
     const start = vp.scrollLeft
     const distance = target - start
     if (Math.abs(distance) < 1) return
