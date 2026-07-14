@@ -313,10 +313,10 @@
 .hero-pill {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 12px 20px;
+  gap: 8px;
+  padding: 10px;
   border: 1px solid var(--border);
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-sm);
   background: var(--surface);
 }
 
@@ -327,14 +327,14 @@
 }
 
 .hero-pill__icon svg {
-  width: 24px;
-  height: 24px;
+  width: 20px;
+  height: 20px;
 }
 
 .hero-pill__label {
-  font-size: var(--fs-14);
+  font-size: var(--fs-12);
   font-weight: 700;
-  line-height: 1.2;
+  line-height: 1;
   color: var(--text-primary);
 }
 
@@ -554,6 +554,21 @@
   letter-spacing: 0.8px;
   text-transform: uppercase;
   color: var(--text-primary);
+}
+
+/* Stands in for the label on slides that carry an icon instead */
+.services__icon {
+  display: flex;
+  color: var(--text-primary);
+}
+
+.services__icon svg {
+  width: 28px;
+  height: 28px;
+}
+
+.services__card--dark .services__icon {
+  color: var(--brand-cream);
 }
 
 .services__title {
@@ -1694,18 +1709,18 @@ textarea.field__input {
 }
 
 /* ---------- Benefit groups (Private Offices) ---------- */
+/* Cards stretch to the tallest in the row (grid's default align-items) so the
+   three groups read as one block despite holding 9/8/8 items. */
 .benefit-groups {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 24px;
-  align-items: start;
 }
 
 .benefit-group {
   background: var(--surface);
-  border: 1px solid var(--border);
   border-radius: var(--radius-xl);
-  padding: 32px;
+  padding: 40px;
   display: flex;
   flex-direction: column;
   gap: 24px;
@@ -1718,8 +1733,9 @@ textarea.field__input {
 }
 
 .benefit-group__number {
-  font-family: var(--font-serif);
-  font-size: var(--fs-14);
+  font-family: var(--font-sans);
+  font-size: var(--fs-24);
+  font-weight: 700;
   color: var(--accent);
 }
 
@@ -2309,13 +2325,12 @@ textarea.field__input {
   }
 
   .hero-pill {
-    padding: 10px 16px;
-    gap: 10px;
+    padding: 9px;
   }
 
   .hero-pill__icon svg {
-    width: 22px;
-    height: 22px;
+    width: 18px;
+    height: 18px;
   }
 
   /* About page */
@@ -2494,13 +2509,13 @@ textarea.field__input {
   }
 
   .hero-pill {
-    padding: 10px 14px;
-    gap: 8px;
+    padding: 8px;
+    gap: 6px;
   }
 
   .hero-pill__icon svg {
-    width: 20px;
-    height: 20px;
+    width: 18px;
+    height: 18px;
   }
 
   /* About page */

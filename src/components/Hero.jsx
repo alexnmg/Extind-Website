@@ -16,6 +16,7 @@ export default function Hero({
   secondaryLabel = 'Discover our community →',
   slides = defaultHeroSlides,
   pills = null,
+  onSecondaryClick,
 }) {
   return (
     <section className="hero">
@@ -36,7 +37,7 @@ export default function Hero({
           <button type="button" className="btn btn--primary">
             {primaryLabel}
           </button>
-          <button type="button" className="btn btn--ghost">
+          <button type="button" className="btn btn--ghost" onClick={onSecondaryClick}>
             {secondaryLabel}
           </button>
         </div>

@@ -5,7 +5,14 @@ import BenefitsGroups from '../components/BenefitsGroups'
 import Testimonials from '../components/Testimonials'
 import Faq from '../components/Faq'
 import BookVisit from '../components/BookVisit'
-import { ClockIcon, ChairIcon, MeetingIcon, KitchenIcon } from '../components/PillIcons'
+import {
+  ClockIcon,
+  ChairIcon,
+  MeetingIcon,
+  KitchenIcon,
+  DeskIcon,
+  VistaIcon,
+} from '../components/PillIcons'
 import heroImg from '../assets/figma/hero.png'
 import pillarsImg from '../assets/figma/pillars.png'
 import vistaImg from '../assets/figma/vista.png'
@@ -26,12 +33,12 @@ const heroSlides = [
 ]
 
 // Five benefits drawn from the private office pricing card. No ctaLabel, so
-// the slider renders without a button.
+// the slider renders without a button; an icon stands in for the text label.
 const benefitSlides = [
   {
     image: pillarsImg,
     caption: 'Private offices · Palas Campus',
-    label: 'SPACE',
+    icon: <DeskIcon />,
     title: 'Fully furnished, ready to work',
     description:
       'Smart lockable offices with customisable layouts, delivered fully furnished. Move in with your laptop and start working the same morning.',
@@ -40,7 +47,7 @@ const benefitSlides = [
   {
     image: mask1,
     caption: 'Secure access · Any hour',
-    label: 'ACCESS',
+    icon: <ClockIcon />,
     title: '24/7 secure access',
     description:
       'Your team sets its own hours. Private office members come and go around the clock with secure access to the building and their office.',
@@ -49,7 +56,7 @@ const benefitSlides = [
   {
     image: mask4,
     caption: 'Ergonomic workstations',
-    label: 'COMFORT',
+    icon: <ChairIcon />,
     title: 'Desks and chairs built for long days',
     description:
       'Ergonomic desks and premium task chairs as standard, with height-adjustable desks available on request for anyone who prefers to stand.',
@@ -58,7 +65,7 @@ const benefitSlides = [
   {
     image: heroImg,
     caption: 'Meeting & Focus Rooms',
-    label: 'MEET',
+    icon: <MeetingIcon />,
     title: 'Complimentary meeting room hours',
     description:
       'Every private office includes meeting room hours each month, plus phone booths for private calls and reception to welcome your clients.',
@@ -67,7 +74,7 @@ const benefitSlides = [
   {
     image: vistaImg,
     caption: 'Panoramic Lounge · 7th floor',
-    label: 'CONNECT',
+    icon: <VistaIcon />,
     title: 'Vista Lounge and a business community',
     description:
       'Step away from your office into a panoramic lounge, beautifully designed coworking spaces, and a calendar of community and networking evenings.',
@@ -84,6 +91,15 @@ export default function PrivateOffices() {
     }
   }, [])
 
+  // The navbar is sticky, so offset the target by its height plus a margin
+  const scrollToIncluded = () => {
+    const target = document.getElementById('included')
+    if (!target) return
+    const navH = document.querySelector('.navbar-container')?.offsetHeight ?? 0
+    const top = target.getBoundingClientRect().top + window.scrollY - navH - 16
+    window.scrollTo({ top, behavior: 'smooth' })
+  }
+
   return (
     <>
       <Hero
@@ -93,9 +109,10 @@ export default function PrivateOffices() {
         secondaryLabel="See what's included →"
         pills={heroPills}
         slides={heroSlides}
+        onSecondaryClick={scrollToIncluded}
       />
       <ServicesSlider slides={benefitSlides} />
-      <BenefitsGroups />
+      <BenefitsGroups id="included" />
       <Testimonials />
       <Faq />
       <BookVisit />

@@ -1,5 +1,6 @@
-/* Line icons for hero pills. Drawn on a 24×24 grid at the wordmark's line
- * weight (1.5, round caps) so they sit with the rest of the UI's iconography. */
+/* Line icons for hero pills and slider cards. Drawn on a 24×24 grid at the
+ * wordmark's line weight (1.5, round caps) so they sit with the rest of the
+ * UI's iconography. */
 
 const base = {
   viewBox: '0 0 24 24',
@@ -56,6 +57,30 @@ export function KitchenIcon() {
       <rect x="3.6" y="15.2" width="16.8" height="4.6" rx="1" />
       <path d="M9.4 8.8v6.4M14.6 8.8v6.4" />
       <path d="M9.4 12h5.2" />
+    </svg>
+  )
+}
+
+/** Desk with a monitor — a furnished, ready-to-work office. */
+export function DeskIcon() {
+  return (
+    <svg {...base}>
+      <rect x="6.2" y="3.6" width="11.6" height="7.6" rx="1" />
+      <path d="M12 11.2v2.4" />
+      <path d="M3.4 13.6h17.2" />
+      <path d="M5.6 13.6v6.8M18.4 13.6v6.8" />
+    </svg>
+  )
+}
+
+/** Skyline through a window — the Vista Lounge and the community around it. */
+export function VistaIcon() {
+  return (
+    <svg {...base}>
+      <rect x="3.6" y="3.6" width="16.8" height="16.8" rx="1.4" />
+      <path d="M3.6 16.2h16.8" />
+      <path d="M7.4 16.2v-4.4l3-2.2 3 2.2v4.4" />
+      <path d="M13.4 16.2v-2.6l3.2-1.8v4.4" />
     </svg>
   )
 }

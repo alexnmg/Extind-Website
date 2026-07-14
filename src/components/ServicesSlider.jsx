@@ -70,7 +70,14 @@ export default function ServicesSlider({ slides = defaultSlides }) {
       <div className={`services__card services__card--${variant}`}>
         {/* key remount replays the fade/slide-in animation on slide change */}
         <div key={index} className="services__card-content">
-          <p className="services__label">{slide.label}</p>
+          {/* Slides carry either an icon or a text label, never both */}
+          {slide.icon ? (
+            <span className="services__icon" aria-hidden="true">
+              {slide.icon}
+            </span>
+          ) : (
+            <p className="services__label">{slide.label}</p>
+          )}
           <h3 className="services__title">{slide.title}</h3>
           <p className="services__desc">{slide.description}</p>
           {/* Slides without a ctaLabel (e.g. the Private Offices benefits

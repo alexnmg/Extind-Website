@@ -53,13 +53,14 @@ const defaultGroups = [
 ]
 
 export default function BenefitsGroups({
+  id,
   eyebrow = 'Included',
   title = 'Everything that comes with your office',
   description = 'One monthly price. No setup costs, no surprises.',
   groups = defaultGroups,
 }) {
   return (
-    <section className="section">
+    <section className="section" id={id}>
       <SectionHeader eyebrow={eyebrow} title={title} description={description} />
       <div className="benefit-groups">
         {groups.map(({ title: groupTitle, items }, i) => (
