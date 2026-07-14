@@ -21,20 +21,17 @@ import {
 
 /* EXTIND wordmark as a scroll progress indicator (navbar).
  *
- * At the top of the page the mark is the standard collapsed logo. Once the
- * user starts scrolling the X opens over OPEN_DISTANCE, and the brand's own
- * vector shape becomes the progress indicator: it appears in the gap and
- * grows rightward — rigid end caps, no track, no fill — reaching its full
- * expanded-logo width exactly at the end of the page. Scrolling back to the
- * top collapses everything into the standard logo again.
+ * Page progress scrubs a single motion: the X's right half and TIND travel
+ * outward while the brand's own vector shape grows to fill the gap they
+ * leave — rigid end caps, no track, no fill. At the top it's the standard
+ * collapsed logo; at the end of the page it's exactly the expanded logo.
+ *
+ * The shape can't be narrower than its two caps (~62 units), so it stays
+ * hidden until the letters have parted far enough to clear it.
  */
 
 const LOGO_H = 24 // px — matches .logo height in CSS
 
-// Scroll distance over which the X opens up
-const OPEN_DISTANCE = 320
-
-const easeOut = (t) => 1 - Math.pow(1 - t, 3)
 const clamp01 = (v) => Math.min(1, Math.max(0, v))
 
 // The three outer transforms every letter sits inside (straight from the file)
@@ -49,18 +46,14 @@ function Chain({ children }) {
 }
 
 export default function Logo() {
-  const [state, setState] = useState({ open: 0, progress: 0 })
+  const [progress, setProgress] = useState(0)
 
   useEffect(() => {
     // Scroll events are already frame-coalesced by the browser, so a direct
     // (passive) handler is enough — no extra rAF throttling needed.
     const onScroll = () => {
-      const y = window.scrollY
       const max = document.documentElement.scrollHeight - window.innerHeight
-      setState({
-        open: easeOut(clamp01(y / OPEN_DISTANCE)),
-        progress: max > 0 ? clamp01(y / max) : 0,
-      })
+      setProgress(max > 0 ? clamp01(window.scrollY / max) : 0)
     }
     onScroll()
     window.addEventListener('scroll', onScroll, { passive: true })
@@ -71,15 +64,12 @@ export default function Logo() {
     }
   }, [])
 
-  const { open, progress } = state
-  const gap = SHIFT * (1 - open)
+  // One motion, linear in scroll: letters travel and the shape's right edge
+  // rides just ahead of them, landing on the expanded logo at the bottom.
+  const gap = SHIFT * (1 - progress)
   const contentW = VB_W - gap
-
-  // The shape itself is the progress bar: its right edge travels with page
-  // progress, landing on the expanded logo's exact geometry at the bottom.
-  const xR = BAR_XL + (BAR_XR_MAX - BAR_XL) * progress
-  // Only fades in once the X has parted far enough to clear both caps
-  const shapeOpacity = clamp01((open - 0.25) / 0.35)
+  const xR = Math.max(BAR_XL, BAR_XR_MAX - gap)
+  const shapeOpacity = clamp01((progress - 0.14) / 0.14)
 
   return (
     <span className="logo" style={{ width: `${(contentW / VB_H) * LOGO_H}px` }}>
