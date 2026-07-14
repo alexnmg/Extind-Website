@@ -146,9 +146,9 @@ export default function Navbar() {
                 )
               )}
             </nav>
-            <button type="button" className="btn btn--primary navbar__cta">
+            <Link className="btn btn--primary navbar__cta" to="/book-a-visit">
               Book a visit
-            </button>
+            </Link>
             <button
               type="button"
               className="navbar__burger"
@@ -191,10 +191,14 @@ export default function Navbar() {
               )}
             </nav>
             <div className="navbar__mobile-footer">
-              <button type="button" className="btn btn--primary navbar__mobile-cta">
-                <span>Book a Tour</span>
+              <Link
+                className="btn btn--primary navbar__mobile-cta"
+                to="/book-a-visit"
+                onClick={() => setMobileOpen(false)}
+              >
+                <span>Book a visit</span>
                 <span aria-hidden="true">→</span>
-              </button>
+              </Link>
               <p className="navbar__mobile-email">hello@extind.com</p>
             </div>
           </div>

@@ -5,6 +5,7 @@ import Footer from './components/Footer'
 import Home from './pages/Home'
 import About from './pages/About'
 import PrivateOffices from './pages/PrivateOffices'
+import BookAVisit from './pages/BookAVisit'
 import StoryblokPage from './components/storyblok/StoryblokPage'
 import { isStoryblokEnabled } from './lib/storyblok'
 import './App.css'
@@ -27,6 +28,7 @@ export default function App() {
         <Routes>
           <Route path="/about" element={<About />} />
           <Route path="/private-offices" element={<PrivateOffices />} />
+          <Route path="/book-a-visit" element={<BookAVisit />} />
           <Route path="*" element={isStoryblokEnabled ? <StoryblokPage /> : <Home />} />
         </Routes>
         <Footer />

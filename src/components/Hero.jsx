@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import ImageCardSlider from './ImageCardSlider'
 import heroImg from '../assets/figma/hero.png'
 import pillarsImg from '../assets/figma/pillars.png'
@@ -13,6 +14,7 @@ export default function Hero({
   title = 'Thoughtfully designed environments for business growth.',
   lede = 'Private offices and business community for companies and professionals looking for growth, collaboration and friction-free workdays.',
   primaryLabel = 'Book a visit',
+  primaryTo = '/book-a-visit',
   secondaryLabel = 'Discover our community →',
   slides = defaultHeroSlides,
   pills = null,
@@ -34,9 +36,9 @@ export default function Hero({
           </ul>
         )}
         <div className="hero__buttons">
-          <button type="button" className="btn btn--primary">
+          <Link className="btn btn--primary" to={primaryTo}>
             {primaryLabel}
-          </button>
+          </Link>
           <button type="button" className="btn btn--ghost" onClick={onSecondaryClick}>
             {secondaryLabel}
           </button>

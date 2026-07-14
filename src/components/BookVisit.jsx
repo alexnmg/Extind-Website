@@ -100,7 +100,7 @@ export default function BookVisit({
           <>
             <h4 className="book-visit__heading">Thank you, {name || 'friend'}!</h4>
             <p className="book-visit__thanks">
-              Your tour is requested for {summaryDate}. We&apos;ll confirm by email shortly.
+              Your visit is requested for {summaryDate}. We&apos;ll confirm by email shortly.
             </p>
           </>
         ) : (

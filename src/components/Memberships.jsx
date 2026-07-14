@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import SectionHeader from './SectionHeader'
 import checkDark from '../assets/figma/check-dark.svg'
 import checkLight from '../assets/figma/check-light.svg'
@@ -53,7 +54,8 @@ const defaultOffice = {
   title: 'Private office',
   description:
     'Lockable, customisable offices with 24/7 access, fixed or sit-stand desks, storage, and custom internet.',
-  cta: 'Book a Tour',
+  cta: 'Book a visit',
+  ctaTo: '/book-a-visit',
   benefitsLeft: [
     'Fully furnished private offices',
     'Smart lockable offices with customizable layouts',
@@ -145,10 +147,10 @@ export default function Memberships({
                 <h3 className="private-office__title">{office.title}</h3>
                 <p className="private-office__desc">{office.description}</p>
               </div>
-              <button type="button" className="text-button text-button--dark private-office__btn">
+              <Link className="text-button text-button--dark private-office__btn" to={office.ctaTo}>
                 <span>{office.cta}</span>
                 <span className="text-button__arrow" aria-hidden="true" />
-              </button>
+              </Link>
             </div>
             <div className="private-office__right">
               {[office.benefitsLeft, office.benefitsMid, office.benefitsRight].filter(Boolean).map((column, i) => (
