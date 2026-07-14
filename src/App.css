@@ -193,8 +193,6 @@
   font-weight: 700;
   color: var(--text-primary);
   text-decoration: none;
-  /* Centred text, but the link still spans the row so the tap target does too */
-  text-align: center;
   padding: 8px 0;
   opacity: 0;
   transform: translateY(8px);
@@ -2318,9 +2316,13 @@ textarea.field__input {
     height: 100%;
   }
 
-  /* Anchor the CTA and email to the bottom of the full-height card */
-  .navbar__mobile-footer {
-    margin-top: auto;
+  /* Links take the room left above the footer and centre themselves in it, so
+     they sit mid-card rather than stacked under the bar. That also pushes the
+     CTA and email to the foot of the card without needing an auto margin. */
+  .navbar__mobile-links {
+    flex: 1;
+    justify-content: center;
+    padding-top: 0;
   }
 
   /* Optically even navbar padding: collapse the bar's button min-height and
