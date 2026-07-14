@@ -2084,6 +2084,23 @@ textarea.field__input {
     padding-bottom: 16px;
   }
 
+  /* Available times only appear once a date is picked, easing in as the
+     collapsed block expands (mobile only — desktop shows them side by side) */
+  .time-picker {
+    max-height: 0;
+    opacity: 0;
+    transform: translateY(8px);
+    overflow: hidden;
+    transition: max-height 0.45s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.35s ease 0.1s,
+      transform 0.35s ease 0.1s;
+  }
+
+  .time-picker--visible {
+    max-height: 620px;
+    opacity: 1;
+    transform: none;
+  }
+
   /* Booking form actions span the row on mobile: the single step-1 CTA is
      full width; Back/Continue pairs stay side by side but split it evenly */
   .book-visit__footer .btn {

@@ -217,7 +217,7 @@ export default function BookVisit({
                       ))}
                     </div>
                   </div>
-                  <div className="time-picker">
+                  <div className={`time-picker${selectedDate ? ' time-picker--visible' : ''}`}>
                     <p className="time-picker__label">Available times</p>
                     <div className="time-slots">
                       {TIMES.map((time) => (
