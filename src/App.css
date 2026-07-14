@@ -1785,11 +1785,12 @@ textarea.field__input {
   color: var(--text-secondary);
 }
 
-/* Instagram-style 3-column gallery of latest posts */
+/* Instagram-style 3-column gallery of latest posts. Gap matches the value
+   cards' rhythm (24 → 20 tablet → 16 mobile). */
 .social-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
+  gap: 24px;
 }
 
 .social-grid__item {
@@ -2228,6 +2229,10 @@ textarea.field__input {
     gap: 20px;
   }
 
+  .social-grid {
+    gap: 20px;
+  }
+
   .vista__panel,
   .vista__card,
   .services__card,
@@ -2394,6 +2399,7 @@ textarea.field__input {
 
   .social-grid {
     grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
   }
 
   /* Step-3 summary pills stack instead of a pill row */
