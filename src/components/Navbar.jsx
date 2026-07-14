@@ -1,10 +1,21 @@
 import { useEffect, useRef, useState } from 'react'
+import { Link } from 'react-router-dom'
 import Logo from './Logo'
 
-const aboutItems = ['About Extind', 'FAQ', 'Contact']
+const aboutItems = [
+  { label: 'About Extind', to: '/about' },
+  { label: 'FAQ', to: '#' },
+  { label: 'Contact', to: '#' },
+]
 const links = ['Private offices', 'Meeting rooms', 'Coworking', 'Community & Events']
 // Mobile menu keeps its own order per the Figma "Mobile Menu" component.
-const mobileLinks = ['About us', 'Coworking', 'Private offices', 'Meeting rooms', 'Community & Events']
+const mobileLinks = [
+  { label: 'About us', to: '/about' },
+  { label: 'Coworking', to: '#' },
+  { label: 'Private offices', to: '#' },
+  { label: 'Meeting rooms', to: '#' },
+  { label: 'Community & Events', to: '#' },
+]
 
 function Chevron() {
   return (
@@ -86,9 +97,9 @@ export default function Navbar() {
         className={`navbar${scrolled ? ' navbar--scrolled' : ''}${mobileOpen ? ' navbar--open' : ''}`}
       >
         <div className="navbar__bar">
-          <a href="/" aria-label="Extind home">
+          <Link to="/" aria-label="Extind home">
             <Logo />
-          </a>
+          </Link>
           {/* Grouped right-hand side: pinned to the right edge so the logo's
               expand animation never shifts the menu */}
           <div className="navbar__right">
@@ -105,11 +116,17 @@ export default function Navbar() {
                   <Chevron />
                 </button>
                 <div className={`navbar__dropdown${aboutOpen ? ' navbar__dropdown--open' : ''}`}>
-                  {aboutItems.map((label) => (
-                    <a key={label} className="navbar__link" href="#" onClick={() => setAboutOpen(false)}>
-                      {label}
-                    </a>
-                  ))}
+                  {aboutItems.map(({ label, to }) =>
+                    to.startsWith('/') ? (
+                      <Link key={label} className="navbar__link" to={to} onClick={() => setAboutOpen(false)}>
+                        {label}
+                      </Link>
+                    ) : (
+                      <a key={label} className="navbar__link" href={to} onClick={() => setAboutOpen(false)}>
+                        {label}
+                      </a>
+                    )
+                  )}
                 </div>
               </div>
               {links.map((label) => (
@@ -140,16 +157,27 @@ export default function Navbar() {
         <div className="navbar__mobile">
           <div className="navbar__mobile-inner">
             <nav className="navbar__mobile-links">
-              {mobileLinks.map((label) => (
-                <a
-                  key={label}
-                  className="navbar__mobile-link"
-                  href="#"
-                  onClick={() => setMobileOpen(false)}
-                >
-                  {label}
-                </a>
-              ))}
+              {mobileLinks.map(({ label, to }) =>
+                to.startsWith('/') ? (
+                  <Link
+                    key={label}
+                    className="navbar__mobile-link"
+                    to={to}
+                    onClick={() => setMobileOpen(false)}
+                  >
+                    {label}
+                  </Link>
+                ) : (
+                  <a
+                    key={label}
+                    className="navbar__mobile-link"
+                    href={to}
+                    onClick={() => setMobileOpen(false)}
+                  >
+                    {label}
+                  </a>
+                )
+              )}
             </nav>
             <div className="navbar__mobile-footer">
               <button type="button" className="btn btn--primary navbar__mobile-cta">
