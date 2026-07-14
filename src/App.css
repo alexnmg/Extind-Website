@@ -2252,12 +2252,52 @@ textarea.field__input {
     gap: 20px;
   }
 
+  /* Height locked to the collapsed pill (16px padding-top + 64px pill) so the
+     menu overlays the page instead of pushing it down: the navbar simply
+     overflows its container, and the container's z-index keeps it above the
+     page content. */
   .navbar-container {
     padding-top: 16px;
+    height: 80px;
   }
 
   .navbar {
     padding: 20px;
+    height: 64px;
+    overflow: hidden;
+    transition: height 0.42s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.42s ease,
+      box-shadow 0.2s ease;
+  }
+
+  /* Open: a full-height cream card, leaving the page gutter at the bottom */
+  .navbar--open {
+    height: calc(100svh - 16px - 20px);
+    background: var(--brand-cream);
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* The navbar's own height reveals the menu now, so the panel no longer
+     animates its max-height — it just fills whatever room it's given.
+     Needs to out-specify the base `.navbar--open .navbar__mobile` cap. */
+  .navbar__mobile {
+    flex: 1;
+    min-height: 0;
+  }
+
+  .navbar--open .navbar__mobile {
+    max-height: none;
+  }
+
+  .navbar__mobile-inner {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+
+  /* Anchor the CTA and email to the bottom of the full-height card */
+  .navbar__mobile-footer {
+    margin-top: auto;
   }
 
   /* Optically even navbar padding: collapse the bar's button min-height and
@@ -2397,12 +2437,19 @@ textarea.field__input {
     gap: 16px;
   }
 
+  /* 12px padding-top + 56px pill — see the tablet block for why it's locked */
   .navbar-container {
     padding-top: 12px;
+    height: 68px;
   }
 
   .navbar {
     padding: 16px;
+    height: 56px;
+  }
+
+  .navbar--open {
+    height: calc(100svh - 12px - 16px);
   }
 
   .section {

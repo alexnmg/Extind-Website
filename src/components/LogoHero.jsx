@@ -33,7 +33,8 @@ import {
  * is about -308, where the two end caps meet and the shape can go no narrower. */
 const EXTRA_DESKTOP = 700
 const EXTRA_TABLET = 150
-const EXTRA_MOBILE = -250
+// Mobile's shape is ~237 units wide — double the width -250 would give.
+const EXTRA_MOBILE = -134
 
 const CYCLE = 5000
 
