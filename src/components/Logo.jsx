@@ -31,8 +31,6 @@ import {
  * animate out of sight. There it stays the standard collapsed logo.
  */
 
-const LOGO_H = 24 // px — matches .logo height in CSS
-
 // Widths above which the navbar stays put (see the 1024px block in App.css)
 const DESKTOP_QUERY = '(min-width: 1025px)'
 
@@ -93,7 +91,10 @@ export default function Logo() {
   const lineW = Math.max(0, X_RIGHT_INK_L + SHIFT * progress - LINE_GAP - lineL)
 
   return (
-    <span className="logo" style={{ width: `${(contentW / VB_H) * LOGO_H}px` }}>
+    /* Sized from CSS: .logo sets the height, the aspect ratio gives the width,
+       and the SVG is a percentage of that — so the mark scales per breakpoint
+       without a pixel constant duplicated between here and the stylesheet. */
+    <span className="logo" style={{ aspectRatio: contentW / VB_H }}>
       <svg
         className="logo__svg"
         viewBox={`0 0 ${VB_W} ${VB_H}`}
@@ -102,8 +103,8 @@ export default function Logo() {
         role="img"
         aria-label="Extind"
         style={{
-          height: `${LOGO_H}px`,
-          width: `${(VB_W / VB_H) * LOGO_H}px`,
+          height: '100%',
+          width: `${(VB_W / contentW) * 100}%`,
           fillRule: 'evenodd',
           clipRule: 'evenodd',
         }}

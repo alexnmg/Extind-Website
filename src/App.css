@@ -241,6 +241,8 @@
 /* Logo (96×18 wordmark composed of letter SVGs, matches Figma geometry) */
 /* Animated wordmark. The wrapper masks the SVG's expanded width; its width
    animates in step with the shape so the mark grows rightward. */
+/* Height drives everything: the component sets an aspect-ratio, so the width
+   follows, and the SVG sizes off it. Change the height to scale the mark. */
 .logo {
   display: inline-block;
   height: 24px;
@@ -2271,23 +2273,30 @@ textarea.field__input {
   /* Cream backdrop behind the white card, covering the viewport so page
      content never shows through — including the gutter below the card.
      z-index: -1 keeps it behind the navbar but still inside the container's
-     stacking context, so it stays above the page. */
+     stacking context, so it stays above the page.
+   *
+   * Collapsed to zero height (rather than just hidden) while closed: a fixed,
+   * viewport-tall box anchored with `bottom` resolves against iOS's *large*
+   * viewport, which leaves phantom scroll space below the page. Sized with
+   * dvh when open so it tracks the toolbar collapsing instead. */
   .navbar-container::before {
     content: '';
     position: fixed;
-    inset: 0;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 0;
     z-index: -1;
     background: var(--brand-cream);
     opacity: 0;
     pointer-events: none;
-    visibility: hidden;
-    transition: opacity 0.42s ease, visibility 0s linear 0.42s;
+    transition: opacity 0.42s ease, height 0s linear 0.42s;
   }
 
   .navbar-container--open::before {
+    height: 100dvh;
     opacity: 1;
-    visibility: visible;
-    transition: opacity 0.42s ease, visibility 0s;
+    transition: opacity 0.42s ease, height 0s;
   }
 
   /* Open: the white card grows to full height, leaving the page gutter at
@@ -2462,7 +2471,14 @@ textarea.field__input {
     gap: 16px;
   }
 
-  /* 12px padding-top + 56px pill — see the tablet block for why it's locked */
+  /* 25% smaller than the 24px default */
+  .logo {
+    height: 18px;
+  }
+
+  /* 12px padding-top + 56px pill — see the tablet block for why it's locked.
+     The pill is sized by the burger's 24px hit box, not the logo, so shrinking
+     the logo doesn't change it. */
   .navbar-container {
     padding-top: 12px;
     height: 68px;
