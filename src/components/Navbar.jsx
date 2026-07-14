@@ -96,7 +96,11 @@ export default function Navbar() {
   }, [mobileOpen])
 
   return (
-    <div className={`navbar-container${hidden && !mobileOpen ? ' navbar-container--hidden' : ''}`}>
+    <div
+      className={`navbar-container${hidden && !mobileOpen ? ' navbar-container--hidden' : ''}${
+        mobileOpen ? ' navbar-container--open' : ''
+      }`}
+    >
       <header
         ref={navRef}
         className={`navbar${scrolled ? ' navbar--scrolled' : ''}${mobileOpen ? ' navbar--open' : ''}`}

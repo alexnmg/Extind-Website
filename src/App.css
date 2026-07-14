@@ -189,10 +189,12 @@
 
 .navbar__mobile-link {
   font-family: var(--font-sans);
-  font-size: var(--fs-24);
+  font-size: var(--fs-32);
   font-weight: 700;
   color: var(--text-primary);
   text-decoration: none;
+  /* Centred text, but the link still spans the row so the tap target does too */
+  text-align: center;
   padding: 8px 0;
   opacity: 0;
   transform: translateY(8px);
@@ -2265,14 +2267,35 @@ textarea.field__input {
     padding: 20px;
     height: 64px;
     overflow: hidden;
-    transition: height 0.42s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.42s ease,
-      box-shadow 0.2s ease;
+    transition: height 0.42s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.2s ease;
   }
 
-  /* Open: a full-height cream card, leaving the page gutter at the bottom */
+  /* Cream backdrop behind the white card, covering the viewport so page
+     content never shows through — including the gutter below the card.
+     z-index: -1 keeps it behind the navbar but still inside the container's
+     stacking context, so it stays above the page. */
+  .navbar-container::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background: var(--brand-cream);
+    opacity: 0;
+    pointer-events: none;
+    visibility: hidden;
+    transition: opacity 0.42s ease, visibility 0s linear 0.42s;
+  }
+
+  .navbar-container--open::before {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.42s ease, visibility 0s;
+  }
+
+  /* Open: the white card grows to full height, leaving the page gutter at
+     the bottom; the cream backdrop fills everything behind it. */
   .navbar--open {
     height: calc(100svh - 16px - 20px);
-    background: var(--brand-cream);
     display: flex;
     flex-direction: column;
   }
