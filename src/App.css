@@ -1659,7 +1659,8 @@ textarea.field__input {
   border-radius: var(--radius-xl);
   padding: 48px 40px;
   display: flex;
-  gap: 80px;
+  justify-content: space-between;
+  gap: 48px;
   align-items: flex-start;
 }
 
@@ -1678,18 +1679,12 @@ textarea.field__input {
   white-space: nowrap;
 }
 
+/* On desktop the wrapper dissolves (display: contents) so brand, Menu,
+   Company and the newsletter are all direct flex items of the footer —
+   space-between then puts even visual gutters between the content blocks.
+   The tablet/mobile block restores it to a real flex row for wrapping. */
 .footer__cols {
-  flex: 1;
-  min-width: 0;
-  display: flex;
-  gap: 48px;
-  align-items: flex-start;
-}
-
-/* Link columns share the space evenly; the newsletter keeps its fixed cap */
-.footer__cols > .footer__col:not(.footer__newsletter) {
-  flex: 1;
-  min-width: 0;
+  display: contents;
 }
 
 .footer__col {
@@ -1899,8 +1894,16 @@ textarea.field__input {
   }
 
   .footer__cols {
+    display: flex;
     flex-wrap: wrap;
     gap: 32px;
+    width: 100%;
+    align-items: flex-start;
+  }
+
+  .footer__cols > .footer__col:not(.footer__newsletter) {
+    flex: 1;
+    min-width: 0;
   }
 
   .cta__buttons {
