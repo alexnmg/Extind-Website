@@ -315,9 +315,8 @@
   align-items: center;
   gap: 8px;
   padding: 10px;
-  border: 1px solid var(--border);
   border-radius: var(--radius-sm);
-  background: var(--surface);
+  background: var(--brand-cream);
 }
 
 .hero-pill__icon {
@@ -1734,8 +1733,8 @@ textarea.field__input {
 
 .benefit-group__number {
   font-family: var(--font-sans);
-  font-size: var(--fs-24);
-  font-weight: 700;
+  font-size: var(--fs-18);
+  font-weight: 400;
   color: var(--accent);
 }
 
