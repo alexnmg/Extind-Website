@@ -4,7 +4,7 @@ export default function Cta({
   ctaLabel = 'Visit us',
 }) {
   return (
-    <section className="cta">
+    <section className="cta" data-reveal>
       <h2 className="cta__title">{title}</h2>
       <p className="cta__sub">{description}</p>
       <div className="cta__buttons">

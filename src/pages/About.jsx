@@ -1,6 +1,7 @@
-import { useEffect } from 'react'
+import { Fragment, useEffect, useLayoutEffect, useRef } from 'react'
 import SectionHeader from '../components/SectionHeader'
 import LogoHero from '../components/LogoHero'
+import CentralIdea from '../components/CentralIdea'
 import Cta from '../components/Cta'
 import vistaImg from '../assets/figma/vista.png'
 import heroImg from '../assets/figma/hero.png'
@@ -11,26 +12,7 @@ import mask3 from '../assets/logo-anim/mask-3.jpg'
 import mask4 from '../assets/logo-anim/mask-4.jpg'
 import mask5 from '../assets/logo-anim/mask-5.jpg'
 
-const values = [
-  {
-    number: '01',
-    title: 'Business-first hospitality',
-    desc: 'We anticipate the needs of our members — from welcoming clients at reception to preparing rooms before meetings — so every workday runs smoothly.',
-    variant: 'light',
-  },
-  {
-    number: '02',
-    title: 'Co-creation & growth',
-    desc: 'We grow together with our community: events, introductions and shared knowledge that help companies build meaningful business relationships.',
-    variant: 'forest',
-  },
-  {
-    number: '03',
-    title: 'Kind by default',
-    desc: 'We keep the space mindful and respectful. Great work needs calm, consideration and people who genuinely enjoy being here.',
-    variant: 'dark',
-  },
-]
+const HERO_TITLE = 'Better workdays, one desk at a time.'
 
 // Placeholder roster and photos — swap in the real team when ready
 const team = [
@@ -52,6 +34,9 @@ function InstagramIcon() {
 }
 
 export default function About() {
+  const heroRef = useRef(null)
+  const titleRef = useRef(null)
+
   useEffect(() => {
     const prev = document.title
     document.title = 'About — Extind'
@@ -60,12 +45,40 @@ export default function About() {
     }
   }, [])
 
+  /* Same entrance treatment as the homepage hero: title words rise from
+   * behind per-line masks, then the label and paragraph fade up (see
+   * [data-animate] rules in App.css). The LogoHero above runs its own
+   * mask-expansion at the same time. */
+  useLayoutEffect(() => {
+    if (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) return
+    const words = titleRef.current?.querySelectorAll('.hero__word') ?? []
+    let lastTop = null
+    let line = -1
+    words.forEach((w) => {
+      if (w.offsetTop !== lastTop) {
+        line += 1
+        lastTop = w.offsetTop
+      }
+      w.style.setProperty('--line', line)
+    })
+    heroRef.current?.setAttribute('data-animate', '')
+  }, [])
+
   return (
     <>
-      <section className="about-hero">
+      <section className="about-hero" ref={heroRef}>
         <LogoHero />
         <div className="about-hero__bottom">
-          <h1 className="about-hero__title">Better workdays, one desk at a time.</h1>
+          <h1 className="about-hero__title" ref={titleRef}>
+            {HERO_TITLE.split(' ').map((word, i) => (
+              <Fragment key={i}>
+                {i > 0 && ' '}
+                <span className="hero__word">
+                  <span className="hero__word-inner">{word}</span>
+                </span>
+              </Fragment>
+            ))}
+          </h1>
           <div className="about-hero__text">
             <p className="about-hero__eyebrow">About Extind</p>
             <p className="about-hero__lede">
@@ -78,24 +91,18 @@ export default function About() {
         </div>
       </section>
 
-      <section className="section">
-        <SectionHeader eyebrow="Our Values" title="What we stand for" />
-        <div className="cards-row-3">
-          {values.map(({ number, title, desc, variant }) => (
-            <article key={number} className={`idea-card idea-card--${variant}`}>
-              <p className="idea-card__number">{number}</p>
-              <h3 className="idea-card__title">{title}</h3>
-              <p className="idea-card__desc">{desc}</p>
-            </article>
-          ))}
-        </div>
-      </section>
+      <CentralIdea />
 
       <section className="section">
         <SectionHeader eyebrow="The Team" title="The people behind Extind" />
         <div className="team-grid">
-          {team.map(({ name, role, photo }) => (
-            <article key={name} className="team-card">
+          {team.map(({ name, role, photo }, i) => (
+            <article
+              key={name}
+              className="team-card"
+              data-reveal
+              style={{ '--reveal-delay': `${i * 70}ms` }}
+            >
               <img className="team-card__photo" src={photo} alt={name} loading="lazy" />
               <div className="team-card__meta">
                 <p className="team-card__name">{name}</p>
@@ -110,7 +117,14 @@ export default function About() {
         <SectionHeader eyebrow="Instagram" title="Latest from @extind" />
         <div className="social-grid">
           {posts.map((src, i) => (
-            <a key={i} className="social-grid__item" href="#" aria-label="Open post on Instagram">
+            <a
+              key={i}
+              className="social-grid__item"
+              href="#"
+              aria-label="Open post on Instagram"
+              data-reveal
+              style={{ '--reveal-delay': `${(i % 3) * 80}ms` }}
+            >
               <img src={src} alt="" loading="lazy" />
               <span className="social-grid__overlay" aria-hidden="true">
                 <InstagramIcon />

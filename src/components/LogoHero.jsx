@@ -6,6 +6,7 @@ import {
   BAR_XL,
   BAR_XR_MAX,
   CAP,
+  SHIFT,
   barPath,
   M_XLEFT,
   M_E,
@@ -20,9 +21,13 @@ import {
   LETTER_N,
 } from './logoGeometry'
 
-/* Static hero variant of the EXTIND wordmark: the shape sits at a much wider
- * expansion than the animated navbar logo and never moves — only the photos
- * inside it crossfade. Same geometry module, same rigid end caps. */
+/* Hero variant of the EXTIND wordmark. On entrance the mark starts as the
+ * standard collapsed logo and the shape expands rightward — rigid end caps,
+ * letters travelling in lockstep — until it reaches the breakpoint's full
+ * width, where it settles and only the photos inside crossfade. Same
+ * geometry module as the navbar logo, same expansion math, played once. */
+
+const ENTRANCE_MS = 1400
 
 /* Extra viewBox units beyond the standard expanded logo. The mark renders at
  * the container's full width, so this width *is* the aspect ratio: a narrower
@@ -61,11 +66,32 @@ function Chain({ children }) {
 export default function LogoHero() {
   const [idx, setIdx] = useState(0)
   const [extra, setExtra] = useState(extraFor)
+  // Entrance progress 0→1. Reduced motion starts (and stays) at 1: static.
+  const [entry, setEntry] = useState(() =>
+    typeof window !== 'undefined' &&
+    window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
+      ? 1
+      : 0
+  )
 
   useEffect(() => {
     if (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) return
     const timer = setInterval(() => setIdx((i) => (i + 1) % IMAGES.length), CYCLE)
     return () => clearInterval(timer)
+  }, [])
+
+  useEffect(() => {
+    if (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) return
+    let raf
+    let start
+    const step = (ts) => {
+      if (start === undefined) start = ts
+      const t = Math.min(1, (ts - start) / ENTRANCE_MS)
+      setEntry(1 - Math.pow(1 - t, 3))
+      if (t < 1) raf = requestAnimationFrame(step)
+    }
+    raf = requestAnimationFrame(step)
+    return () => cancelAnimationFrame(raf)
   }, [])
 
   // Only breakpoint crossings can change the shape's width, so listen to the
@@ -78,7 +104,14 @@ export default function LogoHero() {
     return () => queries.forEach((mq) => mq.removeEventListener('change', update))
   }, [])
 
-  const xR = BAR_XR_MAX + extra
+  /* The viewBox stays at its final width throughout, so the rendered height
+   * never changes — the mark simply expands rightward into place. `v` is the
+   * travelling letters' offset: -SHIFT is the standard collapsed logo, and
+   * `extra` is this breakpoint's full expansion. The shape's right edge rides
+   * with the letters and fades in once the opening can fit its end caps. */
+  const v = -SHIFT + (extra + SHIFT) * entry
+  const xR = Math.max(BAR_XL, BAR_XR_MAX + v)
+  const maskOpacity = Math.min(1, Math.max(0, (xR - BAR_XL) / (CAP * 2)))
   const W = VB_W + extra
 
   return (
@@ -108,7 +141,7 @@ export default function LogoHero() {
       </Chain>
 
       {/* All photos stay mounted inside the shape and crossfade */}
-      <g clipPath="url(#extind-hero-clip)">
+      <g clipPath="url(#extind-hero-clip)" opacity={maskOpacity}>
         {IMAGES.map((src, i) => (
           <image
             key={src}
@@ -123,8 +156,8 @@ export default function LogoHero() {
         ))}
       </g>
 
-      {/* Right half of the X + TIND, shifted out by the wider shape */}
-      <g transform={`translate(${extra},0)`}>
+      {/* Right half of the X + TIND, travelling with the shape */}
+      <g transform={`translate(${v},0)`}>
         <Chain>
           <g transform={M_LETTER}>
             <path d={X_RIGHT} />
