@@ -64,7 +64,12 @@ export default function BenefitsGroups({
       <SectionHeader eyebrow={eyebrow} title={title} description={description} />
       <div className="benefit-groups">
         {groups.map(({ title: groupTitle, items }, i) => (
-          <article key={groupTitle} className="benefit-group">
+          <article
+            key={groupTitle}
+            className="benefit-group"
+            data-reveal
+            style={{ '--reveal-delay': `${(i % 3) * 80}ms` }}
+          >
             <header className="benefit-group__header">
               <span className="benefit-group__number">{String(i + 1).padStart(2, '0')}</span>
               <h3 className="benefit-group__title">{groupTitle}</h3>
