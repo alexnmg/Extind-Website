@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import useScrollScrub from '../lib/useScrollScrub'
 import SectionHeader from './SectionHeader'
 import vistaImg from '../assets/figma/vista.png'
 import heroImg from '../assets/figma/hero.png'
@@ -32,15 +33,29 @@ export default function VistaLounge({
   description = 'More than a lounge, Vista is where the Extind community comes together. Host informal meetings, connect with other professionals or attend curated business events—all overlooking the Palace of Culture.',
   ctaLabel = 'Discover Vista Lounge',
   slides = defaultVistaSlides,
+  scrub = false,
 }) {
-  const [index, setIndex] = useState(0)
+  const [manualIndex, setManualIndex] = useState(0)
+  const { ref, index: scrubIndex, scrollToStep } = useScrollScrub(slides.length, scrub)
+
+  // Scrub mode: scrolling drives the slide, and the arrows drive the scroll.
+  const index = scrub ? scrubIndex : manualIndex
+  const goTo = (i) => (scrub ? scrollToStep(i) : setManualIndex(i))
   const slide = slides[index]
 
-  return (
+  const section = (
     <section className="section">
       <SectionHeader eyebrow={eyebrow} title={title} />
       <div className="vista" data-reveal>
-        <img className="vista__img" src={slide.src} alt={slide.alt} />
+        {/* All images stay mounted and crossfade via opacity */}
+        {slides.map((s, i) => (
+          <img
+            key={s.src + i}
+            className={`vista__img${i === index ? ' vista__img--active' : ''}`}
+            src={s.src}
+            alt={i === index ? s.alt : ''}
+          />
+        ))}
         <span className="caption-pill vista__caption">{slide.caption}</span>
         <div className="vista__panel">
           <p className="vista__card-label">{cardLabel}</p>
@@ -57,7 +72,7 @@ export default function VistaLounge({
             className="slider-arrow"
             aria-label="Previous image"
             disabled={index === 0}
-            onClick={() => setIndex((i) => Math.max(0, i - 1))}
+            onClick={() => goTo(Math.max(0, index - 1))}
           >
             <ArrowIcon direction="left" />
           </button>
@@ -66,12 +81,26 @@ export default function VistaLounge({
             className="slider-arrow"
             aria-label="Next image"
             disabled={index === slides.length - 1}
-            onClick={() => setIndex((i) => Math.min(slides.length - 1, i + 1))}
+            onClick={() => goTo(Math.min(slides.length - 1, index + 1))}
           >
             <ArrowIcon direction="right" />
           </button>
         </div>
       </div>
     </section>
+  )
+
+  if (!scrub) return section
+
+  // Tall wrapper + sticky child: the section (header included) pins centred
+  // in the viewport while ~70svh of scroll per slide scrubs the images.
+  return (
+    <div
+      className="scrub"
+      ref={ref}
+      style={{ height: `calc(${100 + slides.length * 70}svh)` }}
+    >
+      <div className="scrub__sticky">{section}</div>
+    </div>
   )
 }

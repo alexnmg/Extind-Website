@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import useScrollScrub from '../lib/useScrollScrub'
 import pillarsImg from '../assets/figma/pillars.png'
 import heroImg from '../assets/figma/hero.png'
 import vistaImg from '../assets/figma/vista.png'
@@ -50,12 +51,17 @@ function ArrowIcon({ direction }) {
   )
 }
 
-export default function ServicesSlider({ slides = defaultSlides }) {
-  const [index, setIndex] = useState(0)
+export default function ServicesSlider({ slides = defaultSlides, scrub = false }) {
+  const [manualIndex, setManualIndex] = useState(0)
+  const { ref, index: scrubIndex, scrollToStep } = useScrollScrub(slides.length, scrub)
+
+  // Scrub mode: scrolling drives the slide, and the arrows drive the scroll.
+  const index = scrub ? scrubIndex : manualIndex
+  const goTo = (i) => (scrub ? scrollToStep(i) : setManualIndex(i))
   const slide = slides[index]
   const variant = slide.variant || 'light'
 
-  return (
+  const section = (
     <section className="services" data-reveal>
       {/* All images stay mounted and crossfade via opacity */}
       {slides.map((s, i) => (
@@ -98,7 +104,7 @@ export default function ServicesSlider({ slides = defaultSlides }) {
             className="slider-arrow"
             aria-label="Previous service"
             disabled={index === 0}
-            onClick={() => setIndex((i) => Math.max(0, i - 1))}
+            onClick={() => goTo(Math.max(0, index - 1))}
           >
             <ArrowIcon direction="left" />
           </button>
@@ -107,12 +113,26 @@ export default function ServicesSlider({ slides = defaultSlides }) {
             className="slider-arrow"
             aria-label="Next service"
             disabled={index === slides.length - 1}
-            onClick={() => setIndex((i) => Math.min(slides.length - 1, i + 1))}
+            onClick={() => goTo(Math.min(slides.length - 1, index + 1))}
           >
             <ArrowIcon direction="right" />
           </button>
         </div>
       </div>
     </section>
+  )
+
+  if (!scrub) return section
+
+  // Tall wrapper + sticky child: the section pins (centred in the viewport)
+  // while ~70svh of scroll per slide scrubs through the deck.
+  return (
+    <div
+      className="scrub"
+      ref={ref}
+      style={{ height: `calc(${100 + slides.length * 70}svh)` }}
+    >
+      <div className="scrub__sticky">{section}</div>
+    </div>
   )
 }

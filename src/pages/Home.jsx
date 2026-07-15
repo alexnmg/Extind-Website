@@ -14,10 +14,10 @@ export default function Home() {
     <>
       <Hero />
       <CentralIdea />
-      <ServicesSlider />
+      <ServicesSlider scrub />
       <Values />
       <Memberships />
-      <VistaLounge />
+      <VistaLounge scrub />
       <Testimonials />
       <Faq />
       <BookVisit />
