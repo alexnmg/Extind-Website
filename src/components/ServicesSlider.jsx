@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import useScrollScrub from '../lib/useScrollScrub'
+import useIsDesktop from '../lib/useIsDesktop'
 import pillarsImg from '../assets/figma/pillars.png'
 import heroImg from '../assets/figma/hero.png'
 import vistaImg from '../assets/figma/vista.png'
@@ -51,8 +52,11 @@ function ArrowIcon({ direction }) {
   )
 }
 
-export default function ServicesSlider({ slides = defaultSlides, scrub = false }) {
+export default function ServicesSlider({ slides = defaultSlides, scrub: scrubProp = false }) {
   const [manualIndex, setManualIndex] = useState(0)
+  // Scrub pins the slider on desktop only; smaller widths fall back to the
+  // manual slider (see useIsDesktop for why).
+  const scrub = scrubProp && useIsDesktop()
   const { ref, index: scrubIndex, scrollToStep } = useScrollScrub(slides.length, scrub)
 
   // Scrub mode: scrolling drives the slide, and the arrows drive the scroll.

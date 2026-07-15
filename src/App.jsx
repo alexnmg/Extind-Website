@@ -6,6 +6,7 @@ import ScrollReveal from './components/ScrollReveal'
 import Home from './pages/Home'
 import About from './pages/About'
 import PrivateOffices from './pages/PrivateOffices'
+import Contact from './pages/Contact'
 import BookAVisit from './pages/BookAVisit'
 import StoryblokPage from './components/storyblok/StoryblokPage'
 import { isStoryblokEnabled } from './lib/storyblok'
@@ -30,6 +31,7 @@ export default function App() {
         <Routes>
           <Route path="/about" element={<About />} />
           <Route path="/private-offices" element={<PrivateOffices />} />
+          <Route path="/contact" element={<Contact />} />
           <Route path="/book-a-visit" element={<BookAVisit />} />
           <Route path="*" element={isStoryblokEnabled ? <StoryblokPage /> : <Home />} />
         </Routes>

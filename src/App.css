@@ -2033,7 +2033,7 @@ textarea.field__input {
 .about-hero__title {
   flex: 1 1 0;
   max-width: 640px;
-  font-size: var(--fs-64);
+  font-size: var(--fs-96);
   font-weight: 700;
   line-height: var(--lh-heading);
   color: var(--text-primary);
@@ -2070,7 +2070,7 @@ textarea.field__input {
 
 .team-card {
   background: var(--surface);
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-xl);
   padding: 24px;
   display: flex;
   flex-direction: column;
@@ -2115,7 +2115,7 @@ textarea.field__input {
   position: relative;
   display: block;
   aspect-ratio: 1;
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-xl);
   overflow: hidden;
 }
 
@@ -2576,16 +2576,6 @@ textarea.field__input {
     transform: translateY(-100%);
   }
 
-  /* Pinned sliders: 100px = navbar container (80) + page gap (20) */
-  .scrub__sticky {
-    top: 100px;
-  }
-
-  .scrub .services,
-  .scrub .vista {
-    height: calc(100svh - 120px);
-  }
-
   .section {
     padding-top: 0;
   }
@@ -2715,16 +2705,6 @@ textarea.field__input {
   /* 25% smaller than the 24px default */
   .logo {
     height: 18px;
-  }
-
-  /* Pinned sliders: 84px = navbar container (68) + page gap (16) */
-  .scrub__sticky {
-    top: 84px;
-  }
-
-  .scrub .services,
-  .scrub .vista {
-    height: calc(100svh - 100px);
   }
 
   /* 12px padding-top + 56px pill — see the tablet block for why it's locked.
@@ -2910,5 +2890,135 @@ textarea.field__input {
 
   .booking-summary__divider {
     display: none;
+  }
+}
+
+/* ---------- Contact ---------- */
+/* Two columns: a details + map aside beside the message form. The form reuses
+   the booking flow's field / checkbox / button styles (.field, .checkbox-row,
+   .btn--primary), so only the layout shell is new here. */
+.contact {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 24px;
+  align-items: start;
+}
+
+.contact__info {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.contact__details {
+  background: var(--surface);
+  border-radius: var(--radius-2xl);
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.contact__detail {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  text-decoration: none;
+}
+
+.contact__detail-icon {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-md);
+  background: var(--brand-cream);
+  color: var(--text-primary);
+}
+
+.contact__detail-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.contact__detail-label {
+  font-size: var(--fs-12);
+  font-weight: 600;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+.contact__detail-value {
+  font-size: var(--fs-16);
+  font-weight: 600;
+  color: var(--text-primary);
+  transition: color 0.15s ease;
+}
+
+.contact__detail:hover .contact__detail-value {
+  color: var(--accent);
+}
+
+.contact__map {
+  border-radius: var(--radius-2xl);
+  overflow: hidden;
+  border: 1.5px solid var(--border);
+  aspect-ratio: 3 / 2;
+}
+
+.contact__map iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* Mirrors .book-visit__form so the two forms share the same card treatment */
+.contact__form {
+  background: var(--surface);
+  border-radius: var(--radius-2xl);
+  padding: 48px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  align-items: flex-start;
+}
+
+@media (max-width: 1024px) {
+  .contact {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .contact__details {
+    padding: 32px;
+  }
+
+  .contact__form {
+    padding: 32px;
+  }
+}
+
+@media (max-width: 600px) {
+  .contact {
+    gap: 16px;
+  }
+
+  .contact__details {
+    padding: 24px;
+    gap: 20px;
+  }
+
+  .contact__form {
+    padding: 24px;
+  }
+
+  .contact__map {
+    aspect-ratio: 4 / 3;
   }
 }

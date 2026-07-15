@@ -1,9 +1,14 @@
+import { Link } from 'react-router-dom'
 import brandMark from '../assets/brand-mark.svg'
 import iconEmail from '../assets/figma/icon-email.svg'
 
 // Mirrors the navbar's menu order
 const menuLinks = ['About us', 'Private offices', 'Meeting rooms', 'Coworking', 'Community & Events']
-const companyLinks = ['FAQ', 'Contact']
+// `to` set for links that have a real page; the rest stay placeholder anchors.
+const companyLinks = [
+  { label: 'FAQ', to: '#' },
+  { label: 'Contact', to: '/contact' },
+]
 
 function FacebookIcon() {
   return (
@@ -53,11 +58,17 @@ export default function Footer() {
           </div>
           <div className="footer__col">
             <p className="footer__col-title">Company</p>
-            {companyLinks.map((label) => (
-              <a key={label} className="footer__link" href="#">
-                {label}
-              </a>
-            ))}
+            {companyLinks.map(({ label, to }) =>
+              to.startsWith('/') ? (
+                <Link key={label} className="footer__link" to={to} viewTransition>
+                  {label}
+                </Link>
+              ) : (
+                <a key={label} className="footer__link" href={to}>
+                  {label}
+                </a>
+              )
+            )}
           </div>
           <div className="footer__col footer__newsletter">
             <p className="footer__col-title">Join our newsletter</p>

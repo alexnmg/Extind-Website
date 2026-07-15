@@ -5,7 +5,7 @@ import Logo from './Logo'
 const aboutItems = [
   { label: 'About Extind', to: '/about' },
   { label: 'FAQ', to: '#' },
-  { label: 'Contact', to: '#' },
+  { label: 'Contact', to: '/contact' },
 ]
 const links = [
   { label: 'Private offices', to: '/private-offices' },

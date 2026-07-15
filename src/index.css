@@ -41,6 +41,7 @@
   --fs-48: 55px;
   --fs-64: 74px;
   --fs-72: 83px;
+  --fs-96: 104px;
 
   /* Elevation (Figma: 10 Shadow & Elevation) */
   --elevation-1: 0 1px 2px rgba(0, 0, 0, 0.06);
@@ -75,6 +76,7 @@
     --fs-48: 47px;
     --fs-64: 60px;
     --fs-72: 66px;
+    --fs-96: 78px;
 
     --radius-md: 10px;
     --radius-lg: 14px;
@@ -97,6 +99,7 @@
     --fs-48: 36px;
     --fs-64: 44px;
     --fs-72: 48px;
+    --fs-96: 54px;
 
     --radius-lg: 12px;
     --radius-xl: 18px;
