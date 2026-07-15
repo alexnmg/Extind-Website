@@ -98,9 +98,13 @@ function Benefit({ text, light }) {
   )
 }
 
-function PricingCard({ plan, sub, price, period, features, cta, accent }) {
+function PricingCard({ plan, sub, price, period, features, cta, accent, revealDelay = 0 }) {
   return (
-    <article className={`pricing-card${accent ? ' pricing-card--accent' : ''}`}>
+    <article
+      className={`pricing-card${accent ? ' pricing-card--accent' : ''}`}
+      data-reveal
+      style={{ '--reveal-delay': `${revealDelay}ms` }}
+    >
       <div className="pricing-card__top">
         <header className="pricing-card__header">
           <p className="pricing-card__plan">{plan}</p>
@@ -136,12 +140,12 @@ export default function Memberships({
       <SectionHeader eyebrow={eyebrow} title={title} description={description} />
       <div className="memberships__cards">
         <div className="pricing-grid">
-          {plans.map((p) => (
-            <PricingCard key={p.plan} {...p} />
+          {plans.map((p, i) => (
+            <PricingCard key={p.plan} {...p} revealDelay={i * 80} />
           ))}
         </div>
         {office && (
-          <article className="private-office">
+          <article className="private-office" data-reveal>
             <div className="private-office__left">
               <div className="private-office__intro">
                 <h3 className="private-office__title">{office.title}</h3>

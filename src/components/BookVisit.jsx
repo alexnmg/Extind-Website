@@ -84,7 +84,7 @@ export default function BookVisit({
     : ''
 
   return (
-    <section className="book-visit">
+    <section className="book-visit" data-reveal>
       <div className="vista__card book-visit__card">
         <p className="vista__card-label">{subtitle}</p>
         <h3 className="vista__card-title">{title}</h3>

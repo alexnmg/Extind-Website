@@ -39,7 +39,7 @@ export default function VistaLounge({
   return (
     <section className="section">
       <SectionHeader eyebrow={eyebrow} title={title} />
-      <div className="vista">
+      <div className="vista" data-reveal>
         <img className="vista__img" src={slide.src} alt={slide.alt} />
         <span className="caption-pill vista__caption">{slide.caption}</span>
         <div className="vista__panel">

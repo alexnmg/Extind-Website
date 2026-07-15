@@ -48,8 +48,13 @@ export default function Values({
     <section className="section">
       <SectionHeader eyebrow={eyebrow} title={title} />
       <div className="values-grid">
-        {cards.map(({ icon, title: cardTitle, desc }) => (
-          <article key={cardTitle} className="value-card">
+        {cards.map(({ icon, title: cardTitle, desc }, i) => (
+          <article
+            key={cardTitle}
+            className="value-card"
+            data-reveal
+            style={{ '--reveal-delay': `${(i % 3) * 80}ms` }}
+          >
             <span className="value-card__icon">
               {icon && <img src={icon} alt="" width="22" height="22" />}
             </span>

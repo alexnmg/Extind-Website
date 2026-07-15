@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
+import ScrollReveal from './components/ScrollReveal'
 import Home from './pages/Home'
 import About from './pages/About'
 import PrivateOffices from './pages/PrivateOffices'
@@ -23,6 +24,7 @@ export default function App() {
   return (
     <BrowserRouter>
       <ScrollToTop />
+      <ScrollReveal />
       <div className="page">
         <Navbar />
         <Routes>

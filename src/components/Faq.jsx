@@ -31,7 +31,12 @@ export default function Faq({
         {items.map(({ q, a }, i) => {
           const open = openIndex === i
           return (
-            <div key={q} className={`faq-item${open ? ' faq-item--open' : ''}`}>
+            <div
+              key={q}
+              className={`faq-item${open ? ' faq-item--open' : ''}`}
+              data-reveal
+              style={{ '--reveal-delay': `${i * 60}ms` }}
+            >
               <button
                 type="button"
                 className="faq-item__question"

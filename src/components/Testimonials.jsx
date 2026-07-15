@@ -189,6 +189,7 @@ export default function Testimonials({
       <SectionHeader eyebrow={eyebrow} title={title} description={description} />
       <div
         className={`testimonials__viewport${dragging ? ' is-dragging' : ''}`}
+        data-reveal
         ref={viewportRef}
         onScroll={onScroll}
         onPointerDown={onPointerDown}

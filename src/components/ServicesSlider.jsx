@@ -56,7 +56,7 @@ export default function ServicesSlider({ slides = defaultSlides }) {
   const variant = slide.variant || 'light'
 
   return (
-    <section className="services">
+    <section className="services" data-reveal>
       {/* All images stay mounted and crossfade via opacity */}
       {slides.map((s, i) => (
         <img

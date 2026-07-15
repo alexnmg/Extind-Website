@@ -31,8 +31,13 @@ export default function CentralIdea({
     <section className="section">
       <SectionHeader eyebrow={eyebrow} title={title} description={description} />
       <div className="cards-row-3">
-        {cards.map(({ number, title: cardTitle, desc, variant }) => (
-          <article key={number + cardTitle} className={`idea-card idea-card--${variant}`}>
+        {cards.map(({ number, title: cardTitle, desc, variant }, i) => (
+          <article
+            key={number + cardTitle}
+            className={`idea-card idea-card--${variant}`}
+            data-reveal
+            style={{ '--reveal-delay': `${i * 80}ms` }}
+          >
             <p className="idea-card__number">{number}</p>
             <h3 className="idea-card__title">{cardTitle}</h3>
             <p className="idea-card__desc">{desc}</p>
