@@ -1877,24 +1877,23 @@ textarea.field__input {
 }
 
 /* ---------- Drag chip (testimonials) ---------- */
-/* A cream pill that rides the cursor over the carousel, labelling the drag
-   affordance. Position comes from JS via transform; only mouse-class
-   pointers ever see it, and it replaces the cursor while visible. */
+/* A forest disc with a drag icon that rides the cursor over the carousel.
+   Position comes from JS via transform; only mouse-class pointers ever see
+   it, and it replaces the cursor while visible. */
 .drag-chip {
   position: fixed;
   top: 0;
   left: 0;
   z-index: 60;
   pointer-events: none;
-  background: var(--brand-cream);
-  color: var(--text-primary);
-  font-size: var(--fs-10);
-  font-weight: 600;
-  letter-spacing: 0.5px;
-  text-transform: uppercase;
-  padding: 12px 16px;
-  border-radius: var(--radius-full);
-  box-shadow: 0 4px 16px rgba(31, 35, 38, 0.14);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--brand-cream);
   opacity: 0;
   transition: opacity 0.15s ease;
 }
@@ -2140,6 +2139,16 @@ textarea.field__input {
 
 .social-grid__item:hover .social-grid__overlay {
   opacity: 1;
+}
+
+.social-grid__pill {
+  background: var(--brand-cream);
+  color: var(--text-primary);
+  font-size: var(--fs-10);
+  font-weight: 600;
+  line-height: 1;
+  padding: 10px 16px;
+  border-radius: var(--radius-full);
 }
 
 /* ---------- Footer ---------- */

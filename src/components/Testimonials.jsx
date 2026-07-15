@@ -247,7 +247,21 @@ export default function Testimonials({
         </div>
       </div>
       <div ref={chipRef} className={`drag-chip${chipVisible ? ' drag-chip--visible' : ''}`} aria-hidden="true">
-        Drag
+        {/* Drag affordance: a double-headed arrow at the UI's 1.5 stroke */}
+        <svg
+          viewBox="0 0 24 24"
+          width="20"
+          height="20"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <path d="M7 8l-4 4 4 4" />
+          <path d="M17 8l4 4-4 4" />
+          <path d="M3 12h18" />
+        </svg>
       </div>
       <div className="testimonials__indicator" role="tablist" aria-label="Testimonials">
         {Array.from({ length: pages }, (_, i) => (

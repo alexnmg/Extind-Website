@@ -25,14 +25,6 @@ const team = [
 // Latest-posts gallery — placeholder tiles until a live Instagram feed is wired
 const posts = [heroImg, mask2, pillarsImg, mask5, vistaImg, mask3]
 
-function InstagramIcon() {
-  return (
-    <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor" aria-hidden="true">
-      <path d="M12 2c2.72 0 3.06.01 4.12.06 1.07.05 1.79.22 2.43.47.66.25 1.22.6 1.77 1.15.55.55.9 1.11 1.15 1.77.25.64.42 1.36.47 2.43.05 1.07.06 1.4.06 4.12s-.01 3.06-.06 4.12c-.05 1.07-.22 1.79-.47 2.43-.25.66-.6 1.22-1.15 1.77-.55.55-1.11.9-1.77 1.15-.64.25-1.36.42-2.43.47-1.07.05-1.4.06-4.12.06s-3.06-.01-4.12-.06c-1.07-.05-1.79-.22-2.43-.47a4.9 4.9 0 0 1-1.77-1.15 4.9 4.9 0 0 1-1.15-1.77c-.25-.64-.42-1.36-.47-2.43C2.01 15.06 2 14.72 2 12s.01-3.06.06-4.12c.05-1.07.22-1.79.47-2.43.25-.66.6-1.22 1.15-1.77.55-.55 1.11-.9 1.77-1.15.64-.25 1.36-.42 2.43-.47C8.94 2.01 9.28 2 12 2Zm0 3.06a5.14 5.14 0 1 1 0 10.28 5.14 5.14 0 0 1 0-10.28Zm0 1.8a3.34 3.34 0 1 0 0 6.68 3.34 3.34 0 0 0 0-6.68Zm5.34-3.2a1.2 1.2 0 1 1 0 2.4 1.2 1.2 0 0 1 0-2.4Z" />
-    </svg>
-  )
-}
-
 export default function About() {
   const heroRef = useRef(null)
   const titleRef = useRef(null)
@@ -127,7 +119,7 @@ export default function About() {
             >
               <img src={src} alt="" loading="lazy" />
               <span className="social-grid__overlay" aria-hidden="true">
-                <InstagramIcon />
+                <span className="social-grid__pill">View on Instagram</span>
               </span>
             </a>
           ))}
