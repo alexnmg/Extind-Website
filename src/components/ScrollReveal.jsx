@@ -4,10 +4,16 @@ import { useLocation } from 'react-router-dom'
 /* Scroll-entry reveals.
  *
  * Any element carrying `data-reveal` starts hidden (see the guarded rule in
- * index.css) and gets `.is-revealed` the first time it enters the viewport;
- * `--reveal-delay` staggers siblings. One observer per route render: keying
- * the effect on the pathname re-scans after navigation, when the new page's
- * elements exist. Reveals are one-shot — once seen, an element stays put.
+ * index.css) and gets a `data-revealed` attribute the first time it enters
+ * the viewport; `--reveal-delay` staggers siblings. One observer per route
+ * render: keying the effect on the pathname re-scans after navigation, when
+ * the new page's elements exist. Reveals are one-shot.
+ *
+ * The marker must be an attribute, NOT a class: React owns className, so any
+ * re-render of an element with a dynamic class (FAQ items opening, the
+ * testimonials viewport toggling its drag state) would rewrite className and
+ * silently strip an externally-added class — snapping the element back to
+ * its hidden state. React leaves attributes it didn't render alone.
  *
  * The hidden state only applies under prefers-reduced-motion: no-preference,
  * so reduced-motion users (or an element the observer misses) never end up
@@ -17,14 +23,14 @@ export default function ScrollReveal() {
   const { pathname } = useLocation()
 
   useEffect(() => {
-    const els = [...document.querySelectorAll('[data-reveal]:not(.is-revealed)')]
+    const els = [...document.querySelectorAll('[data-reveal]:not([data-revealed])')]
     if (!els.length) return
 
     if (
       typeof IntersectionObserver === 'undefined' ||
       window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
     ) {
-      els.forEach((el) => el.classList.add('is-revealed'))
+      els.forEach((el) => el.setAttribute('data-revealed', ''))
       return
     }
 
@@ -32,7 +38,7 @@ export default function ScrollReveal() {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            entry.target.classList.add('is-revealed')
+            entry.target.setAttribute('data-revealed', '')
             io.unobserve(entry.target)
           }
         })

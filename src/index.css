@@ -224,9 +224,11 @@ ul {
 }
 
 /* ---------- Scroll-entry reveals ---------- */
-/* Elements with data-reveal fade + rise as they enter the viewport (class
-   added by ScrollReveal.jsx). The hidden state lives inside the motion
-   preference guard so reduced-motion users never see hidden content. */
+/* Elements with data-reveal fade + rise as they enter the viewport
+   (data-revealed set by ScrollReveal.jsx — an attribute, not a class, so
+   React re-renders of dynamic classNames can't strip it). The hidden state
+   lives inside the motion preference guard so reduced-motion users never
+   see hidden content. */
 @media (prefers-reduced-motion: no-preference) {
   [data-reveal] {
     opacity: 0;
@@ -235,7 +237,7 @@ ul {
     transition-delay: var(--reveal-delay, 0s);
   }
 
-  [data-reveal].is-revealed {
+  [data-reveal][data-revealed] {
     opacity: 1;
     transform: none;
   }
