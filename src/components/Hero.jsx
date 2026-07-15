@@ -60,16 +60,6 @@ export default function Hero({
           ))}
         </h1>
         <p className="hero__lede">{lede}</p>
-        {pills?.length > 0 && (
-          <ul className="hero__pills">
-            {pills.map(({ icon, label }) => (
-              <li key={label} className="hero-pill">
-                <span className="hero-pill__icon">{icon}</span>
-                <span className="hero-pill__label">{label}</span>
-              </li>
-            ))}
-          </ul>
-        )}
         <div className="hero__buttons">
           <Link className="btn btn--primary" to={primaryTo} viewTransition>
             {primaryLabel}
@@ -80,6 +70,16 @@ export default function Hero({
         </div>
       </div>
       <ImageCardSlider className="hero__media" slides={slides} />
+      {pills?.length > 0 && (
+        <ul className="hero__pills">
+          {pills.map(({ icon, label }) => (
+            <li key={label} className="hero-pill">
+              <span className="hero-pill__icon">{icon}</span>
+              <span className="hero-pill__label">{label}</span>
+            </li>
+          ))}
+        </ul>
+      )}
     </section>
   )
 }

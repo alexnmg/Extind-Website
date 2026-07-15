@@ -259,6 +259,7 @@
 /* ---------- Hero ---------- */
 .hero {
   display: flex;
+  flex-wrap: wrap;
   gap: 24px;
   align-items: stretch;
 }
@@ -305,20 +306,24 @@
   gap: 12px;
 }
 
-/* Optional feature pills under the hero lede (service pages) */
+/* Optional feature pills: a full-width band below the hero (service pages).
+   White cards on the cream page background, matching the section cards. */
 .hero__pills {
+  flex: 1 1 100%;
   display: flex;
   flex-wrap: wrap;
-  gap: 12px;
+  gap: 24px;
 }
 
 .hero-pill {
+  flex: 1 1 auto;
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 10px;
-  border-radius: var(--radius-sm);
-  background: var(--brand-cream);
+  justify-content: center;
+  gap: 10px;
+  padding: 18px 24px;
+  border-radius: var(--radius-xl);
+  background: var(--brand-white);
 }
 
 .hero-pill__icon {
@@ -328,12 +333,12 @@
 }
 
 .hero-pill__icon svg {
-  width: 20px;
-  height: 20px;
+  width: 24px;
+  height: 24px;
 }
 
 .hero-pill__label {
-  font-size: var(--fs-12);
+  font-size: var(--fs-16);
   font-weight: 700;
   line-height: 1;
   color: var(--text-primary);
@@ -2641,13 +2646,17 @@ textarea.field__input {
     gap: 20px;
   }
 
+  .hero__pills {
+    gap: 20px;
+  }
+
   .hero-pill {
-    padding: 9px;
+    padding: 14px 18px;
   }
 
   .hero-pill__icon svg {
-    width: 18px;
-    height: 18px;
+    width: 20px;
+    height: 20px;
   }
 
   /* About page */
@@ -2850,12 +2859,12 @@ textarea.field__input {
   }
 
   .hero__pills {
-    gap: 8px;
+    gap: 16px;
   }
 
   .hero-pill {
-    padding: 8px;
-    gap: 6px;
+    padding: 12px 16px;
+    gap: 8px;
   }
 
   .hero-pill__icon svg {
