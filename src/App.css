@@ -1739,19 +1739,23 @@ textarea.field__input {
 
 /* ---------- Scroll-scrubbed pinned sliders ---------- */
 /* A tall wrapper (height set inline from the slide count) with a sticky
-   child: the slider pins centred in the viewport while scrolling through
-   the wrapper scrubs its slides (see useScrollScrub). */
+   child: the slider pins below the navbar while scrolling through the
+   wrapper scrubs its slides (see useScrollScrub). */
 .scrub {
   position: relative;
 }
 
+/* 140px = navbar container (116) + page gap (24) — the same constant the
+   About hero uses. The pinned slider fills the viewport from there down to
+   a matching page gap at the bottom. */
 .scrub__sticky {
   position: sticky;
-  top: 0;
-  min-height: 100svh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  top: 140px;
+}
+
+.scrub .services,
+.scrub .vista {
+  height: calc(100svh - 164px);
 }
 
 /* ---------- Benefit groups (Private Offices) ---------- */
@@ -2379,6 +2383,16 @@ textarea.field__input {
     transform: translateY(-100%);
   }
 
+  /* Pinned sliders: 100px = navbar container (80) + page gap (20) */
+  .scrub__sticky {
+    top: 100px;
+  }
+
+  .scrub .services,
+  .scrub .vista {
+    height: calc(100svh - 120px);
+  }
+
   .section {
     padding-top: 0;
   }
@@ -2504,6 +2518,16 @@ textarea.field__input {
   /* 25% smaller than the 24px default */
   .logo {
     height: 18px;
+  }
+
+  /* Pinned sliders: 84px = navbar container (68) + page gap (16) */
+  .scrub__sticky {
+    top: 84px;
+  }
+
+  .scrub .services,
+  .scrub .vista {
+    height: calc(100svh - 100px);
   }
 
   /* 12px padding-top + 56px pill — see the tablet block for why it's locked.

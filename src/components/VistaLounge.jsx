@@ -43,10 +43,8 @@ export default function VistaLounge({
   const goTo = (i) => (scrub ? scrollToStep(i) : setManualIndex(i))
   const slide = slides[index]
 
-  const section = (
-    <section className="section">
-      <SectionHeader eyebrow={eyebrow} title={title} />
-      <div className="vista" data-reveal>
+  const vistaEl = (
+    <div className="vista" data-reveal>
         {/* All images stay mounted and crossfade via opacity */}
         {slides.map((s, i) => (
           <img
@@ -86,21 +84,25 @@ export default function VistaLounge({
             <ArrowIcon direction="right" />
           </button>
         </div>
-      </div>
-    </section>
+    </div>
   )
 
-  if (!scrub) return section
-
-  // Tall wrapper + sticky child: the section (header included) pins centred
-  // in the viewport while ~70svh of scroll per slide scrubs the images.
   return (
-    <div
-      className="scrub"
-      ref={ref}
-      style={{ height: `calc(${100 + slides.length * 70}svh)` }}
-    >
-      <div className="scrub__sticky">{section}</div>
-    </div>
+    <section className="section">
+      <SectionHeader eyebrow={eyebrow} title={title} />
+      {scrub ? (
+        // The header scrolls away normally; only the slider pins, filling the
+        // viewport below the navbar while ~70svh of scroll per slide scrubs.
+        <div
+          className="scrub"
+          ref={ref}
+          style={{ height: `calc(${100 + slides.length * 70}svh)` }}
+        >
+          <div className="scrub__sticky">{vistaEl}</div>
+        </div>
+      ) : (
+        vistaEl
+      )}
+    </section>
   )
 }
