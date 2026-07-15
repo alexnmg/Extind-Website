@@ -12,7 +12,7 @@ import mask3 from '../assets/logo-anim/mask-3.jpg'
 import mask4 from '../assets/logo-anim/mask-4.jpg'
 import mask5 from '../assets/logo-anim/mask-5.jpg'
 
-const HERO_TITLE = 'Better workdays, one desk at a time.'
+const HERO_TITLE = 'Spaces to grow.'
 
 // Placeholder roster and photos — swap in the real team when ready
 const team = [
@@ -83,7 +83,7 @@ export default function About() {
         </div>
       </section>
 
-      <CentralIdea />
+      <CentralIdea title="Design that supports connections" />
 
       <section className="section">
         <SectionHeader eyebrow="The Team" title="The people behind Extind" />
