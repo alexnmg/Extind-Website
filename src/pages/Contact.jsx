@@ -1,12 +1,9 @@
 import { useEffect } from 'react'
 import SectionHeader from '../components/SectionHeader'
 import ContactForm from '../components/ContactForm'
+import LocationMap from '../components/LocationMap'
 
-// Palas Campus, Iași. The embed is interactive (pan / zoom) and needs no API
-// key; the marker + bbox frame the campus. The detail link opens the same
-// point on the full OpenStreetMap site.
-const MAP_SRC =
-  'https://www.openstreetmap.org/export/embed.html?bbox=27.5820%2C47.1535%2C27.5950%2C47.1600&layer=mapnik&marker=47.1566%2C27.5885'
+// The "Visit us" detail opens the campus on the full OpenStreetMap site.
 const MAP_LINK = 'https://www.openstreetmap.org/?mlat=47.1566&mlon=27.5885#map=17/47.1566/27.5885'
 
 function EmailIcon() {
@@ -92,9 +89,7 @@ export default function Contact() {
               )
             })}
           </div>
-          <div className="contact__map">
-            <iframe title="Extind location — Palas Campus, Iași" src={MAP_SRC} loading="lazy" />
-          </div>
+          <LocationMap />
         </div>
         <ContactForm />
       </div>
