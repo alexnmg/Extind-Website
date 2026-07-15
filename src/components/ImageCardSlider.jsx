@@ -20,8 +20,12 @@ export default function ImageCardSlider({ slides, className }) {
   return (
     <div className={className}>
       <div className="slider-track" style={{ transform: `translateX(-${index * 100}%)` }}>
+        {/* Each slide clips its own image so the Ken Burns zoom can't bleed
+            into the neighbouring slide inside the track */}
         {slides.map(({ src, alt }) => (
-          <img key={src} className="slider-slide" src={src} alt={alt} />
+          <div key={src} className="slider-slide">
+            <img className="slider-slide__img" src={src} alt={alt} />
+          </div>
         ))}
       </div>
       <div className="slider-bottom-row">

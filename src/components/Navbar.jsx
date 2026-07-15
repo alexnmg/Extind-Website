@@ -106,7 +106,7 @@ export default function Navbar() {
         className={`navbar${scrolled ? ' navbar--scrolled' : ''}${mobileOpen ? ' navbar--open' : ''}`}
       >
         <div className="navbar__bar">
-          <Link to="/" aria-label="Extind home">
+          <Link to="/" aria-label="Extind home" viewTransition>
             <Logo />
           </Link>
           {/* Grouped right-hand side: pinned to the right edge so the logo's
@@ -127,7 +127,7 @@ export default function Navbar() {
                 <div className={`navbar__dropdown${aboutOpen ? ' navbar__dropdown--open' : ''}`}>
                   {aboutItems.map(({ label, to }) =>
                     to.startsWith('/') ? (
-                      <Link key={label} className="navbar__link" to={to} onClick={() => setAboutOpen(false)}>
+                      <Link key={label} className="navbar__link" to={to} onClick={() => setAboutOpen(false)} viewTransition>
                         {label}
                       </Link>
                     ) : (
@@ -140,7 +140,7 @@ export default function Navbar() {
               </div>
               {links.map(({ label, to }) =>
                 to.startsWith('/') ? (
-                  <Link key={label} className="navbar__link" to={to}>
+                  <Link key={label} className="navbar__link" to={to} viewTransition>
                     {label}
                   </Link>
                 ) : (
@@ -150,7 +150,7 @@ export default function Navbar() {
                 )
               )}
             </nav>
-            <Link className="btn btn--primary navbar__cta" to="/book-a-visit">
+            <Link className="btn btn--primary navbar__cta" to="/book-a-visit" viewTransition>
               Book a visit
             </Link>
             <button
@@ -179,6 +179,7 @@ export default function Navbar() {
                     className="navbar__mobile-link"
                     to={to}
                     onClick={() => setMobileOpen(false)}
+                    viewTransition
                   >
                     {label}
                   </Link>
@@ -199,6 +200,7 @@ export default function Navbar() {
                 className="btn btn--primary navbar__mobile-cta"
                 to="/book-a-visit"
                 onClick={() => setMobileOpen(false)}
+                viewTransition
               >
                 <span>Book a visit</span>
                 <span aria-hidden="true">→</span>

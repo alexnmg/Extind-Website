@@ -87,9 +87,35 @@ export default function Testimonials({
   const rafRef = useRef(0)
   const animatingRef = useRef(false)
   const dragRef = useRef(null)
+  const hoverRef = useRef(false)
+  const chipRef = useRef(null)
   const [active, setActive] = useState(0)
   const [pages, setPages] = useState(1)
   const [dragging, setDragging] = useState(false)
+  const [chipVisible, setChipVisible] = useState(false)
+
+  /* Idle drift: the carousel creeps sideways (~18px/s) whenever nobody is
+   * hovering, dragging or mid dot-animation, reversing at the ends. Subtle
+   * enough to go unnoticed consciously; it reads as "this thing moves". */
+  useEffect(() => {
+    if (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) return
+    let raf
+    let dir = 1
+    const tick = () => {
+      const vp = viewportRef.current
+      if (vp && !hoverRef.current && !dragRef.current && !animatingRef.current) {
+        const max = vp.scrollWidth - vp.clientWidth
+        if (max > 0) {
+          vp.scrollLeft += 0.3 * dir
+          if (vp.scrollLeft >= max - 1) dir = -1
+          else if (vp.scrollLeft <= 1) dir = 1
+        }
+      }
+      raf = requestAnimationFrame(tick)
+    }
+    raf = requestAnimationFrame(tick)
+    return () => cancelAnimationFrame(raf)
+  }, [])
 
   // Pages = number of scroll stops = cards that can't all fit at once.
   useEffect(() => {
@@ -171,9 +197,24 @@ export default function Testimonials({
   }
 
   const onPointerMove = (e) => {
+    // The chip rides the cursor; position via the ref so no re-render per move
+    if (chipRef.current) {
+      chipRef.current.style.transform = `translate(${e.clientX}px, ${e.clientY}px) translate(-50%, -50%)`
+    }
     if (!dragRef.current) return
     const vp = viewportRef.current
     vp.scrollLeft = dragRef.current.scroll - (e.clientX - dragRef.current.x)
+  }
+
+  const onPointerEnter = (e) => {
+    if (e.pointerType !== 'mouse') return
+    hoverRef.current = true
+    setChipVisible(true)
+  }
+
+  const onPointerLeave = () => {
+    hoverRef.current = false
+    setChipVisible(false)
   }
 
   const endDrag = (e) => {
@@ -196,12 +237,17 @@ export default function Testimonials({
         onPointerMove={onPointerMove}
         onPointerUp={endDrag}
         onPointerCancel={endDrag}
+        onPointerEnter={onPointerEnter}
+        onPointerLeave={onPointerLeave}
       >
         <div className="testimonials__track">
           {items.map((t, i) => (
             <TestimonialCard key={t.name + i} {...t} />
           ))}
         </div>
+      </div>
+      <div ref={chipRef} className={`drag-chip${chipVisible ? ' drag-chip--visible' : ''}`} aria-hidden="true">
+        Drag
       </div>
       <div className="testimonials__indicator" role="tablist" aria-label="Testimonials">
         {Array.from({ length: pages }, (_, i) => (

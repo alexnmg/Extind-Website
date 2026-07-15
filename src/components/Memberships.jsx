@@ -151,7 +151,7 @@ export default function Memberships({
                 <h3 className="private-office__title">{office.title}</h3>
                 <p className="private-office__desc">{office.description}</p>
               </div>
-              <Link className="text-button text-button--dark private-office__btn" to={office.ctaTo}>
+              <Link className="text-button text-button--dark private-office__btn" to={office.ctaTo} viewTransition>
                 <span>{office.cta}</span>
                 <span className="text-button__arrow" aria-hidden="true" />
               </Link>

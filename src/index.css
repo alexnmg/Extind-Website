@@ -223,6 +223,25 @@ ul {
   white-space: nowrap;
 }
 
+/* ---------- Route transitions ---------- */
+/* Links pass viewTransition to the router, which wraps navigation in
+   document.startViewTransition where supported — a quick whole-page
+   crossfade. Browsers without the API just navigate; reduced motion cuts
+   straight to the new page. */
+@media (prefers-reduced-motion: no-preference) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-duration: 0.25s;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none;
+  }
+}
+
 /* ---------- Scroll-entry reveals ---------- */
 /* Elements with data-reveal fade + rise as they enter the viewport
    (data-revealed set by ScrollReveal.jsx — an attribute, not a class, so
