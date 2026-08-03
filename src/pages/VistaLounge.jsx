@@ -109,8 +109,8 @@ export default function VistaLounge() {
   return (
     <>
       <Hero
-        title="The Vista Lounge, seven floors up."
-        lede="A panoramic lounge above the Palace of Culture — the home of the Extind community, and the best seat in the building for a coffee, a catch-up, or an evening event."
+        title="A panoramic event space above the city."
+        lede="Seven floors up, overlooking the Palace of Culture — the home of the Extind community, and the best seat in the building for a coffee, a catch-up, or an evening event."
         primaryLabel="Book a visit"
         secondaryLabel="Explore the lounge →"
         slides={heroSlides}
