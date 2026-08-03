@@ -11,7 +11,7 @@ const links = [
   { label: 'Private offices', to: '/private-offices' },
   { label: 'Meeting rooms', to: '#' },
   { label: 'Coworking', to: '#' },
-  { label: 'Community & Events', to: '#' },
+  { label: 'Community & Events', to: '/community' },
 ]
 // Mobile menu keeps its own order per the Figma "Mobile Menu" component.
 const mobileLinks = [
@@ -19,7 +19,7 @@ const mobileLinks = [
   { label: 'Coworking', to: '#' },
   { label: 'Private offices', to: '/private-offices' },
   { label: 'Meeting rooms', to: '#' },
-  { label: 'Community & Events', to: '#' },
+  { label: 'Community & Events', to: '/community' },
 ]
 
 function Chevron() {
