@@ -1961,15 +1961,25 @@ textarea.field__input {
 
 .benefit-group__header {
   display: flex;
-  align-items: baseline;
-  gap: 12px;
+  align-items: center;
+  gap: 14px;
 }
 
-.benefit-group__number {
-  font-family: var(--font-sans);
-  font-size: var(--fs-18);
-  font-weight: 400;
-  color: var(--accent);
+.benefit-group__icon {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-md);
+  background: var(--brand-cream);
+  color: var(--text-primary);
+}
+
+.benefit-group__icon svg {
+  width: 22px;
+  height: 22px;
 }
 
 .benefit-group__title {
@@ -1988,6 +1998,12 @@ textarea.field__input {
   display: flex;
   flex-direction: column;
   gap: 16px;
+}
+
+.benefit-groups__cta {
+  display: flex;
+  justify-content: center;
+  margin-top: 32px;
 }
 
 /* ---------- About page ---------- */
