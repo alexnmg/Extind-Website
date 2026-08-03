@@ -7,8 +7,10 @@ import Home from './pages/Home'
 import About from './pages/About'
 import PrivateOffices from './pages/PrivateOffices'
 import Contact from './pages/Contact'
-import Community from './pages/Community'
+import VistaLounge from './pages/VistaLounge'
+import Events from './pages/Events'
 import EventDetail from './pages/EventDetail'
+import Journal from './pages/Journal'
 import BlogPost from './pages/BlogPost'
 import BookAVisit from './pages/BookAVisit'
 import StoryblokPage from './components/storyblok/StoryblokPage'
@@ -35,9 +37,11 @@ export default function App() {
           <Route path="/about" element={<About />} />
           <Route path="/private-offices" element={<PrivateOffices />} />
           <Route path="/contact" element={<Contact />} />
-          <Route path="/community" element={<Community />} />
-          <Route path="/community/events/:slug" element={<EventDetail />} />
-          <Route path="/community/blog/:slug" element={<BlogPost />} />
+          <Route path="/vista-lounge" element={<VistaLounge />} />
+          <Route path="/events" element={<Events />} />
+          <Route path="/events/:slug" element={<EventDetail />} />
+          <Route path="/journal" element={<Journal />} />
+          <Route path="/journal/:slug" element={<BlogPost />} />
           <Route path="/book-a-visit" element={<BookAVisit />} />
           <Route path="*" element={isStoryblokEnabled ? <StoryblokPage /> : <Home />} />
         </Routes>

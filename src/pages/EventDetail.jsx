@@ -17,8 +17,8 @@ export default function EventDetail() {
   if (!event) {
     return (
       <section className="section detail">
-        <Link className="back-link" to="/community" viewTransition>
-          ← Community &amp; Events
+        <Link className="back-link" to="/events" viewTransition>
+          ← All events
         </Link>
         <h1 className="detail__title">Event not found</h1>
         <p className="detail__lede">
@@ -30,8 +30,8 @@ export default function EventDetail() {
 
   return (
     <article className="section detail">
-      <Link className="back-link" to="/community" viewTransition>
-        ← Community &amp; Events
+      <Link className="back-link" to="/events" viewTransition>
+        ← All events
       </Link>
 
       <div className="detail__hero">

@@ -3478,3 +3478,146 @@ textarea.field__input {
     aspect-ratio: 3 / 2;
   }
 }
+
+/* ---------- Vista Lounge page ---------- */
+.lounge-features {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.lounge-feature {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 32px;
+  background: var(--surface);
+  border-radius: var(--radius-xl);
+}
+
+.lounge-feature__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-md);
+  background: var(--brand-cream);
+  color: var(--text-primary);
+}
+
+.lounge-feature__icon svg {
+  width: 24px;
+  height: 24px;
+}
+
+.lounge-feature__title {
+  font-size: var(--fs-20);
+  font-weight: 700;
+  line-height: var(--lh-heading);
+  color: var(--text-primary);
+}
+
+.lounge-feature__desc {
+  font-family: var(--font-serif);
+  font-size: var(--fs-14);
+  line-height: 1.55;
+  color: var(--text-secondary);
+}
+
+/* Intro rows leading to Events / Journal */
+.lounge-intro {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background: var(--surface);
+  border-radius: var(--radius-2xl);
+  overflow: hidden;
+}
+
+.lounge-intro__media {
+  position: relative;
+  min-height: 320px;
+}
+
+.lounge-intro__media img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.lounge-intro--reverse .lounge-intro__media {
+  order: 2;
+}
+
+.lounge-intro__body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 14px;
+  padding: 48px;
+}
+
+.lounge-intro__eyebrow {
+  font-size: var(--fs-12);
+  font-weight: 600;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+.lounge-intro__title {
+  font-size: var(--fs-32);
+  font-weight: 700;
+  line-height: var(--lh-heading);
+  color: var(--text-primary);
+}
+
+.lounge-intro__desc {
+  font-family: var(--font-serif);
+  font-size: var(--fs-16);
+  line-height: 1.55;
+  color: var(--text-secondary);
+}
+
+.lounge-intro__body .btn {
+  margin-top: 10px;
+}
+
+@media (max-width: 1024px) {
+  .lounge-features {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  .lounge-intro {
+    grid-template-columns: 1fr;
+  }
+
+  /* Stacked: keep the image on top for both rows */
+  .lounge-intro--reverse .lounge-intro__media {
+    order: 0;
+  }
+
+  .lounge-intro__media {
+    min-height: 240px;
+  }
+
+  .lounge-intro__body {
+    padding: 32px;
+  }
+}
+
+@media (max-width: 600px) {
+  .lounge-features {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .lounge-intro__body {
+    padding: 24px;
+  }
+}

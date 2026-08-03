@@ -7,19 +7,26 @@ const aboutItems = [
   { label: 'FAQ', to: '#' },
   { label: 'Contact', to: '/contact' },
 ]
+const communityItems = [
+  { label: 'Vista Lounge', to: '/vista-lounge' },
+  { label: 'Events', to: '/events' },
+  { label: 'Journal', to: '/journal' },
+]
 const links = [
   { label: 'Private offices', to: '/private-offices' },
   { label: 'Meeting rooms', to: '#' },
   { label: 'Coworking', to: '#' },
-  { label: 'Community & Events', to: '/community' },
 ]
-// Mobile menu keeps its own order per the Figma "Mobile Menu" component.
+// Mobile menu keeps its own order per the Figma "Mobile Menu" component; the
+// Community dropdown flattens into its three destinations here.
 const mobileLinks = [
   { label: 'About us', to: '/about' },
   { label: 'Coworking', to: '#' },
   { label: 'Private offices', to: '/private-offices' },
   { label: 'Meeting rooms', to: '#' },
-  { label: 'Community & Events', to: '/community' },
+  { label: 'Vista Lounge', to: '/vista-lounge' },
+  { label: 'Events', to: '/events' },
+  { label: 'Journal', to: '/journal' },
 ]
 
 function Chevron() {
@@ -36,12 +43,67 @@ function Chevron() {
   )
 }
 
+// A single navbar dropdown that owns its open state and closes on Escape or an
+// outside click. Used for both "About us" and "Community & Events".
+function NavDropdown({ label, items }) {
+  const [open, setOpen] = useState(false)
+  const ref = useRef(null)
+
+  useEffect(() => {
+    if (!open) return
+    const onPointerDown = (e) => {
+      if (ref.current && !ref.current.contains(e.target)) setOpen(false)
+    }
+    const onKeyDown = (e) => {
+      if (e.key === 'Escape') setOpen(false)
+    }
+    document.addEventListener('pointerdown', onPointerDown)
+    document.addEventListener('keydown', onKeyDown)
+    return () => {
+      document.removeEventListener('pointerdown', onPointerDown)
+      document.removeEventListener('keydown', onKeyDown)
+    }
+  }, [open])
+
+  return (
+    <div className="navbar__dropdown-wrap" ref={ref}>
+      <button
+        type="button"
+        className={`navbar__link${open ? ' is-active' : ''}`}
+        aria-haspopup="true"
+        aria-expanded={open}
+        onClick={() => setOpen((v) => !v)}
+      >
+        {label}
+        <Chevron />
+      </button>
+      <div className={`navbar__dropdown${open ? ' navbar__dropdown--open' : ''}`}>
+        {items.map(({ label: itemLabel, to }) =>
+          to.startsWith('/') ? (
+            <Link
+              key={itemLabel}
+              className="navbar__link"
+              to={to}
+              onClick={() => setOpen(false)}
+              viewTransition
+            >
+              {itemLabel}
+            </Link>
+          ) : (
+            <a key={itemLabel} className="navbar__link" href={to} onClick={() => setOpen(false)}>
+              {itemLabel}
+            </a>
+          )
+        )}
+      </div>
+    </div>
+  )
+}
+
 export default function Navbar() {
-  const [aboutOpen, setAboutOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const [hidden, setHidden] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
-  const dropdownRef = useRef(null)
   const navRef = useRef(null)
 
   // Hide on scroll down, reveal on scroll up (the CSS only applies the
@@ -59,24 +121,6 @@ export default function Navbar() {
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
-
-  useEffect(() => {
-    if (!aboutOpen) return
-    const onPointerDown = (e) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
-        setAboutOpen(false)
-      }
-    }
-    const onKeyDown = (e) => {
-      if (e.key === 'Escape') setAboutOpen(false)
-    }
-    document.addEventListener('pointerdown', onPointerDown)
-    document.addEventListener('keydown', onKeyDown)
-    return () => {
-      document.removeEventListener('pointerdown', onPointerDown)
-      document.removeEventListener('keydown', onKeyDown)
-    }
-  }, [aboutOpen])
 
   // Close the expanding mobile menu on Escape or an outside click/tap.
   useEffect(() => {
@@ -113,31 +157,7 @@ export default function Navbar() {
               expand animation never shifts the menu */}
           <div className="navbar__right">
             <nav className="navbar__links">
-              <div className="navbar__dropdown-wrap" ref={dropdownRef}>
-                <button
-                  type="button"
-                  className={`navbar__link${aboutOpen ? ' is-active' : ''}`}
-                  aria-haspopup="true"
-                  aria-expanded={aboutOpen}
-                  onClick={() => setAboutOpen((v) => !v)}
-                >
-                  About us
-                  <Chevron />
-                </button>
-                <div className={`navbar__dropdown${aboutOpen ? ' navbar__dropdown--open' : ''}`}>
-                  {aboutItems.map(({ label, to }) =>
-                    to.startsWith('/') ? (
-                      <Link key={label} className="navbar__link" to={to} onClick={() => setAboutOpen(false)} viewTransition>
-                        {label}
-                      </Link>
-                    ) : (
-                      <a key={label} className="navbar__link" href={to} onClick={() => setAboutOpen(false)}>
-                        {label}
-                      </a>
-                    )
-                  )}
-                </div>
-              </div>
+              <NavDropdown label="About us" items={aboutItems} />
               {links.map(({ label, to }) =>
                 to.startsWith('/') ? (
                   <Link key={label} className="navbar__link" to={to} viewTransition>
@@ -149,6 +169,7 @@ export default function Navbar() {
                   </a>
                 )
               )}
+              <NavDropdown label="Community & Events" items={communityItems} />
             </nav>
             <Link className="btn btn--primary navbar__cta" to="/book-a-visit" viewTransition>
               Book a visit
