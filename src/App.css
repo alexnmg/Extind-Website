@@ -1953,51 +1953,53 @@ textarea.field__input {
 .benefit-group {
   background: var(--surface);
   border-radius: var(--radius-xl);
-  padding: 40px;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
-  gap: 24px;
 }
 
-.benefit-group__header {
-  display: flex;
-  align-items: center;
-  gap: 14px;
+.benefit-group__banner {
+  position: relative;
+  height: 172px;
 }
 
-.benefit-group__icon {
-  flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 44px;
-  height: 44px;
-  border-radius: var(--radius-md);
-  background: var(--brand-cream);
-  color: var(--text-primary);
+/* Scrim so the overlaid title stays legible over any photo */
+.benefit-group__banner::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(31, 35, 38, 0.72) 0%,
+    rgba(31, 35, 38, 0.15) 55%,
+    rgba(31, 35, 38, 0) 100%
+  );
 }
 
-.benefit-group__icon svg {
-  width: 22px;
-  height: 22px;
+.benefit-group__img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .benefit-group__title {
-  font-size: var(--fs-20);
+  position: absolute;
+  left: 28px;
+  right: 28px;
+  bottom: 22px;
+  z-index: 1;
+  font-size: var(--fs-24);
   font-weight: 700;
   line-height: var(--lh-heading);
-  color: var(--text-primary);
-}
-
-.benefit-group__divider {
-  border: 0;
-  border-top: 1px solid var(--border);
+  color: var(--background);
 }
 
 .benefit-group__list {
   display: flex;
   flex-direction: column;
   gap: 16px;
+  padding: 28px 32px 36px;
 }
 
 .benefit-groups__cta {
@@ -2647,9 +2649,8 @@ textarea.field__input {
     gap: 20px;
   }
 
-  .benefit-group {
+  .benefit-group__list {
     padding: 24px;
-    gap: 20px;
   }
 
   .hero__pills {
@@ -2849,9 +2850,8 @@ textarea.field__input {
     gap: 16px;
   }
 
-  .benefit-group {
+  .benefit-group__list {
     padding: 20px;
-    gap: 16px;
   }
 
   .hero__pills {
