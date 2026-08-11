@@ -11,7 +11,22 @@ const defaultHeroSlides = [
   { src: vistaImg, caption: 'Panoramic Lounge · 7th floor', alt: 'Panoramic view from Vista Lounge' },
 ]
 
+function PinIcon() {
+  return (
+    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" aria-hidden="true">
+      <path
+        d="M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11Z"
+        stroke="currentColor"
+        strokeWidth="1.7"
+        strokeLinejoin="round"
+      />
+      <circle cx="12" cy="10" r="2.5" stroke="currentColor" strokeWidth="1.7" />
+    </svg>
+  )
+}
+
 export default function Hero({
+  eyebrow = null,
   title = 'Thoughtfully designed environments for business growth.',
   lede = 'Private offices and business community for companies and professionals looking for growth, collaboration and friction-free workdays.',
   primaryLabel = 'Book a visit',
@@ -49,6 +64,12 @@ export default function Hero({
   return (
     <section className="hero" ref={sectionRef}>
       <div className="hero__content">
+        {eyebrow && (
+          <p className="hero__eyebrow">
+            <PinIcon />
+            <span>{eyebrow}</span>
+          </p>
+        )}
         <h1 className="hero__title" ref={titleRef}>
           {title.split(' ').map((word, i) => (
             <Fragment key={i}>

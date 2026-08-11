@@ -12,7 +12,10 @@ import BookVisit from '../components/BookVisit'
 export default function Home() {
   return (
     <>
-      <Hero />
+      <Hero
+        eyebrow="Palas Campus, Iași"
+        title="Premium workspaces designed for business growth."
+      />
       <CentralIdea />
       <ServicesSlider scrub />
       <Values />

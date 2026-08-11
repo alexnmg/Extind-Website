@@ -279,12 +279,21 @@
 }
 
 .hero__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   font-size: var(--fs-10);
   font-weight: 600;
   text-transform: uppercase;
   color: var(--text-secondary);
   line-height: 14px;
   letter-spacing: 1px;
+}
+
+.hero__eyebrow svg {
+  width: 14px;
+  height: 14px;
+  color: var(--accent);
 }
 
 .hero__title {
@@ -370,11 +379,16 @@
     animation-delay: calc(var(--title-delay, 0s) + var(--line, 0) * 0.13s);
   }
 
+  .hero[data-animate] .hero__eyebrow,
   .hero[data-animate] .hero__lede,
   .hero[data-animate] .hero__pills,
   .hero[data-animate] .hero__buttons {
     opacity: 0;
     animation: hero-fade-up 0.6s ease forwards;
+  }
+
+  .hero[data-animate] .hero__eyebrow {
+    animation-delay: 0.1s;
   }
 
   .hero[data-animate] .hero__lede {
