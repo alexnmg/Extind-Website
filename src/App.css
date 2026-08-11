@@ -370,11 +370,16 @@
   [data-animate] .hero__word {
     overflow: hidden;
     vertical-align: bottom;
+    /* Room for descenders (g, y, p) inside the clip; the negative margin keeps
+       layout unchanged so the mask only extends downward, not the line box. */
+    padding-bottom: 0.2em;
+    margin-bottom: -0.2em;
   }
 
   [data-animate] .hero__word-inner {
     display: inline-block;
-    transform: translateY(110%);
+    /* Start below the (now taller) mask so nothing peeks during the delay. */
+    transform: translateY(calc(110% + 0.2em));
     animation: hero-word-rise 0.7s cubic-bezier(0.2, 0.6, 0.2, 1) forwards;
     animation-delay: calc(var(--title-delay, 0s) + var(--line, 0) * 0.13s);
   }
