@@ -82,7 +82,7 @@ const features = [
 ]
 
 const heroSlides = [
-  { src: vistaImg, caption: 'Panoramic Lounge · 7th floor', alt: 'Vista Lounge overlooking the city' },
+  { src: vistaImg, caption: 'Panoramic Lounge · 6th floor', alt: 'Vista Lounge overlooking the city' },
   { src: heroImg, caption: 'Community coworking · Palas Campus', alt: 'Extind coworking floor' },
   { src: pillarsImg, caption: 'Meeting & Focus Rooms', alt: 'Meeting room at Extind' },
 ]
@@ -110,7 +110,7 @@ export default function VistaLounge() {
     <>
       <Hero
         title="A panoramic event space above the city."
-        lede="Seven floors up, overlooking the Palace of Culture — the home of the Extind community, and the best seat in the building for a coffee, a catch-up, or an evening event."
+        lede="Six floors up, overlooking the Palace of Culture — the home of the Extind community, and the best seat in the building for a coffee, a catch-up, or an evening event."
         primaryLabel="Book a visit"
         secondaryLabel="Explore the lounge →"
         slides={heroSlides}
@@ -165,14 +165,14 @@ export default function VistaLounge() {
             <img src={pillarsImg} alt="" />
           </div>
           <div className="lounge-intro__body">
-            <p className="lounge-intro__eyebrow">Journal</p>
-            <h3 className="lounge-intro__title">Read the Extind journal</h3>
+            <p className="lounge-intro__eyebrow">Extind Magazine</p>
+            <h3 className="lounge-intro__title">Guides for choosing your workspace</h3>
             <p className="lounge-intro__desc">
-              News from the building, member stories, practical workspace know-how and honest takes
-              on where work is heading. New writing every few weeks, straight from the community.
+              Practical, no-nonsense reading on private offices, coworking and meeting spaces in
+              Iași — what things cost, what’s included, and how to choose.
             </p>
-            <Link className="btn btn--primary" to="/journal" viewTransition>
-              Read the journal →
+            <Link className="btn btn--primary" to="/magazine" viewTransition>
+              Read the magazine →
             </Link>
           </div>
         </article>

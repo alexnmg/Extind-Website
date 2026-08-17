@@ -7,10 +7,13 @@ import Home from './pages/Home'
 import About from './pages/About'
 import PrivateOffices from './pages/PrivateOffices'
 import Contact from './pages/Contact'
+import ExecutiveDayOffice from './pages/ExecutiveDayOffice'
+import Coworking from './pages/Coworking'
+import ConferenceRooms from './pages/ConferenceRooms'
 import VistaLounge from './pages/VistaLounge'
 import Events from './pages/Events'
 import EventDetail from './pages/EventDetail'
-import Journal from './pages/Journal'
+import Magazine from './pages/Magazine'
 import BlogPost from './pages/BlogPost'
 import BookAVisit from './pages/BookAVisit'
 import StoryblokPage from './components/storyblok/StoryblokPage'
@@ -36,12 +39,15 @@ export default function App() {
         <Routes>
           <Route path="/about" element={<About />} />
           <Route path="/private-offices" element={<PrivateOffices />} />
+          <Route path="/executive-day-office" element={<ExecutiveDayOffice />} />
+          <Route path="/coworking" element={<Coworking />} />
+          <Route path="/conference-rooms" element={<ConferenceRooms />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/vista-lounge" element={<VistaLounge />} />
           <Route path="/events" element={<Events />} />
           <Route path="/events/:slug" element={<EventDetail />} />
-          <Route path="/journal" element={<Journal />} />
-          <Route path="/journal/:slug" element={<BlogPost />} />
+          <Route path="/magazine" element={<Magazine />} />
+          <Route path="/magazine/:slug" element={<BlogPost />} />
           <Route path="/book-a-visit" element={<BookAVisit />} />
           <Route path="*" element={isStoryblokEnabled ? <StoryblokPage /> : <Home />} />
         </Routes>

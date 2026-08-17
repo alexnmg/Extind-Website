@@ -15,20 +15,6 @@ function EmailIcon() {
   )
 }
 
-function PhoneIcon() {
-  return (
-    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" aria-hidden="true">
-      <path
-        d="M5 4h3l1.5 4-2 1.5a11 11 0 0 0 5 5l1.5-2 4 1.5v3a2 2 0 0 1-2 2A15 15 0 0 1 3 6a2 2 0 0 1 2-2Z"
-        stroke="currentColor"
-        strokeWidth="1.7"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  )
-}
-
 function PinIcon() {
   return (
     <svg viewBox="0 0 24 24" width="20" height="20" fill="none" aria-hidden="true">
@@ -44,9 +30,13 @@ function PinIcon() {
 }
 
 const details = [
-  { label: 'Email', value: 'hello@extind.com', href: 'mailto:hello@extind.com', Icon: EmailIcon },
-  { label: 'Phone', value: '+40 332 800 800', href: 'tel:+40332800800', Icon: PhoneIcon },
-  { label: 'Visit us', value: 'Palas Campus, Iași, Romania', href: MAP_LINK, Icon: PinIcon },
+  { label: 'Email', value: 'office@extind.ro', href: 'mailto:office@extind.ro', Icon: EmailIcon },
+  {
+    label: 'Visit us',
+    value: 'Strada Sfântul Andrei 39A, Palas Campus (building B2), 6th floor, Iași',
+    href: MAP_LINK,
+    Icon: PinIcon,
+  },
 ]
 
 export default function Contact() {

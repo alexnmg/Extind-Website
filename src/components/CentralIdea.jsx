@@ -16,7 +16,7 @@ const defaultCards = [
   {
     number: '03',
     title: 'The Right Connections',
-    desc: 'Meaningful business relationships rarely happen by accident. We create places and moments where companies, ideas and people naturally come together.',
+    desc: 'A professional community that’s there when you look for it, and discreet when you need to focus — connections happen naturally, with no forced networking and no obligation to take part.',
     variant: 'dark',
   },
 ]

@@ -10,23 +10,24 @@ const aboutItems = [
 const communityItems = [
   { label: 'Vista Lounge', to: '/vista-lounge' },
   { label: 'Events', to: '/events' },
-  { label: 'Journal', to: '/journal' },
+  { label: 'Extind Magazine', to: '/magazine' },
 ]
 const links = [
   { label: 'Private offices', to: '/private-offices' },
-  { label: 'Meeting rooms', to: '#' },
-  { label: 'Coworking', to: '#' },
+  { label: 'Executive Office', to: '/executive-day-office' },
+  { label: 'Coworking', to: '/coworking' },
+  { label: 'Conference Rooms', to: '/conference-rooms' },
 ]
-// Mobile menu keeps its own order per the Figma "Mobile Menu" component; the
-// Community dropdown flattens into its three destinations here.
+// Mobile menu flattens the Community dropdown into its three destinations.
 const mobileLinks = [
   { label: 'About us', to: '/about' },
-  { label: 'Coworking', to: '#' },
   { label: 'Private offices', to: '/private-offices' },
-  { label: 'Meeting rooms', to: '#' },
+  { label: 'Executive Office', to: '/executive-day-office' },
+  { label: 'Coworking', to: '/coworking' },
+  { label: 'Conference Rooms', to: '/conference-rooms' },
   { label: 'Vista Lounge', to: '/vista-lounge' },
   { label: 'Events', to: '/events' },
-  { label: 'Journal', to: '/journal' },
+  { label: 'Extind Magazine', to: '/magazine' },
 ]
 
 function Chevron() {
@@ -226,7 +227,7 @@ export default function Navbar() {
                 <span>Book a visit</span>
                 <span aria-hidden="true">→</span>
               </Link>
-              <p className="navbar__mobile-email">hello@extind.com</p>
+              <p className="navbar__mobile-email">office@extind.ro</p>
             </div>
           </div>
         </div>

@@ -4,7 +4,11 @@ import { useState } from 'react'
  * styles from the booking flow (see .field, .checkbox-row, .btn--primary in
  * App.css) so the two forms stay visually identical. On submit it swaps to a
  * lightweight thank-you state — no backend is wired yet. */
-export default function ContactForm() {
+export default function ContactForm({
+  heading = 'Send us a message',
+  messageLabel = 'How can we help?',
+  submitLabel = 'Send message',
+}) {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [company, setCompany] = useState('')
@@ -30,7 +34,7 @@ export default function ContactForm() {
         </>
       ) : (
         <>
-          <h3 className="book-visit__heading">Send us a message</h3>
+          <h3 className="book-visit__heading">{heading}</h3>
           <div className="field-row field-row--wide">
             <label className="field">
               <span className="field__label">Name</span>
@@ -78,7 +82,7 @@ export default function ContactForm() {
             </label>
           </div>
           <label className="field" style={{ width: '100%' }}>
-            <span className="field__label">How can we help?</span>
+            <span className="field__label">{messageLabel}</span>
             <textarea
               className="field__input"
               placeholder="Your message here..."
@@ -116,7 +120,7 @@ export default function ContactForm() {
               disabled={!agreed}
               style={!agreed ? { opacity: 0.45, cursor: 'default' } : undefined}
             >
-              Send message
+              {submitLabel}
             </button>
           </div>
         </>

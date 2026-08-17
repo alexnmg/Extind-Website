@@ -5,7 +5,7 @@ import heroImg from '../assets/figma/hero.png'
 import pillarsImg from '../assets/figma/pillars.png'
 
 const defaultVistaSlides = [
-  { src: vistaImg, caption: 'Panoramic Lounge · 7th floor', alt: 'Panoramic view over the Palace of Culture from Vista Lounge' },
+  { src: vistaImg, caption: 'Panoramic Lounge · 6th floor', alt: 'Panoramic view over the Palace of Culture from Vista Lounge' },
   { src: heroImg, caption: 'Coworking · Palas Campus', alt: 'Extind coworking space at Palas Campus' },
   { src: pillarsImg, caption: 'Meeting & Focus Rooms', alt: 'Meeting room at Extind' },
 ]

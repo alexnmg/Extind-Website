@@ -8,7 +8,7 @@ import vistaImg from '../assets/figma/vista.png'
 const defaultHeroSlides = [
   { src: heroImg, caption: 'Coworking · Palas Campus', alt: 'Extind coworking space at Palas Campus' },
   { src: pillarsImg, caption: 'Meeting & Focus Rooms', alt: 'Meeting room at Extind' },
-  { src: vistaImg, caption: 'Panoramic Lounge · 7th floor', alt: 'Panoramic view from Vista Lounge' },
+  { src: vistaImg, caption: 'Panoramic Lounge · 6th floor', alt: 'Panoramic view from Vista Lounge' },
 ]
 
 function PinIcon() {

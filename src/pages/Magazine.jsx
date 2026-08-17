@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom'
 import SectionHeader from '../components/SectionHeader'
 import { posts, categories } from '../data/community'
 
-function BlogCard({ post }) {
+function ArticleCard({ post }) {
   return (
-    <Link className="blog-card" to={`/journal/${post.slug}`} viewTransition>
+    <Link className="blog-card" to={`/magazine/${post.slug}`} viewTransition>
       <div className="blog-card__media">
         <img src={post.image} alt="" loading="lazy" />
         <span className="blog-card__cat">{post.category}</span>
@@ -21,12 +21,12 @@ function BlogCard({ post }) {
   )
 }
 
-export default function Journal() {
+export default function Magazine() {
   const [activeCat, setActiveCat] = useState('All')
 
   useEffect(() => {
     const prev = document.title
-    document.title = 'Journal — Extind'
+    document.title = 'Extind Magazine — Extind'
     return () => {
       document.title = prev
     }
@@ -41,9 +41,9 @@ export default function Journal() {
   return (
     <section className="section">
       <SectionHeader
-        eyebrow="Journal"
-        title="From the Extind journal"
-        description="News from the building, community updates, practical workspace know-how, and honest takes on where work is heading next."
+        eyebrow="Extind Magazine"
+        title="Guides for choosing your workspace"
+        description="Practical, no-nonsense reading on private offices, coworking and meeting spaces in Iași — what things cost, what’s included, and how to choose."
       />
       <div className="blog-filter" role="tablist" aria-label="Filter articles by category">
         {filters.map((cat) => (
@@ -61,7 +61,7 @@ export default function Journal() {
       </div>
       <div className="blog-grid">
         {filtered.map((post) => (
-          <BlogCard key={post.slug} post={post} />
+          <ArticleCard key={post.slug} post={post} />
         ))}
       </div>
     </section>

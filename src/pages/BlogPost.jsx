@@ -17,18 +17,18 @@ export default function BlogPost() {
   if (!post) {
     return (
       <section className="section detail">
-        <Link className="back-link" to="/journal" viewTransition>
+        <Link className="back-link" to="/magazine" viewTransition>
           ← All articles
         </Link>
         <h1 className="detail__title">Article not found</h1>
-        <p className="detail__lede">This article may have moved. Head back to the journal.</p>
+        <p className="detail__lede">This article may have moved. Head back to the magazine.</p>
       </section>
     )
   }
 
   return (
     <article className="section detail">
-      <Link className="back-link" to="/journal" viewTransition>
+      <Link className="back-link" to="/magazine" viewTransition>
         ← All articles
       </Link>
 

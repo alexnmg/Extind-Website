@@ -1,0 +1,131 @@
+import { useEffect, useRef } from 'react'
+import { Link } from 'react-router-dom'
+import Hero from '../components/Hero'
+import SectionHeader from '../components/SectionHeader'
+import checkDark from '../assets/figma/check-dark.svg'
+import heroImg from '../assets/figma/hero.png'
+import vistaImg from '../assets/figma/vista.png'
+import pillarsImg from '../assets/figma/pillars.png'
+
+const plans = [
+  { name: 'Day Pass', price: '€40', unit: '+ VAT / day', note: 'One day on the coworking floor.' },
+  { name: 'Explore EXTIND', price: '€400', unit: '+ VAT', note: '20 days at €20 + VAT/day.' },
+  { name: 'Monthly', price: '€350', unit: '+ VAT / month', note: '12-month membership.' },
+  { name: 'Day Office', price: 'On request', unit: '', note: 'A private office for the day, priced per office.' },
+]
+
+const amenities = [
+  'A workstation in a premium space',
+  'Ergonomic furniture',
+  '1 Gbps internet',
+  'Bean coffee, tea and filtered water',
+  'Lounge and coffee-point access',
+  'Use of the shared areas',
+  'Room access by booking, per package',
+  'The EXTIND community and applicable events',
+  'Access per your schedule or subscription',
+]
+
+const memberBenefits = [
+  'Access to your contracted space and shared areas',
+  '1 Gbps internet',
+  'Ergonomic furniture',
+  'Coffee, tea and filtered water',
+  'Room booking per your package',
+  'Access to EXTIND events, when included or open',
+  'Direct communication and operational support',
+  'Receive your guests in a professional setting',
+  'Palas partner card — access to Palas complex partner discounts',
+]
+
+const heroSlides = [
+  { src: heroImg, caption: 'Coworking · Palas Campus', alt: 'Extind coworking space' },
+  { src: pillarsImg, caption: 'Meeting & Focus Rooms', alt: 'Meeting room at Extind' },
+  { src: vistaImg, caption: 'Panoramic Lounge · 6th floor', alt: 'Vista Lounge' },
+]
+
+export default function Coworking() {
+  const pricingRef = useRef(null)
+
+  useEffect(() => {
+    const prev = document.title
+    document.title = 'Coworking — Extind'
+    return () => {
+      document.title = prev
+    }
+  }, [])
+
+  const scrollToPricing = () => {
+    const target = pricingRef.current
+    if (!target) return
+    const navH = document.querySelector('.navbar-container')?.offsetHeight ?? 0
+    const top = target.getBoundingClientRect().top + window.scrollY - navH - 16
+    window.scrollTo({ top, behavior: 'smooth' })
+  }
+
+  return (
+    <>
+      <Hero
+        title="A premium base, on the days you need it."
+        lede="Flexible desks in a thoughtfully designed shared space on the 6th floor of Palas Campus — with the coffee, the quiet and the community of people who care about their work. Come for a day, or make it your monthly base."
+        primaryLabel="Book a visit"
+        secondaryLabel="See pricing →"
+        slides={heroSlides}
+        onSecondaryClick={scrollToPricing}
+      />
+
+      <section className="section" ref={pricingRef}>
+        <SectionHeader
+          eyebrow="Pricing"
+          title="Coworking that fits how you work"
+          description="Prices exclude VAT. Not sure which fits? Book a visit and we’ll point you to the right one."
+        />
+        <div className="pricing-row" data-reveal>
+          {plans.map((p) => (
+            <article className="price-card" key={p.name}>
+              <span className="price-card__name">{p.name}</span>
+              <span className="price-card__price">
+                {p.price}
+                {p.unit && <span className="price-card__unit"> {p.unit}</span>}
+              </span>
+              <span className="price-card__note">{p.note}</span>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="section">
+        <SectionHeader eyebrow="Included" title="What every membership comes with" />
+        <ul className="info-grid" data-reveal>
+          {amenities.map((t) => (
+            <li key={t} className="benefit">
+              <img className="benefit__icon" src={checkDark} alt="" />
+              <span className="benefit__text">{t}</span>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <section className="section">
+        <SectionHeader
+          eyebrow="Members"
+          title="Membership benefits"
+          description="Certain benefits at launch. Priority access and special event pricing are offered depending on the event."
+        />
+        <ul className="info-grid" data-reveal>
+          {memberBenefits.map((t) => (
+            <li key={t} className="benefit">
+              <img className="benefit__icon" src={checkDark} alt="" />
+              <span className="benefit__text">{t}</span>
+            </li>
+          ))}
+        </ul>
+        <div className="compare-cta" data-reveal>
+          <Link className="btn btn--primary" to="/book-a-visit" viewTransition>
+            Book a visit
+          </Link>
+        </div>
+      </section>
+    </>
+  )
+}

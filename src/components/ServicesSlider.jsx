@@ -26,7 +26,7 @@ const defaultSlides = [
   },
   {
     image: vistaImg,
-    caption: 'Panoramic Lounge · 7th floor',
+    caption: 'Panoramic Lounge · 6th floor',
     label: 'CONNECT',
     title: 'Vista Lounge',
     description:

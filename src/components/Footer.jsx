@@ -3,7 +3,7 @@ import brandMark from '../assets/brand-mark.svg'
 import iconEmail from '../assets/figma/icon-email.svg'
 
 // Mirrors the navbar's menu order
-const menuLinks = ['About us', 'Private offices', 'Meeting rooms', 'Coworking', 'Community & Events']
+const menuLinks = ['About us', 'Private offices', 'Coworking', 'Conference Rooms', 'Community & Events']
 // `to` set for links that have a real page; the rest stay placeholder anchors.
 const companyLinks = [
   { label: 'FAQ', to: '#' },

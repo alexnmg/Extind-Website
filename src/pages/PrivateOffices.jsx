@@ -1,10 +1,12 @@
 import { useEffect } from 'react'
 import Hero from '../components/Hero'
+import SectionHeader from '../components/SectionHeader'
 import ServicesSlider from '../components/ServicesSlider'
 import BenefitsGroups from '../components/BenefitsGroups'
 import Testimonials from '../components/Testimonials'
 import Faq from '../components/Faq'
 import BookVisit from '../components/BookVisit'
+import checkDark from '../assets/figma/check-dark.svg'
 import {
   ClockIcon,
   ChairIcon,
@@ -26,10 +28,21 @@ const heroPills = [
   { icon: <KitchenIcon />, label: 'Fully equipped kitchen' },
 ]
 
+const securityMeasures = [
+  'Privacy film on glazed surfaces',
+  'Controlled access and, where needed, named entry',
+  'A separate VLAN or network segment, after technical validation',
+  'Video monitoring of access to the office area',
+  'Access logging and configured access windows',
+  'Dedicated rules for receiving visitors',
+  'Space reserved exclusively for your team',
+  'NDAs, confidentiality procedures or compliance requirements, reviewed case by case',
+]
+
 const heroSlides = [
   { src: pillarsImg, caption: 'Private offices · Palas Campus', alt: 'Private office at Extind' },
   { src: heroImg, caption: 'Coworking · Palas Campus', alt: 'Extind coworking space' },
-  { src: vistaImg, caption: 'Panoramic Lounge · 7th floor', alt: 'Vista Lounge' },
+  { src: vistaImg, caption: 'Panoramic Lounge · 6th floor', alt: 'Vista Lounge' },
 ]
 
 // Five benefits drawn from the private office pricing card. No ctaLabel, so
@@ -73,7 +86,7 @@ const benefitSlides = [
   },
   {
     image: vistaImg,
-    caption: 'Panoramic Lounge · 7th floor',
+    caption: 'Panoramic Lounge · 6th floor',
     icon: <VistaIcon />,
     title: 'Vista Lounge and a business community',
     description:
@@ -104,7 +117,7 @@ export default function PrivateOffices() {
     <>
       <Hero
         title="Private offices for teams with something to build."
-        lede="Lockable, fully serviced offices at Palas Campus — designed for focus, built for collaboration, and ready for the clients you want to impress."
+        lede="Nine lockable, fully serviced private offices on the 6th floor of Palas Campus — configured for teams of 2–12, in around 400 sqm of work, meeting and relaxation space. Designed for focus, built for collaboration, and ready for the clients you want to impress."
         primaryLabel="Book a visit"
         secondaryLabel="See what's included →"
         pills={heroPills}
@@ -113,6 +126,21 @@ export default function PrivateOffices() {
       />
       <ServicesSlider slides={benefitSlides} />
       <BenefitsGroups id="included" />
+      <section className="section">
+        <SectionHeader
+          eyebrow="Security & confidentiality"
+          title="Shaped around your company"
+          description="For confidential projects, corporate teams or work with special requirements, we can configure additional privacy, access and connectivity measures. Every request is reviewed with your team, and the technical solution, timeline and any additional cost are confirmed before we contract."
+        />
+        <ul className="info-grid" data-reveal>
+          {securityMeasures.map((t) => (
+            <li key={t} className="benefit">
+              <img className="benefit__icon" src={checkDark} alt="" />
+              <span className="benefit__text">{t}</span>
+            </li>
+          ))}
+        </ul>
+      </section>
       <Testimonials />
       <Faq />
       <BookVisit />
