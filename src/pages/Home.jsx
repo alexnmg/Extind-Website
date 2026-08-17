@@ -17,10 +17,10 @@ export default function Home() {
         title="Premium workspaces designed for business growth."
       />
       <CentralIdea />
-      <ServicesSlider scrub />
+      <ServicesSlider />
       <Values />
       <BenefitsGroups ctaLabel="Book a visit" />
-      <VistaLounge scrub />
+      <VistaLounge />
       <Testimonials />
       <Faq />
       <BookVisit />

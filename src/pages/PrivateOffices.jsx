@@ -111,7 +111,7 @@ export default function PrivateOffices() {
         slides={heroSlides}
         onSecondaryClick={scrollToIncluded}
       />
-      <ServicesSlider slides={benefitSlides} scrub />
+      <ServicesSlider slides={benefitSlides} />
       <BenefitsGroups id="included" />
       <Testimonials />
       <Faq />

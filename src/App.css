@@ -1939,27 +1939,6 @@ textarea.field__input {
   }
 }
 
-/* ---------- Scroll-scrubbed pinned sliders ---------- */
-/* A tall wrapper (height set inline from the slide count) with a sticky
-   child: the slider pins below the navbar while scrolling through the
-   wrapper scrubs its slides (see useScrollScrub). */
-.scrub {
-  position: relative;
-}
-
-/* 140px = navbar container (116) + page gap (24) — the same constant the
-   About hero uses. The pinned slider fills the viewport from there down to
-   a matching page gap at the bottom. */
-.scrub__sticky {
-  position: sticky;
-  top: 140px;
-}
-
-.scrub .services,
-.scrub .vista {
-  height: calc(100svh - 164px);
-}
-
 /* ---------- Benefit groups (Private Offices) ---------- */
 /* Cards stretch to the tallest in the row (grid's default align-items) so the
    three groups read as one block despite holding 9/8/8 items. */

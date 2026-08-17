@@ -1,6 +1,4 @@
 import { useState } from 'react'
-import useScrollScrub from '../lib/useScrollScrub'
-import useIsDesktop from '../lib/useIsDesktop'
 import SectionHeader from './SectionHeader'
 import vistaImg from '../assets/figma/vista.png'
 import heroImg from '../assets/figma/hero.png'
@@ -34,17 +32,9 @@ export default function VistaLounge({
   description = 'More than a lounge, Vista is where the Extind community comes together. Host informal meetings, connect with other professionals or attend curated business events—all overlooking the Palace of Culture.',
   ctaLabel = 'Discover Vista Lounge',
   slides = defaultVistaSlides,
-  scrub: scrubProp = false,
 }) {
-  const [manualIndex, setManualIndex] = useState(0)
-  // Scrub pins the slider on desktop only; smaller widths fall back to the
-  // manual slider (see useIsDesktop for why).
-  const scrub = scrubProp && useIsDesktop()
-  const { ref, index: scrubIndex, scrollToStep } = useScrollScrub(slides.length, scrub)
-
-  // Scrub mode: scrolling drives the slide, and the arrows drive the scroll.
-  const index = scrub ? scrubIndex : manualIndex
-  const goTo = (i) => (scrub ? scrollToStep(i) : setManualIndex(i))
+  const [index, setIndex] = useState(0)
+  const goTo = setIndex
   const slide = slides[index]
 
   const vistaEl = (
@@ -94,19 +84,7 @@ export default function VistaLounge({
   return (
     <section className="section">
       <SectionHeader eyebrow={eyebrow} title={title} />
-      {scrub ? (
-        // The header scrolls away normally; only the slider pins, filling the
-        // viewport below the navbar while ~70svh of scroll per slide scrubs.
-        <div
-          className="scrub"
-          ref={ref}
-          style={{ height: `calc(${100 + slides.length * 70}svh)` }}
-        >
-          <div className="scrub__sticky">{vistaEl}</div>
-        </div>
-      ) : (
-        vistaEl
-      )}
+      {vistaEl}
     </section>
   )
 }
