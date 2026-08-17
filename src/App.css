@@ -1275,6 +1275,37 @@
   gap: 12px;
 }
 
+/* Two-column variant (homepage + FAQ page). Each column is independent, so an
+   open answer only pushes the items beneath it, not the neighbouring column. */
+.faq__columns {
+  width: 1040px;
+  max-width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  align-items: start;
+}
+
+.faq__columns .faq__column {
+  width: 100%;
+}
+
+.faq__more {
+  margin-top: 32px;
+  font-size: var(--fs-16);
+  font-weight: 600;
+  color: var(--text-primary);
+  text-decoration: none;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 2px;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.faq__more:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
 .faq-item {
   width: 100%;
   background: var(--surface);
@@ -2780,6 +2811,11 @@ textarea.field__input {
 
   .faq {
     padding: 0;
+  }
+
+  /* Stack the two-column FAQ into a single column on phones */
+  .faq__columns {
+    grid-template-columns: 1fr;
   }
 
   /* Overlay sliders: tighter frame, image still extends beneath the card */

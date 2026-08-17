@@ -15,6 +15,7 @@ import Events from './pages/Events'
 import EventDetail from './pages/EventDetail'
 import Magazine from './pages/Magazine'
 import BlogPost from './pages/BlogPost'
+import FaqPage from './pages/FaqPage'
 import BookAVisit from './pages/BookAVisit'
 import StoryblokPage from './components/storyblok/StoryblokPage'
 import { isStoryblokEnabled } from './lib/storyblok'
@@ -48,6 +49,7 @@ export default function App() {
           <Route path="/events/:slug" element={<EventDetail />} />
           <Route path="/magazine" element={<Magazine />} />
           <Route path="/magazine/:slug" element={<BlogPost />} />
+          <Route path="/faq" element={<FaqPage />} />
           <Route path="/book-a-visit" element={<BookAVisit />} />
           <Route path="*" element={isStoryblokEnabled ? <StoryblokPage /> : <Home />} />
         </Routes>

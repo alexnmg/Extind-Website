@@ -7,6 +7,7 @@ import BenefitsGroups from '../components/BenefitsGroups'
 import Comparison from '../components/Comparison'
 import Values from '../components/Values'
 import Faq from '../components/Faq'
+import { homeFaq } from '../data/faq'
 import BookVisit from '../components/BookVisit'
 
 /** Static homepage — the built-in content used until Storyblok is connected. */
@@ -24,7 +25,7 @@ export default function Home() {
       <BenefitsGroups ctaLabel="Book a visit" />
       <VistaLounge />
       <Testimonials />
-      <Faq />
+      <Faq items={homeFaq} columns={2} moreHref="/faq" />
       <BookVisit />
     </>
   )

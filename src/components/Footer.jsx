@@ -6,7 +6,7 @@ import iconEmail from '../assets/figma/icon-email.svg'
 const menuLinks = ['About us', 'Private offices', 'Coworking', 'Conference Rooms', 'Community & Events']
 // `to` set for links that have a real page; the rest stay placeholder anchors.
 const companyLinks = [
-  { label: 'FAQ', to: '#' },
+  { label: 'FAQ', to: '/faq' },
   { label: 'Contact', to: '/contact' },
 ]
 

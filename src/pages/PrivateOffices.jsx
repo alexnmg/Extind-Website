@@ -5,6 +5,7 @@ import ServicesSlider from '../components/ServicesSlider'
 import BenefitsGroups from '../components/BenefitsGroups'
 import Testimonials from '../components/Testimonials'
 import Faq from '../components/Faq'
+import { privateOfficeFaq } from '../data/faq'
 import BookVisit from '../components/BookVisit'
 import checkDark from '../assets/figma/check-dark.svg'
 import {
@@ -142,7 +143,7 @@ export default function PrivateOffices() {
         </ul>
       </section>
       <Testimonials />
-      <Faq />
+      <Faq items={privateOfficeFaq} moreHref="/faq" />
       <BookVisit />
     </>
   )

@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import BookVisit from '../components/BookVisit'
 import Testimonials from '../components/Testimonials'
 import Faq from '../components/Faq'
+import { bookVisitFaq } from '../data/faq'
 
 export default function BookAVisit() {
   useEffect(() => {
@@ -16,7 +17,7 @@ export default function BookAVisit() {
     <>
       <BookVisit />
       <Testimonials />
-      <Faq />
+      <Faq items={bookVisitFaq} moreHref="/faq" />
     </>
   )
 }
