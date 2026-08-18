@@ -2,31 +2,31 @@ import { useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import Hero from '../components/Hero'
 import SectionHeader from '../components/SectionHeader'
-import checkDark from '../assets/figma/check-dark.svg'
+import InfoGrid from '../components/InfoGrid'
 import pillarsImg from '../assets/figma/pillars.png'
 import vistaImg from '../assets/figma/vista.png'
 import heroImg from '../assets/figma/hero.png'
 
 const useCases = [
-  'Strategic partner, investor or key-client visits',
-  'Temporary CEO or management presence',
-  'Audits and due diligence',
-  'Interviews for senior roles',
-  'Board meetings, negotiations or international delegations',
-  'Projects that need discretion and a representative setting',
+  { icon: 'handshake', text: 'Strategic partner, investor or key-client visits' },
+  { icon: 'briefcase', text: 'Temporary CEO or management presence' },
+  { icon: 'search', text: 'Audits and due diligence' },
+  { icon: 'interview', text: 'Interviews for senior roles' },
+  { icon: 'globe', text: 'Board meetings, negotiations or international delegations' },
+  { icon: 'shield', text: 'Projects that need discretion and a representative setting' },
 ]
 
 const configurable = [
-  'A private office prepared exclusively for you',
-  'A dedicated meeting room',
-  'Controlled access',
-  'Furniture configuration',
-  'Water, coffee, tea and hospitality service',
-  'Catering, on request',
-  'Support for receiving your guests',
-  'Parking, subject to availability and confirmation',
-  'Temporary signage, where permitted',
-  'Additional confidentiality or connectivity requirements',
+  { icon: 'desk', text: 'A private office prepared exclusively for you' },
+  { icon: 'meeting', text: 'A dedicated meeting room' },
+  { icon: 'key', text: 'Controlled access' },
+  { icon: 'config', text: 'Furniture configuration' },
+  { icon: 'coffee', text: 'Water, coffee, tea and hospitality service' },
+  { icon: 'catering', text: 'Catering, on request' },
+  { icon: 'visitor', text: 'Support for receiving your guests' },
+  { icon: 'parking', text: 'Parking, subject to availability and confirmation' },
+  { icon: 'sign', text: 'Temporary signage, where permitted' },
+  { icon: 'network', text: 'Additional confidentiality or connectivity requirements' },
 ]
 
 const heroSlides = [
@@ -71,14 +71,7 @@ export default function ExecutiveDayOffice() {
           title="For the moments that matter most"
           description="Not a day pass, and not a lease — a representative office prepared for the days your company can’t leave to chance."
         />
-        <ul className="info-grid" data-reveal>
-          {useCases.map((t) => (
-            <li key={t} className="benefit">
-              <img className="benefit__icon" src={checkDark} alt="" />
-              <span className="benefit__text">{t}</span>
-            </li>
-          ))}
-        </ul>
+        <InfoGrid items={useCases} />
       </section>
 
       <section className="section" ref={detailsRef}>
@@ -87,14 +80,7 @@ export default function ExecutiveDayOffice() {
           title="Configured around your visit"
           description="Every request is confirmed before your dates — tell us the occasion and we build the setup around it."
         />
-        <ul className="info-grid" data-reveal>
-          {configurable.map((t) => (
-            <li key={t} className="benefit">
-              <img className="benefit__icon" src={checkDark} alt="" />
-              <span className="benefit__text">{t}</span>
-            </li>
-          ))}
-        </ul>
+        <InfoGrid items={configurable} />
       </section>
 
       <section className="section">

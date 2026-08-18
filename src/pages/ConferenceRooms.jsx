@@ -2,29 +2,29 @@ import { useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import Hero from '../components/Hero'
 import SectionHeader from '../components/SectionHeader'
-import checkDark from '../assets/figma/check-dark.svg'
+import InfoGrid from '../components/InfoGrid'
 import pillarsImg from '../assets/figma/pillars.png'
 import vistaImg from '../assets/figma/vista.png'
 import heroImg from '../assets/figma/hero.png'
 
 const hostable = [
-  'Management meetings and board sessions',
-  'Workshops and strategy sessions',
-  'Trainings and presentations',
-  'Client and partner meetings',
-  'Interviews and hiring days',
-  'Networking and business breakfasts',
+  { icon: 'meeting', text: 'Management meetings and board sessions' },
+  { icon: 'lightbulb', text: 'Workshops and strategy sessions' },
+  { icon: 'presentation', text: 'Trainings and presentations' },
+  { icon: 'handshake', text: 'Client and partner meetings' },
+  { icon: 'interview', text: 'Interviews and hiring days' },
+  { icon: 'coffee', text: 'Networking and business breakfasts' },
 ]
 
 const included = [
-  '1 Gbps internet',
-  'Screen and presentation setup',
-  'Natural light and a quiet, considered setting',
-  'Flexible layouts for the format you need',
-  'Coffee, tea and filtered water',
-  'Setup support from the team on site',
-  'Catering, on request',
-  'Booking by reservation, per your package',
+  { icon: 'wifi', text: '1 Gbps internet' },
+  { icon: 'presentation', text: 'Screen and presentation setup' },
+  { icon: 'sun', text: 'Natural light and a quiet, considered setting' },
+  { icon: 'layout', text: 'Flexible layouts for the format you need' },
+  { icon: 'coffee', text: 'Coffee, tea and filtered water' },
+  { icon: 'support', text: 'Setup support from the team on site' },
+  { icon: 'catering', text: 'Catering, on request' },
+  { icon: 'calendar', text: 'Booking by reservation, per your package' },
 ]
 
 const heroSlides = [
@@ -69,26 +69,12 @@ export default function ConferenceRooms() {
           title="Built for corporate conversations"
           description="From a focused four-person session to a full board meeting — we match the room to the meeting, not the other way round."
         />
-        <ul className="info-grid" data-reveal>
-          {hostable.map((t) => (
-            <li key={t} className="benefit">
-              <img className="benefit__icon" src={checkDark} alt="" />
-              <span className="benefit__text">{t}</span>
-            </li>
-          ))}
-        </ul>
+        <InfoGrid items={hostable} />
       </section>
 
       <section className="section" ref={detailsRef}>
         <SectionHeader eyebrow="Included" title="Everything the room needs" />
-        <ul className="info-grid" data-reveal>
-          {included.map((t) => (
-            <li key={t} className="benefit">
-              <img className="benefit__icon" src={checkDark} alt="" />
-              <span className="benefit__text">{t}</span>
-            </li>
-          ))}
-        </ul>
+        <InfoGrid items={included} />
         <div className="compare-cta" data-reveal>
           <Link className="btn btn--primary" to="/book-a-visit" viewTransition>
             Book a room

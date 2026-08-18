@@ -1278,11 +1278,10 @@
 /* Two-column variant (homepage + FAQ page). Each column is independent, so an
    open answer only pushes the items beneath it, not the neighbouring column. */
 .faq__columns {
-  width: 1040px;
-  max-width: 100%;
+  width: 100%;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 16px;
+  gap: 24px;
   align-items: start;
 }
 
@@ -3714,17 +3713,63 @@ textarea.field__input {
   .compare th, .compare td { padding: 12px 14px; }
 }
 
-/* ---------- Shared: checklist grid ---------- */
+/* ---------- Shared: white-pill feature grid ---------- */
 .info-grid {
   list-style: none;
   margin: 0;
   padding: 0;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 14px 40px;
+  gap: 12px;
 }
+
+.info-pill {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 20px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  transition: transform 0.24s ease, box-shadow 0.24s ease, border-color 0.24s ease;
+}
+
+.info-pill__icon {
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--background);
+  color: var(--accent);
+}
+
+.info-pill__icon svg {
+  width: 23px;
+  height: 23px;
+}
+
+.info-pill__text {
+  font-family: var(--font-serif);
+  font-size: var(--fs-14);
+  line-height: 1.4;
+  color: var(--text-primary);
+}
+
+@media (hover: hover) {
+  .info-pill:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 26px rgba(31, 35, 38, 0.06);
+    border-color: transparent;
+  }
+}
+
 @media (max-width: 700px) {
   .info-grid { grid-template-columns: 1fr; }
+  .info-pill { padding: 14px 16px; gap: 14px; }
+  .info-pill__icon { width: 40px; height: 40px; }
+  .info-pill__icon svg { width: 21px; height: 21px; }
 }
 
 /* ---------- Callout — serif statement with accent rail ---------- */

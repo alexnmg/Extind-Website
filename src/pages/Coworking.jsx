@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import Hero from '../components/Hero'
 import SectionHeader from '../components/SectionHeader'
-import checkDark from '../assets/figma/check-dark.svg'
+import InfoGrid from '../components/InfoGrid'
 import heroImg from '../assets/figma/hero.png'
 import vistaImg from '../assets/figma/vista.png'
 import pillarsImg from '../assets/figma/pillars.png'
@@ -15,27 +15,27 @@ const plans = [
 ]
 
 const amenities = [
-  'A workstation in a premium space',
-  'Ergonomic furniture',
-  '1 Gbps internet',
-  'Bean coffee, tea and filtered water',
-  'Lounge and coffee-point access',
-  'Use of the shared areas',
-  'Room access by booking, per package',
-  'The EXTIND community and applicable events',
-  'Access per your schedule or subscription',
+  { icon: 'desk', text: 'A workstation in a premium space' },
+  { icon: 'chair', text: 'Ergonomic furniture' },
+  { icon: 'wifi', text: '1 Gbps internet' },
+  { icon: 'coffee', text: 'Bean coffee, tea and filtered water' },
+  { icon: 'lounge', text: 'Lounge and coffee-point access' },
+  { icon: 'users', text: 'Use of the shared areas' },
+  { icon: 'calendar', text: 'Room access by booking, per package' },
+  { icon: 'community', text: 'The EXTIND community and applicable events' },
+  { icon: 'clock', text: 'Access per your schedule or subscription' },
 ]
 
 const memberBenefits = [
-  'Access to your contracted space and shared areas',
-  '1 Gbps internet',
-  'Ergonomic furniture',
-  'Coffee, tea and filtered water',
-  'Room booking per your package',
-  'Access to EXTIND events, when included or open',
-  'Direct communication and operational support',
-  'Receive your guests in a professional setting',
-  'Palas partner card — access to Palas complex partner discounts',
+  { icon: 'door', text: 'Access to your contracted space and shared areas' },
+  { icon: 'wifi', text: '1 Gbps internet' },
+  { icon: 'chair', text: 'Ergonomic furniture' },
+  { icon: 'coffee', text: 'Coffee, tea and filtered water' },
+  { icon: 'calendar', text: 'Room booking per your package' },
+  { icon: 'ticket', text: 'Access to EXTIND events, when included or open' },
+  { icon: 'support', text: 'Direct communication and operational support' },
+  { icon: 'visitor', text: 'Receive your guests in a professional setting' },
+  { icon: 'card', text: 'Palas partner card — access to Palas complex partner discounts' },
 ]
 
 const heroSlides = [
@@ -96,14 +96,7 @@ export default function Coworking() {
 
       <section className="section">
         <SectionHeader eyebrow="Included" title="What every membership comes with" />
-        <ul className="info-grid" data-reveal>
-          {amenities.map((t) => (
-            <li key={t} className="benefit">
-              <img className="benefit__icon" src={checkDark} alt="" />
-              <span className="benefit__text">{t}</span>
-            </li>
-          ))}
-        </ul>
+        <InfoGrid items={amenities} />
       </section>
 
       <section className="section">
@@ -112,14 +105,7 @@ export default function Coworking() {
           title="Membership benefits"
           description="Certain benefits at launch. Priority access and special event pricing are offered depending on the event."
         />
-        <ul className="info-grid" data-reveal>
-          {memberBenefits.map((t) => (
-            <li key={t} className="benefit">
-              <img className="benefit__icon" src={checkDark} alt="" />
-              <span className="benefit__text">{t}</span>
-            </li>
-          ))}
-        </ul>
+        <InfoGrid items={memberBenefits} />
         <div className="compare-cta" data-reveal>
           <Link className="btn btn--primary" to="/book-a-visit" viewTransition>
             Book a visit

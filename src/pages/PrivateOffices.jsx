@@ -7,7 +7,7 @@ import Testimonials from '../components/Testimonials'
 import Faq from '../components/Faq'
 import { privateOfficeFaq } from '../data/faq'
 import BookVisit from '../components/BookVisit'
-import checkDark from '../assets/figma/check-dark.svg'
+import InfoGrid from '../components/InfoGrid'
 import {
   ClockIcon,
   ChairIcon,
@@ -30,14 +30,14 @@ const heroPills = [
 ]
 
 const securityMeasures = [
-  'Privacy film on glazed surfaces',
-  'Controlled access and, where needed, named entry',
-  'A separate VLAN or network segment, after technical validation',
-  'Video monitoring of access to the office area',
-  'Access logging and configured access windows',
-  'Dedicated rules for receiving visitors',
-  'Space reserved exclusively for your team',
-  'NDAs, confidentiality procedures or compliance requirements, reviewed case by case',
+  { icon: 'privacy', text: 'Privacy film on glazed surfaces' },
+  { icon: 'key', text: 'Controlled access and, where needed, named entry' },
+  { icon: 'network', text: 'A separate VLAN or network segment, after technical validation' },
+  { icon: 'camera', text: 'Video monitoring of access to the office area' },
+  { icon: 'log', text: 'Access logging and configured access windows' },
+  { icon: 'visitor', text: 'Dedicated rules for receiving visitors' },
+  { icon: 'reserved', text: 'Space reserved exclusively for your team' },
+  { icon: 'shield', text: 'NDAs, confidentiality procedures or compliance requirements, reviewed case by case' },
 ]
 
 const heroSlides = [
@@ -133,14 +133,7 @@ export default function PrivateOffices() {
           title="Shaped around your company"
           description="For confidential projects, corporate teams or work with special requirements, we can configure additional privacy, access and connectivity measures. Every request is reviewed with your team, and the technical solution, timeline and any additional cost are confirmed before we contract."
         />
-        <ul className="info-grid" data-reveal>
-          {securityMeasures.map((t) => (
-            <li key={t} className="benefit">
-              <img className="benefit__icon" src={checkDark} alt="" />
-              <span className="benefit__text">{t}</span>
-            </li>
-          ))}
-        </ul>
+        <InfoGrid items={securityMeasures} />
       </section>
       <Testimonials />
       <Faq items={privateOfficeFaq} moreHref="/faq" />
