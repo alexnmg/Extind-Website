@@ -1,16 +1,40 @@
 import { Link } from 'react-router-dom'
 import SectionHeader from './SectionHeader'
 
+// Paired statements: the EXTIND experience vs. running a conventional office.
 const rows = [
-  { feature: 'Move-in time', us: 'Days, into a ready space', trad: '4–12 weeks of search and fit-out' },
-  { feature: 'Commitment', us: 'Flexible — adjusts as you grow', trad: 'Multi-year, rigid lease' },
-  { feature: 'Furniture & fit-out', us: 'Included, configurable', trad: 'You source and pay' },
-  { feature: 'Utilities & internet', us: 'Included, 1 Gbps', trad: 'You set up and manage' },
-  { feature: 'Cleaning & maintenance', us: 'Included', trad: 'Arrange vendors' },
-  { feature: 'Meeting rooms', us: 'Included, per package', trad: 'Extra cost' },
-  { feature: 'On-site help', us: 'Team on site', trad: 'You hire admin' },
-  { feature: 'Security & access', us: 'Controlled, up to 24/7', trad: 'Depends on the building' },
-  { feature: 'Monthly cost', us: 'One predictable price', trad: 'Rent + utilities + maintenance + suppliers' },
+  {
+    us: 'Move in quickly to a ready space',
+    trad: 'You search, negotiate, fit out and wait',
+  },
+  {
+    us: 'Ergonomic furniture and infrastructure included',
+    trad: 'You invest separately in furniture and equipment',
+  },
+  {
+    us: 'Clear, predictable costs',
+    trad: 'Rent, utilities, maintenance, supplies and vendors, all separate',
+  },
+  {
+    us: 'Adjust the solution as your team changes',
+    trad: 'You stay locked into a fixed area and a rigid contract',
+  },
+  {
+    us: 'Use meeting rooms and shared areas when you need them',
+    trad: 'You pay permanently for space used only occasionally',
+  },
+  {
+    us: 'Work in a premium location, in Palas Campus',
+    trad: 'Access to a premium building demands bigger investment and commitment',
+  },
+  {
+    us: 'EXTIND manages the space',
+    trad: 'Your team has to run the premises every day',
+  },
+  {
+    us: 'You can request special configurations',
+    trad: 'Any change means vendors, cost and implementation time',
+  },
 ]
 
 export default function Comparison() {
@@ -25,15 +49,13 @@ export default function Comparison() {
         <table className="compare">
           <thead>
             <tr>
-              <th></th>
-              <th className="compare__u">EXTIND</th>
-              <th>A conventional office</th>
+              <th className="compare__u" scope="col">With EXTIND</th>
+              <th scope="col">In a conventional office</th>
             </tr>
           </thead>
           <tbody>
             {rows.map((r) => (
-              <tr key={r.feature}>
-                <th scope="row">{r.feature}</th>
+              <tr key={r.us}>
                 <td className="compare__u">{r.us}</td>
                 <td>{r.trad}</td>
               </tr>
@@ -43,7 +65,7 @@ export default function Comparison() {
       </div>
       <div className="compare-cta" data-reveal>
         <Link className="btn btn--primary" to="/book-a-visit" viewTransition>
-          Compare the right solution for your team
+          Book a visit
         </Link>
       </div>
     </section>

@@ -3,6 +3,7 @@ import Hero from '../components/Hero'
 import SectionHeader from '../components/SectionHeader'
 import ServicesSlider from '../components/ServicesSlider'
 import BenefitsGroups from '../components/BenefitsGroups'
+import Comparison from '../components/Comparison'
 import Testimonials from '../components/Testimonials'
 import Faq from '../components/Faq'
 import { privateOfficeFaq } from '../data/faq'
@@ -135,6 +136,7 @@ export default function PrivateOffices() {
         />
         <InfoGrid items={securityMeasures} />
       </section>
+      <Comparison />
       <Testimonials />
       <Faq items={privateOfficeFaq} moreHref="/faq" />
       <BookVisit />

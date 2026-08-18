@@ -98,7 +98,8 @@
   top: 100%;
   left: 0;
   margin-top: 4px;
-  width: 139px;
+  width: max-content;
+  min-width: 139px;
   background: var(--brand-white);
   border-radius: var(--radius-md);
   padding: 8px;
@@ -3667,35 +3668,26 @@ textarea.field__input {
 
 .compare th,
 .compare td {
-  padding: 15px 22px;
+  width: 50%;
+  padding: 16px 22px;
   border-bottom: 1px solid var(--border);
   vertical-align: middle;
+  text-align: left;
+  font-size: var(--fs-14);
+  line-height: 1.45;
 }
 
 .compare thead th {
   border-bottom: none;
-  padding: 20px 22px 22px;
+  padding: 20px 22px;
   font-size: var(--fs-18);
   font-weight: 700;
   line-height: 1.2;
   color: var(--text-primary);
-  text-align: center;
 }
-.compare thead th:first-child { padding: 0; }
 .compare thead th:last-child { color: var(--text-secondary); font-weight: 600; }
 
-.compare tbody th[scope="row"] {
-  text-align: left;
-  font-weight: 500;
-  font-size: var(--fs-14);
-  color: var(--text-secondary);
-}
-
-.compare td {
-  text-align: center;
-  font-size: var(--fs-14);
-  color: var(--text-secondary);
-}
+.compare td { color: var(--text-secondary); }
 
 .compare .compare__u {
   background: var(--surface);
@@ -3704,7 +3696,6 @@ textarea.field__input {
 }
 .compare thead th.compare__u { border-radius: var(--radius-lg) var(--radius-lg) 0 0; }
 .compare tbody tr:last-child td.compare__u { border-radius: 0 0 var(--radius-lg) var(--radius-lg); }
-.compare tbody tr:last-child th[scope="row"],
 .compare tbody tr:last-child td { border-bottom: none; }
 
 .compare-cta { display: flex; justify-content: center; margin-top: 32px; }

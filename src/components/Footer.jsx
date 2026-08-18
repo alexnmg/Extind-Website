@@ -35,9 +35,9 @@ function InstagramIcon() {
 }
 
 const socials = [
-  { label: 'Facebook', Icon: FacebookIcon },
-  { label: 'LinkedIn', Icon: LinkedInIcon },
-  { label: 'Instagram', Icon: InstagramIcon },
+  { label: 'Facebook', href: 'https://www.facebook.com/extind', Icon: FacebookIcon },
+  { label: 'LinkedIn', href: 'https://www.linkedin.com/company/extind/', Icon: LinkedInIcon },
+  { label: 'Instagram', href: 'https://www.instagram.com/extindcowork/', Icon: InstagramIcon },
 ]
 
 export default function Footer() {
@@ -90,11 +90,13 @@ export default function Footer() {
       <div className="footer__bottom">
         <p className="footer__copyright">© 2026 Extind. All rights reserved.</p>
         <div className="footer__socials">
-          {socials.map(({ label, Icon }) => (
+          {socials.map(({ label, href, Icon }) => (
             <a
               key={label}
               className="footer__social"
-              href="#"
+              href={href}
+              target="_blank"
+              rel="noreferrer"
               aria-label={`Extind on ${label}`}
             >
               <Icon />
