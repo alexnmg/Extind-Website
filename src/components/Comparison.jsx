@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import SectionHeader from './SectionHeader'
 
@@ -38,6 +39,26 @@ const rows = [
 ]
 
 export default function Comparison() {
+  const scrollRef = useRef(null)
+  // Which edges have more content to scroll toward — drives the fade hints.
+  const [edges, setEdges] = useState({ start: false, end: false })
+
+  useEffect(() => {
+    const el = scrollRef.current
+    if (!el) return
+    const update = () => {
+      const max = el.scrollWidth - el.clientWidth
+      setEdges({ start: el.scrollLeft > 1, end: el.scrollLeft < max - 1 })
+    }
+    update()
+    el.addEventListener('scroll', update, { passive: true })
+    window.addEventListener('resize', update)
+    return () => {
+      el.removeEventListener('scroll', update)
+      window.removeEventListener('resize', update)
+    }
+  }, [])
+
   return (
     <section className="section">
       <SectionHeader
@@ -45,23 +66,28 @@ export default function Comparison() {
         title="Why EXTIND, not a conventional office"
         description="A conventional office means upfront investment, separate contracts, furniture, utilities, maintenance and daily administration. At EXTIND, your team walks into a fully operational space and gets to focus on the work."
       />
-      <div className="compare-wrap" data-reveal>
-        <table className="compare">
-          <thead>
-            <tr>
-              <th className="compare__u" scope="col">With EXTIND</th>
-              <th scope="col">In a conventional office</th>
-            </tr>
-          </thead>
-          <tbody>
-            {rows.map((r) => (
-              <tr key={r.us}>
-                <td className="compare__u">{r.us}</td>
-                <td>{r.trad}</td>
+      <div
+        className={`compare-wrap${edges.start ? ' is-start' : ''}${edges.end ? ' is-end' : ''}`}
+        data-reveal
+      >
+        <div className="compare-scroll" ref={scrollRef}>
+          <table className="compare">
+            <thead>
+              <tr>
+                <th className="compare__u" scope="col">With EXTIND</th>
+                <th scope="col">In a conventional office</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {rows.map((r) => (
+                <tr key={r.us}>
+                  <td className="compare__u">{r.us}</td>
+                  <td>{r.trad}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
       <div className="compare-cta" data-reveal>
         <Link className="btn btn--primary" to="/book-a-visit" viewTransition>
