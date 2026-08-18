@@ -1,9 +1,9 @@
 import { Fragment, useLayoutEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import ImageCardSlider from './ImageCardSlider'
-import heroImg from '../assets/figma/hero.png'
-import pillarsImg from '../assets/figma/pillars.png'
-import vistaImg from '../assets/figma/vista.png'
+import heroImg from '../assets/photos/coworking.jpg'
+import pillarsImg from '../assets/photos/meeting-room.jpg'
+import vistaImg from '../assets/photos/lounge.jpg'
 
 const defaultHeroSlides = [
   { src: heroImg, caption: 'Coworking · Palas Campus', alt: 'Extind coworking space at Palas Campus' },

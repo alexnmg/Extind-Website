@@ -17,11 +17,12 @@ import {
   DeskIcon,
   VistaIcon,
 } from '../components/PillIcons'
-import heroImg from '../assets/figma/hero.png'
-import pillarsImg from '../assets/figma/pillars.png'
-import vistaImg from '../assets/figma/vista.png'
-import mask1 from '../assets/logo-anim/mask-1.jpg'
-import mask4 from '../assets/logo-anim/mask-4.jpg'
+import heroImg from '../assets/photos/coworking.jpg'
+import pillarsImg from '../assets/photos/private-office.jpg'
+import vistaImg from '../assets/photos/lounge.jpg'
+import meetingImg from '../assets/photos/meeting-room.jpg'
+import mask1 from '../assets/photos/corridor.jpg'
+import mask4 from '../assets/photos/open-office.jpg'
 
 const heroPills = [
   { icon: <ClockIcon />, label: '24/7 access' },
@@ -78,7 +79,7 @@ const benefitSlides = [
     variant: 'dark',
   },
   {
-    image: heroImg,
+    image: meetingImg,
     caption: 'Meeting & Focus Rooms',
     icon: <MeetingIcon />,
     title: 'Complimentary meeting room hours',

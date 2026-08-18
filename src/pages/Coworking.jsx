@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom'
 import Hero from '../components/Hero'
 import SectionHeader from '../components/SectionHeader'
 import InfoGrid from '../components/InfoGrid'
-import heroImg from '../assets/figma/hero.png'
-import vistaImg from '../assets/figma/vista.png'
-import pillarsImg from '../assets/figma/pillars.png'
+import heroImg from '../assets/photos/coworking.jpg'
+import vistaImg from '../assets/photos/lounge-2.jpg'
+import pillarsImg from '../assets/photos/meeting-room-2.jpg'
 
 const plans = [
   { name: 'Day Pass', price: '€40', unit: '+ VAT / day', note: 'One day on the coworking floor.' },

@@ -1,9 +1,9 @@
-import heroImg from '../assets/figma/hero.png'
-import vistaImg from '../assets/figma/vista.png'
-import pillarsImg from '../assets/figma/pillars.png'
-import mask1 from '../assets/logo-anim/mask-1.jpg'
-import mask2 from '../assets/logo-anim/mask-2.jpg'
-import mask4 from '../assets/logo-anim/mask-4.jpg'
+import heroImg from '../assets/photos/coworking.jpg'
+import vistaImg from '../assets/photos/panorama.jpg'
+import pillarsImg from '../assets/photos/private-office.jpg'
+import mask1 from '../assets/photos/open-office.jpg'
+import mask2 from '../assets/photos/meeting-room.jpg'
+import mask4 from '../assets/photos/focus-room.jpg'
 
 /* Community content — events and the Extind Magazine.
  *

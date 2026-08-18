@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom'
 import Hero from '../components/Hero'
 import SectionHeader from '../components/SectionHeader'
 import { VistaIcon, ClockIcon, MeetingIcon } from '../components/PillIcons'
-import vistaImg from '../assets/figma/vista.png'
-import heroImg from '../assets/figma/hero.png'
-import pillarsImg from '../assets/figma/pillars.png'
+import vistaImg from '../assets/photos/lounge.jpg'
+import heroImg from '../assets/photos/coworking.jpg'
+import pillarsImg from '../assets/photos/meeting-room.jpg'
 
 // Extra line icons in the shared 24×24 / 1.5-weight style.
 const iconBase = {

@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom'
 import Hero from '../components/Hero'
 import SectionHeader from '../components/SectionHeader'
 import InfoGrid from '../components/InfoGrid'
-import pillarsImg from '../assets/figma/pillars.png'
-import vistaImg from '../assets/figma/vista.png'
-import heroImg from '../assets/figma/hero.png'
+import pillarsImg from '../assets/photos/meeting-room.jpg'
+import vistaImg from '../assets/photos/lounge.jpg'
+import heroImg from '../assets/photos/coworking.jpg'
 
 const hostable = [
   { icon: 'meeting', text: 'Management meetings and board sessions' },

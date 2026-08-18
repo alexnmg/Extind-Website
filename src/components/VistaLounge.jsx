@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import SectionHeader from './SectionHeader'
-import vistaImg from '../assets/figma/vista.png'
-import heroImg from '../assets/figma/hero.png'
-import pillarsImg from '../assets/figma/pillars.png'
+import vistaImg from '../assets/photos/lounge.jpg'
+import heroImg from '../assets/photos/coworking.jpg'
+import pillarsImg from '../assets/photos/meeting-room.jpg'
 
 const defaultVistaSlides = [
   { src: vistaImg, caption: 'Panoramic Lounge · 6th floor', alt: 'Panoramic view over the Palace of Culture from Vista Lounge' },

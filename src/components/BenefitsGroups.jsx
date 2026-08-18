@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom'
 import SectionHeader from './SectionHeader'
 import checkDark from '../assets/figma/check-dark.svg'
-import officeImg from '../assets/figma/pillars.png'
-import comfortsImg from '../assets/figma/vista.png'
-import communityImg from '../assets/figma/hero.png'
+import officeImg from '../assets/photos/private-office.jpg'
+import comfortsImg from '../assets/photos/lounge.jpg'
+import communityImg from '../assets/photos/meeting-room.jpg'
 
 /* Every private-office benefit, sorted into themed cards. Each group is led by a
  * relevant photo with its title set over the image, then the benefits list. */

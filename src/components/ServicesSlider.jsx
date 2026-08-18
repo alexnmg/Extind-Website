@@ -1,12 +1,12 @@
 import { useState } from 'react'
-import pillarsImg from '../assets/figma/pillars.png'
-import heroImg from '../assets/figma/hero.png'
-import vistaImg from '../assets/figma/vista.png'
+import pillarsImg from '../assets/photos/private-office.jpg'
+import heroImg from '../assets/photos/coworking.jpg'
+import vistaImg from '../assets/photos/lounge.jpg'
 
 const defaultSlides = [
   {
     image: pillarsImg,
-    caption: 'Meeting & Focus Rooms',
+    caption: 'Private offices · Palas Campus',
     label: 'FOCUS',
     title: 'Private offices',
     description:
