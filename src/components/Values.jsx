@@ -14,7 +14,7 @@ const defaultCards = [
   },
   {
     icon: icon2,
-    title: 'Workspace That Grows With You',
+    title: 'Workspace Tailored To Your Needs',
     desc: "Whether you're working on your own today or expanding your team tomorrow, Extind offers flexible workspace options that adapt as your business evolves.",
   },
   {
@@ -34,7 +34,7 @@ const defaultCards = [
   },
   {
     icon: icon6,
-    title: 'Business community',
+    title: 'Business Community',
     desc: 'Join a growing network of entrepreneurs, professionals and companies through curated events, Vista Lounge and everyday opportunities to build meaningful business relationships.',
   },
 ]
