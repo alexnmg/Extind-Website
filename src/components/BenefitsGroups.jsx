@@ -3,7 +3,7 @@ import SectionHeader from './SectionHeader'
 import checkDark from '../assets/figma/check-dark.svg'
 import officeImg from '../assets/photos/private-office.jpg'
 import comfortsImg from '../assets/photos/lounge.jpg'
-import communityImg from '../assets/photos/meeting-room.jpg'
+import beyondImg from '../assets/photos/kitchen.jpg'
 
 /* Every private-office benefit, sorted into themed cards. Each group is led by a
  * relevant photo with its title set over the image, then the benefits list. */
@@ -37,7 +37,7 @@ const defaultGroups = [
   },
   {
     title: 'Beyond your office',
-    image: communityImg,
+    image: beyondImg,
     items: [
       'Meeting rooms',
       'Conference room',

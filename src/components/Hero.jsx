@@ -2,13 +2,13 @@ import { Fragment, useLayoutEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import ImageCardSlider from './ImageCardSlider'
 import heroImg from '../assets/photos/coworking.jpg'
-import pillarsImg from '../assets/photos/meeting-room.jpg'
+import boothImg from '../assets/photos/booth.jpg'
 import vistaImg from '../assets/photos/lounge.jpg'
 
 const defaultHeroSlides = [
   { src: vistaImg, caption: 'Vista Lounge Panoramic View', alt: 'Panoramic view from Vista Lounge' },
   { src: heroImg, caption: 'Coworking · Palas Campus', alt: 'Extind coworking space at Palas Campus' },
-  { src: pillarsImg, caption: 'Meeting & Focus Rooms', alt: 'Meeting room at Extind' },
+  { src: boothImg, caption: 'Meeting & Focus Rooms', alt: 'Meeting and focus booth at Extind' },
 ]
 
 function PinIcon() {

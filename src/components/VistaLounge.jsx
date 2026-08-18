@@ -1,13 +1,13 @@
 import { useState } from 'react'
 import SectionHeader from './SectionHeader'
 import vistaImg from '../assets/photos/lounge.jpg'
-import heroImg from '../assets/photos/coworking.jpg'
-import pillarsImg from '../assets/photos/meeting-room.jpg'
+import lounge2Img from '../assets/photos/lounge-2.jpg'
+import lounge3Img from '../assets/photos/lounge-3.jpg'
 
 const defaultVistaSlides = [
-  { src: vistaImg, caption: 'Panoramic Lounge · 6th floor', alt: 'Panoramic view over the Palace of Culture from Vista Lounge' },
-  { src: heroImg, caption: 'Coworking · Palas Campus', alt: 'Extind coworking space at Palas Campus' },
-  { src: pillarsImg, caption: 'Meeting & Focus Rooms', alt: 'Meeting room at Extind' },
+  { src: vistaImg, caption: 'Panoramic Lounge · 6th floor', alt: 'Vista Lounge with panoramic city view' },
+  { src: lounge2Img, caption: 'Room for events & gatherings', alt: 'Vista Lounge event and gathering space' },
+  { src: lounge3Img, caption: 'Coffee point & social area', alt: 'Vista Lounge coffee point and social area' },
 ]
 
 function ArrowIcon({ direction }) {
