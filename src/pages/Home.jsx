@@ -1,6 +1,6 @@
 import Hero from '../components/Hero'
 import CentralIdea from '../components/CentralIdea'
-import ServicesSlider from '../components/ServicesSlider'
+import ServicesStack from '../components/ServicesStack'
 import VistaLounge from '../components/VistaLounge'
 import Testimonials from '../components/Testimonials'
 import BenefitsGroups from '../components/BenefitsGroups'
@@ -19,7 +19,7 @@ export default function Home() {
         title="Premium workspaces designed for business growth."
       />
       <CentralIdea description="EXTIND gives you the experience of a premium corporate HQ — without the investment, rigidity and administration of a conventional office. A work-ready space in Palas Campus, adaptable for confidential projects, high-level visits and special security requirements, in a community that’s present but never intrusive." />
-      <ServicesSlider />
+      <ServicesStack />
       <Values />
       <Comparison />
       <BenefitsGroups ctaLabel="Book a visit" />

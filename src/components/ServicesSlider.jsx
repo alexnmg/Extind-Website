@@ -3,7 +3,7 @@ import pillarsImg from '../assets/photos/private-office.jpg'
 import heroImg from '../assets/photos/coworking.jpg'
 import vistaImg from '../assets/photos/lounge.jpg'
 
-const defaultSlides = [
+export const defaultSlides = [
   {
     image: pillarsImg,
     caption: 'Private offices · Palas Campus',
