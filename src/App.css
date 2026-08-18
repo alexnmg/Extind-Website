@@ -3683,19 +3683,28 @@ textarea.field__input {
   font-size: var(--fs-18);
   font-weight: 700;
   line-height: 1.2;
-  color: var(--text-primary);
 }
-.compare thead th:last-child { color: var(--text-secondary); font-weight: 600; }
 
-.compare td { color: var(--text-secondary); }
-
-.compare .compare__u {
+/* Conventional office — white panel, muted text, rounded on the right */
+.compare thead th:last-child,
+.compare td:last-child {
   background: var(--surface);
-  color: var(--text-primary);
-  font-weight: 600;
+  color: var(--text-secondary);
 }
-.compare thead th.compare__u { border-radius: var(--radius-lg) var(--radius-lg) 0 0; }
-.compare tbody tr:last-child td.compare__u { border-radius: 0 0 var(--radius-lg) var(--radius-lg); }
+.compare thead th:last-child { font-weight: 600; }
+.compare thead th:last-child { border-radius: 0 var(--radius-lg) 0 0; }
+.compare tbody tr:last-child td:last-child { border-radius: 0 0 var(--radius-lg) 0; }
+
+/* With EXTIND — black panel, light text, rounded on the left */
+.compare .compare__u {
+  background: var(--text-primary);
+  color: var(--brand-white);
+  font-weight: 600;
+  border-bottom-color: rgba(255, 255, 255, 0.14);
+}
+.compare thead th.compare__u { border-radius: var(--radius-lg) 0 0 0; }
+.compare tbody tr:last-child td.compare__u { border-radius: 0 0 0 var(--radius-lg); }
+
 .compare tbody tr:last-child td { border-bottom: none; }
 
 .compare-cta { display: flex; justify-content: center; margin-top: 32px; }
