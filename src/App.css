@@ -3660,30 +3660,21 @@ textarea.field__input {
 .compare-wrap { position: relative; }
 .compare-scroll { overflow-x: auto; }
 
-/* Scroll affordance: edge fades shown only when more content lies that way.
-   The right edge sits over the white column, so a soft shadow reads there;
-   the left edge sits over the black column, so a page-colour fade reads. */
-.compare-wrap::before,
+/* Scroll affordance: a right-edge fade to the page background, shown only
+   while there's more table to scroll toward. */
 .compare-wrap::after {
   content: '';
   position: absolute;
   top: 0;
   bottom: 0;
+  right: 0;
   width: 52px;
   pointer-events: none;
   opacity: 0;
   transition: opacity 0.25s ease;
   z-index: 2;
+  background: linear-gradient(to left, var(--background), rgba(246, 242, 239, 0));
 }
-.compare-wrap::before {
-  left: 0;
-  background: linear-gradient(to right, var(--background), rgba(246, 242, 239, 0));
-}
-.compare-wrap::after {
-  right: 0;
-  background: linear-gradient(to left, rgba(31, 35, 38, 0.18), rgba(31, 35, 38, 0));
-}
-.compare-wrap.is-start::before { opacity: 1; }
 .compare-wrap.is-end::after { opacity: 1; }
 
 .compare {
@@ -3743,7 +3734,7 @@ textarea.field__input {
   .compare th, .compare td { padding: 14px 22px; }
   .compare thead th { padding: 22px 22px 16px; }
   .compare tbody tr:last-child td { padding-bottom: 22px; }
-  .compare-wrap::before, .compare-wrap::after { width: 40px; }
+  .compare-wrap::after { width: 40px; }
 }
 
 /* ---------- Shared: white-pill feature grid ---------- */

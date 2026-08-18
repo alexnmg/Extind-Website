@@ -40,15 +40,15 @@ const rows = [
 
 export default function Comparison() {
   const scrollRef = useRef(null)
-  // Which edges have more content to scroll toward — drives the fade hints.
-  const [edges, setEdges] = useState({ start: false, end: false })
+  // True while there's more table to the right — drives the fade hint.
+  const [canScroll, setCanScroll] = useState(false)
 
   useEffect(() => {
     const el = scrollRef.current
     if (!el) return
     const update = () => {
       const max = el.scrollWidth - el.clientWidth
-      setEdges({ start: el.scrollLeft > 1, end: el.scrollLeft < max - 1 })
+      setCanScroll(el.scrollLeft < max - 1)
     }
     update()
     el.addEventListener('scroll', update, { passive: true })
@@ -66,10 +66,7 @@ export default function Comparison() {
         title="Why EXTIND, not a conventional office"
         description="A conventional office means upfront investment, separate contracts, furniture, utilities, maintenance and daily administration. At EXTIND, your team walks into a fully operational space and gets to focus on the work."
       />
-      <div
-        className={`compare-wrap${edges.start ? ' is-start' : ''}${edges.end ? ' is-end' : ''}`}
-        data-reveal
-      >
+      <div className={`compare-wrap${canScroll ? ' is-end' : ''}`} data-reveal>
         <div className="compare-scroll" ref={scrollRef}>
           <table className="compare">
             <thead>
