@@ -1,52 +1,36 @@
 import { useEffect, useRef, useState } from 'react'
 import SectionHeader from './SectionHeader'
 import starIcon from '../assets/figma/star.svg'
-import avatarImg from '../assets/figma/avatar.png'
 
 const defaultItems = [
   {
     quote:
-      '“Having a diverse team creates a dynamic and interesting place to work for our colleagues and visitors alike. Extind offers a thoughtful workspace which I like to think helps them be more productive.”',
-    name: 'Charlie Harris',
-    role: 'Managing Partner, MSO Project',
+      '“The best coworking space in Iași. The atmosphere is extraordinary, the facilities are top-notch, and the community motivates you every day.”',
+    name: 'Alexandru M.',
+    role: 'Software Developer, Freelancer',
   },
   {
     quote:
-      '“The community at Extind coworking gathers and nurtures so organically. The people I met here are a gold standard of collaboration, knowledge, opportunities and fun stories shared.”',
-    name: 'Oana Modrescu',
-    role: 'AI Partnerships, Tech Companies',
+      '“I moved my 8-person team to Extind six months ago. We haven’t looked back since — the private office boosted our productivity enormously.”',
+    name: 'Ioana P.',
+    role: 'CEO, Startup IT',
   },
   {
     quote:
-      '“Of Startup Studio in Bucharest is an excellent meeting space. It is professional yet cozy, making it ideal for client meetings. The staff is warm and welcoming, and the location is convenient.”',
-    name: 'Monica Zara',
-    role: 'Partner & Head of Confidence, Rise to Web',
-  },
-  {
-    quote:
-      '“It is a great place to work from - you will love the vibe and the great coffee options around. Its recommended to any freelancer or entrepreneur who is looking for more than just a workspace.”',
-    name: 'Vlad Andrei',
-    role: 'Co-founder, Bucharest AI',
-  },
-  {
-    quote:
-      '“Extind offers a fantastic space for creative professionals. The natural light and like-minded makers around every project feel grounded.”',
-    name: 'Ana Ionescu',
-    role: 'Product Designer, CreativLab',
-  },
-  {
-    quote:
-      '“Extind gave our small team a professional base without the overhead of a traditional office. From day one, clients took us more seriously and the team genuinely felt at home.”',
-    name: 'Radu Petrescu',
-    role: 'Founder, Nordic Ventures',
-  },
-  {
-    quote:
-      '“What surprised me most was how much time we got back. The space, the coffee, the meeting rooms—everything just works, so we can focus entirely on the business.”',
-    name: 'Elena Barbu',
-    role: 'Operations Lead, Delta Systems',
+      '“I ran two workshops at Extind. The room is perfect, the equipment works flawlessly, and their team is extremely professional.”',
+    name: 'Radu D.',
+    role: 'Trainer & Consultant',
   },
 ]
+
+// Two-letter monogram from a name, e.g. "Alexandru M." → "AM"
+const initials = (name) =>
+  name
+    .split(/\s+/)
+    .map((part) => part[0])
+    .join('')
+    .slice(0, 2)
+    .toUpperCase()
 
 const GAP = 24
 
@@ -67,7 +51,7 @@ function TestimonialCard({ quote, name, role }) {
       </div>
       <p className="testimonial-card__quote">{quote}</p>
       <div className="testimonial-card__author">
-        <img className="testimonial-card__avatar" src={avatarImg} alt="" width="48" height="48" />
+        <span className="testimonial-card__avatar" aria-hidden="true">{initials(name)}</span>
         <div className="testimonial-card__meta">
           <p className="testimonial-card__name">{name}</p>
           <p className="testimonial-card__role">{role}</p>
@@ -137,6 +121,10 @@ export default function Testimonials({
 
   useEffect(() => () => cancelAnimationFrame(rafRef.current), [])
 
+  // With just a few testimonials there's nothing to cycle through — show a
+  // plain static grid instead of the drag/scroll carousel.
+  const isStatic = items.length <= 3
+  const isCarousel = pages > 1
   const activeDot = Math.min(active, pages - 1)
 
   const syncActive = () => {
@@ -209,7 +197,7 @@ export default function Testimonials({
   const onPointerEnter = (e) => {
     if (e.pointerType !== 'mouse') return
     hoverRef.current = true
-    setChipVisible(true)
+    if (isCarousel) setChipVisible(true)
   }
 
   const onPointerLeave = () => {
@@ -223,6 +211,19 @@ export default function Testimonials({
     setDragging(false)
     viewportRef.current?.releasePointerCapture?.(e.pointerId)
     syncActive()
+  }
+
+  if (isStatic) {
+    return (
+      <section className="section testimonials">
+        <SectionHeader eyebrow={eyebrow} title={title} description={description} />
+        <div className="testimonials__grid" data-reveal>
+          {items.map((t, i) => (
+            <TestimonialCard key={t.name + i} {...t} />
+          ))}
+        </div>
+      </section>
+    )
   }
 
   return (
@@ -263,18 +264,20 @@ export default function Testimonials({
           <path d="M3 12h18" />
         </svg>
       </div>
-      <div className="testimonials__indicator" role="tablist" aria-label="Testimonials">
-        {Array.from({ length: pages }, (_, i) => (
-          <button
-            key={i}
-            type="button"
-            className={`testimonials__dot${i === activeDot ? ' testimonials__dot--active' : ''}`}
-            aria-label={`Go to slide ${i + 1}`}
-            aria-selected={i === activeDot}
-            onClick={() => goTo(i)}
-          />
-        ))}
-      </div>
+      {isCarousel && (
+        <div className="testimonials__indicator" role="tablist" aria-label="Testimonials">
+          {Array.from({ length: pages }, (_, i) => (
+            <button
+              key={i}
+              type="button"
+              className={`testimonials__dot${i === activeDot ? ' testimonials__dot--active' : ''}`}
+              aria-label={`Go to slide ${i + 1}`}
+              aria-selected={i === activeDot}
+              onClick={() => goTo(i)}
+            />
+          ))}
+        </div>
+      )}
     </section>
   )
 }

@@ -761,6 +761,24 @@
   padding-bottom: 8px;
 }
 
+/* Static layout for a small number of testimonials (no carousel) */
+.testimonials__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+  align-items: start;
+}
+.testimonials__grid .testimonial-card {
+  flex: none;
+}
+@media (max-width: 860px) {
+  .testimonials__grid {
+    grid-template-columns: 1fr;
+    max-width: 520px;
+    margin-inline: auto;
+  }
+}
+
 .testimonial-card {
   flex: 0 0 420px;
   background: var(--surface);
@@ -801,8 +819,15 @@
   width: 48px;
   height: 48px;
   border-radius: 50%;
-  object-fit: cover;
   flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--accent);
+  color: var(--brand-white);
+  font-size: var(--fs-14);
+  font-weight: 600;
+  letter-spacing: 0.5px;
 }
 
 .testimonial-card__meta {

@@ -6,9 +6,9 @@ import pillarsImg from '../assets/photos/meeting-room.jpg'
 import vistaImg from '../assets/photos/lounge.jpg'
 
 const defaultHeroSlides = [
+  { src: vistaImg, caption: 'Vista Lounge Panoramic View', alt: 'Panoramic view from Vista Lounge' },
   { src: heroImg, caption: 'Coworking · Palas Campus', alt: 'Extind coworking space at Palas Campus' },
   { src: pillarsImg, caption: 'Meeting & Focus Rooms', alt: 'Meeting room at Extind' },
-  { src: vistaImg, caption: 'Panoramic Lounge · 6th floor', alt: 'Panoramic view from Vista Lounge' },
 ]
 
 function PinIcon() {

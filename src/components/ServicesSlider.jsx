@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import pillarsImg from '../assets/photos/private-office.jpg'
 import heroImg from '../assets/photos/coworking.jpg'
 import vistaImg from '../assets/photos/lounge.jpg'
@@ -12,6 +13,7 @@ const defaultSlides = [
     description:
       'Designed for businesses that need more than an office. Fully serviced private workspaces that support focus, team collaboration and a professional environment for welcoming clients as your business grows.',
     ctaLabel: 'Private offices overview',
+    to: '/private-offices',
     variant: 'light',
   },
   {
@@ -22,6 +24,7 @@ const defaultSlides = [
     description:
       'Flexible desks in a thoughtfully designed shared space, surrounded by a community of people who care about their work.',
     ctaLabel: 'Coworking overview',
+    to: '/coworking',
     variant: 'cream',
   },
   {
@@ -32,6 +35,7 @@ const defaultSlides = [
     description:
       'A panoramic workspace above the city — the backdrop for focus, conversation, events, and professional relationships.',
     ctaLabel: 'Vista Lounge overview',
+    to: '/vista-lounge',
     variant: 'dark',
   },
 ]
@@ -83,15 +87,25 @@ export default function ServicesSlider({ slides = defaultSlides }) {
           <p className="services__desc">{slide.description}</p>
           {/* Slides without a ctaLabel (e.g. the Private Offices benefits
               slider) simply render no button. */}
-          {slide.ctaLabel && (
-            <button
-              type="button"
-              className={`text-button${variant === 'dark' ? '' : ' text-button--dark'}`}
-            >
-              <span>{slide.ctaLabel}</span>
-              <span className="text-button__arrow" aria-hidden="true" />
-            </button>
-          )}
+          {slide.ctaLabel &&
+            (slide.to ? (
+              <Link
+                className={`text-button${variant === 'dark' ? '' : ' text-button--dark'}`}
+                to={slide.to}
+                viewTransition
+              >
+                <span>{slide.ctaLabel}</span>
+                <span className="text-button__arrow" aria-hidden="true" />
+              </Link>
+            ) : (
+              <button
+                type="button"
+                className={`text-button${variant === 'dark' ? '' : ' text-button--dark'}`}
+              >
+                <span>{slide.ctaLabel}</span>
+                <span className="text-button__arrow" aria-hidden="true" />
+              </button>
+            ))}
         </div>
         <div className="slider-arrows services__arrows">
           <button
