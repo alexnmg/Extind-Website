@@ -174,7 +174,7 @@
 }
 
 .navbar--open .navbar__mobile {
-  max-height: 480px;
+  max-height: 640px;
 }
 
 .navbar__mobile-inner {
@@ -184,17 +184,17 @@
 .navbar__mobile-links {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 2px;
   padding-top: 16px;
 }
 
 .navbar__mobile-link {
   font-family: var(--font-sans);
-  font-size: var(--fs-32);
+  font-size: var(--fs-24);
   font-weight: 700;
   color: var(--text-primary);
   text-decoration: none;
-  padding: 8px 0;
+  padding: 6px 0;
   opacity: 0;
   transform: translateY(8px);
   transition: opacity 0.3s ease, transform 0.3s ease;
@@ -2395,20 +2395,16 @@ textarea.field__input {
   color: var(--text-secondary);
 }
 
+/* The desktop nav's links + CTA need ~1290px to fit alongside the logo; below
+   that they'd overflow the bar, so switch to the burger below 1300px. */
+@media (max-width: 1300px) {
+  .navbar__links { display: none; }
+  .navbar__cta { display: none; }
+  .navbar__burger { display: inline-flex; }
+}
+
 /* ---------- Responsive (design gutters 24px; stack below 1024) ---------- */
 @media (max-width: 1024px) {
-  .navbar__links {
-    display: none;
-  }
-
-  .navbar__cta {
-    display: none;
-  }
-
-  .navbar__burger {
-    display: inline-flex;
-  }
-
   .hero,
   .private-office,
   .footer__main {
