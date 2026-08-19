@@ -63,7 +63,7 @@ export default function Comparison() {
     <section className="section">
       <SectionHeader
         eyebrow="Comparison"
-        title="Why EXTIND, not a conventional office"
+        title="Extind versus a conventional office"
         description="A conventional office means upfront investment, separate contracts, furniture, utilities, maintenance and daily administration. At EXTIND, your team walks into a fully operational space and gets to focus on the work."
       />
       <div className={`compare-wrap${canScroll ? ' is-end' : ''}`} data-reveal>

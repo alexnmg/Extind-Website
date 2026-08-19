@@ -75,7 +75,7 @@ export default function Footer() {
             <form className="email-row" onSubmit={(e) => e.preventDefault()}>
               <label className="email-field">
                 <img src={iconEmail} alt="" />
-                <input type="email" placeholder="Iași, Romania" aria-label="Email address" />
+                <input type="email" placeholder="Your Email" aria-label="Email address" />
               </label>
               <button type="submit" className="btn btn--outline">
                 Subscribe

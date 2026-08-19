@@ -4,7 +4,7 @@ import Logo from './Logo'
 
 const aboutItems = [
   { label: 'About Extind', to: '/about' },
-  { label: 'FAQ', to: '#' },
+  { label: 'FAQ', to: '/faq' },
   { label: 'Contact', to: '/contact' },
 ]
 const communityItems = [
@@ -28,6 +28,8 @@ const mobileLinks = [
   { label: 'Vista Lounge', to: '/vista-lounge' },
   { label: 'Events', to: '/events' },
   { label: 'Extind Magazine', to: '/magazine' },
+  { label: 'FAQ', to: '/faq' },
+  { label: 'Contact', to: '/contact' },
 ]
 
 function Chevron() {
