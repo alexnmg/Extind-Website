@@ -2777,6 +2777,15 @@ textarea.field__input {
     font-size: var(--fs-12);
   }
 
+  /* When the menu opens, the CTA leaves the bar and reappears full-width at
+     the foot of the menu (the bar keeps just the logo and close button) */
+  .navbar--open .navbar__cta {
+    display: none;
+  }
+  .navbar--open .navbar__mobile-cta {
+    display: inline-flex;
+  }
+
   .cards-row-3,
   .values-grid,
   .pricing-grid {
