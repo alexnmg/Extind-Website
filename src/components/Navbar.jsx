@@ -7,29 +7,27 @@ const aboutItems = [
   { label: 'FAQ', to: '/faq' },
   { label: 'Contact', to: '/contact' },
 ]
+const officesItems = [
+  { label: 'Private offices', to: '/private-offices' },
+  { label: 'Executive Day Office', to: '/executive-day-office' },
+]
 const communityItems = [
   { label: 'Vista Lounge', to: '/vista-lounge' },
   { label: 'Events', to: '/events' },
   { label: 'Extind Magazine', to: '/magazine' },
 ]
+// Standalone desktop links (no dropdown), sitting between the dropdowns.
 const links = [
-  { label: 'Private offices', to: '/private-offices' },
-  { label: 'Executive Office', to: '/executive-day-office' },
   { label: 'Coworking', to: '/coworking' },
   { label: 'Conference Rooms', to: '/conference-rooms' },
 ]
-// Mobile menu flattens the Community dropdown into its three destinations.
-const mobileLinks = [
-  { label: 'About us', to: '/about' },
-  { label: 'Private offices', to: '/private-offices' },
-  { label: 'Executive Office', to: '/executive-day-office' },
+// The mobile menu is a drill-down: parents open a sub-panel, leaves navigate.
+const mobileNav = [
+  { label: 'About us', children: aboutItems },
+  { label: 'Offices', children: officesItems },
   { label: 'Coworking', to: '/coworking' },
   { label: 'Conference Rooms', to: '/conference-rooms' },
-  { label: 'Vista Lounge', to: '/vista-lounge' },
-  { label: 'Events', to: '/events' },
-  { label: 'Extind Magazine', to: '/magazine' },
-  { label: 'FAQ', to: '/faq' },
-  { label: 'Contact', to: '/contact' },
+  { label: 'Community & Events', children: communityItems },
 ]
 
 function Chevron() {
@@ -46,8 +44,36 @@ function Chevron() {
   )
 }
 
+function ChevronRight() {
+  return (
+    <svg viewBox="0 0 8 14" width="8" height="14" fill="none" aria-hidden="true">
+      <path
+        d="M1 1L7 7L1 13"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  )
+}
+
+function ChevronLeft() {
+  return (
+    <svg viewBox="0 0 8 14" width="8" height="14" fill="none" aria-hidden="true">
+      <path
+        d="M7 1L1 7L7 13"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  )
+}
+
 // A single navbar dropdown that owns its open state and closes on Escape or an
-// outside click. Used for both "About us" and "Community & Events".
+// outside click. Used for "About us", "Offices" and "Community & Events".
 function NavDropdown({ label, items }) {
   const [open, setOpen] = useState(false)
   const ref = useRef(null)
@@ -107,7 +133,11 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [hidden, setHidden] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
+  // Which parent's sub-panel is open in the mobile drill-down (null = root).
+  const [mobileSub, setMobileSub] = useState(null)
   const navRef = useRef(null)
+
+  const closeMobile = () => setMobileOpen(false)
 
   // Hide on scroll down, reveal on scroll up (the CSS only applies the
   // hidden transform at mobile/tablet widths, so desktop never hides).
@@ -125,6 +155,11 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
+  // Reset the drill-down whenever the menu closes.
+  useEffect(() => {
+    if (!mobileOpen) setMobileSub(null)
+  }, [mobileOpen])
+
   // Close the expanding mobile menu on Escape or an outside click/tap.
   useEffect(() => {
     if (!mobileOpen) return
@@ -132,7 +167,10 @@ export default function Navbar() {
       if (navRef.current && !navRef.current.contains(e.target)) setMobileOpen(false)
     }
     const onKeyDown = (e) => {
-      if (e.key === 'Escape') setMobileOpen(false)
+      if (e.key === 'Escape') {
+        if (mobileSub) setMobileSub(null)
+        else setMobileOpen(false)
+      }
     }
     document.addEventListener('pointerdown', onPointerDown)
     document.addEventListener('keydown', onKeyDown)
@@ -140,7 +178,7 @@ export default function Navbar() {
       document.removeEventListener('pointerdown', onPointerDown)
       document.removeEventListener('keydown', onKeyDown)
     }
-  }, [mobileOpen])
+  }, [mobileOpen, mobileSub])
 
   return (
     <div
@@ -161,17 +199,12 @@ export default function Navbar() {
           <div className="navbar__right">
             <nav className="navbar__links">
               <NavDropdown label="About us" items={aboutItems} />
-              {links.map(({ label, to }) =>
-                to.startsWith('/') ? (
-                  <Link key={label} className="navbar__link" to={to} viewTransition>
-                    {label}
-                  </Link>
-                ) : (
-                  <a key={label} className="navbar__link" href={to}>
-                    {label}
-                  </a>
-                )
-              )}
+              <NavDropdown label="Offices" items={officesItems} />
+              {links.map(({ label, to }) => (
+                <Link key={label} className="navbar__link" to={to} viewTransition>
+                  {label}
+                </Link>
+              ))}
               <NavDropdown label="Community & Events" items={communityItems} />
             </nav>
             <Link className="btn btn--primary navbar__cta" to="/book-a-visit" viewTransition>
@@ -195,35 +228,65 @@ export default function Navbar() {
 
         <div className="navbar__mobile">
           <div className="navbar__mobile-inner">
-            <nav className="navbar__mobile-links">
-              {mobileLinks.map(({ label, to }) =>
-                to.startsWith('/') ? (
-                  <Link
-                    key={label}
-                    className="navbar__mobile-link"
-                    to={to}
-                    onClick={() => setMobileOpen(false)}
-                    viewTransition
-                  >
-                    {label}
-                  </Link>
-                ) : (
-                  <a
-                    key={label}
-                    className="navbar__mobile-link"
-                    href={to}
-                    onClick={() => setMobileOpen(false)}
-                  >
-                    {label}
-                  </a>
-                )
-              )}
-            </nav>
+            <div className={`navbar__mobile-panels${mobileSub ? ' is-sub' : ''}`}>
+              {/* Root level */}
+              <nav className="navbar__mobile-links">
+                {mobileNav.map((item) =>
+                  item.children ? (
+                    <button
+                      key={item.label}
+                      type="button"
+                      className="navbar__mobile-link navbar__mobile-link--parent"
+                      onClick={() => setMobileSub(item)}
+                    >
+                      <span>{item.label}</span>
+                      <ChevronRight />
+                    </button>
+                  ) : (
+                    <Link
+                      key={item.label}
+                      className="navbar__mobile-link"
+                      to={item.to}
+                      onClick={closeMobile}
+                      viewTransition
+                    >
+                      {item.label}
+                    </Link>
+                  )
+                )}
+              </nav>
+
+              {/* Sub-panel — slides in from the right */}
+              <nav className="navbar__mobile-sub" aria-hidden={!mobileSub}>
+                <button
+                  type="button"
+                  className="navbar__mobile-back"
+                  onClick={() => setMobileSub(null)}
+                >
+                  <ChevronLeft />
+                  <span>{mobileSub?.label ?? 'Back'}</span>
+                </button>
+                <div className="navbar__mobile-sub-links">
+                  {(mobileSub?.children ?? []).map((child) => (
+                    <Link
+                      key={child.label}
+                      className="navbar__mobile-link"
+                      to={child.to}
+                      onClick={closeMobile}
+                      viewTransition
+                    >
+                      {child.label}
+                    </Link>
+                  ))}
+                </div>
+              </nav>
+            </div>
+
             <div className="navbar__mobile-footer">
               <Link
                 className="btn btn--primary navbar__mobile-cta"
                 to="/book-a-visit"
-                onClick={() => setMobileOpen(false)}
+                onClick={closeMobile}
                 viewTransition
               >
                 <span>Book a visit</span>

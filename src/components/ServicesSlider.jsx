@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import pillarsImg from '../assets/photos/private-office.jpg'
+import execImg from '../assets/photos/private-office-2.jpg'
 import heroImg from '../assets/photos/coworking.jpg'
 import vistaImg from '../assets/photos/lounge.jpg'
 
@@ -15,6 +16,17 @@ const defaultSlides = [
     ctaLabel: 'Private offices overview',
     to: '/private-offices',
     variant: 'light',
+  },
+  {
+    image: execImg,
+    caption: 'Executive Day Office · Palas Campus',
+    label: 'HOST',
+    title: 'Executive Day Office',
+    description:
+      'A premium, representative office prepared for corporate visits — one to three days, with meeting-room access, hospitality and a setup matched to your schedule.',
+    ctaLabel: 'Executive Day Office overview',
+    to: '/executive-day-office',
+    variant: 'dark',
   },
   {
     image: heroImg,

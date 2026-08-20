@@ -210,6 +210,62 @@
 .navbar--open .navbar__mobile-link:nth-child(4) { transition-delay: 0.25s; }
 .navbar--open .navbar__mobile-link:nth-child(5) { transition-delay: 0.30s; }
 
+/* ----- Mobile drill-down: parents open a sub-panel that slides in ----- */
+.navbar__mobile-panels {
+  position: relative;
+  overflow: hidden;
+}
+
+.navbar__mobile-link--parent {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  background: none;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+}
+.navbar__mobile-link--parent svg {
+  flex-shrink: 0;
+  color: var(--text-secondary);
+}
+
+.navbar__mobile-sub {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  background: var(--surface);
+  transform: translateX(100%);
+  transition: transform 0.34s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.navbar__mobile-panels.is-sub .navbar__mobile-sub {
+  transform: translateX(0);
+}
+
+.navbar__mobile-back {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: var(--font-sans);
+  font-size: var(--fs-16);
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+.navbar__mobile-back svg { flex-shrink: 0; }
+
+.navbar__mobile-sub-links {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding-top: 8px;
+}
+
 .navbar__mobile-footer {
   display: flex;
   flex-direction: column;
@@ -2627,10 +2683,18 @@ textarea.field__input {
   /* Links take the room left above the footer and centre themselves in it, so
      they sit mid-card rather than stacked under the bar. That also pushes the
      CTA and email to the foot of the card without needing an auto margin. */
-  .navbar__mobile-links {
+  .navbar__mobile-panels {
     flex: 1;
+  }
+  .navbar__mobile-links {
+    height: 100%;
     justify-content: center;
     padding-top: 0;
+  }
+  /* Centre the back button together with its items, so it sits just above
+     them rather than pinned to the top of the panel */
+  .navbar__mobile-sub {
+    justify-content: center;
   }
 
   /* Optically even navbar padding: collapse the bar's button min-height and
