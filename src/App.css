@@ -230,6 +230,9 @@
   width: 100%;
   gap: 12px;
   font-size: var(--fs-16);
+  /* Hidden by default: at 601-1300 the CTA lives in the bar next to the
+     burger, so the menu's own is redundant. Shown again on phones below. */
+  display: none;
 }
 
 .navbar__mobile-email {
@@ -2399,8 +2402,9 @@ textarea.field__input {
    that they'd overflow the bar, so switch to the burger below 1300px. */
 @media (max-width: 1300px) {
   .navbar__links { display: none; }
-  .navbar__cta { display: none; }
   .navbar__burger { display: inline-flex; }
+  /* Keep the CTA visible, sitting just left of the burger */
+  .navbar__cta { margin-right: 4px; }
 }
 
 /* ---------- Responsive (design gutters 24px; stack below 1024) ---------- */
@@ -2756,6 +2760,15 @@ textarea.field__input {
 
 /* ---- Mobile (≤600px) — single-column grids and the tightest spacing ---- */
 @media (max-width: 600px) {
+  /* On phones the bar is too narrow for logo + CTA + burger; drop the bar
+     CTA and restore the menu's own "Book a visit" instead */
+  .navbar__cta {
+    display: none;
+  }
+  .navbar__mobile-cta {
+    display: inline-flex;
+  }
+
   .cards-row-3,
   .values-grid,
   .pricing-grid {
