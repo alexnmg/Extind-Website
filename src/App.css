@@ -2643,6 +2643,13 @@ textarea.field__input {
     margin: -10px -10px -10px 0;
   }
 
+  /* The CTA button is 44px tall, which would inflate the locked pill's 24px
+     content row and drop it below centre; pull it back like the burger. */
+  .navbar__cta {
+    margin-top: -10px;
+    margin-bottom: -10px;
+  }
+
   /* Hide-on-scroll navbar (JS toggles the class; only applies below 1024px) */
   .navbar-container--hidden {
     transform: translateY(-100%);
@@ -2760,13 +2767,14 @@ textarea.field__input {
 
 /* ---- Mobile (≤600px) — single-column grids and the tightest spacing ---- */
 @media (max-width: 600px) {
-  /* On phones the bar is too narrow for logo + CTA + burger; drop the bar
-     CTA and restore the menu's own "Book a visit" instead */
-  .navbar__cta {
-    display: none;
+  /* Compact the bar so the logo + CTA + burger fit on narrow phones */
+  .navbar__right {
+    gap: 12px;
   }
-  .navbar__mobile-cta {
-    display: inline-flex;
+  .navbar__cta {
+    margin-right: 0;
+    padding: 8px 14px;
+    font-size: var(--fs-12);
   }
 
   .cards-row-3,
