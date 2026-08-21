@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react'
 
-const INTERESTS = ['Private office', 'Coworking', 'Meeting room', 'Events space']
+const INTERESTS = ['Private office', 'Executive Day Office', 'Coworking', 'Events space']
 
 const TIMES = []
 for (let h = 9; h <= 17; h++) {
