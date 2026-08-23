@@ -134,15 +134,17 @@
 /* ---------- Language switcher ----------
    Shows the active language; clicking flips to the other. The visible label is
    the state, so the action lives in a tooltip fed by [data-tip]. */
-/* Sits beside the CTA, so it borrows the .btn box exactly — same padding,
-   line-height and radius. The outline is an inset shadow rather than a real
-   border, which would add 2px and leave it taller than the button. */
+/* Sits beside the CTA and matches its height: 12px vertical padding on a
+   20px line-height gives the button's 44px. The horizontal padding is equal
+   rather than the button's 20px — on a two-letter label that reads as a
+   balanced pill instead of a stretched one. The outline is an inset shadow
+   rather than a real border, which would add 2px and make it taller. */
 .lang-switch {
   position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 12px 20px;
+  padding: 12px;
   background: none;
   border: none;
   border-radius: var(--radius-sm);
