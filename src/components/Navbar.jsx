@@ -266,10 +266,10 @@ export default function Navbar() {
               ))}
               <NavDropdown label={t.communityLabel} items={t.community} />
             </nav>
-            <LangSwitch variant="bar" />
             <Link className="btn btn--primary navbar__cta" to="/book-a-visit" viewTransition>
               {t.cta}
             </Link>
+            <LangSwitch variant="bar" />
             <button
               type="button"
               className="navbar__burger"

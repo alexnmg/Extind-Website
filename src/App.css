@@ -134,27 +134,32 @@
 /* ---------- Language switcher ----------
    Shows the active language; clicking flips to the other. The visible label is
    the state, so the action lives in a tooltip fed by [data-tip]. */
+/* Sits beside the CTA, so it borrows the .btn box exactly — same padding,
+   line-height and radius. The outline is an inset shadow rather than a real
+   border, which would add 2px and leave it taller than the button. */
 .lang-switch {
   position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 5px 9px;
+  padding: 12px 20px;
   background: none;
-  border: 1px solid var(--border);
-  border-radius: var(--radius-xs);
+  border: none;
+  border-radius: var(--radius-sm);
+  box-shadow: inset 0 0 0 1px var(--border);
   cursor: pointer;
   font-family: var(--font-sans);
-  font-size: var(--fs-12);
+  font-size: var(--fs-14);
   font-weight: 600;
-  letter-spacing: 0.04em;
+  line-height: 20px;
+  letter-spacing: 0.5px;
   color: var(--text-primary);
-  transition: background-color 0.15s ease, border-color 0.15s ease;
+  transition: background-color 0.15s ease, box-shadow 0.15s ease;
 }
 
 .lang-switch:hover {
   background: var(--background);
-  border-color: var(--text-primary);
+  box-shadow: inset 0 0 0 1px var(--text-primary);
 }
 
 /* Tooltip — hover/focus only, and only where hovering is possible, so it
@@ -164,7 +169,7 @@
   position: absolute;
   top: calc(100% + 8px);
   left: 50%;
-  transform: translateX(-50%) translateY(-3px);
+  transform: translate(var(--tip-x, -50%), -3px);
   padding: 5px 9px;
   border-radius: var(--radius-xs);
   background: var(--text-primary);
@@ -183,23 +188,30 @@
   .lang-switch:hover::after,
   .lang-switch:focus-visible::after {
     opacity: 1;
-    transform: translateX(-50%) translateY(0);
+    transform: translate(var(--tip-x, -50%), 0);
   }
+}
+
+/* In the bar the switcher is the last thing before the burger, so a centred
+   tooltip spills past the navbar and widens the page. Anchor it right. */
+.lang-switch--bar::after {
+  --tip-x: 0;
+  left: auto;
+  right: 0;
 }
 
 /* In-menu variant: phones only, centred above the CTA */
 .lang-switch--menu {
   display: none;
   align-self: center;
-  padding: 8px 14px;
-  font-size: var(--fs-14);
+  margin: 0;
 }
 
 /* The menu sits at the foot of the card, so point its tooltip upward */
 .lang-switch--menu::after {
   top: auto;
   bottom: calc(100% + 8px);
-  transform: translateX(-50%) translateY(3px);
+  transform: translate(var(--tip-x, -50%), 3px);
 }
 
 /* Downward-only shadow: negative spread pulls the sides in so it doesn't
@@ -2646,10 +2658,11 @@ textarea.field__input {
   color: var(--text-secondary);
 }
 
-/* Widest the nav gets is Romanian, which needs ~1243px alongside the logo
-   (English ~1133px); below that it would overflow, so hand over to the
-   burger. Re-measure if nav labels or the CTA change length. */
-@media (max-width: 1260px) {
+/* Widest the nav gets is Romanian, which needs ~1291px alongside the logo
+   (English ~1185px); below that it would overflow, so hand over to the
+   burger. Re-measure if the nav labels, the CTA or the language switcher
+   change width. */
+@media (max-width: 1310px) {
   .navbar__links { display: none; }
   .navbar__burger { display: inline-flex; }
   /* Keep the CTA visible, sitting just left of the burger */
