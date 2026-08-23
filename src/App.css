@@ -3917,9 +3917,8 @@ textarea.field__input {
   flex-direction: column;
   align-items: flex-start;
   gap: 18px;
-  background: var(--surface);
-  border-left: 4px solid var(--accent);
-  border-radius: 0 var(--radius-2xl) var(--radius-2xl) 0;
+  background: var(--accent);
+  border-radius: var(--radius-2xl);
   padding: 40px 48px;
 }
 .callout__label {
@@ -3927,14 +3926,24 @@ textarea.field__input {
   font-weight: 600;
   letter-spacing: 0.4px;
   text-transform: uppercase;
-  color: var(--accent);
+  color: var(--brand-cream);
+  opacity: 0.75;
 }
 .callout__text {
   font-family: var(--font-serif);
   font-size: var(--fs-24);
   line-height: 1.4;
-  color: var(--text-primary);
+  color: var(--brand-cream);
   max-width: 60ch;
+}
+/* The default primary button hovers to --accent, which is now the callout's
+   own background — so give it a light treatment on this surface instead. */
+.callout .btn--primary {
+  background: var(--brand-cream);
+  color: var(--text-primary);
+}
+.callout .btn--primary:hover {
+  background: var(--brand-white);
 }
 
 /* ---------- Pricing cards ---------- */
