@@ -1675,15 +1675,27 @@
   justify-content: stretch;
 }
 
-/* Cal draws its own chrome inside the iframe: measured at 784px wide, the
-   booker sits 32px in from each side with ~80px of branding space beneath it,
-   and nothing above. So equal padding here *reads* as lopsided — 48 top vs 80
-   sides vs 128 bottom. Trim our padding on those three sides so the visible
-   gap matches the card's 48px on top/left/right. The bottom can only get to
-   80: the rest is Cal's branding strip, which we won't cover. Cal drops these
-   insets in its narrow layout, hence min-width — phones need no correction. */
+/* Cal renders a 720px-wide booker and centres it, so the visible side gap is
+   our padding plus (iframe - 720) / 2 — trimming padding alone just widens
+   the iframe and Cal re-centres, leaving the gap unchanged. Capping the
+   wrapper at 816 makes the sum work out to exactly 48px whatever the padding
+   is, matching the card.
+
+   Padding then only decides the iframe's width, which decides Cal's layout:
+   measured, 768px stacks and 784px keeps the three-column view, so 16px each
+   side (816 - 32 = 784) is the value that both lands the gap at 48 and keeps
+   the calendar beside its time slots. Re-measure if Cal changes either its
+   booker width or that breakpoint.
+
+   Vertically Cal adds nothing above the booker but leaves ~80px of branding
+   space below it, so drop our bottom padding; 80px is as even as it gets
+   without covering their wordmark.
+
+   min-width because Cal switches to a full-bleed stacked layout on narrow
+   screens, where none of this applies. */
 @media (min-width: 601px) {
   .book-visit__embed {
+    max-width: 816px;
     padding-left: 16px;
     padding-right: 16px;
     padding-bottom: 0;
