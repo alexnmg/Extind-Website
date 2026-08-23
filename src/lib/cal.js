@@ -10,7 +10,7 @@ import { getCalApi } from '@calcom/embed-react'
  * redirect old usernames — every existing link (including this embed) 404s.
  */
 export const CAL_USER = 'extind'
-export const CAL_EVENT = 'visit'
+export const CAL_EVENT = 'programeaza-o-vizita'
 export const CAL_LINK = `${CAL_USER}/${CAL_EVENT}`
 
 /* Extind palette mapped onto Cal's theme variables. Keys are written without
