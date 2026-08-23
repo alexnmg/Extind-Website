@@ -1668,10 +1668,11 @@
   align-self: flex-start;
 }
 
-/* The booker sizes itself; the wrapper just gives it room and trims the
-   generous padding the form card used for its own fields. */
+/* The booker sizes itself; the wrapper only needs to stretch it. Padding is
+   deliberately NOT set here so it inherits .book-visit__form's, which is the
+   same value the charcoal card uses at every breakpoint — they stay matched
+   without having to keep two numbers in sync. */
 .book-visit__embed {
-  padding: 16px;
   justify-content: stretch;
 }
 
@@ -1682,9 +1683,6 @@
 }
 
 @media (max-width: 600px) {
-  .book-visit__embed {
-    padding: 8px;
-  }
   .cal-embed {
     min-height: 560px;
   }
