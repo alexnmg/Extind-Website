@@ -56,8 +56,14 @@
   padding: 40px;
 }
 
+/* A third of the card's width. The box is locked to the portrait's own 2:3
+   ratio (founder.jpg is 800×1200), so object-fit: cover has nothing to trim
+   and her head can't be cropped at any width. align-self stops it stretching
+   to the quote's height, which would reintroduce a crop. */
 .founder__media {
-  flex: 0 0 340px;
+  flex: 0 0 33.333%;
+  align-self: flex-start;
+  aspect-ratio: 2 / 3;
   border-radius: var(--radius-xl);
   overflow: hidden;
 }
@@ -67,6 +73,8 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  /* Defensive: if a replacement photo isn't 2:3, crop from the bottom */
+  object-position: 50% 15%;
 }
 
 /* Centred against the portrait so the quote reads as its caption */
@@ -111,10 +119,12 @@
     gap: 28px;
     padding: 24px;
   }
+  /* Keeps the 2:3 ratio from the base rule; capped so it doesn't dominate
+     the card on tablets. A max-height here would break the ratio and crop. */
   .founder__media {
     flex: none;
-    aspect-ratio: 4 / 5;
-    max-height: 460px;
+    width: 100%;
+    max-width: 340px;
   }
   .founder__quote {
     font-size: var(--fs-18);
