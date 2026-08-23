@@ -13,6 +13,13 @@ export const CAL_USER = 'extind'
 export const CAL_EVENT = 'programeaza-o-vizita'
 export const CAL_LINK = `${CAL_USER}/${CAL_EVENT}`
 
+/* Passed as the embed's own config, so it lands in the iframe's URL and
+ * applies on first paint. The theme MUST be set here, not only via the ui()
+ * call below: ui() is a postMessage that races the embed's own mount — the
+ * <Cal> child's effect runs before the parent's — so a visitor whose OS is in
+ * dark mode gets a dark booker inside this light-only site. */
+export const CAL_CONFIG = { layout: 'month_view', theme: 'light' }
+
 /* Extind palette mapped onto Cal's theme variables. Keys are written without
  * the leading `--`. Fonts can't be themed — the booker renders in a
  * cross-origin iframe, so it keeps Cal's own typeface. */

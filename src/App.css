@@ -1670,10 +1670,24 @@
 
 /* The booker sizes itself; the wrapper only needs to stretch it. Padding is
    deliberately NOT set here so it inherits .book-visit__form's, which is the
-   same value the charcoal card uses at every breakpoint — they stay matched
-   without having to keep two numbers in sync. */
+   same value the charcoal card uses at every breakpoint. */
 .book-visit__embed {
   justify-content: stretch;
+}
+
+/* Cal draws its own chrome inside the iframe: measured at 784px wide, the
+   booker sits 32px in from each side with ~80px of branding space beneath it,
+   and nothing above. So equal padding here *reads* as lopsided — 48 top vs 80
+   sides vs 128 bottom. Trim our padding on those three sides so the visible
+   gap matches the card's 48px on top/left/right. The bottom can only get to
+   80: the rest is Cal's branding strip, which we won't cover. Cal drops these
+   insets in its narrow layout, hence min-width — phones need no correction. */
+@media (min-width: 601px) {
+  .book-visit__embed {
+    padding-left: 16px;
+    padding-right: 16px;
+    padding-bottom: 0;
+  }
 }
 
 .cal-embed {

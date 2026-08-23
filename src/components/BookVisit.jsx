@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import Cal from '@calcom/embed-react'
-import { CAL_LINK, initCal } from '../lib/cal'
+import { CAL_LINK, CAL_CONFIG, initCal } from '../lib/cal'
 import { useLang } from '../lib/i18n'
 
 const NS = 'extind-visit'
@@ -94,7 +94,7 @@ export default function BookVisit({ title, subtitle, description, ctaLabel, mode
             className="btn btn--outline book-visit__trigger"
             data-cal-namespace={NS}
             data-cal-link={CAL_LINK}
-            data-cal-config='{"layout":"month_view"}'
+            data-cal-config={JSON.stringify(CAL_CONFIG)}
           >
             {ctaLabel}
           </button>
@@ -108,7 +108,7 @@ export default function BookVisit({ title, subtitle, description, ctaLabel, mode
               namespace={NS}
               calLink={CAL_LINK}
               className="cal-embed"
-              config={{ layout: 'month_view' }}
+              config={CAL_CONFIG}
             />
           ) : (
             /* Reserves the booker's height so nothing shifts when it mounts */
