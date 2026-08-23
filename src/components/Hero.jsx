@@ -53,6 +53,7 @@ export default function Hero({
   primaryLabel,
   primaryTo = '/book-a-visit',
   secondaryLabel,
+  secondaryTo,
   slides,
   pills = null,
   onSecondaryClick,
@@ -113,9 +114,17 @@ export default function Hero({
           <Link className="btn btn--primary" to={primaryTo} viewTransition>
             {primaryLabel}
           </Link>
-          <button type="button" className="btn btn--ghost" onClick={onSecondaryClick}>
-            {secondaryLabel}
-          </button>
+          {/* Pages that scroll to a section pass onSecondaryClick; pages that
+              send you elsewhere pass secondaryTo and get a real link. */}
+          {secondaryTo ? (
+            <Link className="btn btn--ghost" to={secondaryTo} viewTransition>
+              {secondaryLabel}
+            </Link>
+          ) : (
+            <button type="button" className="btn btn--ghost" onClick={onSecondaryClick}>
+              {secondaryLabel}
+            </button>
+          )}
         </div>
       </div>
       <ImageCardSlider className="hero__media" slides={slides} />

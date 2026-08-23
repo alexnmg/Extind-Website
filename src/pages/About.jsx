@@ -12,6 +12,9 @@ import mask2 from '../assets/photos/library.jpg'
 import mask3 from '../assets/photos/wellness.jpg'
 import mask5 from '../assets/photos/kitchen.jpg'
 
+// Until a live feed is wired, the gallery tiles open the profile itself
+const INSTAGRAM_URL = 'https://www.instagram.com/extindcowork/'
+
 const T = {
   en: {
     docTitle: 'About — Extind',
@@ -134,7 +137,9 @@ export default function About() {
             <a
               key={i}
               className="social-grid__item"
-              href="#"
+              href={INSTAGRAM_URL}
+              target="_blank"
+              rel="noreferrer"
               aria-label={t.igAria}
               data-reveal
               style={{ '--reveal-delay': `${(i % 3) * 80}ms` }}

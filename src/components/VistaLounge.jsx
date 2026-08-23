@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import SectionHeader from './SectionHeader'
 import { useLang } from '../lib/i18n'
 import vistaImg from '../assets/photos/lounge.jpg'
@@ -92,10 +93,10 @@ export default function VistaLounge({
           <p className="vista__card-label">{cardLabel}</p>
           <h3 className="vista__card-title">{cardTitle}</h3>
           <p className="vista__card-desc">{description}</p>
-          <button type="button" className="text-button">
+          <Link className="text-button" to="/vista-lounge" viewTransition>
             <span>{ctaLabel}</span>
             <span className="text-button__arrow" aria-hidden="true" />
-          </button>
+          </Link>
         </div>
         <div className="slider-arrows vista__arrows">
           <button

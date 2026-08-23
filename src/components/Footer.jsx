@@ -7,7 +7,13 @@ const T = {
   en: {
     // Mirrors the navbar's menu order; placeholder anchors until pages exist.
     menuTitle: 'Menu',
-    menuLinks: ['About us', 'Private offices', 'Coworking', 'Conference Rooms', 'Community & Events'],
+    menuLinks: [
+      { label: 'About us', to: '/about' },
+      { label: 'Private offices', to: '/private-offices' },
+      { label: 'Coworking', to: '/coworking' },
+      { label: 'Conference Rooms', to: '/conference-rooms' },
+      { label: 'Community & Events', to: '/vista-lounge' },
+    ],
     companyTitle: 'Company',
     companyLinks: [
       { label: 'FAQ', to: '/faq' },
@@ -22,7 +28,13 @@ const T = {
   },
   ro: {
     menuTitle: 'Meniu',
-    menuLinks: ['Despre noi', 'Birouri private', 'Coworking', 'Săli de conferințe', 'Comunitate & Evenimente'],
+    menuLinks: [
+      { label: 'Despre noi', to: '/about' },
+      { label: 'Birouri private', to: '/private-offices' },
+      { label: 'Coworking', to: '/coworking' },
+      { label: 'Săli de conferințe', to: '/conference-rooms' },
+      { label: 'Comunitate & Evenimente', to: '/vista-lounge' },
+    ],
     companyTitle: 'Companie',
     companyLinks: [
       { label: 'Întrebări frecvente', to: '/faq' },
@@ -79,25 +91,19 @@ export default function Footer() {
         <div className="footer__cols">
           <div className="footer__col">
             <p className="footer__col-title">{t.menuTitle}</p>
-            {t.menuLinks.map((label) => (
-              <a key={label} className="footer__link" href="#">
+            {t.menuLinks.map(({ label, to }) => (
+              <Link key={to} className="footer__link" to={to} viewTransition>
                 {label}
-              </a>
+              </Link>
             ))}
           </div>
           <div className="footer__col">
             <p className="footer__col-title">{t.companyTitle}</p>
-            {t.companyLinks.map(({ label, to }) =>
-              to.startsWith('/') ? (
-                <Link key={label} className="footer__link" to={to} viewTransition>
-                  {label}
-                </Link>
-              ) : (
-                <a key={label} className="footer__link" href={to}>
-                  {label}
-                </a>
-              )
-            )}
+            {t.companyLinks.map(({ label, to }) => (
+              <Link key={to} className="footer__link" to={to} viewTransition>
+                {label}
+              </Link>
+            ))}
           </div>
           <div className="footer__col footer__newsletter">
             <p className="footer__col-title">{t.newsletter}</p>

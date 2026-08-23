@@ -38,7 +38,7 @@ export default function Home() {
   }, [t.docTitle])
   return (
     <>
-      <Hero eyebrow="Palas Campus, Iași" title={t.heroTitle} />
+      <Hero eyebrow="Palas Campus, Iași" title={t.heroTitle} secondaryTo="/vista-lounge" />
       <CentralIdea description={t.centralIdea} />
       <ServicesSlider />
       <Values />
