@@ -56,7 +56,7 @@ export default function Contact() {
   const t = T[lang]
 
   const details = [
-    { label: t.emailLabel, value: 'office@extind.ro', href: 'mailto:office@extind.ro', Icon: EmailIcon },
+    { label: t.emailLabel, value: 'hello@extind.ro', href: 'mailto:hello@extind.ro', Icon: EmailIcon },
     {
       label: t.visitLabel,
       value: 'Strada Sfântul Andrei 39A, Palas Campus (clădirea B2), etaj 6, Iași',

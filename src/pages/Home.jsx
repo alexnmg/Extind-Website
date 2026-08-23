@@ -21,7 +21,7 @@ const T = {
     benefitsCta: 'Book a visit',
   },
   ro: {
-    docTitle: 'Extind — Spații pentru creștere',
+    docTitle: 'Extind — Spaces to grow',
     heroTitle: 'Spații de lucru premium, create pentru creșterea afacerii tale.',
     centralIdea:
       'EXTIND îți oferă experiența unui sediu corporate premium — fără investițiile, rigiditatea și administrarea unui birou convențional. Un spațiu gata de lucru în Palas Campus, adaptabil pentru proiecte confidențiale, vizite la nivel înalt și cerințe speciale de securitate, într-o comunitate prezentă, dar niciodată intruzivă.',

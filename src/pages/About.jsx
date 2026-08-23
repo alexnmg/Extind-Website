@@ -7,10 +7,9 @@ import { useLang } from '../lib/i18n'
 import vistaImg from '../assets/photos/lounge.jpg'
 import heroImg from '../assets/photos/coworking.jpg'
 import pillarsImg from '../assets/photos/private-office.jpg'
-import mask1 from '../assets/photos/booth.jpg'
+import founderImg from '../assets/photos/founder.jpg'
 import mask2 from '../assets/photos/library.jpg'
 import mask3 from '../assets/photos/wellness.jpg'
-import mask4 from '../assets/photos/corridor.jpg'
 import mask5 from '../assets/photos/kitchen.jpg'
 
 const T = {
@@ -20,9 +19,13 @@ const T = {
     eyebrow: 'About Extind',
     lede: 'Extind was created for companies and professionals who care about where and how they work. From Palas Campus, Iași, we combine thoughtfully designed offices, genuine hospitality and a curated business community — so teams can focus on the work that matters.',
     centralIdeaTitle: 'Design that supports connections',
-    teamEyebrow: 'The Team',
-    teamTitle: 'The people behind Extind',
-    roles: ['Community Manager', 'Operations Lead', 'Member Experience', 'Founder'],
+    founderEyebrow: 'Founder',
+    founderTitle: 'The person behind Extind',
+    founderQuote:
+      'I opened EXTIND because I kept meeting people in Iași doing serious, ambitious work from places that didn’t match it. Where you work shapes how a team thinks, how clients see you, and how it feels to walk in on a Monday morning. We built the place I would want to bring my own clients to — and then made it easy to belong to.',
+    founderName: 'Catrinel Gradu',
+    founderRole: 'Founder, Extind',
+    founderAlt: 'Catrinel Gradu, founder of Extind',
     igEyebrow: 'Instagram',
     igTitle: 'Latest from @extind',
     igAria: 'Open post on Instagram',
@@ -30,23 +33,23 @@ const T = {
   },
   ro: {
     docTitle: 'Despre — Extind',
-    heroTitle: 'Spații pentru creștere.',
+    heroTitle: 'Spaces to grow.',
     eyebrow: 'Despre Extind',
     lede: 'Extind a fost creat pentru companiile și profesioniștii cărora le pasă unde și cum lucrează. Din Palas Campus, Iași, combinăm birouri atent proiectate, ospitalitate autentică și o comunitate de business selectă — astfel încât echipele să se poată concentra pe munca ce contează.',
     centralIdeaTitle: 'Design care susține conexiunile',
-    teamEyebrow: 'Echipa',
-    teamTitle: 'Oamenii din spatele Extind',
-    roles: ['Community Manager', 'Coordonator operațiuni', 'Experiența membrilor', 'Fondator'],
+    founderEyebrow: 'Fondator',
+    founderTitle: 'Omul din spatele Extind',
+    founderQuote:
+      'Am deschis EXTIND pentru că întâlneam mereu, în Iași, oameni care fac o muncă serioasă și ambițioasă din spații care nu erau pe măsura ei. Locul în care lucrezi modelează felul în care gândește o echipă, felul în care te văd clienții și starea cu care intri pe ușă luni dimineața. Am construit spațiul în care aș vrea să-mi aduc propriii clienți — și în care e ușor să te simți parte din comunitate.',
+    founderName: 'Catrinel Gradu',
+    founderRole: 'Fondatoare, Extind',
+    founderAlt: 'Catrinel Gradu, fondatoarea Extind',
     igEyebrow: 'Instagram',
     igTitle: 'Ultimele de la @extind',
     igAria: 'Deschide postarea pe Instagram',
     igPill: 'Vezi pe Instagram',
   },
 }
-
-// Placeholder roster and photos — swap in the real team when ready
-const teamNames = ['Ana Popescu', 'Mihai Ionescu', 'Ioana Marin', 'Andrei Stancu']
-const teamPhotos = [mask1, mask2, mask3, mask4]
 
 // Latest-posts gallery — placeholder tiles until a live Instagram feed is wired
 const posts = [heroImg, mask2, pillarsImg, mask5, vistaImg, mask3]
@@ -109,23 +112,19 @@ export default function About() {
       <CentralIdea title={t.centralIdeaTitle} />
 
       <section className="section">
-        <SectionHeader eyebrow={t.teamEyebrow} title={t.teamTitle} />
-        <div className="team-grid">
-          {teamNames.map((name, i) => (
-            <article
-              key={name}
-              className="team-card"
-              data-reveal
-              style={{ '--reveal-delay': `${i * 70}ms` }}
-            >
-              <img className="team-card__photo" src={teamPhotos[i]} alt={name} loading="lazy" />
-              <div className="team-card__meta">
-                <p className="team-card__name">{name}</p>
-                <p className="team-card__role">{t.roles[i]}</p>
-              </div>
-            </article>
-          ))}
-        </div>
+        <SectionHeader eyebrow={t.founderEyebrow} title={t.founderTitle} />
+        <article className="founder" data-reveal>
+          <div className="founder__media">
+            <img src={founderImg} alt={t.founderAlt} loading="lazy" />
+          </div>
+          <div className="founder__body">
+            <blockquote className="founder__quote">{t.founderQuote}</blockquote>
+            <div className="founder__meta">
+              <p className="founder__name">{t.founderName}</p>
+              <p className="founder__role">{t.founderRole}</p>
+            </div>
+          </div>
+        </article>
       </section>
 
       <section className="section">

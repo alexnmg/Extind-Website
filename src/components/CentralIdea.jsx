@@ -30,7 +30,7 @@ const T = {
   },
   ro: {
     eyebrow: 'De ce Extind',
-    title: 'Spații pentru creștere',
+    title: 'Spaces to grow',
     description:
       'Extind combină spații de lucru atent proiectate, ospitalitate și o comunitate de business selectă într-un ecosistem care ajută companiile să performeze, să construiască relații și să crească.',
     cards: [

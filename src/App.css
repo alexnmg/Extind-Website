@@ -47,6 +47,80 @@
   flex-shrink: 0;
 }
 
+/* ---------- Founder ---------- */
+.founder {
+  display: flex;
+  gap: 40px;
+  background: var(--surface);
+  border-radius: var(--radius-2xl);
+  padding: 40px;
+}
+
+.founder__media {
+  flex: 0 0 340px;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+}
+
+.founder__media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Centred against the portrait so the quote reads as its caption */
+.founder__body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 28px;
+}
+
+.founder__quote {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: var(--fs-20);
+  line-height: 1.6;
+  color: var(--text-primary);
+  max-width: 52ch;
+}
+
+.founder__meta {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.founder__name {
+  font-size: var(--fs-16);
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.founder__role {
+  font-size: var(--fs-14);
+  color: var(--text-secondary);
+}
+
+@media (max-width: 860px) {
+  .founder {
+    flex-direction: column;
+    gap: 28px;
+    padding: 24px;
+  }
+  .founder__media {
+    flex: none;
+    aspect-ratio: 4 / 5;
+    max-height: 460px;
+  }
+  .founder__quote {
+    font-size: var(--fs-18);
+  }
+}
+
 /* ---------- Language switcher ----------
    Shows the active language; clicking flips to the other. The visible label is
    the state, so the action lives in a tooltip fed by [data-tip]. */
