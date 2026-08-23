@@ -3,6 +3,7 @@ import SectionHeader from '../components/SectionHeader'
 import LogoHero from '../components/LogoHero'
 import CentralIdea from '../components/CentralIdea'
 import Cta from '../components/Cta'
+import { useLang } from '../lib/i18n'
 import vistaImg from '../assets/photos/lounge.jpg'
 import heroImg from '../assets/photos/coworking.jpg'
 import pillarsImg from '../assets/photos/private-office.jpg'
@@ -12,30 +13,57 @@ import mask3 from '../assets/photos/wellness.jpg'
 import mask4 from '../assets/photos/corridor.jpg'
 import mask5 from '../assets/photos/kitchen.jpg'
 
-const HERO_TITLE = 'Spaces to grow.'
+const T = {
+  en: {
+    docTitle: 'About — Extind',
+    heroTitle: 'Spaces to grow.',
+    eyebrow: 'About Extind',
+    lede: 'Extind was created for companies and professionals who care about where and how they work. From Palas Campus, Iași, we combine thoughtfully designed offices, genuine hospitality and a curated business community — so teams can focus on the work that matters.',
+    centralIdeaTitle: 'Design that supports connections',
+    teamEyebrow: 'The Team',
+    teamTitle: 'The people behind Extind',
+    roles: ['Community Manager', 'Operations Lead', 'Member Experience', 'Founder'],
+    igEyebrow: 'Instagram',
+    igTitle: 'Latest from @extind',
+    igAria: 'Open post on Instagram',
+    igPill: 'View on Instagram',
+  },
+  ro: {
+    docTitle: 'Despre — Extind',
+    heroTitle: 'Spații pentru creștere.',
+    eyebrow: 'Despre Extind',
+    lede: 'Extind a fost creat pentru companiile și profesioniștii cărora le pasă unde și cum lucrează. Din Palas Campus, Iași, combinăm birouri atent proiectate, ospitalitate autentică și o comunitate de business selectă — astfel încât echipele să se poată concentra pe munca ce contează.',
+    centralIdeaTitle: 'Design care susține conexiunile',
+    teamEyebrow: 'Echipa',
+    teamTitle: 'Oamenii din spatele Extind',
+    roles: ['Community Manager', 'Coordonator operațiuni', 'Experiența membrilor', 'Fondator'],
+    igEyebrow: 'Instagram',
+    igTitle: 'Ultimele de la @extind',
+    igAria: 'Deschide postarea pe Instagram',
+    igPill: 'Vezi pe Instagram',
+  },
+}
 
 // Placeholder roster and photos — swap in the real team when ready
-const team = [
-  { name: 'Ana Popescu', role: 'Community Manager', photo: mask1 },
-  { name: 'Mihai Ionescu', role: 'Operations Lead', photo: mask2 },
-  { name: 'Ioana Marin', role: 'Member Experience', photo: mask3 },
-  { name: 'Andrei Stancu', role: 'Founder', photo: mask4 },
-]
+const teamNames = ['Ana Popescu', 'Mihai Ionescu', 'Ioana Marin', 'Andrei Stancu']
+const teamPhotos = [mask1, mask2, mask3, mask4]
 
 // Latest-posts gallery — placeholder tiles until a live Instagram feed is wired
 const posts = [heroImg, mask2, pillarsImg, mask5, vistaImg, mask3]
 
 export default function About() {
+  const { lang } = useLang()
+  const t = T[lang]
   const heroRef = useRef(null)
   const titleRef = useRef(null)
 
   useEffect(() => {
     const prev = document.title
-    document.title = 'About — Extind'
+    document.title = t.docTitle
     return () => {
       document.title = prev
     }
-  }, [])
+  }, [t.docTitle])
 
   /* Same entrance treatment as the homepage hero: title words rise from
    * behind per-line masks, then the label and paragraph fade up (see
@@ -54,7 +82,7 @@ export default function About() {
       w.style.setProperty('--line', line)
     })
     heroRef.current?.setAttribute('data-animate', '')
-  }, [])
+  }, [lang])
 
   return (
     <>
@@ -62,7 +90,7 @@ export default function About() {
         <LogoHero />
         <div className="about-hero__bottom">
           <h1 className="about-hero__title" ref={titleRef}>
-            {HERO_TITLE.split(' ').map((word, i) => (
+            {t.heroTitle.split(' ').map((word, i) => (
               <Fragment key={i}>
                 {i > 0 && ' '}
                 <span className="hero__word">
@@ -72,33 +100,28 @@ export default function About() {
             ))}
           </h1>
           <div className="about-hero__text">
-            <p className="about-hero__eyebrow">About Extind</p>
-            <p className="about-hero__lede">
-              Extind was created for companies and professionals who care about where and how they
-              work. From Palas Campus, Iași, we combine thoughtfully designed offices, genuine
-              hospitality and a curated business community — so teams can focus on the work that
-              matters.
-            </p>
+            <p className="about-hero__eyebrow">{t.eyebrow}</p>
+            <p className="about-hero__lede">{t.lede}</p>
           </div>
         </div>
       </section>
 
-      <CentralIdea title="Design that supports connections" />
+      <CentralIdea title={t.centralIdeaTitle} />
 
       <section className="section">
-        <SectionHeader eyebrow="The Team" title="The people behind Extind" />
+        <SectionHeader eyebrow={t.teamEyebrow} title={t.teamTitle} />
         <div className="team-grid">
-          {team.map(({ name, role, photo }, i) => (
+          {teamNames.map((name, i) => (
             <article
               key={name}
               className="team-card"
               data-reveal
               style={{ '--reveal-delay': `${i * 70}ms` }}
             >
-              <img className="team-card__photo" src={photo} alt={name} loading="lazy" />
+              <img className="team-card__photo" src={teamPhotos[i]} alt={name} loading="lazy" />
               <div className="team-card__meta">
                 <p className="team-card__name">{name}</p>
-                <p className="team-card__role">{role}</p>
+                <p className="team-card__role">{t.roles[i]}</p>
               </div>
             </article>
           ))}
@@ -106,20 +129,20 @@ export default function About() {
       </section>
 
       <section className="section">
-        <SectionHeader eyebrow="Instagram" title="Latest from @extind" />
+        <SectionHeader eyebrow={t.igEyebrow} title={t.igTitle} />
         <div className="social-grid">
           {posts.map((src, i) => (
             <a
               key={i}
               className="social-grid__item"
               href="#"
-              aria-label="Open post on Instagram"
+              aria-label={t.igAria}
               data-reveal
               style={{ '--reveal-delay': `${(i % 3) * 80}ms` }}
             >
               <img src={src} alt="" loading="lazy" />
               <span className="social-grid__overlay" aria-hidden="true">
-                <span className="social-grid__pill">View on Instagram</span>
+                <span className="social-grid__pill">{t.igPill}</span>
               </span>
             </a>
           ))}

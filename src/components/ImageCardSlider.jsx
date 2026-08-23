@@ -1,4 +1,10 @@
 import { useState } from 'react'
+import { useLang } from '../lib/i18n'
+
+const ARIA = {
+  en: { prev: 'Previous image', next: 'Next image' },
+  ro: { prev: 'Imaginea anterioară', next: 'Imaginea următoare' },
+}
 
 function ArrowIcon({ direction }) {
   return (
@@ -15,6 +21,8 @@ function ArrowIcon({ direction }) {
 }
 
 export default function ImageCardSlider({ slides, className }) {
+  const { lang } = useLang()
+  const aria = ARIA[lang]
   const [index, setIndex] = useState(0)
 
   return (
@@ -34,7 +42,7 @@ export default function ImageCardSlider({ slides, className }) {
           <button
             type="button"
             className="slider-arrow"
-            aria-label="Previous image"
+            aria-label={aria.prev}
             disabled={index === 0}
             onClick={() => setIndex((i) => Math.max(0, i - 1))}
           >
@@ -43,7 +51,7 @@ export default function ImageCardSlider({ slides, className }) {
           <button
             type="button"
             className="slider-arrow"
-            aria-label="Next image"
+            aria-label={aria.next}
             disabled={index === slides.length - 1}
             onClick={() => setIndex((i) => Math.min(slides.length - 1, i + 1))}
           >

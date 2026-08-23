@@ -19,6 +19,7 @@ import FaqPage from './pages/FaqPage'
 import BookAVisit from './pages/BookAVisit'
 import StoryblokPage from './components/storyblok/StoryblokPage'
 import { isStoryblokEnabled } from './lib/storyblok'
+import { LanguageProvider } from './lib/i18n'
 import './App.css'
 
 function ScrollToTop() {
@@ -32,6 +33,7 @@ function ScrollToTop() {
 
 export default function App() {
   return (
+    <LanguageProvider>
     <BrowserRouter>
       <ScrollToTop />
       <ScrollReveal />
@@ -56,5 +58,6 @@ export default function App() {
         <Footer />
       </div>
     </BrowserRouter>
+    </LanguageProvider>
   )
 }

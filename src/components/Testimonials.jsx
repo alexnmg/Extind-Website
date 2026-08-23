@@ -1,27 +1,70 @@
 import { useEffect, useRef, useState } from 'react'
 import SectionHeader from './SectionHeader'
+import { useLang } from '../lib/i18n'
 import starIcon from '../assets/figma/star.svg'
 
-const defaultItems = [
-  {
-    quote:
-      '“The best coworking space in Iași. The atmosphere is extraordinary, the facilities are top-notch, and the community motivates you every day.”',
-    name: 'Alexandru M.',
-    role: 'Software Developer, Freelancer',
+/* The Romanian quotes are the clients' original words; English is the
+ * translation. */
+const T = {
+  en: {
+    eyebrow: 'Testimonials',
+    title: 'Proven by the people who work here.',
+    description:
+      'Hear from the founders, teams and professionals who chose Extind as the place where they work, meet clients and grow their businesses.',
+    stars: '5 out of 5 stars',
+    goTo: (n) => `Go to slide ${n}`,
+    listLabel: 'Testimonials',
+    items: [
+      {
+        quote:
+          '“The best coworking space in Iași. The atmosphere is extraordinary, the facilities are top-notch, and the community motivates you every day.”',
+        name: 'Alexandru M.',
+        role: 'Software Developer, Freelancer',
+      },
+      {
+        quote:
+          '“I moved my 8-person team to Extind six months ago. We haven’t looked back since — the private office boosted our productivity enormously.”',
+        name: 'Ioana P.',
+        role: 'CEO, Startup IT',
+      },
+      {
+        quote:
+          '“I ran two workshops at Extind. The room is perfect, the equipment works flawlessly, and their team is extremely professional.”',
+        name: 'Radu D.',
+        role: 'Trainer & Consultant',
+      },
+    ],
   },
-  {
-    quote:
-      '“I moved my 8-person team to Extind six months ago. We haven’t looked back since — the private office boosted our productivity enormously.”',
-    name: 'Ioana P.',
-    role: 'CEO, Startup IT',
+  ro: {
+    eyebrow: 'Testimoniale',
+    title: 'Confirmat de oamenii care lucrează aici.',
+    description:
+      'Părerile fondatorilor, echipelor și profesioniștilor care au ales Extind ca locul unde lucrează, își întâlnesc clienții și își cresc afacerile.',
+    stars: '5 din 5 stele',
+    goTo: (n) => `Mergi la slide-ul ${n}`,
+    listLabel: 'Testimoniale',
+    items: [
+      {
+        quote:
+          '„Cel mai bun spațiu de coworking din Iași. Atmosfera este extraordinară, facilitățile sunt top, iar comunitatea te motivează zilnic.”',
+        name: 'Alexandru M.',
+        role: 'Software Developer, Freelancer',
+      },
+      {
+        quote:
+          '„Am mutat echipa mea de 8 persoane la Extind acum 6 luni. Nu ne-am mai uitat înapoi. Spațiul privat ne-a crescut productivitatea enorm.”',
+        name: 'Ioana P.',
+        role: 'CEO, Startup IT',
+      },
+      {
+        quote:
+          '„Am organizat două workshopuri la Extind. Sala este perfectă, echipamentele funcționează impecabil, iar echipa lor este extrem de profesionistă.”',
+        name: 'Radu D.',
+        role: 'Trainer & Consultant',
+      },
+    ],
   },
-  {
-    quote:
-      '“I ran two workshops at Extind. The room is perfect, the equipment works flawlessly, and their team is extremely professional.”',
-    name: 'Radu D.',
-    role: 'Trainer & Consultant',
-  },
-]
+}
 
 // Two-letter monogram from a name, e.g. "Alexandru M." → "AM"
 const initials = (name) =>
@@ -41,10 +84,10 @@ const getStep = (vp) => {
   return (card ? card.getBoundingClientRect().width : 420) + GAP
 }
 
-function TestimonialCard({ quote, name, role }) {
+function TestimonialCard({ quote, name, role, starsLabel }) {
   return (
     <article className="testimonial-card">
-      <div className="testimonial-card__stars" aria-label="5 out of 5 stars">
+      <div className="testimonial-card__stars" aria-label={starsLabel}>
         {Array.from({ length: 5 }, (_, i) => (
           <img key={i} src={starIcon} alt="" width="16" height="16" />
         ))}
@@ -61,12 +104,13 @@ function TestimonialCard({ quote, name, role }) {
   )
 }
 
-export default function Testimonials({
-  eyebrow = 'Testimonials',
-  title = 'Proven by the people who work here.',
-  description = 'Hear from the founders, teams and professionals who chose Extind as the place where they work, meet clients and grow their businesses.',
-  items = defaultItems,
-}) {
+export default function Testimonials({ eyebrow, title, description, items }) {
+  const { lang } = useLang()
+  const t = T[lang]
+  eyebrow = eyebrow ?? t.eyebrow
+  title = title ?? t.title
+  description = description ?? t.description
+  items = items ?? t.items
   const viewportRef = useRef(null)
   const rafRef = useRef(0)
   const animatingRef = useRef(false)
@@ -218,8 +262,8 @@ export default function Testimonials({
       <section className="section testimonials">
         <SectionHeader eyebrow={eyebrow} title={title} description={description} />
         <div className="testimonials__grid" data-reveal>
-          {items.map((t, i) => (
-            <TestimonialCard key={t.name + i} {...t} />
+          {items.map((item, i) => (
+            <TestimonialCard key={item.name + i} {...item} starsLabel={t.stars} />
           ))}
         </div>
       </section>
@@ -242,8 +286,8 @@ export default function Testimonials({
         onPointerLeave={onPointerLeave}
       >
         <div className="testimonials__track">
-          {items.map((t, i) => (
-            <TestimonialCard key={t.name + i} {...t} />
+          {items.map((item, i) => (
+            <TestimonialCard key={item.name + i} {...item} starsLabel={t.stars} />
           ))}
         </div>
       </div>
@@ -265,13 +309,13 @@ export default function Testimonials({
         </svg>
       </div>
       {isCarousel && (
-        <div className="testimonials__indicator" role="tablist" aria-label="Testimonials">
+        <div className="testimonials__indicator" role="tablist" aria-label={t.listLabel}>
           {Array.from({ length: pages }, (_, i) => (
             <button
               key={i}
               type="button"
               className={`testimonials__dot${i === activeDot ? ' testimonials__dot--active' : ''}`}
-              aria-label={`Go to slide ${i + 1}`}
+              aria-label={t.goTo(i + 1)}
               aria-selected={i === activeDot}
               onClick={() => goTo(i)}
             />

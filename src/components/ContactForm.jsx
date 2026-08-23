@@ -1,14 +1,55 @@
 import { useState } from 'react'
+import { useLang } from '../lib/i18n'
+
+const T = {
+  en: {
+    heading: 'Send us a message',
+    messageLabel: 'How can we help?',
+    submitLabel: 'Send message',
+    name: 'Name',
+    namePlaceholder: 'Enter your full name',
+    email: 'Email',
+    emailPlaceholder: 'you@example.com',
+    company: 'Company',
+    companyPlaceholder: 'Enter text...',
+    phone: 'Phone number',
+    messagePlaceholder: 'Your message here...',
+    consent: 'I agree to the Terms and Privacy Policy',
+    thanksTitle: (name) => `Thank you, ${name}!`,
+    thanksFallbackName: 'friend',
+    thanksBody: (email) => `Thanks for reaching out. We'll reply at ${email} within one business day.`,
+    thanksFallbackEmail: 'your email',
+  },
+  ro: {
+    heading: 'Trimite-ne un mesaj',
+    messageLabel: 'Cu ce te putem ajuta?',
+    submitLabel: 'Trimite mesajul',
+    name: 'Nume',
+    namePlaceholder: 'Numele tău complet',
+    email: 'Email',
+    emailPlaceholder: 'tu@exemplu.com',
+    company: 'Companie',
+    companyPlaceholder: 'Introdu textul...',
+    phone: 'Număr de telefon',
+    messagePlaceholder: 'Mesajul tău aici...',
+    consent: 'Sunt de acord cu Termenii și Politica de confidențialitate',
+    thanksTitle: (name) => `Mulțumim, ${name}!`,
+    thanksFallbackName: 'prietene',
+    thanksBody: (email) => `Îți mulțumim că ne-ai scris. Îți răspundem la ${email} în cel mult o zi lucrătoare.`,
+    thanksFallbackEmail: 'adresa ta',
+  },
+}
 
 /* Single-step contact form. Reuses the shared field / checkbox / button
  * styles from the booking flow (see .field, .checkbox-row, .btn--primary in
  * App.css) so the two forms stay visually identical. On submit it swaps to a
  * lightweight thank-you state — no backend is wired yet. */
-export default function ContactForm({
-  heading = 'Send us a message',
-  messageLabel = 'How can we help?',
-  submitLabel = 'Send message',
-}) {
+export default function ContactForm({ heading, messageLabel, submitLabel }) {
+  const { lang } = useLang()
+  const t = T[lang]
+  heading = heading ?? t.heading
+  messageLabel = messageLabel ?? t.messageLabel
+  submitLabel = submitLabel ?? t.submitLabel
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [company, setCompany] = useState('')
@@ -26,33 +67,30 @@ export default function ContactForm({
     <form className="contact__form" data-reveal onSubmit={handleSubmit}>
       {submitted ? (
         <>
-          <h3 className="book-visit__heading">Thank you, {name || 'friend'}!</h3>
-          <p className="book-visit__thanks">
-            Thanks for reaching out. We&apos;ll reply at {email || 'your email'} within one
-            business day.
-          </p>
+          <h3 className="book-visit__heading">{t.thanksTitle(name || t.thanksFallbackName)}</h3>
+          <p className="book-visit__thanks">{t.thanksBody(email || t.thanksFallbackEmail)}</p>
         </>
       ) : (
         <>
           <h3 className="book-visit__heading">{heading}</h3>
           <div className="field-row field-row--wide">
             <label className="field">
-              <span className="field__label">Name</span>
+              <span className="field__label">{t.name}</span>
               <input
                 className="field__input"
                 type="text"
-                placeholder="Enter your full name"
+                placeholder={t.namePlaceholder}
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 required
               />
             </label>
             <label className="field">
-              <span className="field__label">Email</span>
+              <span className="field__label">{t.email}</span>
               <input
                 className="field__input"
                 type="email"
-                placeholder="you@example.com"
+                placeholder={t.emailPlaceholder}
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
@@ -61,17 +99,17 @@ export default function ContactForm({
           </div>
           <div className="field-row field-row--wide">
             <label className="field">
-              <span className="field__label">Company</span>
+              <span className="field__label">{t.company}</span>
               <input
                 className="field__input"
                 type="text"
-                placeholder="Enter text..."
+                placeholder={t.companyPlaceholder}
                 value={company}
                 onChange={(e) => setCompany(e.target.value)}
               />
             </label>
             <label className="field">
-              <span className="field__label">Phone number</span>
+              <span className="field__label">{t.phone}</span>
               <input
                 className="field__input"
                 type="tel"
@@ -85,7 +123,7 @@ export default function ContactForm({
             <span className="field__label">{messageLabel}</span>
             <textarea
               className="field__input"
-              placeholder="Your message here..."
+              placeholder={t.messagePlaceholder}
               value={message}
               onChange={(e) => setMessage(e.target.value)}
               required
@@ -111,7 +149,7 @@ export default function ContactForm({
                 </svg>
               )}
             </span>
-            <span className="checkbox-row__label">I agree to the Terms and Privacy Policy</span>
+            <span className="checkbox-row__label">{t.consent}</span>
           </button>
           <div className="book-visit__footer">
             <button

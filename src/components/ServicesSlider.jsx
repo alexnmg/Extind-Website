@@ -1,56 +1,115 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { useLang } from '../lib/i18n'
 import pillarsImg from '../assets/photos/private-office.jpg'
 import execImg from '../assets/photos/private-office-2.jpg'
 import heroImg from '../assets/photos/coworking.jpg'
 import vistaImg from '../assets/photos/lounge.jpg'
 
-const defaultSlides = [
-  {
-    image: pillarsImg,
-    caption: 'Private offices · Palas Campus',
-    label: 'FOCUS',
-    title: 'Private offices',
-    description:
-      'Designed for businesses that need more than an office. Fully serviced private workspaces that support focus, team collaboration and a professional environment for welcoming clients as your business grows.',
-    ctaLabel: 'Private offices overview',
-    to: '/private-offices',
-    variant: 'light',
+/* The FOCUS / HOST / FLEX / CONNECT labels are design accents and stay in
+ * English in both languages. */
+const T = {
+  en: {
+    prev: 'Previous service',
+    next: 'Next service',
+    slides: [
+      {
+        image: pillarsImg,
+        caption: 'Private offices · Palas Campus',
+        label: 'FOCUS',
+        title: 'Private offices',
+        description:
+          'Designed for businesses that need more than an office. Fully serviced private workspaces that support focus, team collaboration and a professional environment for welcoming clients as your business grows.',
+        ctaLabel: 'Private offices overview',
+        to: '/private-offices',
+        variant: 'light',
+      },
+      {
+        image: execImg,
+        caption: 'Executive Day Office · Palas Campus',
+        label: 'HOST',
+        title: 'Executive Day Office',
+        description:
+          'A premium, representative office prepared for corporate visits — one to three days, with meeting-room access, hospitality and a setup matched to your schedule.',
+        ctaLabel: 'Executive Day Office overview',
+        to: '/executive-day-office',
+        variant: 'dark',
+      },
+      {
+        image: heroImg,
+        caption: 'Coworking · Palas Campus',
+        label: 'FLEX',
+        title: 'Coworking',
+        description:
+          'Flexible desks in a thoughtfully designed shared space, surrounded by a community of people who care about their work.',
+        ctaLabel: 'Coworking overview',
+        to: '/coworking',
+        variant: 'cream',
+      },
+      {
+        image: vistaImg,
+        caption: 'Panoramic Lounge · 6th floor',
+        label: 'CONNECT',
+        title: 'Vista Lounge',
+        description:
+          'A panoramic workspace above the city — the backdrop for focus, conversation, events, and professional relationships.',
+        ctaLabel: 'Vista Lounge overview',
+        to: '/vista-lounge',
+        variant: 'dark',
+      },
+    ],
   },
-  {
-    image: execImg,
-    caption: 'Executive Day Office · Palas Campus',
-    label: 'HOST',
-    title: 'Executive Day Office',
-    description:
-      'A premium, representative office prepared for corporate visits — one to three days, with meeting-room access, hospitality and a setup matched to your schedule.',
-    ctaLabel: 'Executive Day Office overview',
-    to: '/executive-day-office',
-    variant: 'dark',
+  ro: {
+    prev: 'Serviciul anterior',
+    next: 'Serviciul următor',
+    slides: [
+      {
+        image: pillarsImg,
+        caption: 'Birouri private · Palas Campus',
+        label: 'FOCUS',
+        title: 'Birouri private',
+        description:
+          'Concepute pentru companiile care au nevoie de mai mult decât un birou. Spații de lucru private, complet administrate, care susțin concentrarea, colaborarea echipei și un cadru profesional pentru primirea clienților, pe măsură ce afacerea ta crește.',
+        ctaLabel: 'Vezi birourile private',
+        to: '/private-offices',
+        variant: 'light',
+      },
+      {
+        image: execImg,
+        caption: 'Executive Day Office · Palas Campus',
+        label: 'HOST',
+        title: 'Executive Day Office',
+        description:
+          'Un birou premium, reprezentativ, pregătit pentru vizite corporate — una până la trei zile, cu acces la săli de întâlniri, ospitalitate și o configurare adaptată programului tău.',
+        ctaLabel: 'Vezi Executive Day Office',
+        to: '/executive-day-office',
+        variant: 'dark',
+      },
+      {
+        image: heroImg,
+        caption: 'Coworking · Palas Campus',
+        label: 'FLEX',
+        title: 'Coworking',
+        description:
+          'Birouri flexibile într-un spațiu comun atent proiectat, alături de o comunitate de oameni care își iau munca în serios.',
+        ctaLabel: 'Vezi zona de coworking',
+        to: '/coworking',
+        variant: 'cream',
+      },
+      {
+        image: vistaImg,
+        caption: 'Lounge panoramic · etajul 6',
+        label: 'CONNECT',
+        title: 'Vista Lounge',
+        description:
+          'Un spațiu de lucru panoramic deasupra orașului — decorul pentru concentrare, conversații, evenimente și relații profesionale.',
+        ctaLabel: 'Descoperă Vista Lounge',
+        to: '/vista-lounge',
+        variant: 'dark',
+      },
+    ],
   },
-  {
-    image: heroImg,
-    caption: 'Coworking · Palas Campus',
-    label: 'FLEX',
-    title: 'Coworking',
-    description:
-      'Flexible desks in a thoughtfully designed shared space, surrounded by a community of people who care about their work.',
-    ctaLabel: 'Coworking overview',
-    to: '/coworking',
-    variant: 'cream',
-  },
-  {
-    image: vistaImg,
-    caption: 'Panoramic Lounge · 6th floor',
-    label: 'CONNECT',
-    title: 'Vista Lounge',
-    description:
-      'A panoramic workspace above the city — the backdrop for focus, conversation, events, and professional relationships.',
-    ctaLabel: 'Vista Lounge overview',
-    to: '/vista-lounge',
-    variant: 'dark',
-  },
-]
+}
 
 function ArrowIcon({ direction }) {
   return (
@@ -66,10 +125,14 @@ function ArrowIcon({ direction }) {
   )
 }
 
-export default function ServicesSlider({ slides = defaultSlides }) {
+export default function ServicesSlider({ slides }) {
+  const { lang } = useLang()
+  const t = T[lang]
+  slides = slides ?? t.slides
   const [index, setIndex] = useState(0)
   const goTo = setIndex
-  const slide = slides[index]
+  const clamped = Math.min(index, slides.length - 1)
+  const slide = slides[clamped]
   const variant = slide.variant || 'light'
 
   return (
@@ -78,7 +141,7 @@ export default function ServicesSlider({ slides = defaultSlides }) {
       {slides.map((s, i) => (
         <img
           key={s.image + i}
-          className={`services__img${i === index ? ' services__img--active' : ''}`}
+          className={`services__img${i === clamped ? ' services__img--active' : ''}`}
           src={s.image}
           alt=""
         />
@@ -86,7 +149,7 @@ export default function ServicesSlider({ slides = defaultSlides }) {
       <span className="caption-pill services__caption">{slide.caption}</span>
       <div className={`services__card services__card--${variant}`}>
         {/* key remount replays the fade/slide-in animation on slide change */}
-        <div key={index} className="services__card-content">
+        <div key={clamped + lang} className="services__card-content">
           {/* Slides carry either an icon or a text label, never both */}
           {slide.icon ? (
             <span className="services__icon" aria-hidden="true">
@@ -123,18 +186,18 @@ export default function ServicesSlider({ slides = defaultSlides }) {
           <button
             type="button"
             className="slider-arrow"
-            aria-label="Previous service"
-            disabled={index === 0}
-            onClick={() => goTo(Math.max(0, index - 1))}
+            aria-label={t.prev}
+            disabled={clamped === 0}
+            onClick={() => goTo(Math.max(0, clamped - 1))}
           >
             <ArrowIcon direction="left" />
           </button>
           <button
             type="button"
             className="slider-arrow"
-            aria-label="Next service"
-            disabled={index === slides.length - 1}
-            onClick={() => goTo(Math.min(slides.length - 1, index + 1))}
+            aria-label={t.next}
+            disabled={clamped === slides.length - 1}
+            onClick={() => goTo(Math.min(slides.length - 1, clamped + 1))}
           >
             <ArrowIcon direction="right" />
           </button>

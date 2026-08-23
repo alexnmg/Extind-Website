@@ -2,6 +2,28 @@ import { useEffect } from 'react'
 import SectionHeader from '../components/SectionHeader'
 import ContactForm from '../components/ContactForm'
 import LocationMap from '../components/LocationMap'
+import { useLang } from '../lib/i18n'
+
+const T = {
+  en: {
+    docTitle: 'Contact — Extind',
+    eyebrow: 'Contact',
+    title: "Let's talk",
+    description:
+      'Questions about spaces, pricing or a visit? Send us a message or reach us directly — we usually reply within one business day.',
+    emailLabel: 'Email',
+    visitLabel: 'Visit us',
+  },
+  ro: {
+    docTitle: 'Contact — Extind',
+    eyebrow: 'Contact',
+    title: 'Hai să vorbim',
+    description:
+      'Întrebări despre spații, prețuri sau o vizită? Trimite-ne un mesaj sau contactează-ne direct — de obicei răspundem într-o zi lucrătoare.',
+    emailLabel: 'Email',
+    visitLabel: 'Vizitează-ne',
+  },
+}
 
 // The "Visit us" detail opens the campus on the full OpenStreetMap site.
 const MAP_LINK = 'https://www.openstreetmap.org/?mlat=47.1566&mlon=27.5885#map=17/47.1566/27.5885'
@@ -29,32 +51,31 @@ function PinIcon() {
   )
 }
 
-const details = [
-  { label: 'Email', value: 'office@extind.ro', href: 'mailto:office@extind.ro', Icon: EmailIcon },
-  {
-    label: 'Visit us',
-    value: 'Strada Sfântul Andrei 39A, Palas Campus (building B2), 6th floor, Iași',
-    href: MAP_LINK,
-    Icon: PinIcon,
-  },
-]
-
 export default function Contact() {
+  const { lang } = useLang()
+  const t = T[lang]
+
+  const details = [
+    { label: t.emailLabel, value: 'office@extind.ro', href: 'mailto:office@extind.ro', Icon: EmailIcon },
+    {
+      label: t.visitLabel,
+      value: 'Strada Sfântul Andrei 39A, Palas Campus (clădirea B2), etaj 6, Iași',
+      href: MAP_LINK,
+      Icon: PinIcon,
+    },
+  ]
+
   useEffect(() => {
     const prev = document.title
-    document.title = 'Contact — Extind'
+    document.title = t.docTitle
     return () => {
       document.title = prev
     }
-  }, [])
+  }, [t.docTitle])
 
   return (
     <section className="section">
-      <SectionHeader
-        eyebrow="Contact"
-        title="Let's talk"
-        description="Questions about spaces, pricing or a visit? Send us a message or reach us directly — we usually reply within one business day."
-      />
+      <SectionHeader eyebrow={t.eyebrow} title={t.title} description={t.description} />
       <div className="contact">
         <div className="contact__info" data-reveal>
           <div className="contact__details">

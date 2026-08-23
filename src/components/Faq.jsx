@@ -1,19 +1,33 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import SectionHeader from './SectionHeader'
+import { useLang } from '../lib/i18n'
 import { faqItems } from '../data/faq'
 import chevronDown from '../assets/figma/chevron-down.svg'
 
+const T = {
+  en: { eyebrow: 'FAQ', title: 'Questions? Answered.', more: 'See all questions →' },
+  ro: { eyebrow: 'Întrebări frecvente', title: 'Întrebări? Răspunsuri.', more: 'Vezi toate întrebările →' },
+}
+
 export default function Faq({
-  eyebrow = 'FAQ',
-  title = 'Questions? Answered.',
+  eyebrow,
+  title,
   description,
   items = faqItems,
   columns = 1,
   moreHref,
-  moreLabel = 'See all questions →',
+  moreLabel,
 }) {
+  const { lang } = useLang()
+  const t = T[lang]
+  eyebrow = eyebrow ?? t.eyebrow
+  title = title ?? t.title
+  moreLabel = moreLabel ?? t.more
   const [openIndex, setOpenIndex] = useState(-1)
+
+  // Data items carry { q: {en,ro}, a: {en,ro} } — resolve for this language.
+  const resolved = items.map((item) => ({ q: item.q[lang] ?? item.q, a: item.a[lang] ?? item.a }))
 
   const renderItem = ({ q, a }, i) => {
     const open = openIndex === i
@@ -47,10 +61,10 @@ export default function Faq({
   const body =
     columns === 2 ? (
       (() => {
-        const mid = Math.ceil(items.length / 2)
+        const mid = Math.ceil(resolved.length / 2)
         const groups = [
-          { items: items.slice(0, mid), start: 0 },
-          { items: items.slice(mid), start: mid },
+          { items: resolved.slice(0, mid), start: 0 },
+          { items: resolved.slice(mid), start: mid },
         ]
         return (
           <div className="faq__columns">
@@ -63,7 +77,7 @@ export default function Faq({
         )
       })()
     ) : (
-      <div className="faq__column">{items.map(renderItem)}</div>
+      <div className="faq__column">{resolved.map(renderItem)}</div>
     )
 
   return (

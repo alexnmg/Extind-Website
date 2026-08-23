@@ -1,14 +1,41 @@
 import { Link } from 'react-router-dom'
 import brandMark from '../assets/brand-mark.svg'
 import iconEmail from '../assets/figma/icon-email.svg'
+import { useLang } from '../lib/i18n'
 
-// Mirrors the navbar's menu order
-const menuLinks = ['About us', 'Private offices', 'Coworking', 'Conference Rooms', 'Community & Events']
-// `to` set for links that have a real page; the rest stay placeholder anchors.
-const companyLinks = [
-  { label: 'FAQ', to: '/faq' },
-  { label: 'Contact', to: '/contact' },
-]
+const T = {
+  en: {
+    // Mirrors the navbar's menu order; placeholder anchors until pages exist.
+    menuTitle: 'Menu',
+    menuLinks: ['About us', 'Private offices', 'Coworking', 'Conference Rooms', 'Community & Events'],
+    companyTitle: 'Company',
+    companyLinks: [
+      { label: 'FAQ', to: '/faq' },
+      { label: 'Contact', to: '/contact' },
+    ],
+    newsletter: 'Join our newsletter',
+    emailPlaceholder: 'Your Email',
+    emailAria: 'Email address',
+    subscribe: 'Subscribe',
+    copyright: '© 2026 Extind. All rights reserved.',
+    social: (label) => `Extind on ${label}`,
+  },
+  ro: {
+    menuTitle: 'Meniu',
+    menuLinks: ['Despre noi', 'Birouri private', 'Coworking', 'Săli de conferințe', 'Comunitate & Evenimente'],
+    companyTitle: 'Companie',
+    companyLinks: [
+      { label: 'Întrebări frecvente', to: '/faq' },
+      { label: 'Contact', to: '/contact' },
+    ],
+    newsletter: 'Abonează-te la newsletter',
+    emailPlaceholder: 'Emailul tău',
+    emailAria: 'Adresa de email',
+    subscribe: 'Abonează-te',
+    copyright: '© 2026 Extind. Toate drepturile rezervate.',
+    social: (label) => `Extind pe ${label}`,
+  },
+}
 
 function FacebookIcon() {
   return (
@@ -41,6 +68,8 @@ const socials = [
 ]
 
 export default function Footer() {
+  const { lang } = useLang()
+  const t = T[lang]
   return (
     <footer className="footer">
       <div className="footer__main">
@@ -49,16 +78,16 @@ export default function Footer() {
         </div>
         <div className="footer__cols">
           <div className="footer__col">
-            <p className="footer__col-title">Menu</p>
-            {menuLinks.map((label) => (
+            <p className="footer__col-title">{t.menuTitle}</p>
+            {t.menuLinks.map((label) => (
               <a key={label} className="footer__link" href="#">
                 {label}
               </a>
             ))}
           </div>
           <div className="footer__col">
-            <p className="footer__col-title">Company</p>
-            {companyLinks.map(({ label, to }) =>
+            <p className="footer__col-title">{t.companyTitle}</p>
+            {t.companyLinks.map(({ label, to }) =>
               to.startsWith('/') ? (
                 <Link key={label} className="footer__link" to={to} viewTransition>
                   {label}
@@ -71,14 +100,14 @@ export default function Footer() {
             )}
           </div>
           <div className="footer__col footer__newsletter">
-            <p className="footer__col-title">Join our newsletter</p>
+            <p className="footer__col-title">{t.newsletter}</p>
             <form className="email-row" onSubmit={(e) => e.preventDefault()}>
               <label className="email-field">
                 <img src={iconEmail} alt="" />
-                <input type="email" placeholder="Your Email" aria-label="Email address" />
+                <input type="email" placeholder={t.emailPlaceholder} aria-label={t.emailAria} />
               </label>
               <button type="submit" className="btn btn--outline">
-                Subscribe
+                {t.subscribe}
               </button>
             </form>
           </div>
@@ -88,7 +117,7 @@ export default function Footer() {
       <div className="divider footer__divider" role="separator" />
 
       <div className="footer__bottom">
-        <p className="footer__copyright">© 2026 Extind. All rights reserved.</p>
+        <p className="footer__copyright">{t.copyright}</p>
         <div className="footer__socials">
           {socials.map(({ label, href, Icon }) => (
             <a
@@ -97,7 +126,7 @@ export default function Footer() {
               href={href}
               target="_blank"
               rel="noreferrer"
-              aria-label={`Extind on ${label}`}
+              aria-label={t.social(label)}
             >
               <Icon />
             </a>

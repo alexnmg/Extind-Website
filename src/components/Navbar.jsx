@@ -1,34 +1,68 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import Logo from './Logo'
+import { useLang } from '../lib/i18n'
 
-const aboutItems = [
-  { label: 'About Extind', to: '/about' },
-  { label: 'FAQ', to: '/faq' },
-  { label: 'Contact', to: '/contact' },
-]
-const officesItems = [
-  { label: 'Private offices', to: '/private-offices' },
-  { label: 'Executive Day Office', to: '/executive-day-office' },
-]
-const communityItems = [
-  { label: 'Vista Lounge', to: '/vista-lounge' },
-  { label: 'Events', to: '/events' },
-  { label: 'Extind Magazine', to: '/magazine' },
-]
-// Standalone desktop links (no dropdown), sitting between the dropdowns.
-const links = [
-  { label: 'Coworking', to: '/coworking' },
-  { label: 'Conference Rooms', to: '/conference-rooms' },
-]
-// The mobile menu is a drill-down: parents open a sub-panel, leaves navigate.
-const mobileNav = [
-  { label: 'About us', children: aboutItems },
-  { label: 'Offices', children: officesItems },
-  { label: 'Coworking', to: '/coworking' },
-  { label: 'Conference Rooms', to: '/conference-rooms' },
-  { label: 'Community & Events', children: communityItems },
-]
+/* All navbar copy, per language. Product names (Executive Day Office, Vista
+ * Lounge, Extind Magazine, Coworking) stay untranslated by design. */
+const T = {
+  en: {
+    aboutLabel: 'About us',
+    officesLabel: 'Offices',
+    communityLabel: 'Community & Events',
+    about: [
+      { label: 'About Extind', to: '/about' },
+      { label: 'FAQ', to: '/faq' },
+      { label: 'Contact', to: '/contact' },
+    ],
+    offices: [
+      { label: 'Private offices', to: '/private-offices' },
+      { label: 'Executive Day Office', to: '/executive-day-office' },
+    ],
+    community: [
+      { label: 'Vista Lounge', to: '/vista-lounge' },
+      { label: 'Events', to: '/events' },
+      { label: 'Extind Magazine', to: '/magazine' },
+    ],
+    links: [
+      { label: 'Coworking', to: '/coworking' },
+      { label: 'Conference Rooms', to: '/conference-rooms' },
+    ],
+    cta: 'Book a visit',
+    openMenu: 'Open menu',
+    closeMenu: 'Close menu',
+    home: 'Extind home',
+    switchTo: 'Comută în română',
+  },
+  ro: {
+    aboutLabel: 'Despre noi',
+    officesLabel: 'Birouri',
+    communityLabel: 'Comunitate & Evenimente',
+    about: [
+      { label: 'Despre Extind', to: '/about' },
+      { label: 'Întrebări frecvente', to: '/faq' },
+      { label: 'Contact', to: '/contact' },
+    ],
+    offices: [
+      { label: 'Birouri private', to: '/private-offices' },
+      { label: 'Executive Day Office', to: '/executive-day-office' },
+    ],
+    community: [
+      { label: 'Vista Lounge', to: '/vista-lounge' },
+      { label: 'Evenimente', to: '/events' },
+      { label: 'Extind Magazine', to: '/magazine' },
+    ],
+    links: [
+      { label: 'Coworking', to: '/coworking' },
+      { label: 'Săli de conferințe', to: '/conference-rooms' },
+    ],
+    cta: 'Programează o vizită',
+    openMenu: 'Deschide meniul',
+    closeMenu: 'Închide meniul',
+    home: 'Pagina principală Extind',
+    switchTo: 'Switch to English',
+  },
+}
 
 function Chevron() {
   return (
@@ -72,6 +106,27 @@ function ChevronLeft() {
   )
 }
 
+/* Language toggle. Shows the language you'd get by clicking — so on the
+ * Romanian site the button reads "EN". Label and tooltip agree, and both are
+ * written in the language you'd land in.
+ * Rendered twice: in the bar (hidden on phones) and inside the mobile menu. */
+function LangSwitch({ variant }) {
+  const { lang, setLang } = useLang()
+  const other = lang === 'ro' ? 'en' : 'ro'
+  const tip = T[lang].switchTo
+  return (
+    <button
+      type="button"
+      className={`lang-switch lang-switch--${variant}`}
+      onClick={() => setLang(other)}
+      aria-label={tip}
+      data-tip={tip}
+    >
+      {other.toUpperCase()}
+    </button>
+  )
+}
+
 // A single navbar dropdown that owns its open state and closes on Escape or an
 // outside click. Used for "About us", "Offices" and "Community & Events".
 function NavDropdown({ label, items }) {
@@ -107,29 +162,25 @@ function NavDropdown({ label, items }) {
         <Chevron />
       </button>
       <div className={`navbar__dropdown${open ? ' navbar__dropdown--open' : ''}`}>
-        {items.map(({ label: itemLabel, to }) =>
-          to.startsWith('/') ? (
-            <Link
-              key={itemLabel}
-              className="navbar__link"
-              to={to}
-              onClick={() => setOpen(false)}
-              viewTransition
-            >
-              {itemLabel}
-            </Link>
-          ) : (
-            <a key={itemLabel} className="navbar__link" href={to} onClick={() => setOpen(false)}>
-              {itemLabel}
-            </a>
-          )
-        )}
+        {items.map(({ label: itemLabel, to }) => (
+          <Link
+            key={to}
+            className="navbar__link"
+            to={to}
+            onClick={() => setOpen(false)}
+            viewTransition
+          >
+            {itemLabel}
+          </Link>
+        ))}
       </div>
     </div>
   )
 }
 
 export default function Navbar() {
+  const { lang } = useLang()
+  const t = T[lang]
   const [scrolled, setScrolled] = useState(false)
   const [hidden, setHidden] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
@@ -138,6 +189,14 @@ export default function Navbar() {
   const navRef = useRef(null)
 
   const closeMobile = () => setMobileOpen(false)
+
+  // The mobile drill-down: parents open a sub-panel, leaves navigate.
+  const mobileNav = [
+    { label: t.aboutLabel, children: t.about },
+    { label: t.officesLabel, children: t.offices },
+    ...t.links,
+    { label: t.communityLabel, children: t.community },
+  ]
 
   // Hide on scroll down, reveal on scroll up (the CSS only applies the
   // hidden transform at mobile/tablet widths, so desktop never hides).
@@ -191,29 +250,30 @@ export default function Navbar() {
         className={`navbar${scrolled ? ' navbar--scrolled' : ''}${mobileOpen ? ' navbar--open' : ''}`}
       >
         <div className="navbar__bar">
-          <Link to="/" aria-label="Extind home" viewTransition>
+          <Link to="/" aria-label={t.home} viewTransition>
             <Logo />
           </Link>
           {/* Grouped right-hand side: pinned to the right edge so the logo's
               expand animation never shifts the menu */}
           <div className="navbar__right">
             <nav className="navbar__links">
-              <NavDropdown label="About us" items={aboutItems} />
-              <NavDropdown label="Offices" items={officesItems} />
-              {links.map(({ label, to }) => (
-                <Link key={label} className="navbar__link" to={to} viewTransition>
+              <NavDropdown label={t.aboutLabel} items={t.about} />
+              <NavDropdown label={t.officesLabel} items={t.offices} />
+              {t.links.map(({ label, to }) => (
+                <Link key={to} className="navbar__link" to={to} viewTransition>
                   {label}
                 </Link>
               ))}
-              <NavDropdown label="Community & Events" items={communityItems} />
+              <NavDropdown label={t.communityLabel} items={t.community} />
             </nav>
+            <LangSwitch variant="bar" />
             <Link className="btn btn--primary navbar__cta" to="/book-a-visit" viewTransition>
-              Book a visit
+              {t.cta}
             </Link>
             <button
               type="button"
               className="navbar__burger"
-              aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
+              aria-label={mobileOpen ? t.closeMenu : t.openMenu}
               aria-expanded={mobileOpen}
               onClick={() => setMobileOpen((v) => !v)}
             >
@@ -244,7 +304,7 @@ export default function Navbar() {
                     </button>
                   ) : (
                     <Link
-                      key={item.label}
+                      key={item.to}
                       className="navbar__mobile-link"
                       to={item.to}
                       onClick={closeMobile}
@@ -264,12 +324,12 @@ export default function Navbar() {
                   onClick={() => setMobileSub(null)}
                 >
                   <ChevronLeft />
-                  <span>{mobileSub?.label ?? 'Back'}</span>
+                  <span>{mobileSub?.label ?? ''}</span>
                 </button>
                 <div className="navbar__mobile-sub-links">
                   {(mobileSub?.children ?? []).map((child) => (
                     <Link
-                      key={child.label}
+                      key={child.to}
                       className="navbar__mobile-link"
                       to={child.to}
                       onClick={closeMobile}
@@ -283,13 +343,14 @@ export default function Navbar() {
             </div>
 
             <div className="navbar__mobile-footer">
+              <LangSwitch variant="menu" />
               <Link
                 className="btn btn--primary navbar__mobile-cta"
                 to="/book-a-visit"
                 onClick={closeMobile}
                 viewTransition
               >
-                <span>Book a visit</span>
+                <span>{t.cta}</span>
                 <span aria-hidden="true">→</span>
               </Link>
               <p className="navbar__mobile-email">office@extind.ro</p>

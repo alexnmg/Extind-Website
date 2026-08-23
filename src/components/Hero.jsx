@@ -1,15 +1,36 @@
 import { Fragment, useLayoutEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import ImageCardSlider from './ImageCardSlider'
+import { useLang } from '../lib/i18n'
 import heroImg from '../assets/photos/coworking.jpg'
 import boothImg from '../assets/photos/booth.jpg'
 import vistaImg from '../assets/photos/lounge.jpg'
 
-const defaultHeroSlides = [
-  { src: vistaImg, caption: 'Vista Lounge Panoramic View', alt: 'Panoramic view from Vista Lounge' },
-  { src: heroImg, caption: 'Coworking · Palas Campus', alt: 'Extind coworking space at Palas Campus' },
-  { src: boothImg, caption: 'Meeting & Focus Rooms', alt: 'Meeting and focus booth at Extind' },
-]
+/* Language-aware defaults; pages that pass their own copy override these. */
+const T = {
+  en: {
+    title: 'Thoughtfully designed environments for business growth.',
+    lede: 'Private offices and business community for companies and professionals looking for growth, collaboration and friction-free workdays.',
+    primaryLabel: 'Book a visit',
+    secondaryLabel: 'Discover our community →',
+    slides: [
+      { src: vistaImg, caption: 'Vista Lounge Panoramic View', alt: 'Panoramic view from Vista Lounge' },
+      { src: heroImg, caption: 'Coworking · Palas Campus', alt: 'Extind coworking space at Palas Campus' },
+      { src: boothImg, caption: 'Meeting & Focus Rooms', alt: 'Meeting and focus booth at Extind' },
+    ],
+  },
+  ro: {
+    title: 'Spații atent gândite pentru creșterea afacerii tale.',
+    lede: 'Birouri private și o comunitate de business pentru companiile și profesioniștii care caută creștere, colaborare și zile de lucru fără fricțiuni.',
+    primaryLabel: 'Programează o vizită',
+    secondaryLabel: 'Descoperă comunitatea →',
+    slides: [
+      { src: vistaImg, caption: 'Vista Lounge — vedere panoramică', alt: 'Vedere panoramică din Vista Lounge' },
+      { src: heroImg, caption: 'Coworking · Palas Campus', alt: 'Spațiul de coworking Extind din Palas Campus' },
+      { src: boothImg, caption: 'Săli de întâlniri & focus', alt: 'Cabină de întâlniri și focus la Extind' },
+    ],
+  },
+}
 
 function PinIcon() {
   return (
@@ -27,15 +48,22 @@ function PinIcon() {
 
 export default function Hero({
   eyebrow = null,
-  title = 'Thoughtfully designed environments for business growth.',
-  lede = 'Private offices and business community for companies and professionals looking for growth, collaboration and friction-free workdays.',
-  primaryLabel = 'Book a visit',
+  title,
+  lede,
+  primaryLabel,
   primaryTo = '/book-a-visit',
-  secondaryLabel = 'Discover our community →',
-  slides = defaultHeroSlides,
+  secondaryLabel,
+  slides,
   pills = null,
   onSecondaryClick,
 }) {
+  const { lang } = useLang()
+  const t = T[lang]
+  title = title ?? t.title
+  lede = lede ?? t.lede
+  primaryLabel = primaryLabel ?? t.primaryLabel
+  secondaryLabel = secondaryLabel ?? t.secondaryLabel
+  slides = slides ?? t.slides
   const sectionRef = useRef(null)
   const titleRef = useRef(null)
 

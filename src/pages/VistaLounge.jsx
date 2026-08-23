@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import Hero from '../components/Hero'
 import SectionHeader from '../components/SectionHeader'
 import { VistaIcon, ClockIcon, MeetingIcon } from '../components/PillIcons'
+import { useLang } from '../lib/i18n'
 import vistaImg from '../assets/photos/lounge.jpg'
 import lounge2Img from '../assets/photos/lounge-2.jpg'
 import lounge3Img from '../assets/photos/lounge-3.jpg'
@@ -50,55 +51,136 @@ function SunIcon() {
   )
 }
 
-const features = [
-  {
-    icon: <VistaIcon />,
-    title: 'Panoramic views',
-    desc: 'Floor-to-ceiling windows framing the old town and the river. The kind of view that makes a long call feel shorter.',
-  },
-  {
-    icon: <CoffeeIcon />,
-    title: 'Serious coffee',
-    desc: 'A specialty coffee bar, tea and refreshments through the day — the unofficial engine room of the community.',
-  },
-  {
-    icon: <SofaIcon />,
-    title: 'Room to breathe',
-    desc: 'Soft seating, quiet corners and warm light. Somewhere to think, read, or take a call away from your desk.',
-  },
-  {
-    icon: <MeetingIcon />,
-    title: 'Built for gatherings',
-    desc: 'By evening the lounge becomes an event space, hosting talks, breakfasts and community nights above the city.',
-  },
-  {
-    icon: <ClockIcon />,
-    title: 'Open to every member',
-    desc: 'Vista is part of every Extind membership. Come up whenever you need a change of scene — no booking required.',
-  },
-  {
-    icon: <SunIcon />,
-    title: 'Golden hour, every evening',
-    desc: 'The west-facing glass turns the whole room amber at sunset. Time a break for it; it’s worth the trip up.',
-  },
+const FEATURE_ICONS = [
+  <VistaIcon key="v" />,
+  <CoffeeIcon key="c" />,
+  <SofaIcon key="s" />,
+  <MeetingIcon key="m" />,
+  <ClockIcon key="cl" />,
+  <SunIcon key="su" />,
 ]
 
-const heroSlides = [
-  { src: vistaImg, caption: 'Panoramic Lounge · 6th floor', alt: 'Vista Lounge with panoramic city view' },
-  { src: lounge2Img, caption: 'Room for events & gatherings', alt: 'Vista Lounge event and gathering space' },
-  { src: lounge3Img, caption: 'Coffee point & social area', alt: 'Vista Lounge coffee point and social area' },
-]
+const T = {
+  en: {
+    docTitle: 'Vista Lounge — Extind',
+    heroTitle: 'A panoramic event space above the city.',
+    heroLede:
+      'Six floors up, overlooking the Palace of Culture — the home of the Extind community, and the best seat in the building for a coffee, a catch-up, or an evening event.',
+    primaryLabel: 'Book a visit',
+    secondaryLabel: 'Explore the lounge →',
+    slides: [
+      { src: vistaImg, caption: 'Panoramic Lounge · 6th floor', alt: 'Vista Lounge overlooking the city' },
+      { src: lounge2Img, caption: 'Room for events & gatherings', alt: 'Vista Lounge event space' },
+      { src: lounge3Img, caption: 'Coffee point & social area', alt: 'Vista Lounge coffee point' },
+    ],
+    featEyebrow: 'The space',
+    featTitle: 'Designed for the moments between focused work',
+    featDesc:
+      'Vista is where the community gathers — for a change of scene during the day, and for the talks and evenings that bring everyone together after hours.',
+    features: [
+      {
+        title: 'Panoramic views',
+        desc: 'Floor-to-ceiling windows framing the old town and the river. The kind of view that makes a long call feel shorter.',
+      },
+      {
+        title: 'Serious coffee',
+        desc: 'A specialty coffee bar, tea and refreshments through the day — the unofficial engine room of the community.',
+      },
+      {
+        title: 'Room to breathe',
+        desc: 'Soft seating, quiet corners and warm light. Somewhere to think, read, or take a call away from your desk.',
+      },
+      {
+        title: 'Built for gatherings',
+        desc: 'By evening the lounge becomes an event space, hosting talks, breakfasts and community nights above the city.',
+      },
+      {
+        title: 'Open to every member',
+        desc: 'Vista is part of every Extind membership. Come up whenever you need a change of scene — no booking required.',
+      },
+      {
+        title: 'Golden hour, every evening',
+        desc: 'The west-facing glass turns the whole room amber at sunset. Time a break for it; it’s worth the trip up.',
+      },
+    ],
+    eventsEyebrow: 'Events',
+    eventsTitle: 'Something on, most weeks',
+    eventsDesc:
+      'Founders’ breakfasts, meetups, panels and pitch nights — the lounge is where the Extind community actually meets. Most events are free and open to guests, so there’s always a reason to come up.',
+    eventsCta: 'See upcoming events →',
+    magEyebrow: 'Extind Magazine',
+    magTitle: 'Guides for choosing your workspace',
+    magDesc:
+      'Practical, no-nonsense reading on private offices, coworking and meeting spaces in Iași — what things cost, what’s included, and how to choose.',
+    magCta: 'Read the magazine →',
+  },
+  ro: {
+    docTitle: 'Vista Lounge — Extind',
+    heroTitle: 'Un spațiu panoramic de evenimente deasupra orașului.',
+    heroLede:
+      'La etajul șase, cu vedere spre Palatul Culturii — casa comunității Extind și cel mai bun loc din clădire pentru o cafea, o discuție sau un eveniment de seară.',
+    primaryLabel: 'Programează o vizită',
+    secondaryLabel: 'Explorează lounge-ul →',
+    slides: [
+      { src: vistaImg, caption: 'Lounge panoramic · etajul 6', alt: 'Vista Lounge cu vedere asupra orașului' },
+      { src: lounge2Img, caption: 'Spațiu pentru evenimente și întâlniri', alt: 'Spațiul de evenimente din Vista Lounge' },
+      { src: lounge3Img, caption: 'Coffee point & zonă socială', alt: 'Coffee point-ul din Vista Lounge' },
+    ],
+    featEyebrow: 'Spațiul',
+    featTitle: 'Gândit pentru momentele dintre sesiunile de lucru concentrat',
+    featDesc:
+      'Vista este locul unde comunitatea se adună — pentru o schimbare de decor în timpul zilei și pentru discuțiile și serile care aduc pe toată lumea împreună după program.',
+    features: [
+      {
+        title: 'Priveliște panoramică',
+        desc: 'Ferestre de la podea la tavan, cu orașul vechi și râul în cadru. Genul de priveliște care face un apel lung să pară mai scurt.',
+      },
+      {
+        title: 'Cafea serioasă',
+        desc: 'Un bar de cafea de specialitate, ceai și băuturi răcoritoare pe tot parcursul zilei — motorul neoficial al comunității.',
+      },
+      {
+        title: 'Loc să respiri',
+        desc: 'Canapele confortabile, colțuri liniștite și lumină caldă. Un loc unde să gândești, să citești sau să iei un apel departe de birou.',
+      },
+      {
+        title: 'Construit pentru întâlniri',
+        desc: 'Seara, lounge-ul devine spațiu de evenimente și găzduiește conferințe, mic-dejunuri și seri de comunitate deasupra orașului.',
+      },
+      {
+        title: 'Deschis fiecărui membru',
+        desc: 'Vista face parte din fiecare abonament Extind. Urcă oricând ai nevoie de o schimbare de decor — fără rezervare.',
+      },
+      {
+        title: 'Ora de aur, în fiecare seară',
+        desc: 'Sticla orientată spre vest colorează întreaga încăpere în chihlimbar la apus. Programează-ți o pauză atunci; merită drumul până sus.',
+      },
+    ],
+    eventsEyebrow: 'Evenimente',
+    eventsTitle: 'Aproape în fiecare săptămână se întâmplă ceva',
+    eventsDesc:
+      'Mic-dejunuri pentru fondatori, meetupuri, paneluri și seri de pitch — lounge-ul este locul unde comunitatea Extind chiar se întâlnește. Majoritatea evenimentelor sunt gratuite și deschise invitaților, așa că există mereu un motiv să urci.',
+    eventsCta: 'Vezi evenimentele viitoare →',
+    magEyebrow: 'Extind Magazine',
+    magTitle: 'Ghiduri pentru alegerea spațiului de lucru',
+    magDesc:
+      'Lecturi practice, la obiect, despre birouri private, coworking și săli de întâlniri în Iași — ce costă, ce este inclus și cum alegi.',
+    magCta: 'Citește revista →',
+  },
+}
 
 export default function VistaLounge() {
+  const { lang } = useLang()
+  const t = T[lang]
   const featuresRef = useRef(null)
 
   useEffect(() => {
     const prev = document.title
-    document.title = 'Vista Lounge — Extind'
+    document.title = t.docTitle
     return () => {
       document.title = prev
     }
-  }, [])
+  }, [t.docTitle])
 
   const scrollToFeatures = () => {
     const target = featuresRef.current
@@ -111,29 +193,25 @@ export default function VistaLounge() {
   return (
     <>
       <Hero
-        title="A panoramic event space above the city."
-        lede="Six floors up, overlooking the Palace of Culture — the home of the Extind community, and the best seat in the building for a coffee, a catch-up, or an evening event."
-        primaryLabel="Book a visit"
-        secondaryLabel="Explore the lounge →"
-        slides={heroSlides}
+        title={t.heroTitle}
+        lede={t.heroLede}
+        primaryLabel={t.primaryLabel}
+        secondaryLabel={t.secondaryLabel}
+        slides={t.slides}
         onSecondaryClick={scrollToFeatures}
       />
 
       <section className="section" ref={featuresRef}>
-        <SectionHeader
-          eyebrow="The space"
-          title="Designed for the moments between focused work"
-          description="Vista is where the community gathers — for a change of scene during the day, and for the talks and evenings that bring everyone together after hours."
-        />
+        <SectionHeader eyebrow={t.featEyebrow} title={t.featTitle} description={t.featDesc} />
         <div className="lounge-features">
-          {features.map((f, i) => (
+          {t.features.map((f, i) => (
             <article
               className="lounge-feature"
-              key={f.title}
+              key={i}
               data-reveal
               style={{ '--reveal-delay': `${(i % 3) * 80}ms` }}
             >
-              <span className="lounge-feature__icon">{f.icon}</span>
+              <span className="lounge-feature__icon">{FEATURE_ICONS[i]}</span>
               <h3 className="lounge-feature__title">{f.title}</h3>
               <p className="lounge-feature__desc">{f.desc}</p>
             </article>
@@ -147,15 +225,11 @@ export default function VistaLounge() {
             <img src={heroImg} alt="" />
           </div>
           <div className="lounge-intro__body">
-            <p className="lounge-intro__eyebrow">Events</p>
-            <h3 className="lounge-intro__title">Something on, most weeks</h3>
-            <p className="lounge-intro__desc">
-              Founders’ breakfasts, meetups, panels and pitch nights — the lounge is where the
-              Extind community actually meets. Most events are free and open to guests, so there’s
-              always a reason to come up.
-            </p>
+            <p className="lounge-intro__eyebrow">{t.eventsEyebrow}</p>
+            <h3 className="lounge-intro__title">{t.eventsTitle}</h3>
+            <p className="lounge-intro__desc">{t.eventsDesc}</p>
             <Link className="btn btn--primary" to="/events" viewTransition>
-              See upcoming events →
+              {t.eventsCta}
             </Link>
           </div>
         </article>
@@ -167,14 +241,11 @@ export default function VistaLounge() {
             <img src={pillarsImg} alt="" />
           </div>
           <div className="lounge-intro__body">
-            <p className="lounge-intro__eyebrow">Extind Magazine</p>
-            <h3 className="lounge-intro__title">Guides for choosing your workspace</h3>
-            <p className="lounge-intro__desc">
-              Practical, no-nonsense reading on private offices, coworking and meeting spaces in
-              Iași — what things cost, what’s included, and how to choose.
-            </p>
+            <p className="lounge-intro__eyebrow">{t.magEyebrow}</p>
+            <h3 className="lounge-intro__title">{t.magTitle}</h3>
+            <p className="lounge-intro__desc">{t.magDesc}</p>
             <Link className="btn btn--primary" to="/magazine" viewTransition>
-              Read the magazine →
+              {t.magCta}
             </Link>
           </div>
         </article>

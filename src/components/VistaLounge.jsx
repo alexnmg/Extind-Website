@@ -1,14 +1,44 @@
 import { useState } from 'react'
 import SectionHeader from './SectionHeader'
+import { useLang } from '../lib/i18n'
 import vistaImg from '../assets/photos/lounge.jpg'
 import lounge2Img from '../assets/photos/lounge-2.jpg'
 import lounge3Img from '../assets/photos/lounge-3.jpg'
 
-const defaultVistaSlides = [
-  { src: vistaImg, caption: 'Panoramic Lounge · 6th floor', alt: 'Vista Lounge with panoramic city view' },
-  { src: lounge2Img, caption: 'Room for events & gatherings', alt: 'Vista Lounge event and gathering space' },
-  { src: lounge3Img, caption: 'Coffee point & social area', alt: 'Vista Lounge coffee point and social area' },
-]
+const T = {
+  en: {
+    eyebrow: 'Vista Lounge',
+    title: 'Community & Events',
+    cardLabel: 'Vista Lounge',
+    cardTitle: 'A panoramic event space above the city',
+    description:
+      'More than a lounge, Vista is where the Extind community comes together. Host informal meetings, connect with other professionals or attend curated business events—all overlooking the Palace of Culture.',
+    ctaLabel: 'Discover Vista Lounge',
+    prev: 'Previous image',
+    next: 'Next image',
+    slides: [
+      { src: vistaImg, caption: 'Panoramic Lounge · 6th floor', alt: 'Vista Lounge with panoramic city view' },
+      { src: lounge2Img, caption: 'Room for events & gatherings', alt: 'Vista Lounge event and gathering space' },
+      { src: lounge3Img, caption: 'Coffee point & social area', alt: 'Vista Lounge coffee point and social area' },
+    ],
+  },
+  ro: {
+    eyebrow: 'Vista Lounge',
+    title: 'Comunitate & Evenimente',
+    cardLabel: 'Vista Lounge',
+    cardTitle: 'Un spațiu panoramic de evenimente deasupra orașului',
+    description:
+      'Mai mult decât un lounge, Vista este locul unde comunitatea Extind se întâlnește. Găzduiește întâlniri informale, cunoaște alți profesioniști sau participă la evenimente de business selecte — toate cu vedere spre Palatul Culturii.',
+    ctaLabel: 'Descoperă Vista Lounge',
+    prev: 'Imaginea anterioară',
+    next: 'Imaginea următoare',
+    slides: [
+      { src: vistaImg, caption: 'Lounge panoramic · etajul 6', alt: 'Vista Lounge cu vedere panoramică asupra orașului' },
+      { src: lounge2Img, caption: 'Spațiu pentru evenimente și întâlniri', alt: 'Spațiul de evenimente din Vista Lounge' },
+      { src: lounge3Img, caption: 'Coffee point & zonă socială', alt: 'Coffee point-ul și zona socială din Vista Lounge' },
+    ],
+  },
+}
 
 function ArrowIcon({ direction }) {
   return (
@@ -25,14 +55,23 @@ function ArrowIcon({ direction }) {
 }
 
 export default function VistaLounge({
-  eyebrow = 'Vista Lounge',
-  title = 'Community & Events',
-  cardLabel = 'Vista Lounge',
-  cardTitle = 'A panoramic event space above the city',
-  description = 'More than a lounge, Vista is where the Extind community comes together. Host informal meetings, connect with other professionals or attend curated business events—all overlooking the Palace of Culture.',
-  ctaLabel = 'Discover Vista Lounge',
-  slides = defaultVistaSlides,
+  eyebrow,
+  title,
+  cardLabel,
+  cardTitle,
+  description,
+  ctaLabel,
+  slides,
 }) {
+  const { lang } = useLang()
+  const t = T[lang]
+  eyebrow = eyebrow ?? t.eyebrow
+  title = title ?? t.title
+  cardLabel = cardLabel ?? t.cardLabel
+  cardTitle = cardTitle ?? t.cardTitle
+  description = description ?? t.description
+  ctaLabel = ctaLabel ?? t.ctaLabel
+  slides = slides ?? t.slides
   const [index, setIndex] = useState(0)
   const goTo = setIndex
   const slide = slides[index]
@@ -62,7 +101,7 @@ export default function VistaLounge({
           <button
             type="button"
             className="slider-arrow"
-            aria-label="Previous image"
+            aria-label={t.prev}
             disabled={index === 0}
             onClick={() => goTo(Math.max(0, index - 1))}
           >
@@ -71,7 +110,7 @@ export default function VistaLounge({
           <button
             type="button"
             className="slider-arrow"
-            aria-label="Next image"
+            aria-label={t.next}
             disabled={index === slides.length - 1}
             onClick={() => goTo(Math.min(slides.length - 1, index + 1))}
           >

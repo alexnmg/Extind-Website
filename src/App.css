@@ -47,6 +47,77 @@
   flex-shrink: 0;
 }
 
+/* ---------- Language switcher ----------
+   Shows the active language; clicking flips to the other. The visible label is
+   the state, so the action lives in a tooltip fed by [data-tip]. */
+.lang-switch {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px 9px;
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xs);
+  cursor: pointer;
+  font-family: var(--font-sans);
+  font-size: var(--fs-12);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--text-primary);
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.lang-switch:hover {
+  background: var(--background);
+  border-color: var(--text-primary);
+}
+
+/* Tooltip — hover/focus only, and only where hovering is possible, so it
+   never sticks around after a tap on touch devices. */
+.lang-switch::after {
+  content: attr(data-tip);
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%) translateY(-3px);
+  padding: 5px 9px;
+  border-radius: var(--radius-xs);
+  background: var(--text-primary);
+  color: var(--background);
+  font-size: var(--fs-10);
+  font-weight: 500;
+  letter-spacing: 0;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.18s ease, transform 0.18s ease;
+  z-index: 20;
+}
+
+@media (hover: hover) {
+  .lang-switch:hover::after,
+  .lang-switch:focus-visible::after {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+/* In-menu variant: phones only, centred above the CTA */
+.lang-switch--menu {
+  display: none;
+  align-self: center;
+  padding: 8px 14px;
+  font-size: var(--fs-14);
+}
+
+/* The menu sits at the foot of the card, so point its tooltip upward */
+.lang-switch--menu::after {
+  top: auto;
+  bottom: calc(100% + 8px);
+  transform: translateX(-50%) translateY(3px);
+}
+
 /* Downward-only shadow: negative spread pulls the sides in so it doesn't
    bleed left/right; large blur + low opacity keeps it soft. */
 .navbar--scrolled {
@@ -1484,6 +1555,41 @@
   align-items: flex-start;
 }
 
+/* ---------- Cal.com booking ---------- */
+
+/* CTA variant: no embed beside the card, so the card spans the section and
+   the button opens Cal in an overlay instead. */
+.book-visit--cta .book-visit__card {
+  flex: 1 1 100%;
+}
+
+.book-visit__trigger {
+  margin-top: 8px;
+  align-self: flex-start;
+}
+
+/* The booker sizes itself; the wrapper just gives it room and trims the
+   generous padding the form card used for its own fields. */
+.book-visit__embed {
+  padding: 16px;
+  justify-content: stretch;
+}
+
+.cal-embed {
+  width: 100%;
+  min-height: 640px;
+  overflow: auto;
+}
+
+@media (max-width: 600px) {
+  .book-visit__embed {
+    padding: 8px;
+  }
+  .cal-embed {
+    min-height: 560px;
+  }
+}
+
 .step-dots {
   display: flex;
   gap: 8px;
@@ -2834,6 +2940,12 @@ textarea.field__input {
   /* Compact the bar so the logo + CTA + burger fit on narrow phones */
   .navbar__right {
     gap: 12px;
+  }
+  .lang-switch--bar {
+    display: none;
+  }
+  .lang-switch--menu {
+    display: inline-flex;
   }
   .navbar__cta {
     margin-right: 0;

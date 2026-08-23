@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
+import { useLang } from '../lib/i18n'
 
 /* Scroll-entry reveals.
  *
@@ -21,6 +22,7 @@ import { useLocation } from 'react-router-dom'
  */
 export default function ScrollReveal() {
   const { pathname } = useLocation()
+  const { lang } = useLang()
 
   useEffect(() => {
     const els = [...document.querySelectorAll('[data-reveal]:not([data-revealed])')]
@@ -50,7 +52,7 @@ export default function ScrollReveal() {
 
     els.forEach((el) => io.observe(el))
     return () => io.disconnect()
-  }, [pathname])
+  }, [pathname, lang])
 
   return null
 }
