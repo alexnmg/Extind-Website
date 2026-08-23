@@ -210,7 +210,9 @@
 
 .navbar__links {
   display: flex;
-  gap: 8px;
+  /* No gap — each link's own padding provides the separation, and the hover
+     pill reads better when the pills sit flush. */
+  gap: 0;
   align-items: center;
   white-space: nowrap;
 }
@@ -2644,9 +2646,10 @@ textarea.field__input {
   color: var(--text-secondary);
 }
 
-/* The desktop nav's links + CTA need ~1290px to fit alongside the logo; below
-   that they'd overflow the bar, so switch to the burger below 1300px. */
-@media (max-width: 1300px) {
+/* Widest the nav gets is Romanian, which needs ~1243px alongside the logo
+   (English ~1133px); below that it would overflow, so hand over to the
+   burger. Re-measure if nav labels or the CTA change length. */
+@media (max-width: 1260px) {
   .navbar__links { display: none; }
   .navbar__burger { display: inline-flex; }
   /* Keep the CTA visible, sitting just left of the burger */
