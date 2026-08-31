@@ -159,15 +159,49 @@ Verified on the deployed site, 2026-08-31:
 - **Zero console errors.** Romanian renders by default (`<html lang="ro">`,
   `extind-lang=ro`), and a magazine article hard-loads with its real content.
 
-Still to do in Phase A: add `extind.ro` and `www` as custom domains on the
-Worker (Worker → **Domains**). Expect them to sit incomplete until the
-nameservers move on Wednesday.
+### The custom domains cannot be added in advance — and that leaves a gap
+
+A Worker Custom Domain requires **an active Cloudflare zone**, per the docs.
+This zone is *Pending* and only goes Active once ROTLD points at
+`kira.ns` / `trace.ns`. So `extind.ro` and `www` **cannot be attached before
+Wednesday**; attempting it is free, but expect a refusal.
+
+That creates a window nobody should walk into blind:
+
+1. Nameservers change at ROTLD.
+2. Resolvers begin switching from Sigmatic's zone — which serves the old site —
+   to the new zone, **which has no apex or `www` record at all**, because those
+   were deliberately deleted for Pages/Workers to create.
+3. Every resolver that has switched gets **NXDOMAIN**: the site is down, not
+   merely stale.
+4. Adding the Custom Domains creates the records and the site comes up.
+
+**So step 3 is not optional and not leisurely.** Be at the keyboard when the
+zone flips to Active and add both Custom Domains immediately. Cloudflare
+detects the nameserver change on its own schedule — first check after 60
+seconds, then at widening intervals — and the check can be re-triggered from
+the zone's Overview page, so poll it rather than waiting to be told.
+
+**Mail is unaffected throughout.** `MX`, SPF and both DKIM records already
+exist in the new zone and match the old one, so whichever zone a resolver is
+using, email resolves identically. The gap is web-only.
+
+Do **not** try to pre-empt this by hand-creating a `CNAME` to the
+`workers.dev` hostname. Cloudflare's own docs warn that a manually added CNAME
+pointing at a Workers/Pages hostname, without registering the Custom Domain
+first, resolves to a **522 error** — that trades a clean outage for a
+confusing one.
 
 ### Phase B — Wednesday, the only action that changes anything
 
 7. **Change the nameservers at ROTLD** to the assigned pair.
+8. **Poll the zone Overview until it flips to Active, then immediately add
+   `extind.ro` and `www` as Custom Domains** on the Worker (Settings → Domains
+   & Routes → Add → Custom Domain). Between activation and this step the apex
+   has no record and the site is down for anyone whose resolver has already
+   switched. See the gap described in Phase A.
 
-That is the whole cutover. Two hazards attach to it:
+Three hazards attach to the cutover:
 
 - **Hand ROTLD the pair assigned to the _client's_ zone.** `extind.ro` also
   exists in Sigmatic's account, and Cloudflare expressly permits the same zone
