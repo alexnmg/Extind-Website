@@ -210,11 +210,14 @@ rather than trusting them if Cal ships a redesign.
    (flip `CAL_EVENT`; remember there is no redirect from the old slug).
 4. Whether to pay for **Cal Teams** to drop the watermark and get reminder
    workflows.
-5. ~~Where the site is deployed.~~ **Answered 2026-08-31: Cloudflare Pages on
-   the client's account** — see [`DEPLOY-RUNBOOK.md`](./DEPLOY-RUNBOOK.md).
-   What remains open is **who controls the Cloudflare zone for `extind.ro`** —
-   the client, or Sigmatic (whose Hetzner box serves the current site and the
-   mail). Nothing can be scheduled until the client answers that.
+5. ~~Where the site is deployed.~~ **Answered 2026-08-31: Cloudflare Pages, in
+   a Cloudflare account belonging to the client** — see
+   [`DEPLOY-RUNBOOK.md`](./DEPLOY-RUNBOOK.md). One question still gates the
+   launch: **does the client hold the ROTLD account for `extind.ro`?** Alex
+   already controls the Google Workspace (all `@extind.ro` mail) and the
+   current server's cPanel, and the Cloudflare zone is being rebuilt from an
+   external audit rather than negotiated out of Sigmatic — so the registrar is
+   the only remaining dependency.
 
 ## Known blockers, still open
 

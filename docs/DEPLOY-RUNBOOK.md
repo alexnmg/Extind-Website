@@ -11,60 +11,117 @@ _Last updated 2026-08-31. Status: **repo prepared, nothing deployed yet.**_
 
 ## The decision
 
-**Cloudflare Pages, on the client's own Cloudflare account, free tier.**
-
-Decided 2026-08-31, over Vercel Pro and Romanian shared hosting:
+**Cloudflare Pages, in a Cloudflare account that belongs to the client, free
+tier.** Decided 2026-08-31.
 
 - **Vercel's Hobby plan cannot legally host this.** Vercel restricts Hobby to
-  non-commercial personal use, and defines commercial usage as any deployment
-  serving the financial gain of anyone involved in producing it — explicitly
-  including a paid consultant writing the code. Two independent triggers hit
-  here. That puts Vercel at **$20/user/month** for a site that needs none of
-  what the money buys.
-- **Cloudflare Pages permits commercial use on the free tier**, with unmetered
+  non-commercial personal use and counts a paid consultant writing the code as
+  commercial usage. That puts Vercel at **$20/user/month** for a purely static
+  build that needs none of what the money buys.
+- **Cloudflare Pages permits commercial use on the free tier**, unmetered
   bandwidth and requests. Limits that could ever bind: 500 builds/month, 1
-  concurrent build, 20,000 files, 25 MiB per file, 100 custom domains. This
-  project is nowhere near any of them.
-- **The domain's DNS is already on Cloudflare** (nameservers `alex.ns` /
-  `lisa.ns.cloudflare.com`). Zone and Pages project in one account means the
-  custom-domain step creates its own DNS records — no IP juggling, no
-  proxy/certificate fight.
-- The site is **pure static output** — no SSR, no functions, no image
-  optimisation API. Nothing in the repo needs a specific host, which is why
-  `vercel.json` stays in the tree: portability is free, so keep it.
+  concurrent build, 20,000 files, 25 MiB per file, 100 custom domains. Nowhere
+  near any of them.
+- **A fresh Cloudflare account per client is free, and is the correct shape.**
+  Do **not** put `extind.ro` into Alex's existing Cloudflare account: scoping a
+  member to selected domains is an Enterprise capability, so on a free account
+  any member the client is given sees **every domain in that account**. An
+  account holding only `extind.ro` makes per-domain access automatic, and
+  leaves the client owning their own infrastructure rather than renting a
+  corner of the agency's. Register it on the **client's** email; Alex joins as
+  Administrator.
+- The build is **plain static output** — no SSR, no functions, no image
+  optimisation API. `vercel.json` stays in the tree because portability costs
+  nothing.
 
-## What was measured on 2026-08-31 — verify, don't trust, if time has passed
+## Who controls what — confirmed 2026-08-31
 
-- `extind.ro` and `www` resolve to `188.114.96.8` / `188.114.97.8` — Cloudflare
-  anycast, so the records are **proxied** (orange cloud) and the true origin IP
-  is hidden.
+| Asset | Holder | Status |
+|---|---|---|
+| **Email** — Google Workspace, all `@extind.ro` | **Alex has admin** | ✅ no dependency |
+| **Current site + server** — Hetzner `157.90.32.237`, cPanel | **Alex has cPanel** | ✅ no dependency |
+| **Cloudflare zone** — nameservers `alex.ns` / `lisa.ns` | **Sigmatic's account** | ⚠️ rebuild elsewhere, don't negotiate |
+| **Domain registration** — ROTLD, `ICI - Registrar` | **UNKNOWN** | 🔴 **the only real blocker** |
+
+The domain is registered **directly with ROTLD**, not through a reseller. So if
+the client's company is the registered *deținător*, they can change nameservers
+themselves at rotld.ro and **Sigmatic is never involved at all**. That single
+question — does the client hold the ROTLD account — is what gates the launch.
+
+Nothing else needs to be requested from Sigmatic. The zone is reconstructable
+from the audit below, and the one record that is not (`ftp`) is recoverable
+from cPanel's Zone Editor, which Alex can reach.
+
+## What was measured on 2026-08-31 — re-verify before cutover
+
+- `extind.ro` and `www` resolve to `188.114.96.8` / `188.114.97.8` (+ AAAA
+  `2a06:98c1:3120::8` / `3121::8`) — Cloudflare anycast, so the records are
+  **proxied** and the true origin is hidden.
 - **What is live at `extind.ro` today is not this repo.** It is a separate
-  hand-written one-page site (`style.css`, `script.js`,
-  `public/logo-extind.PNG`, anchor nav `#about #fac #spaces #events #contact`,
-  Inter / Montserrat / Space Grotesk). `/faq` and `/magazine` both return real
-  404s, which is how we know the SPA has never been deployed there.
-- Origin is `157.90.32.237` — **Hetzner Online GmbH** (AS24940, DE), reverse DNS
-  `labs.sigmatic.ro`. Response headers carry `x-powered-by: WP Rocket/3.19.4`.
-  **A third party (Sigmatic) very likely controls the Cloudflare zone**, not the
-  client. Confirm before planning around it.
-- `MX` → `mail.extind.ro` → the same `157.90.32.237`. Mail and web share that
-  box.
+  hand-written one-page site (`style.css`, `script.js`, anchor nav
+  `#about #fac #spaces #events #contact`). `/faq` and `/magazine` return real
+  404s — which is how we know the SPA has never been deployed there.
+- **Mail is on Google Workspace** (`MX 1 smtp.google.com`), *not* on the
+  Hetzner box. An earlier reading of this runbook said the opposite; it was
+  wrong. The `A mail → 157.90.32.237` record and the `ip4:157.90.32.237` term
+  in SPF are leftovers from the previous mail setup.
+- **The zone was being actively edited while it was measured.** A first query
+  returned `MX 0 mail.extind.ro`; minutes later, authoritative answers from
+  both Cloudflare nameservers and four public resolvers agreed on
+  `MX 1 smtp.google.com`, with a **TTL of 60** on both the MX and the
+  `google._domainkey` record. Either the first read was stale or the migration
+  happened in that window. Either way: **re-run the audit immediately before
+  cutover rather than trusting these figures.**
+- **DNSSEC is off** (no `DS` at ROTLD) and there are **no CAA records** — the
+  nameserver change needs no DS coordination, and nothing blocks certificate
+  issuance.
+
+### The captured zone
+
+[`dns-audit-extind-ro.txt`](./dns-audit-extind-ro.txt) holds the authoritative
+capture, including both **full DKIM public keys**. Regenerate it with a query
+against the zone's own nameserver, never against a local resolver — that is how
+the stale-MX mistake above happened.
+
+**Must be recreated verbatim in the new zone (8 records):**
+
+| Type | Name | Note |
+|---|---|---|
+| `MX` | `@` | `1 smtp.google.com` — Google Workspace |
+| `TXT` | `@` | SPF — `v=spf1 include:_spf.google.com +a +ip4:157.90.32.237 ~all` |
+| `TXT` | `@` | `google-site-verification=zfXc_0NN_…` |
+| `TXT` | `@` | `v=DMARC1; p=none;` — see note below |
+| `TXT` | `default._domainkey` | DKIM, 2048-bit — full key in the audit file |
+| `TXT` | `google._domainkey` | DKIM, Google — full key in the audit file |
+| `A` | `mail` | `157.90.32.237` — legacy, but preserve through the cutover |
+| `A` | `ftp` | proxied; **real origin not visible externally** — read it out of cPanel's Zone Editor |
+
+**Replaced by Pages at cutover:** apex and `www` (A + AAAA).
+
+> **DMARC is misconfigured.** `v=DMARC1; p=none;` sits on the apex, where it
+> does nothing — a policy is only read at `_dmarc.extind.ro`, which is empty.
+> **Carry it over as-is.** Fixing it during a migration means two variables
+> moving at once; raise it afterwards as its own email-hygiene item.
+
+> Dropping a DKIM record does not bounce mail. It quietly degrades
+> deliverability until messages start landing in spam — a failure nobody
+> notices for weeks. Verify both `_domainkey` records resolve from the new zone
+> before considering the cutover done.
 
 ---
 
-## Trap 1 — SPA routing on Pages needs NO config, and the obvious config breaks it
+## Trap — SPA routing on Pages needs NO config, and the obvious config breaks it
 
 Cloudflare Pages is **not** Netlify here, despite the shared `_redirects`
 format.
 
 - Pages' redirect docs: redirects are always followed, **regardless of whether
   an asset matches the incoming request**. So the reflexive SPA rule
-  `/*  /index.html  200` intercepts `/assets/index-*.js` and `/favicon.svg` too,
-  and the site renders a **white screen on every page**. Do not add it.
+  `/*  /index.html  200` intercepts `/assets/index-*.js` and `/favicon.svg`
+  too, and the site renders a **white screen on every page**. Do not add it.
 - Pages' serving docs: if a project has **no top-level `404.html`**, Pages
   treats the deployment as a single-page application and matches all incoming
-  paths to `/`. That is exactly the behaviour this site needs, and it is on by
-  default.
+  paths to `/`. That is exactly what this site needs, and it is on by default.
 
 `npm run build` emits `assets/ favicon.svg icons.svg index.html` and no
 `404.html`, so deep links work with zero configuration.
@@ -72,96 +129,83 @@ format.
 > **Never add a `404.html` to this project.** `SESSION-HANDOFF.md` notes the
 > site has no 404 route — the catch-all renders `<Home />`. If anyone "fixes"
 > that by dropping in a static `404.html`, it silently disables Pages' SPA
-> fallback and **every deep link starts 404ing on hard load**. The fix for the
-> missing-404 problem has to be a React route, never a static file.
+> fallback and **every deep link starts 404ing on hard load**. The fix has to
+> be a React route, never a static file.
 
-This is documentation-verified, not yet empirically verified. **Confirm it on
-the first `*.pages.dev` deploy** by hard-reloading `/faq` and a
-`/magazine/:slug`. If Pages somehow does not do the fallback, the fix is a
-`_redirects` file with explicit asset exclusions — never the naive catch-all.
-
-## Trap 2 — mail lives on the old server, and breaking it breaks bookings
-
-`hello@extind.ro` is the **Cal.com account address**. It is served from the
-Hetzner box, not from anything we control. During the cutover, change **only**
-the `@` and `www` records. Leave these exactly as they are:
-
-| Type | Name | Value |
-|---|---|---|
-| `MX` | `@` | `mail.extind.ro` (priority 0) |
-| `A` | `mail` | `157.90.32.237` |
-| `TXT` | `@` | `v=spf1 +mx +a +ip4:157.90.32.237 ~all` |
-| `TXT` | `_dmarc` | `v=DMARC1; p=none;` |
+Documentation-verified, not yet empirically verified. **Confirm on the first
+`*.pages.dev` deploy** by hard-reloading `/faq` and a `/magazine/:slug`. If
+Pages does not do the fallback, the fix is a `_redirects` with explicit asset
+exclusions — never the naive catch-all.
 
 ---
 
 ## Steps — Alex
 
-1. **Find out who owns the Cloudflare zone.** Ask the client: *"Who set up your
-   Cloudflare — do you have the login, or does your previous web company?"*
-   Given the `labs.sigmatic.ro` reverse DNS, Sigmatic is the likely holder. If
-   so, the zone has to move to the client's account, or the DNS change has to be
-   made through Sigmatic. **This is the only step that can genuinely stall the
-   launch — do it first.**
-2. **Deploy to your own Cloudflare account** as a staging proof, without waiting
-   for access. Build command `npm run build`, output directory `dist`, and leave
-   `VITE_STORYBLOK_TOKEN` unset (see `SESSION-HANDOFF.md` — the empty token is
-   deliberate). Hand the resulting `*.pages.dev` URL to the client for review.
-3. **Get invited to the client's account** — Manage Account → Members → Invite,
-   which only their Super Administrator can do. Ask for **Administrator**; the
-   cutover touches both Pages and DNS, and finer scoping only adds friction
-   mid-flight.
-4. **Decide how Pages gets the code.** Connecting the GitHub repo installs the
-   Cloudflare Pages app on `alexnmg/Extind-Website` under *their* account. If
-   you would rather not link your repo to the client's account before handover,
-   use **Direct Upload** (`wrangler pages deploy dist`) instead — the repo stays
-   yours and they still get the site.
-5. **Recreate the project in their account** and confirm it works on
-   `*.pages.dev` there **before touching any DNS**.
-6. **Screenshot the existing DNS records first.** The public A records are
-   Cloudflare proxy IPs, so the real origin is invisible from outside — without
-   that screenshot there is no rollback.
-7. **Agree a cutover time with the client.** Their current site goes dark the
-   moment the records flip.
-8. **Add the custom domains** `extind.ro` and `www.extind.ro` in the Pages
-   project. Because the zone is in the same account, Cloudflare creates the
-   records and prompts to replace the existing ones. Certificates are automatic.
-9. **Send a real test email to `hello@extind.ro`** and confirm it arrives.
+1. **Ask the client one question: do they hold the ROTLD account for
+   `extind.ro`?** Everything else is unblocked; this is not. If they do, nobody
+   needs to contact Sigmatic at all.
+2. **While you still have cPanel**, export the DNS zone from the Zone Editor
+   and take a full site + database backup. The zone export is the only way to
+   learn what `ftp.extind.ro` actually points at.
+3. **In Google Workspace admin**, confirm no additional DNS records are
+   expected beyond the four already captured, and note any aliases or routing
+   rules — so nothing is discovered missing after the nameservers move.
+4. **Create the new Cloudflare account on the client's email address**, add
+   yourself as Administrator, and add `extind.ro` to it. Cloudflare assigns a
+   **new nameserver pair** — the launch depends on that pair reaching ROTLD.
+5. **Recreate every record** from the table above, then have Claude diff the
+   new zone against the audit before anything moves.
+6. **Deploy Pages into that account** and verify on `*.pages.dev`.
+7. **Change the nameservers at ROTLD** to the new pair. Web and mail cut over
+   together. Agree the moment with the client — the current site goes dark then.
+8. **Send a real test email to `hello@extind.ro`** and confirm it arrives.
 
 ## Steps — Claude
 
 - **Repo prep — done 2026-08-31.** `.node-version` pinned to `24` (Pages'
-  build image defaults to 22.16.0). `_redirects` was created and then removed
-  once the docs proved it harmful — see Trap 1. `vercel.json` deliberately kept.
-- **On the first `*.pages.dev` URL:** drive it in a browser, hard-reload `/faq`
-  and a `/magazine/:slug`, confirm the Cal.com booker mounts and shows slots,
-  read the console for errors, and report measurements. Note the preview-pane
-  quirks in `SESSION-HANDOFF.md` — `[data-reveal]` sits at `opacity: 0` and has
-  to be forced visible before screenshotting.
-- **Before cutover:** re-dump the externally visible DNS as a rollback
-  reference.
+  build image defaults to 22.16.0). No `_redirects` — see the Trap.
+  `vercel.json` deliberately kept.
+- **DNS audit — done 2026-08-31**, in `dns-audit-extind-ro.txt`. Re-run
+  immediately before cutover; the zone was being edited during capture.
+- **On the new zone:** diff it against the audit and name every missing record
+  before the nameservers move.
+- **On the first `*.pages.dev` URL:** hard-reload `/faq` and a
+  `/magazine/:slug`, confirm the Cal.com booker mounts and shows slots, read
+  the console, report measurements. Note the preview-pane quirks in
+  `SESSION-HANDOFF.md` — `[data-reveal]` sits at `opacity: 0` and must be
+  forced visible before screenshotting.
 - **After cutover:** verify the domain resolves to Pages, certificates are
-  valid, every route hard-loads, and **the MX / SPF / DMARC records are
-  byte-for-byte unchanged**.
+  valid, every route hard-loads, and **both DKIM records plus SPF and MX
+  resolve identically to the audit**.
 - **On request:** run `wrangler pages deploy dist` once Wrangler is
-  authenticated locally — Alex owns the auth, Claude runs the deploy.
+  authenticated locally.
 
 ---
 
 ## Rollback
 
-The old site keeps running on the Hetzner box throughout; only DNS moves. To
-revert, restore the `@` and `www` records from the screenshot taken in step 6.
-Propagation is fast because the records are proxied, but **the screenshot is the
-only copy of the origin IP** — without it, rollback means asking Sigmatic.
+The old site keeps running on the Hetzner box throughout, and Sigmatic's zone
+is untouched — so rollback is simply **pointing the nameservers back to
+`alex.ns` / `lisa.ns.cloudflare.com`** at ROTLD. That is the whole reason for
+rebuilding the zone elsewhere rather than asking Sigmatic to hand theirs over:
+the old configuration stays intact and reversible until the client chooses to
+retire it.
+
+## After the launch — not before
+
+- Decommission the Hetzner box once nothing depends on it. **Then** remove the
+  `A mail` record and the `ip4:157.90.32.237` term from SPF — not during the
+  cutover.
+- Fix DMARC properly at `_dmarc.extind.ro`.
 
 ## Go-live verification checklist
 
 - [ ] `https://extind.ro` and `https://www.extind.ro` both load over valid TLS
 - [ ] `/faq` hard-loads (not a soft client-side navigation)
 - [ ] `/magazine/:slug` hard-loads for a real slug from `src/data/community.js`
-- [ ] A deliberately mistyped URL renders the homepage, not a Pages 404 —
-      that confirms the SPA fallback rather than a stale cache
+- [ ] A mistyped URL renders the homepage, not a Pages 404 — confirms SPA
+      fallback rather than a stale cache
 - [ ] The Cal.com booker mounts and shows bookable slots
-- [ ] Language switching still works and persists (`extind-lang` in localStorage)
+- [ ] Language switching works and persists (`extind-lang` in localStorage)
+- [ ] `MX`, SPF, and **both** `_domainkey` records match the audit exactly
 - [ ] A test email to `hello@extind.ro` arrives
