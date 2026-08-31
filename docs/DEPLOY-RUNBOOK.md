@@ -75,10 +75,22 @@ keeps being served from Sigmatic's zone throughout.
    silent deliverability failure. After the import:
    - **Delete three records:** the apex `A` → `157.90.32.237` (the old site),
      `CNAME www` → apex, and `CNAME ftp` → apex (vestigial).
-   - **Verify both `_domainkey` records arrived.** An automatic scan often
-     misses them, because DKIM selectors sit at arbitrary names that cannot be
-     enumerated from DNS. If absent, paste them from
-     [`dns-audit-extind-ro.txt`](./dns-audit-extind-ro.txt).
+   - **Set `A mail` back to DNS only.** The import flips it to Proxied, and an
+     orange cloud on a mail host breaks mail — Cloudflare proxies HTTP/HTTPS
+     only, so SMTP and IMAP connections to `mail.extind.ro` would resolve to
+     Cloudflare and fail. The source zone has it `cf-proxied:false`.
+   - **Verify both `_domainkey` records arrived.** An automatic scan can miss
+     them, because DKIM selectors sit at arbitrary names that cannot be
+     enumerated from DNS. (On 2026-08-31 both did import.) If absent, paste
+     them from [`dns-audit-extind-ro.txt`](./dns-audit-extind-ro.txt).
+   - Note the imported apex/`www`/`ftp` addresses are **Cloudflare's own proxy
+     IPs**, not the origin — the scanner resolved proxied names and got
+     Cloudflare back. They point Cloudflare at itself and are broken as well as
+     unwanted, which is another reason they go.
+   - **Verify the pending zone directly.** Cloudflare answers queries for a
+     pending zone on its assigned nameservers, so the whole record set can be
+     checked with `dig @<assigned-ns> …` days before ROTLD is touched. Use it —
+     it is a real pre-flight against the live zone, not a paper check.
    - Diff the result against the target spec in that file before moving on.
 4. Create the Pages project — build `npm run build`, output `dist`,
    `VITE_STORYBLOK_TOKEN` left unset — and verify on `*.pages.dev`.
