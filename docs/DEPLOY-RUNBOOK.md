@@ -65,13 +65,6 @@ keeps being served from Sigmatic's zone throughout.
 
 1. Create the Cloudflare account **on the client's email address**; Alex joins
    as Administrator. Not Alex's existing account — see the decision section.
-1b. **Delete `extind.ro` from Alex's personal Cloudflare account first.** It is
-   already there, and it is not active, so removing it changes nothing about
-   live DNS. Leaving it in place means three nameserver pairs are in play on
-   Wednesday — Sigmatic's, Alex's personal one, and the client's — and handing
-   ROTLD the wrong one points the domain at a zone with no records, taking down
-   the site **and** mail. This is the highest-consequence mistake available on
-   launch day, and deleting one stray zone removes it.
 2. Add `extind.ro` and **select the Free plan**. This step is not optional:
    a zone left in *Finish setup* (Initializing) gets **no nameservers
    assigned**, and the assigned pair is exactly what ROTLD needs on Wednesday.
@@ -98,10 +91,11 @@ happens early.
 
 That is the whole cutover. Two hazards attach to it:
 
-- **Hand ROTLD the pair assigned to the _client's_ zone.** The same domain
-  existing in more than one Cloudflare account is expressly allowed, and
-  Cloudflare responds by assigning each copy a **different** pair — so more
-  than one valid-looking pair exists. Read the pair off the client zone's
+- **Hand ROTLD the pair assigned to the _client's_ zone.** `extind.ro` also
+  exists in Sigmatic's account, and Cloudflare expressly permits the same zone
+  in more than one account — it responds by assigning each copy a **different**
+  pair. So the client's zone will **not** be given `alex.ns` / `lisa.ns`, and
+  two valid-looking pairs exist on the day. Read the pair off the client zone's
   Overview page at the moment of the change; do not work from notes.
 - **Replace both nameservers; do not mix.** Cloudflare's activation check
   requires that *only* the assigned pair is listed at the registrar. Any
