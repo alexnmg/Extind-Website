@@ -135,8 +135,33 @@ diffing against the live zone at `alex.ns.cloudflare.com`:
 - Apex, `www` and `ftp` return nothing for `A` or `AAAA` on the new zone: the
   import artefacts are gone and Pages has a clean slate.
 
-Still to do in Phase A: the Pages project, its two custom domains, and the
-`*.pages.dev` verification.
+**The Worker is deployed and verified** at
+`https://extind.tight-sunset-f416.workers.dev` (build `#0b89aeed`, 45s, Node
+24.20.0 picked up from `.node-version`).
+
+Verified on the deployed site, 2026-08-31:
+
+- **SPA fallback works.** `/`, `/faq`, `/magazine`,
+  `/magazine/how-much-does-a-private-office-cost-in-iasi`, `/private-offices`,
+  `/book-a-visit` and two deliberately invalid paths all return **200
+  `text/html`**. This was the last claim resting on documentation rather than
+  observation.
+- **Assets are not swallowed by that fallback** — the hashed JS and CSS,
+  `favicon.svg` and `icons.svg` each return 200 with their correct
+  `content-type`. This is the failure the Pages `_redirects` catch-all would
+  have caused, confirmed absent here.
+- **The Cal.com booker mounts and finishes loading** — `cal-inline` reaches
+  `loading="done"` with a live `iframe.cal-embed`, and the embed URL carries
+  the right user, the `programeaza-o-vizita` slug and `theme=light`.
+- **Booker geometry reproduces the documented measurements exactly.** At a
+  1440 viewport: card **380**, iframe **940** — the figures this runbook's
+  geometry table predicts.
+- **Zero console errors.** Romanian renders by default (`<html lang="ro">`,
+  `extind-lang=ro`), and a magazine article hard-loads with its real content.
+
+Still to do in Phase A: add `extind.ro` and `www` as custom domains on the
+Worker (Worker → **Domains**). Expect them to sit incomplete until the
+nameservers move on Wednesday.
 
 ### Phase B — Wednesday, the only action that changes anything
 
