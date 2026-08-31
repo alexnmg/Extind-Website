@@ -5,7 +5,7 @@ cross-session record of how this site is built, which decisions are already
 settled, and what is still open. Keep it current: when a round changes
 something described here, update it in the same commit.
 
-_Last updated 2026-08-26, at commit `38f309c`._
+_Last updated 2026-08-31, on top of commit `0abaa9f`._
 
 ---
 
@@ -31,13 +31,26 @@ Romania. This repo is its marketing site.
   the check that must stay clean (~250ms).
 - **Dev server:** use the preview tool with the `extind-dev` config in
   `.claude/launch.json`. Never start dev servers through Bash.
-- **Deployment:** the only deploy config is `vercel.json`, and its
-  `/(.*)` → `/index.html` rewrite is **mandatory** — this is a client-rendered
-  SPA with `BrowserRouter`, so on any host without that catch-all rewrite every
-  non-root URL (`/faq`, `/magazine/:slug`, …) 404s on a hard load while working
-  perfectly in dev. `.env` is gitignored, so any future Storyblok token goes in
-  the host's env, not the repo. _(Open: whether the site is currently live, at
-  which URL, and who owns the deploy — not recorded anywhere in the repo.)_
+- **Deployment: Cloudflare Pages, on the client's Cloudflare account, free
+  tier** — decided 2026-08-31. **[`DEPLOY-RUNBOOK.md`](./DEPLOY-RUNBOOK.md) is
+  the file to read before touching hosting**; it carries the cutover steps, the
+  do-not-touch DNS records, and the rollback. Nothing is deployed yet, and the
+  site currently live at `extind.ro` is a **different, older one-page site** on
+  a Hetzner box — not this repo.
+  - This is a client-rendered SPA with `BrowserRouter`, so **every host needs a
+    catch-all rewrite** or each non-root URL (`/faq`, `/magazine/:slug`, …)
+    404s on a hard load while working perfectly in dev. `vercel.json` provides
+    it via `/(.*)` → `/index.html` and is **kept deliberately** — the build is
+    plain static output, so portability costs nothing.
+  - **On Cloudflare Pages that rewrite must NOT be restated in a `_redirects`
+    file.** Pages follows redirects regardless of whether an asset matches, so
+    `/* /index.html 200` swallows `/assets/*.js` and white-screens the site.
+    Pages instead does SPA fallback natively whenever a project has **no
+    top-level `404.html`** — which is why one must never be added here. See
+    the runbook's Trap 1.
+  - `.node-version` pins the build to Node 24 (Pages' image defaults to
+    22.16.0). `.env` is gitignored, so any future Storyblok token goes in the
+    host's env, not the repo.
 
 ## Conventions — follow these, don't re-litigate them
 
@@ -197,7 +210,11 @@ rather than trusting them if Cal ships a redesign.
    (flip `CAL_EVENT`; remember there is no redirect from the old slug).
 4. Whether to pay for **Cal Teams** to drop the watermark and get reminder
    workflows.
-5. Where the site is deployed, and whether it is live yet.
+5. ~~Where the site is deployed.~~ **Answered 2026-08-31: Cloudflare Pages on
+   the client's account** — see [`DEPLOY-RUNBOOK.md`](./DEPLOY-RUNBOOK.md).
+   What remains open is **who controls the Cloudflare zone for `extind.ro`** —
+   the client, or Sigmatic (whose Hetzner box serves the current site and the
+   mail). Nothing can be scheduled until the client answers that.
 
 ## Known blockers, still open
 
