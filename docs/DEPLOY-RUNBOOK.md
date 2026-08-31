@@ -105,6 +105,35 @@ holds are **Enterprise-only**, so this is unlikely for a small agency — but
 finding out on Monday instead of Wednesday morning is the entire reason Phase A
 happens early.
 
+### Phase A status — verified 2026-08-31
+
+The client's zone exists and is **Pending**, assigned:
+
+| | |
+|---|---|
+| **New pair (client's zone)** | `kira.ns.cloudflare.com` / `trace.ns.cloudflare.com` |
+| Old pair (Sigmatic's, currently at ROTLD) | `alex.ns.cloudflare.com` / `lisa.ns.cloudflare.com` |
+
+Cloudflare assigned a different pair, as expected for a zone that also exists in
+another account. Read the pair off the Overview page again on the day — this
+table is a cross-check, not the source of truth.
+
+Verified by querying the pending zone directly at `kira.ns.cloudflare.com` and
+diffing against the live zone at `alex.ns.cloudflare.com`:
+
+- `MX`, apex `TXT` (SPF + DMARC + site-verification), both `_domainkey`
+  records and `A mail` — **all match the live zone exactly**.
+- **Both DKIM keys are a three-way match** across the live zone, the new zone
+  and `dns-audit-extind-ro.txt`. Compared as md5 of the normalised value, so
+  truncation or a transcription slip would have shown.
+- `A mail` resolves to `157.90.32.237` through the new zone, which proves it is
+  DNS-only — proxied, it would return Cloudflare addresses.
+- Apex, `www` and `ftp` return nothing for `A` or `AAAA` on the new zone: the
+  import artefacts are gone and Pages has a clean slate.
+
+Still to do in Phase A: the Pages project, its two custom domains, and the
+`*.pages.dev` verification.
+
 ### Phase B — Wednesday, the only action that changes anything
 
 7. **Change the nameservers at ROTLD** to the assigned pair.
