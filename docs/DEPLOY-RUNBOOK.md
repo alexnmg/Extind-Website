@@ -92,10 +92,14 @@ keeps being served from Sigmatic's zone throughout.
      checked with `dig @<assigned-ns> …` days before ROTLD is touched. Use it —
      it is a real pre-flight against the live zone, not a paper check.
    - Diff the result against the target spec in that file before moving on.
-4. Create the Pages project — build `npm run build`, output `dist`,
-   `VITE_STORYBLOK_TOKEN` left unset — and verify on `*.pages.dev`.
-5. Add `extind.ro` and `www` as Pages custom domains. They sit pending
-   alongside the zone, which reduces Wednesday to a single action.
+4. **Push `wrangler.jsonc` before creating the project** — the build reads it
+   from the repo. Then **Create application → Connect to Git**, repo
+   `alexnmg/Extind-Website`, project name `extind`, build command
+   `npm run build`, deploy command `npx wrangler deploy`, path `/`, API token
+   created automatically, **no environment variables**. Verify on the
+   `*.workers.dev` URL.
+5. Add `extind.ro` and `www` as custom domains on the Worker. They sit
+   pending alongside the zone, which reduces Wednesday to a single action.
 6. Claude verifies: SPA fallback on hard-loaded `/faq` and `/magazine/:slug`,
    the Cal.com booker, and a diff of the new zone against the target spec.
 
@@ -252,7 +256,39 @@ not work through an HTTP proxy) and should simply be dropped.
 
 ---
 
-## Trap — SPA routing on Pages needs NO config, and the obvious config breaks it
+## Hosting is Workers Static Assets, not Pages
+
+Cloudflare's dashboard now routes "Connect to Git" to a **Worker**, not a Pages
+project — the setup screen says *"Configure your Worker project"* and prefills
+`npx wrangler deploy`. Pages is effectively the legacy path, so this project
+uses **Workers Static Assets**. Cost is identical: the Workers pricing page
+states plainly that **requests to static assets are free and unlimited**, and
+this project ships **no Worker script at all**, so every request is a free
+asset request. (The dashboard's "Requests today 0 / 100,000" counter tracks
+billable Worker invocations, which this project does not generate.)
+
+That path needs [`wrangler.jsonc`](../wrangler.jsonc) in the repo root — without
+it `npx wrangler deploy` has nothing to deploy and the build fails after a
+successful `npm run build`.
+
+### SPA routing is now explicit — and that retires an old trap
+
+`assets.not_found_handling` is set to `single-page-application`, which per the
+docs means: when a request matches no file in `./dist/`, Workers serves
+`/index.html` with a **200**. That is precisely what this site needs, and being
+explicit it is far safer than the Pages behaviour it replaces.
+
+> **The old "never add a `404.html`" trap does not apply on Workers.** Under
+> Pages, SPA fallback was implicit — inferred from the *absence* of a top-level
+> `404.html` — so adding one silently broke every deep link. Here the behaviour
+> is declared in config, and a `404.html` would just be another asset. The
+> record of that trap is kept because the reasoning still matters if this ever
+> moves back to Pages or to another host.
+
+Still verify on the first deploy by hard-loading `/faq` and a
+`/magazine/:slug` — config being right on paper is not the same as observed.
+
+## Superseded: the Pages SPA trap (kept for reference)
 
 Cloudflare Pages is **not** Netlify here, despite the shared `_redirects`
 format.

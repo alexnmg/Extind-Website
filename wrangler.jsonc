@@ -1,0 +1,15 @@
+{
+  // Cloudflare Workers Static Assets — this project has NO Worker script.
+  // Every request serves a built file from ./dist, which Cloudflare bills at
+  // zero: "Requests to static assets are free and unlimited."
+  "name": "extind",
+  "compatibility_date": "2026-08-31",
+  "assets": {
+    "directory": "./dist/",
+    // The site is a client-rendered SPA on BrowserRouter. Without this, a hard
+    // load of /faq or /magazine/:slug 404s while working perfectly in dev.
+    // With it, any request that matches no file in ./dist serves /index.html
+    // with a 200.
+    "not_found_handling": "single-page-application"
+  }
+}
