@@ -69,9 +69,17 @@ keeps being served from Sigmatic's zone throughout.
    a zone left in *Finish setup* (Initializing) gets **no nameservers
    assigned**, and the assigned pair is exactly what ROTLD needs on Wednesday.
    **Record the pair.**
-3. Create the seven records by hand from
-   [`dns-audit-extind-ro.txt`](./dns-audit-extind-ro.txt). **Do not import the
-   BIND file** — it would recreate the apex `A` pointing at the old site.
+3. **Let Cloudflare import the records automatically, then correct them** —
+   this is safer than creating them by hand, because hand-entry means
+   transcribing two 2048-bit DKIM keys and one wrong character there is a
+   silent deliverability failure. After the import:
+   - **Delete three records:** the apex `A` → `157.90.32.237` (the old site),
+     `CNAME www` → apex, and `CNAME ftp` → apex (vestigial).
+   - **Verify both `_domainkey` records arrived.** An automatic scan often
+     misses them, because DKIM selectors sit at arbitrary names that cannot be
+     enumerated from DNS. If absent, paste them from
+     [`dns-audit-extind-ro.txt`](./dns-audit-extind-ro.txt).
+   - Diff the result against the target spec in that file before moving on.
 4. Create the Pages project — build `npm run build`, output `dist`,
    `VITE_STORYBLOK_TOKEN` left unset — and verify on `*.pages.dev`.
 5. Add `extind.ro` and `www` as Pages custom domains. They sit pending
