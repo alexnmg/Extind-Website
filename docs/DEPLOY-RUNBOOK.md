@@ -65,13 +65,11 @@ from cPanel's Zone Editor, which Alex can reach.
   Hetzner box. An earlier reading of this runbook said the opposite; it was
   wrong. The `A mail → 157.90.32.237` record and the `ip4:157.90.32.237` term
   in SPF are leftovers from the previous mail setup.
-- **The zone was being actively edited while it was measured.** A first query
-  returned `MX 0 mail.extind.ro`; minutes later, authoritative answers from
-  both Cloudflare nameservers and four public resolvers agreed on
-  `MX 1 smtp.google.com`, with a **TTL of 60** on both the MX and the
-  `google._domainkey` record. Either the first read was stale or the migration
-  happened in that window. Either way: **re-run the audit immediately before
-  cutover rather than trusting these figures.**
+- **A first query returned `MX 0 mail.extind.ro`, which was wrong** — a stale
+  answer from a local resolver. Sigmatic's zone export, taken at 08:28 that
+  morning and so *before* the session began, already showed Google. The zone
+  was not being edited; the resolver was lying. **Always audit against the
+  zone's own nameserver, never a local resolver**, which is what caught it.
 - **DNSSEC is off** (no `DS` at ROTLD) and there are **no CAA records** — the
   nameserver change needs no DS coordination, and nothing blocks certificate
   issuance.
@@ -93,10 +91,19 @@ the stale-MX mistake above happened.
 | `TXT` | `@` | `v=DMARC1; p=none;` — see note below |
 | `TXT` | `default._domainkey` | DKIM, 2048-bit — full key in the audit file |
 | `TXT` | `google._domainkey` | DKIM, Google — full key in the audit file |
-| `A` | `mail` | `157.90.32.237` — legacy, but preserve through the cutover |
-| `A` | `ftp` | proxied; **real origin not visible externally** — read it out of cPanel's Zone Editor |
+| `A` | `mail` | `157.90.32.237` — legacy, but preserve; **DNS-only, grey cloud** |
 
-**Replaced by Pages at cutover:** apex and `www` (A + AAAA).
+**Replaced by Pages at cutover:** apex and `www`. In the source zone the apex
+is a **proxied `A` to `157.90.32.237`** — the old site, on the same box as the
+old mail — and **`www` and `ftp` are proxied `CNAME`s to the apex**, not `A`
+records. An external query returns `A` records for them because the proxy
+flattens CNAMEs; only the export shows the truth. `ftp` is vestigial (FTP does
+not work through an HTTP proxy) and should simply be dropped.
+
+> **Do not bulk-import the BIND export into the new zone.** It would recreate
+> the apex `A` pointing at the **old site**, plus the `www`/`ftp` CNAMEs, which
+> then collide with the Pages custom domain. Create the seven records listed in
+> the audit by hand, and let Pages create the apex and `www` itself.
 
 > **DMARC is misconfigured.** `v=DMARC1; p=none;` sits on the apex, where it
 > does nothing — a policy is only read at `_dmarc.extind.ro`, which is empty.
@@ -144,9 +151,9 @@ exclusions — never the naive catch-all.
 1. **Ask the client one question: do they hold the ROTLD account for
    `extind.ro`?** Everything else is unblocked; this is not. If they do, nobody
    needs to contact Sigmatic at all.
-2. **While you still have cPanel**, export the DNS zone from the Zone Editor
-   and take a full site + database backup. The zone export is the only way to
-   learn what `ftp.extind.ro` actually points at.
+2. **Take a full site + database backup from cPanel** while you still have it.
+   The DNS side is already settled — Sigmatic supplied the zone export on
+   2026-08-31 and it is reconciled into the audit.
 3. **In Google Workspace admin**, confirm no additional DNS records are
    expected beyond the four already captured, and note any aliases or routing
    rules — so nothing is discovered missing after the nameservers move.
@@ -193,6 +200,10 @@ retire it.
 
 ## After the launch — not before
 
+- **Trim SPF.** It currently ends `+a +ip4:157.90.32.237 ~all`. The `+a` term
+  authorises whatever the apex `A` resolves to — which, after cutover, is
+  Cloudflare Pages' shared anycast range. Those addresses do not send mail, so
+  the practical risk is low, but the term becomes meaningless and should go.
 - Decommission the Hetzner box once nothing depends on it. **Then** remove the
   `A mail` record and the `ip4:157.90.32.237` term from SPF — not during the
   cutover.
