@@ -65,6 +65,13 @@ keeps being served from Sigmatic's zone throughout.
 
 1. Create the Cloudflare account **on the client's email address**; Alex joins
    as Administrator. Not Alex's existing account — see the decision section.
+1b. **Delete `extind.ro` from Alex's personal Cloudflare account first.** It is
+   already there, and it is not active, so removing it changes nothing about
+   live DNS. Leaving it in place means three nameserver pairs are in play on
+   Wednesday — Sigmatic's, Alex's personal one, and the client's — and handing
+   ROTLD the wrong one points the domain at a zone with no records, taking down
+   the site **and** mail. This is the highest-consequence mistake available on
+   launch day, and deleting one stray zone removes it.
 2. Add `extind.ro` and **select the Free plan**. This step is not optional:
    a zone left in *Finish setup* (Initializing) gets **no nameservers
    assigned**, and the assigned pair is exactly what ROTLD needs on Wednesday.
@@ -91,9 +98,20 @@ happens early.
 
 That is the whole cutover. Two hazards attach to it:
 
+- **Hand ROTLD the pair assigned to the _client's_ zone.** The same domain
+  existing in more than one Cloudflare account is expressly allowed, and
+  Cloudflare responds by assigning each copy a **different** pair — so more
+  than one valid-looking pair exists. Read the pair off the client zone's
+  Overview page at the moment of the change; do not work from notes.
 - **Replace both nameservers; do not mix.** Cloudflare's activation check
   requires that *only* the assigned pair is listed at the registrar. Any
   leftover third-party nameserver causes activation to fail.
+- **Never preset the nameservers at ROTLD before the zone exists.** Cloudflare
+  treats that as a hijacking signal: _"If you preset your nameservers and then
+  add the domain, your domain will be assigned a new set of nameservers."_ The
+  pair you were given would silently stop being the right one. Zone first,
+  registrar second — and note that a zone's assigned nameservers can never be
+  changed afterwards, not even by Cloudflare Support.
 - **Sigmatic must leave their zone running for at least 72 hours afterwards.**
   The `NS` records carry an 86400 TTL, so resolvers may keep using `alex.ns` /
   `lisa.ns` for up to a day. If that zone is deleted at the moment of cutover,
