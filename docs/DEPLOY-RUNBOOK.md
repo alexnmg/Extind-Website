@@ -52,6 +52,80 @@ Nothing else needs to be requested from Sigmatic. The zone is reconstructable
 from the audit below, and the one record that is not (`ftp`) is recoverable
 from cPanel's Zone Editor, which Alex can reach.
 
+## Launch plan — Wednesday 2026-09-02
+
+**Standing constraint until Wednesday: do nothing that affects the live
+`extind.ro`.** Everything below in Phase A is safe under that rule, because a
+newly added Cloudflare zone sits in **Pending Nameserver Update** and answers
+only on its own newly assigned nameservers — which nothing on the internet
+points at. ROTLD still delegates to `alex.ns` / `lisa.ns`, so the current site
+keeps being served from Sigmatic's zone throughout.
+
+### Phase A — build it all in advance (no effect on the live site)
+
+1. Create the Cloudflare account **on the client's email address**; Alex joins
+   as Administrator. Not Alex's existing account — see the decision section.
+2. Add `extind.ro` and **select the Free plan**. This step is not optional:
+   a zone left in *Finish setup* (Initializing) gets **no nameservers
+   assigned**, and the assigned pair is exactly what ROTLD needs on Wednesday.
+   **Record the pair.**
+3. Create the seven records by hand from
+   [`dns-audit-extind-ro.txt`](./dns-audit-extind-ro.txt). **Do not import the
+   BIND file** — it would recreate the apex `A` pointing at the old site.
+4. Create the Pages project — build `npm run build`, output `dist`,
+   `VITE_STORYBLOK_TOKEN` left unset — and verify on `*.pages.dev`.
+5. Add `extind.ro` and `www` as Pages custom domains. They sit pending
+   alongside the zone, which reduces Wednesday to a single action.
+6. Claude verifies: SPA fallback on hard-loaded `/faq` and `/magazine/:slug`,
+   the Cal.com booker, and a diff of the new zone against the target spec.
+
+**Blocker that would surface here:** a *zone hold* on Sigmatic's side would
+refuse the domain with _"the zone name provided is subject to a hold"_. Zone
+holds are **Enterprise-only**, so this is unlikely for a small agency — but
+finding out on Monday instead of Wednesday morning is the entire reason Phase A
+happens early.
+
+### Phase B — Wednesday, the only action that changes anything
+
+7. **Change the nameservers at ROTLD** to the assigned pair.
+
+That is the whole cutover. Two hazards attach to it:
+
+- **Replace both nameservers; do not mix.** Cloudflare's activation check
+  requires that *only* the assigned pair is listed at the registrar. Any
+  leftover third-party nameserver causes activation to fail.
+- **Sigmatic must leave their zone running for at least 72 hours afterwards.**
+  The `NS` records carry an 86400 TTL, so resolvers may keep using `alex.ns` /
+  `lisa.ns` for up to a day. If that zone is deleted at the moment of cutover,
+  those resolvers get SERVFAIL — site *and* mail down for whoever is still
+  pointed there. It costs Sigmatic nothing to leave it up.
+
+### Why the propagation window is low-risk
+
+Both zones answer `MX 1 smtp.google.com` and carry identical SPF and DKIM, so
+**email cannot break during propagation** regardless of which nameserver a
+given resolver is using. The only visible effect is that some visitors see the
+old site for a few hours while others see the new one — a non-event for a
+marketing site.
+
+DNSSEC is confirmed off (no `DS` at ROTLD), so the change carries none of the
+"domain becomes unreachable" risk that an active DS record would introduce.
+
+### Still open as of 2026-08-31
+
+**Does the client hold the ROTLD account for `extind.ro`?** Alex is chasing the
+answer and expects it before Wednesday. If they do, nobody needs Sigmatic for
+the cutover. If Sigmatic holds it, the nameserver change becomes a request to
+them — which is why the question is being asked days ahead rather than on the
+day.
+
+### Abort
+
+Nothing in Phase A is destructive, so aborting before step 7 costs nothing —
+the pending zone can simply be left or removed. After step 7, rollback is
+pointing the nameservers back at `alex.ns` / `lisa.ns`, which is why Sigmatic's
+zone is rebuilt-around rather than taken over.
+
 ## What was measured on 2026-08-31 — re-verify before cutover
 
 - `extind.ro` and `www` resolve to `188.114.96.8` / `188.114.97.8` (+ AAAA

@@ -7,6 +7,11 @@ something described here, update it in the same commit.
 
 _Last updated 2026-08-31, on top of commit `0abaa9f`._
 
+> **Launch is Wednesday 2026-09-02.** Until then, nothing that affects the live
+> `extind.ro`. The dated sequence, the two cutover hazards and the abort path
+> are in [`DEPLOY-RUNBOOK.md`](./DEPLOY-RUNBOOK.md) — read its launch plan
+> before touching anything DNS-related.
+
 ---
 
 ## The project
