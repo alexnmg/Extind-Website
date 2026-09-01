@@ -1024,9 +1024,10 @@
 .testimonial-card__stars {
   display: flex;
   gap: 4px;
+  color: var(--accent);
 }
 
-.testimonial-card__stars img {
+.testimonial-card__stars svg {
   width: 16px;
   height: 16px;
 }
@@ -1861,75 +1862,6 @@ textarea.field__input {
   height: 120px;
   padding: 16px;
   resize: vertical;
-}
-
-/* Phone input with country prefix */
-.phone-input {
-  height: 44px;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  background: var(--surface);
-  border: 1.5px solid var(--border);
-  border-radius: var(--radius-sm);
-  padding: 0 14px;
-  transition: border-color 0.15s ease;
-}
-
-.phone-input:focus-within {
-  border-color: var(--brand-charcoal);
-}
-
-.phone-input__prefix {
-  display: flex;
-  gap: 5px;
-  align-items: center;
-  padding-right: 10px;
-  flex-shrink: 0;
-}
-
-.phone-input__flag {
-  width: 22px;
-  height: 15px;
-  background: #b22234;
-  border-radius: 2px;
-}
-
-.phone-input__code {
-  font-size: 13px;
-  line-height: 18px;
-  color: var(--text-primary);
-}
-
-.phone-input__chevron {
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 1px;
-  color: var(--text-secondary);
-}
-
-.phone-input__sep {
-  width: 1px;
-  height: 22px;
-  background: var(--border);
-  margin-left: 5px;
-}
-
-.phone-input input {
-  flex: 1;
-  min-width: 0;
-  border: none;
-  outline: none;
-  background: transparent;
-  font-family: var(--font-serif);
-  font-size: var(--fs-16);
-  line-height: 24px;
-  color: var(--text-primary);
-  padding-left: 10px;
-}
-
-.phone-input input::placeholder {
-  color: var(--text-secondary);
 }
 
 /* Calendar */
