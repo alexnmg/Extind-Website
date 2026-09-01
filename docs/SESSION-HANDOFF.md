@@ -89,7 +89,7 @@ Romania. This repo is its marketing site.
   switch to. It sits to the right of the Book CTA in the bar, and inside the
   mobile menu rather than the mobile bar.
 - **"Spaces to grow." is the tagline and stays in English** in both languages.
-- **Contact email** is `hello@extind.ro`. Socials: `facebook.com/extind`,
+- **Contact email** is `office@extind.ro`. Socials: `facebook.com/extind`,
   `instagram.com/extindcowork`, `linkedin.com/company/extind`.
 - **Photos** are `src/assets/photos/*.jpg` — real location photography, all
   ≤1600px (16 room shots at 1600×1067 plus `founder.jpg` at 800×1200). Every
@@ -166,7 +166,12 @@ Romania. This repo is its marketing site.
   **scroll-position check, deliberately not IntersectionObserver**: IO callbacks
   are paused in hidden/background tabs, and a booker that silently never mounts
   is far worse than loading it a little early.
-- The account is on `hello@extind.ro`, with Google Calendar connected.
+- The account is on `office@extind.ro`, with Google Calendar connected.
+  It was moved off `hello@extind.ro` on 2026-09-01. **Only the account email
+  changed** — the `extind` username and the `programeaza-o-vizita` slug are
+  untouched, so the embed still resolves (verified: booking page and embed
+  endpoint both 200). Renaming either of those, unlike the email, would 404
+  every existing link.
 - **The Cal.com watermark cannot be removed in code** — verified empirically,
   the iframe is cross-origin and throws `SecurityError`. Removing it needs Cal
   Teams (~$12/user/mo, ~$144/yr), which also unlocks custom reminder workflows.

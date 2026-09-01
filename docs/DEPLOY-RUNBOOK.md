@@ -395,7 +395,7 @@ exclusions — never the naive catch-all.
 6. **Deploy Pages into that account** and verify on `*.pages.dev`.
 7. **Change the nameservers at ROTLD** to the new pair. Web and mail cut over
    together. Agree the moment with the client — the current site goes dark then.
-8. **Send a real test email to `hello@extind.ro`** and confirm it arrives.
+8. **Send a real test email to `office@extind.ro`** and confirm it arrives.
 
 ## Steps — Claude
 
@@ -449,4 +449,4 @@ retire it.
 - [ ] The Cal.com booker mounts and shows bookable slots
 - [ ] Language switching works and persists (`extind-lang` in localStorage)
 - [ ] `MX`, SPF, and **both** `_domainkey` records match the audit exactly
-- [ ] A test email to `hello@extind.ro` arrives
+- [ ] A test email to `office@extind.ro` arrives

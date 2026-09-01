@@ -353,7 +353,7 @@ export default function Navbar() {
                 <span>{t.cta}</span>
                 <span aria-hidden="true">→</span>
               </Link>
-              <p className="navbar__mobile-email">hello@extind.ro</p>
+              <p className="navbar__mobile-email">office@extind.ro</p>
             </div>
           </div>
         </div>
