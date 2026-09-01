@@ -28,3 +28,8 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Brand deliverables and the scripts that generate them are not website files.
+# They live in Sync/Team, outside this repo.
+presentation/
+print/
