@@ -5,12 +5,17 @@ cross-session record of how this site is built, which decisions are already
 settled, and what is still open. Keep it current: when a round changes
 something described here, update it in the same commit.
 
-_Last updated 2026-08-31, on top of commit `0abaa9f`._
+_Last updated 2026-09-01, on top of commit `9974f5e`._
 
-> **Launch is Wednesday 2026-09-02.** Until then, nothing that affects the live
-> `extind.ro`. The dated sequence, the two cutover hazards and the abort path
-> are in [`DEPLOY-RUNBOOK.md`](./DEPLOY-RUNBOOK.md) — read its launch plan
-> before touching anything DNS-related.
+> **Launch has no date. It waits on the client delivering the remaining site
+> content** (decided 2026-09-01; the 2026-09-02 date is void). Until it is set,
+> nothing that affects the live `extind.ro`. The cutover sequence, its two
+> hazards and the abort path are in [`DEPLOY-RUNBOOK.md`](./DEPLOY-RUNBOOK.md)
+> — read its launch plan before touching anything DNS-related.
+>
+> Two blockers, in order: **content from the client**, then **who controls the
+> ROTLD account**. The Cloudflare side is staged and verified; nothing there is
+> waiting on us.
 
 ---
 

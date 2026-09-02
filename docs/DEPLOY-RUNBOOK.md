@@ -52,9 +52,14 @@ Nothing else needs to be requested from Sigmatic. The zone is reconstructable
 from the audit below, and the one record that is not (`ftp`) is recoverable
 from cPanel's Zone Editor, which Alex can reach.
 
-## Launch plan — Wednesday 2026-09-02
+## Launch plan — date not set
 
-**Standing constraint until Wednesday: do nothing that affects the live
+**Launch is gated on the client delivering the remaining site content**
+(2026-09-01). The previously planned 2026-09-02 is void. Phase A below is
+already done and stays valid indefinitely; Phase B runs on the day a date is
+finally agreed.
+
+**Standing constraint until that day: do nothing that affects the live
 `extind.ro`.** Everything below in Phase A is safe under that rule, because a
 newly added Cloudflare zone sits in **Pending Nameserver Update** and answers
 only on its own newly assigned nameservers — which nothing on the internet
@@ -67,7 +72,7 @@ keeps being served from Sigmatic's zone throughout.
    as Administrator. Not Alex's existing account — see the decision section.
 2. Add `extind.ro` and **select the Free plan**. This step is not optional:
    a zone left in *Finish setup* (Initializing) gets **no nameservers
-   assigned**, and the assigned pair is exactly what ROTLD needs on Wednesday.
+   assigned**, and the assigned pair is exactly what ROTLD needs on cutover day.
    **Record the pair.**
 3. **Let Cloudflare import the records automatically, then correct them** —
    this is safer than creating them by hand, because hand-entry means
@@ -99,14 +104,14 @@ keeps being served from Sigmatic's zone throughout.
    created automatically, **no environment variables**. Verify on the
    `*.workers.dev` URL.
 5. Add `extind.ro` and `www` as custom domains on the Worker. They sit
-   pending alongside the zone, which reduces Wednesday to a single action.
+   pending alongside the zone, which reduces cutover day to a single action.
 6. Claude verifies: SPA fallback on hard-loaded `/faq` and `/magazine/:slug`,
    the Cal.com booker, and a diff of the new zone against the target spec.
 
 **Blocker that would surface here:** a *zone hold* on Sigmatic's side would
 refuse the domain with _"the zone name provided is subject to a hold"_. Zone
 holds are **Enterprise-only**, so this is unlikely for a small agency — but
-finding out on Monday instead of Wednesday morning is the entire reason Phase A
+finding out early instead of on the morning itself is the entire reason Phase A
 happens early.
 
 ### Phase A status — verified 2026-08-31
@@ -164,7 +169,7 @@ Verified on the deployed site, 2026-08-31:
 A Worker Custom Domain requires **an active Cloudflare zone**, per the docs.
 This zone is *Pending* and only goes Active once ROTLD points at
 `kira.ns` / `trace.ns`. So `extind.ro` and `www` **cannot be attached before
-Wednesday**; attempting it is free, but expect a refusal.
+cutover**; attempting it is free, but expect a refusal.
 
 That creates a window nobody should walk into blind:
 
@@ -192,7 +197,7 @@ pointing at a Workers/Pages hostname, without registering the Custom Domain
 first, resolves to a **522 error** — that trades a clean outage for a
 confusing one.
 
-### Phase B — Wednesday, the only action that changes anything
+### Phase B — cutover day, the only action that changes anything
 
 7. **Change the nameservers at ROTLD** to the assigned pair.
 8. **Poll the zone Overview until it flips to Active, then immediately add
@@ -238,7 +243,7 @@ DNSSEC is confirmed off (no `DS` at ROTLD), so the change carries none of the
 ### Still open as of 2026-08-31
 
 **Does the client hold the ROTLD account for `extind.ro`?** Alex is chasing the
-answer and expects it before Wednesday. If they do, nobody needs Sigmatic for
+answer. If they do, nobody needs Sigmatic for
 the cutover. If Sigmatic holds it, the nameserver change becomes a request to
 them — which is why the question is being asked days ahead rather than on the
 day.
