@@ -18,8 +18,8 @@ const T = {
     prev: 'Previous image',
     next: 'Next image',
     slides: [
-      { src: vistaImg, caption: 'Panoramic Lounge · 6th floor', alt: 'Vista Lounge with panoramic city view' },
       { src: lounge2Img, caption: 'Room for events & gatherings', alt: 'Vista Lounge event and gathering space' },
+      { src: vistaImg, caption: 'Panoramic Lounge · 6th floor', alt: 'Vista Lounge with panoramic city view' },
       { src: lounge3Img, caption: 'Coffee point & social area', alt: 'Vista Lounge coffee point and social area' },
     ],
   },
@@ -34,8 +34,8 @@ const T = {
     prev: 'Imaginea anterioară',
     next: 'Imaginea următoare',
     slides: [
-      { src: vistaImg, caption: 'Lounge panoramic · etajul 6', alt: 'Vista Lounge cu vedere panoramică asupra orașului' },
       { src: lounge2Img, caption: 'Spațiu pentru evenimente și întâlniri', alt: 'Spațiul de evenimente din Vista Lounge' },
+      { src: vistaImg, caption: 'Lounge panoramic · etajul 6', alt: 'Vista Lounge cu vedere panoramică asupra orașului' },
       { src: lounge3Img, caption: 'Coffee point & zonă socială', alt: 'Coffee point-ul și zona socială din Vista Lounge' },
     ],
   },

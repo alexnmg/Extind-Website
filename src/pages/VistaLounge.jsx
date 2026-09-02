@@ -69,8 +69,8 @@ const T = {
     primaryLabel: 'Book a visit',
     secondaryLabel: 'Explore the lounge →',
     slides: [
-      { src: vistaImg, caption: 'Panoramic Lounge · 6th floor', alt: 'Vista Lounge overlooking the city' },
       { src: lounge2Img, caption: 'Room for events & gatherings', alt: 'Vista Lounge event space' },
+      { src: vistaImg, caption: 'Panoramic Lounge · 6th floor', alt: 'Vista Lounge overlooking the city' },
       { src: lounge3Img, caption: 'Coffee point & social area', alt: 'Vista Lounge coffee point' },
     ],
     featEyebrow: 'The space',
@@ -122,8 +122,8 @@ const T = {
     primaryLabel: 'Programează o vizită',
     secondaryLabel: 'Explorează lounge-ul →',
     slides: [
-      { src: vistaImg, caption: 'Lounge panoramic · etajul 6', alt: 'Vista Lounge cu vedere asupra orașului' },
       { src: lounge2Img, caption: 'Spațiu pentru evenimente și întâlniri', alt: 'Spațiul de evenimente din Vista Lounge' },
+      { src: vistaImg, caption: 'Lounge panoramic · etajul 6', alt: 'Vista Lounge cu vedere asupra orașului' },
       { src: lounge3Img, caption: 'Coffee point & zonă socială', alt: 'Coffee point-ul din Vista Lounge' },
     ],
     featEyebrow: 'Spațiul',
