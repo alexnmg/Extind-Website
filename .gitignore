@@ -14,6 +14,9 @@ dist-ssr
 
 # Environment (contains the Storyblok access token)
 .env
+# Wrangler local secrets for the contact-form Worker — never commit
+.dev.vars
+.dev.vars.*
 
 # Local Claude Code settings (machine-specific)
 .claude/settings.local.json

@@ -8,7 +8,8 @@
     "dev:https": "vite --mode https",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test:worker": "node worker/index.test.mjs"
   },
   "dependencies": {
     "@calcom/embed-react": "^1.5.3",

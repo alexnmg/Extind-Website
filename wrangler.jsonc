@@ -1,15 +1,43 @@
 {
-  // Cloudflare Workers Static Assets — this project has NO Worker script.
-  // Every request serves a built file from ./dist, which Cloudflare bills at
-  // zero: "Requests to static assets are free and unlimited."
+  // Cloudflare Workers Static Assets with ONE Worker route (POST /api/contact).
+  // Static asset requests stay free and unlimited; only /api/* is a billable
+  // Worker invocation, which for a contact form is a handful a day.
+  //
+  // Mail goes out through the Gmail API as office@extind.ro, so nothing here
+  // needs the Workers Paid plan. The service-account JSON lives ONLY as the
+  // GOOGLE_SERVICE_ACCOUNT_KEY secret (wrangler secret put) — never in this file.
   "name": "extind",
   "compatibility_date": "2026-08-31",
+  "main": "./worker/index.js",
   "assets": {
     "directory": "./dist/",
     // The site is a client-rendered SPA on BrowserRouter. Without this, a hard
-    // load of /faq or /magazine/:slug 404s while working perfectly in dev.
-    // With it, any request that matches no file in ./dist serves /index.html
-    // with a 200.
-    "not_found_handling": "single-page-application"
-  }
+    // load of /faq or /privacy 404s while working perfectly in dev. With it,
+    // any request that matches no file in ./dist serves /index.html with a 200.
+    "not_found_handling": "single-page-application",
+    "binding": "ASSETS",
+    // REQUIRED, not an optimisation. With single-page-application fallback and
+    // no run_worker_first, a request to /api/contact is answered with
+    // index.html and the Worker never runs. The array form carves out only
+    // these paths — `true` would send every page view through the Worker and
+    // make each one billable.
+    "run_worker_first": ["/api/*"]
+  },
+  "vars": {
+    // The impersonated mailbox. Domain-wide delegation is authorised for this
+    // address, so it is both the sender and the notification recipient.
+    "CONTACT_FROM": "office@extind.ro",
+    "CONTACT_FROM_NAME": "EXTIND",
+    "CONTACT_TO": "office@extind.ro"
+  },
+  "ratelimits": [
+    {
+      // Burst protection only: the platform binding supports a 10s or 60s
+      // window, nothing longer. Three submissions per minute per IP is far
+      // above human use and well below what makes a flood worthwhile.
+      "name": "CONTACT_LIMITER",
+      "namespace_id": "1001",
+      "simple": { "limit": 3, "period": 60 }
+    }
+  ]
 }
