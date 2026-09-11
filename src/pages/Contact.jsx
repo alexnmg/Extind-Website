@@ -1,9 +1,7 @@
-import { lazy, Suspense, useEffect } from 'react'
+import { useEffect } from 'react'
 import SectionHeader from '../components/SectionHeader'
 import ContactForm from '../components/ContactForm'
-/* Leaflet plus its CSS is ~165 kB and was in the entry chunk on all 14 routes;
- * only this one has a map. */
-const LocationMap = lazy(() => import('../components/LocationMap'))
+import LocationMap from '../components/LocationMap'
 import { useLang } from '../lib/i18n'
 
 const T = {
@@ -103,11 +101,9 @@ export default function Contact() {
               )
             })}
           </div>
-          <Suspense fallback={<div className="contact__map" aria-hidden="true" />}>
-            <LocationMap />
-          </Suspense>
+          <LocationMap />
         </div>
-        <ContactForm />
+        <ContactForm headingAs="h2" />
       </div>
     </section>
   )

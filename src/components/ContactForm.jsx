@@ -62,7 +62,11 @@ const T = {
  * Submits to POST /api/contact (worker/index.js), which mails office@extind.ro
  * and sends the visitor an acknowledgement. `source` distinguishes an enquiry
  * from Contact from one from Events — the same component serves both. */
-export default function ContactForm({ heading, messageLabel, submitLabel, source = 'contact' }) {
+/* `headingAs` exists because this form is both a section of a page that already
+ * has an h1 (where h2 is correct) and, on Events, a block under other content.
+ * Defaulting to h3 preserved the old markup everywhere; /contact passes h2 so
+ * the document does not jump h1 -> h3. */
+export default function ContactForm({ heading, messageLabel, submitLabel, source = 'contact', headingAs: H = 'h3' }) {
   const { lang } = useLang()
   const t = T[lang]
   heading = heading ?? t.heading
@@ -152,12 +156,12 @@ export default function ContactForm({ heading, messageLabel, submitLabel, source
     <form className="contact__form" data-reveal onSubmit={handleSubmit}>
       {status === 'sent' ? (
         <div role="status" aria-live="polite" ref={resultRef} tabIndex={-1} className="form-result">
-          <h3 className="book-visit__heading">{t.thanksTitle(name || t.thanksFallbackName)}</h3>
+          <H className="book-visit__heading">{t.thanksTitle(name || t.thanksFallbackName)}</H>
           <p className="book-visit__thanks">{t.thanksBody(email || t.thanksFallbackEmail)}</p>
         </div>
       ) : (
         <>
-          <h3 className="book-visit__heading">{heading}</h3>
+          <H className="book-visit__heading">{heading}</H>
           <div className="field-row field-row--wide">
             <label className="field">
               <span className="field__label">{t.name}</span>

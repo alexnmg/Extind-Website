@@ -1,6 +1,11 @@
 import { useEffect, useRef } from 'react'
-import L from 'leaflet'
-import 'leaflet/dist/leaflet.css'
+
+/* Leaflet and its CSS are ~165 kB and only this one route has a map, so they
+ * are imported inside the effect rather than at module scope. Doing the split
+ * here rather than with React.lazy on the component is deliberate: lazy()
+ * creates a Suspense boundary, and on a prerendered page the build never
+ * completes that boundary, so React logs error #419 on every hydration. This
+ * way the chunk is still separate and there is no boundary at all. */
 
 // Palas Campus, Iași
 const LAT = 47.1566
@@ -26,40 +31,58 @@ export default function LocationMap() {
     const el = containerRef.current
     if (!el || mapRef.current) return
 
-    const map = L.map(el, {
-      center: [LAT, LON],
-      zoom: 16,
-      scrollWheelZoom: false,
-      attributionControl: true,
-    })
-    mapRef.current = map
+    let cancelled = false
+    let cleanup = () => {}
 
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-      subdomains: 'abcd',
-      maxZoom: 20,
-      attribution:
-        '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>',
-    }).addTo(map)
+    // Effects cannot be async; this keeps the teardown contract intact.
+    ;(async () => {
+      const [{ default: L }] = await Promise.all([
+        import('leaflet'),
+        import('leaflet/dist/leaflet.css'),
+      ])
+      // The component may have unmounted while the chunk was in flight.
+      if (cancelled || mapRef.current) return
 
-    const icon = L.divIcon({
-      className: 'map-pin',
-      html: PIN_SVG,
-      iconSize: [32, 42],
-      iconAnchor: [16, 42],
-    })
-    L.marker([LAT, LON], { icon, keyboard: false }).addTo(map)
+      const map = L.map(el, {
+        center: [LAT, LON],
+        zoom: 16,
+        scrollWheelZoom: false,
+        attributionControl: true,
+      })
+      mapRef.current = map
 
-    // The flex container may size after this effect runs; nudge Leaflet once
-    // layout settles and whenever the container resizes.
-    const raf = requestAnimationFrame(() => map.invalidateSize())
-    const ro = new ResizeObserver(() => map.invalidateSize())
-    ro.observe(el)
+      L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+        subdomains: 'abcd',
+        maxZoom: 20,
+        attribution:
+          '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>',
+      }).addTo(map)
+
+      const icon = L.divIcon({
+        className: 'map-pin',
+        html: PIN_SVG,
+        iconSize: [32, 42],
+        iconAnchor: [16, 42],
+      })
+      L.marker([LAT, LON], { icon, keyboard: false }).addTo(map)
+
+      // The flex container may size after this runs; nudge Leaflet once layout
+      // settles and whenever the container resizes.
+      const raf = requestAnimationFrame(() => map.invalidateSize())
+      const ro = new ResizeObserver(() => map.invalidateSize())
+      ro.observe(el)
+
+      cleanup = () => {
+        cancelAnimationFrame(raf)
+        ro.disconnect()
+        map.remove()
+        mapRef.current = null
+      }
+    })()
 
     return () => {
-      cancelAnimationFrame(raf)
-      ro.disconnect()
-      map.remove()
-      mapRef.current = null
+      cancelled = true
+      cleanup()
     }
   }, [])
 
