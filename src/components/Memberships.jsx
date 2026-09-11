@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { Link } from '../lib/LocaleLink'
 import SectionHeader from './SectionHeader'
 import checkDark from '../assets/figma/check-dark.svg'
 import checkLight from '../assets/figma/check-light.svg'

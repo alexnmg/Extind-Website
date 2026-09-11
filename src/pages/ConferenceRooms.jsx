@@ -1,12 +1,12 @@
 import { useEffect, useRef } from 'react'
-import { Link } from 'react-router-dom'
+import { Link } from '../lib/LocaleLink'
 import Hero from '../components/Hero'
 import SectionHeader from '../components/SectionHeader'
 import InfoGrid from '../components/InfoGrid'
 import { useLang } from '../lib/i18n'
-import pillarsImg from '../assets/photos/conference-slide-1.jpg'
-import vistaImg from '../assets/photos/lounge.jpg'
-import heroImg from '../assets/photos/coworking.jpg'
+const pillarsImg = 'conference-slide-1'
+const vistaImg = 'lounge'
+const heroImg = 'coworking'
 
 const T = {
   en: {

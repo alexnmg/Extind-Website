@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
+import { Link } from '../lib/LocaleLink'
 import { useLang } from '../lib/i18n'
 import { getEvent } from '../data/community'
 

@@ -18,12 +18,12 @@ import {
   DeskIcon,
   VistaIcon,
 } from '../components/PillIcons'
-import heroImg from '../assets/photos/hero-main.jpg'
-import pillarsImg from '../assets/photos/private-office.jpg'
-import vistaImg from '../assets/photos/lounge.jpg'
-import meetingImg from '../assets/photos/meeting-room.jpg'
-import mask1 from '../assets/photos/corridor.jpg'
-import mask4 from '../assets/photos/open-office.jpg'
+const heroImg = 'hero-main'
+const pillarsImg = 'private-office'
+const vistaImg = 'lounge'
+const meetingImg = 'meeting-room'
+const mask1 = 'corridor'
+const mask4 = 'open-office'
 
 const PILL_ICONS = [<ClockIcon key="c" />, <ChairIcon key="ch" />, <MeetingIcon key="m" />, <KitchenIcon key="k" />]
 const SLIDE_ICONS = [<DeskIcon key="d" />, <ClockIcon key="c" />, <ChairIcon key="ch" />, <MeetingIcon key="m" />, <VistaIcon key="v" />]

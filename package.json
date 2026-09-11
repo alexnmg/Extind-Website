@@ -10,7 +10,8 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "test:worker": "node worker/index.test.mjs",
-    "og": "node scripts/og-images.mjs"
+    "og": "node scripts/og-images.mjs",
+    "images": "node scripts/images.mjs"
   },
   "dependencies": {
     "@calcom/embed-react": "^1.5.3",

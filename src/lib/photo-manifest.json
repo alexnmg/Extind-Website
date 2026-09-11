@@ -1,0 +1,288 @@
+{
+  "about-logohero": {
+    "w": 1600,
+    "h": 1067,
+    "widths": [
+      800,
+      1200,
+      1600
+    ],
+    "fallback": 1600
+  },
+  "benefit-banner-2": {
+    "w": 1600,
+    "h": 1067,
+    "widths": [
+      800,
+      1200,
+      1600
+    ],
+    "fallback": 1600
+  },
+  "booth": {
+    "w": 1600,
+    "h": 1067,
+    "widths": [
+      800,
+      1200,
+      1600
+    ],
+    "fallback": 1600
+  },
+  "conference-slide-1": {
+    "w": 1600,
+    "h": 1067,
+    "widths": [
+      800,
+      1200,
+      1600
+    ],
+    "fallback": 1600
+  },
+  "corridor": {
+    "w": 1600,
+    "h": 1067,
+    "widths": [
+      800,
+      1200,
+      1600
+    ],
+    "fallback": 1600
+  },
+  "coworking-hero": {
+    "w": 1067,
+    "h": 1600,
+    "widths": [
+      800
+    ],
+    "fallback": 800
+  },
+  "coworking": {
+    "w": 1600,
+    "h": 1067,
+    "widths": [
+      800,
+      1200,
+      1600
+    ],
+    "fallback": 1600
+  },
+  "exec-slide-1": {
+    "w": 1600,
+    "h": 1067,
+    "widths": [
+      800,
+      1200,
+      1600
+    ],
+    "fallback": 1600
+  },
+  "focus-room": {
+    "w": 1600,
+    "h": 1067,
+    "widths": [
+      800,
+      1200,
+      1600
+    ],
+    "fallback": 1600
+  },
+  "founder-2": {
+    "w": 800,
+    "h": 1200,
+    "widths": [
+      800
+    ],
+    "fallback": 800
+  },
+  "founder": {
+    "w": 800,
+    "h": 1200,
+    "widths": [
+      800
+    ],
+    "fallback": 800
+  },
+  "hero-main": {
+    "w": 1067,
+    "h": 1600,
+    "widths": [
+      800
+    ],
+    "fallback": 800
+  },
+  "kitchen": {
+    "w": 1600,
+    "h": 1067,
+    "widths": [
+      800,
+      1200,
+      1600
+    ],
+    "fallback": 1600
+  },
+  "library": {
+    "w": 1600,
+    "h": 1067,
+    "widths": [
+      800,
+      1200,
+      1600
+    ],
+    "fallback": 1600
+  },
+  "lounge-2": {
+    "w": 1600,
+    "h": 1067,
+    "widths": [
+      800,
+      1200,
+      1600
+    ],
+    "fallback": 1600
+  },
+  "lounge-3": {
+    "w": 1600,
+    "h": 1067,
+    "widths": [
+      800,
+      1200,
+      1600
+    ],
+    "fallback": 1600
+  },
+  "lounge-intro": {
+    "w": 1600,
+    "h": 1067,
+    "widths": [
+      800,
+      1200,
+      1600
+    ],
+    "fallback": 1600
+  },
+  "lounge": {
+    "w": 1600,
+    "h": 1067,
+    "widths": [
+      800,
+      1200,
+      1600
+    ],
+    "fallback": 1600
+  },
+  "meeting-room-2": {
+    "w": 1600,
+    "h": 1067,
+    "widths": [
+      800,
+      1200,
+      1600
+    ],
+    "fallback": 1600
+  },
+  "meeting-room": {
+    "w": 1600,
+    "h": 1067,
+    "widths": [
+      800,
+      1200,
+      1600
+    ],
+    "fallback": 1600
+  },
+  "open-office": {
+    "w": 1600,
+    "h": 1067,
+    "widths": [
+      800,
+      1200,
+      1600
+    ],
+    "fallback": 1600
+  },
+  "panorama": {
+    "w": 1600,
+    "h": 1067,
+    "widths": [
+      800,
+      1200,
+      1600
+    ],
+    "fallback": 1600
+  },
+  "private-office-2": {
+    "w": 1600,
+    "h": 1067,
+    "widths": [
+      800,
+      1200,
+      1600
+    ],
+    "fallback": 1600
+  },
+  "private-office": {
+    "w": 1600,
+    "h": 1067,
+    "widths": [
+      800,
+      1200,
+      1600
+    ],
+    "fallback": 1600
+  },
+  "services-banner": {
+    "w": 1600,
+    "h": 1067,
+    "widths": [
+      800,
+      1200,
+      1600
+    ],
+    "fallback": 1600
+  },
+  "social-1": {
+    "w": 1067,
+    "h": 1600,
+    "widths": [
+      800
+    ],
+    "fallback": 800
+  },
+  "social-4": {
+    "w": 1600,
+    "h": 1067,
+    "widths": [
+      800,
+      1200,
+      1600
+    ],
+    "fallback": 1600
+  },
+  "social-5": {
+    "w": 1067,
+    "h": 1600,
+    "widths": [
+      800
+    ],
+    "fallback": 800
+  },
+  "vista-hero": {
+    "w": 1067,
+    "h": 1600,
+    "widths": [
+      800
+    ],
+    "fallback": 800
+  },
+  "wellness": {
+    "w": 1600,
+    "h": 1067,
+    "widths": [
+      800,
+      1200,
+      1600
+    ],
+    "fallback": 1600
+  }
+}

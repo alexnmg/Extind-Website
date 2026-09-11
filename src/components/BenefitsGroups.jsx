@@ -1,14 +1,12 @@
-import { Link } from 'react-router-dom'
+import { Link } from '../lib/LocaleLink'
 import SectionHeader from './SectionHeader'
 import { useLang } from '../lib/i18n'
 import checkDark from '../assets/figma/check-dark.svg'
-import officeImg from '../assets/photos/services-banner.jpg'
-import comfortsImg from '../assets/photos/benefit-banner-2.jpg'
-import beyondImg from '../assets/photos/about-logohero.jpg'
+import Photo from './Photo'
 
 /* Every private-office benefit, sorted into themed cards. Each group is led by
  * a relevant photo with its title set over the image, then the benefits list. */
-const IMAGES = [officeImg, comfortsImg, beyondImg]
+const IMAGES = ['services-banner', 'benefit-banner-2', 'about-logohero']
 
 const T = {
   en: {
@@ -114,7 +112,7 @@ export default function BenefitsGroups({ id, ctaLabel, ctaTo = '/book-a-visit' }
             style={{ '--reveal-delay': `${(i % 3) * 80}ms` }}
           >
             <div className="benefit-group__banner">
-              <img className="benefit-group__img" src={IMAGES[i]} alt="" loading="lazy" />
+              <Photo className="benefit-group__img" name={IMAGES[i]} sizes="(max-width: 860px) 100vw, 50vw" />
               <h3 className="benefit-group__title">{groupTitle}</h3>
             </div>
             <ul className="benefit-group__list">

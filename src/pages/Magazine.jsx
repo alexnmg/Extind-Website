@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link } from '../lib/LocaleLink'
 import SectionHeader from '../components/SectionHeader'
 import { useLang } from '../lib/i18n'
 import { posts, categories, CATEGORY_LABELS, AUTHOR } from '../data/community'

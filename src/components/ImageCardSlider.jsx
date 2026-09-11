@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useLang } from '../lib/i18n'
+import Photo from './Photo'
 
 const ARIA = {
   en: { prev: 'Previous image', next: 'Next image' },
@@ -32,7 +33,7 @@ export default function ImageCardSlider({ slides, className }) {
             into the neighbouring slide inside the track */}
         {slides.map(({ src, alt }) => (
           <div key={src} className="slider-slide">
-            <img className="slider-slide__img" src={src} alt={alt} />
+            <Photo className="slider-slide__img" name={src} alt={alt} sizes="(max-width: 1024px) 100vw, 50vw" />
           </div>
         ))}
       </div>

@@ -1,10 +1,11 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link } from '../lib/LocaleLink'
 import { useLang } from '../lib/i18n'
-import pillarsImg from '../assets/photos/services-banner.jpg'
-import execImg from '../assets/photos/private-office-2.jpg'
-import heroImg from '../assets/photos/coworking.jpg'
-import vistaImg from '../assets/photos/lounge.jpg'
+import Photo from './Photo'
+const pillarsImg = 'services-banner'
+const execImg = 'private-office-2'
+const heroImg = 'coworking'
+const vistaImg = 'lounge'
 
 /* The FOCUS / HOST / FLEX / CONNECT labels are design accents and stay in
  * English in both languages. */
@@ -139,11 +140,11 @@ export default function ServicesSlider({ slides }) {
     <section className="services" data-reveal>
       {/* All images stay mounted and crossfade via opacity */}
       {slides.map((s, i) => (
-        <img
+        <Photo
           key={s.image + i}
           className={`services__img${i === clamped ? ' services__img--active' : ''}`}
-          src={s.image}
-          alt=""
+          name={s.image}
+          sizes="(max-width: 1024px) 100vw, 60vw"
         />
       ))}
       <span className="caption-pill services__caption">{slide.caption}</span>

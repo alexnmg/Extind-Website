@@ -22,6 +22,10 @@
 /assets/*
   Cache-Control: public, max-age=31536000, immutable
 
+# Width and format are in the filename, so a given URL's bytes never change.
+/photos/*
+  Cache-Control: public, max-age=31536000, immutable
+
 # Versioned by filename (-v1), same reasoning.
 /og/*
   Cache-Control: public, max-age=31536000, immutable

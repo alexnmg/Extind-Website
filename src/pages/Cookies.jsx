@@ -3,9 +3,9 @@ import { useLang } from '../lib/i18n'
 
 /* Cookie policy.
  *
- * This page claims the site sets no cookies of its own and loads no analytics.
- * That was verified against both the dev build and the deployed site — document.cookie
- * is empty and localStorage holds only the language key from lib/i18n.jsx. Adding any
+ * This page claims the site stores NOTHING in the visitor's browser — no cookies
+ * and no local storage. That became true when language moved from localStorage
+ * into the URL (/en), which removed the last stored value. Adding any
  * measurement, advertising or embedded third-party script invalidates the claim, and
  * would also require a consent banner before the script loads. Update this page in the
  * same change. See also Privacy.jsx. */
@@ -22,18 +22,14 @@ const T = {
       {
         h: 'In short',
         p: [
-          'This website uses no analytics, tracking or advertising cookies. EXTIND places no cookies of its own in your browser. That is also why you are not met by a cookie banner — there is no non-essential storage for us to ask your permission for.',
+          'This website uses no analytics, tracking or advertising cookies, and stores nothing at all in your browser — not a cookie, not a single stored value. That is why you are not met by a cookie banner: there is nothing for us to ask your permission for.',
         ],
       },
       {
-        h: '1. What we do store in your browser',
-        p: ['One thing only: the language you choose to read the site in.'],
-        ul: [
-          'Name: extind-lang',
-          'Type: local storage — not a cookie, so it is never sent to a server',
-          'Content: “ro” or “en”',
-          'Lifetime: stays until you clear it',
-          'Purpose: so the site opens in the language you chose the next time you visit',
+        h: '1. What we store in your browser',
+        p: [
+          'Nothing at all. The site keeps no cookies and no local storage of any kind on your device.',
+          'The language you are reading in is part of the web address rather than something stored: the Romanian pages sit at extind.ro and the English ones under extind.ro/en. Switching language changes the address, so nothing needs to be remembered about you.',
         ],
       },
       {
@@ -63,7 +59,7 @@ const T = {
       {
         h: '4. How to control what is stored',
         p: [
-          'You can delete or block what this site stores at any time from your browser settings, usually under “Cookies and site data”. If you clear the language preference, the site simply opens in Romanian again.',
+          'There is nothing from this site to delete. If you clear cookies and site data in your browser — usually under “Cookies and site data” — nothing about this site changes, because it stored nothing to begin with.',
         ],
       },
       {
@@ -84,18 +80,14 @@ const T = {
       {
         h: 'Pe scurt',
         p: [
-          'Acest site nu folosește cookie-uri de analiză, de urmărire sau de publicitate. EXTIND nu plasează niciun cookie propriu în browserul tău. Tocmai de aceea nu te întâmpină un banner de cookie-uri — nu există stocare neesențială pentru care să îți cerem acordul.',
+          'Acest site nu folosește cookie-uri de analiză, de urmărire sau de publicitate și nu stochează absolut nimic în browserul tău — niciun cookie, nicio valoare salvată. Tocmai de aceea nu te întâmpină un banner de cookie-uri: nu avem ce acord să îți cerem.',
         ],
       },
       {
-        h: '1. Ce stocăm totuși în browserul tău',
-        p: ['Un singur lucru: limba în care alegi să citești site-ul.'],
-        ul: [
-          'Nume: extind-lang',
-          'Tip: local storage — nu este cookie, deci nu ajunge niciodată la un server',
-          'Conținut: „ro” sau „en”',
-          'Durată: rămâne până când îl ștergi',
-          'Scop: ca site-ul să se deschidă în limba aleasă la următoarea vizită',
+        h: '1. Ce stocăm în browserul tău',
+        p: [
+          'Absolut nimic. Site-ul nu păstrează pe dispozitivul tău niciun cookie și nicio dată în local storage.',
+          'Limba în care citești face parte din adresa paginii, nu este ceva stocat: paginile în română sunt la extind.ro, iar cele în engleză la extind.ro/en. Când schimbi limba se schimbă adresa, așa că nu trebuie reținut nimic despre tine.',
         ],
       },
       {
@@ -125,7 +117,7 @@ const T = {
       {
         h: '4. Cum controlezi ce se stochează',
         p: [
-          'Poți șterge sau bloca oricând ce stochează acest site, din setările browserului — de regulă la secțiunea „Cookie-uri și date ale site-urilor”. Dacă ștergi preferința de limbă, site-ul se va deschide din nou în română.',
+          'Nu există nimic de șters de la acest site. Dacă golești cookie-urile și datele site-urilor din browser — de regulă la secțiunea „Cookie-uri și date ale site-urilor” — nu se schimbă nimic, pentru că nu am stocat nimic.',
         ],
       },
       {

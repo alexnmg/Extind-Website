@@ -1,5 +1,5 @@
 import { useId, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link } from '../lib/LocaleLink'
 import SectionHeader from './SectionHeader'
 import { useLang } from '../lib/i18n'
 import { faqItems } from '../data/faq'

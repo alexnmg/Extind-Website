@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link as RouterLink, useLocation } from 'react-router-dom'
+import { Link } from '../lib/LocaleLink'
+import { basePath, localePath } from '../lib/paths'
 import Logo from './Logo'
 import { useLang } from '../lib/i18n'
 
@@ -107,21 +109,45 @@ function ChevronLeft() {
 /* Language toggle. Shows the language you'd get by clicking — so on the
  * Romanian site the button reads "EN". Label and tooltip agree, and both are
  * written in the language you'd land in.
- * Rendered twice: in the bar (hidden on phones) and inside the mobile menu. */
-function LangSwitch({ variant }) {
-  const { lang, setLang } = useLang()
+ * Rendered twice: in the bar (hidden on phones) and inside the mobile menu.
+ *
+ * A real link to the mirrored URL, not a state toggle: the two languages are
+ * two addresses now, so switching is a navigation. That also makes it
+ * middle-clickable, copyable and visible to crawlers — the hreflang pair in the
+ * page head points at exactly this href. Uses RouterLink directly because the
+ * target is already fully qualified; LocaleLink would prefix it a second time.
+ *
+ * The accessible name CONTAINS the visible label rather than replacing it
+ * ('EN, Switch to English', not 'Switch to English'). Speech-input users say
+ * what they can see, and a name that drops the visible word leaves them with a
+ * control they cannot ask for — WCAG 2.5.3, Label in Name. The visible text and
+ * the tooltip are unchanged.
+ *
+ * lang and hrefLang both matter and say different things: hrefLang describes
+ * the page at the other end, lang describes this element's own text, which is
+ * written in the language you would land in. Without lang, a screen reader
+ * reads 'Comută în română' in an English voice. */
+function LangSwitch({ variant, onClick }) {
+  const { lang } = useLang()
+  const { pathname, search, hash } = useLocation()
   const other = lang === 'ro' ? 'en' : 'ro'
+  const label = other.toUpperCase()
   const tip = T[lang].switchTo
+  const base = basePath(pathname)
+  const target = (other === 'en' ? localePath(base, 'en') : base) + search + hash
   return (
-    <button
-      type="button"
+    <RouterLink
       className={`lang-switch lang-switch--${variant}`}
-      onClick={() => setLang(other)}
-      aria-label={tip}
+      to={target}
+      lang={other}
+      hrefLang={other}
+      aria-label={`${label}, ${tip}`}
       data-tip={tip}
+      onClick={onClick}
+      viewTransition
     >
-      {other.toUpperCase()}
-    </button>
+      {label}
+    </RouterLink>
   )
 }
 
@@ -344,7 +370,7 @@ export default function Navbar() {
             </div>
 
             <div className="navbar__mobile-footer">
-              <LangSwitch variant="menu" />
+              <LangSwitch variant="menu" onClick={closeMobile} />
               <Link
                 className="btn btn--primary navbar__mobile-cta"
                 to="/book-a-visit"

@@ -4,13 +4,14 @@ import LogoHero from '../components/LogoHero'
 import CentralIdea from '../components/CentralIdea'
 import Cta from '../components/Cta'
 import { useLang } from '../lib/i18n'
-import social1 from '../assets/photos/social-1.jpg'
-import social2 from '../assets/photos/vista-hero.jpg'
-import social3 from '../assets/photos/hero-main.jpg'
-import founderImg from '../assets/photos/founder-2.jpg'
-import social4 from '../assets/photos/social-4.jpg'
-import social5 from '../assets/photos/social-5.jpg'
-import social6 from '../assets/photos/lounge-intro.jpg'
+import Photo from '../components/Photo'
+const social1 = 'social-1'
+const social2 = 'vista-hero'
+const social3 = 'hero-main'
+const founderImg = 'founder-2'
+const social4 = 'social-4'
+const social5 = 'social-5'
+const social6 = 'lounge-intro'
 
 // Until a live feed is wired, the gallery tiles open the profile itself
 const INSTAGRAM_URL = 'https://www.instagram.com/extind.ro/'
@@ -119,7 +120,7 @@ export default function About() {
         <SectionHeader eyebrow={t.founderEyebrow} title={t.founderTitle} />
         <article className="founder" data-reveal>
           <div className="founder__media">
-            <img src={founderImg} alt={t.founderAlt} loading="lazy" />
+            <Photo name={founderImg} alt={t.founderAlt} sizes="(max-width: 860px) 100vw, 420px" />
           </div>
           <div className="founder__body">
             <blockquote className="founder__quote">{t.founderQuote}</blockquote>
@@ -145,7 +146,7 @@ export default function About() {
               data-reveal
               style={{ '--reveal-delay': `${(i % 3) * 80}ms` }}
             >
-              <img src={src} alt="" loading="lazy" />
+              <Photo name={src} sizes="(max-width: 860px) 50vw, 300px" />
               <span className="social-grid__overlay" aria-hidden="true">
                 <span className="social-grid__pill">{t.igPill}</span>
               </span>

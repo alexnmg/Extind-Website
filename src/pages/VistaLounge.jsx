@@ -1,13 +1,14 @@
 import { useEffect, useRef } from 'react'
-import { Link } from 'react-router-dom'
+import { Link } from '../lib/LocaleLink'
 import Hero from '../components/Hero'
 import SectionHeader from '../components/SectionHeader'
 import { VistaIcon, ClockIcon, MeetingIcon } from '../components/PillIcons'
 import { useLang } from '../lib/i18n'
-import vistaImg from '../assets/photos/lounge-intro.jpg'
-import lounge2Img from '../assets/photos/lounge-2.jpg'
-import lounge3Img from '../assets/photos/lounge-3.jpg'
-import heroImg from '../assets/photos/vista-hero.jpg'
+import Photo from '../components/Photo'
+const vistaImg = 'lounge-intro'
+const lounge2Img = 'lounge-2'
+const lounge3Img = 'lounge-3'
+const heroImg = 'vista-hero'
 // import pillarsImg from '../assets/photos/meeting-room.jpg' // only used by the hidden magazine block
 
 // Extra line icons in the shared 24×24 / 1.5-weight style.
@@ -222,7 +223,7 @@ export default function VistaLounge() {
       <section className="section">
         <article className="lounge-intro" data-reveal>
           <div className="lounge-intro__media">
-            <img src={heroImg} alt="" />
+            <Photo name={heroImg} sizes="(max-width: 1024px) 100vw, 50vw" />
           </div>
           <div className="lounge-intro__body">
             <p className="lounge-intro__eyebrow">{t.eventsEyebrow}</p>

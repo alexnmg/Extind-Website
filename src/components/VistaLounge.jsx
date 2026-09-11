@@ -1,10 +1,11 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link } from '../lib/LocaleLink'
 import SectionHeader from './SectionHeader'
 import { useLang } from '../lib/i18n'
-import vistaImg from '../assets/photos/lounge.jpg'
-import lounge2Img from '../assets/photos/lounge-2.jpg'
-import lounge3Img from '../assets/photos/lounge-3.jpg'
+import Photo from './Photo'
+const vistaImg = 'lounge'
+const lounge2Img = 'lounge-2'
+const lounge3Img = 'lounge-3'
 
 const T = {
   en: {
@@ -81,11 +82,12 @@ export default function VistaLounge({
     <div className="vista" data-reveal>
         {/* All images stay mounted and crossfade via opacity */}
         {slides.map((s, i) => (
-          <img
+          <Photo
             key={s.src + i}
             className={`vista__img${i === index ? ' vista__img--active' : ''}`}
-            src={s.src}
+            name={s.src}
             alt={i === index ? s.alt : ''}
+            sizes="(max-width: 1024px) 100vw, 60vw"
           />
         ))}
         <span className="caption-pill vista__caption">{slide.caption}</span>

@@ -36,3 +36,6 @@ dist-ssr
 # They live in Sync/Team, outside this repo.
 presentation/
 print/
+
+# Wrangler's local dev cache
+.wrangler/

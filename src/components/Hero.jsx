@@ -1,10 +1,10 @@
 import { Fragment, useLayoutEffect, useRef } from 'react'
-import { Link } from 'react-router-dom'
+import { Link } from '../lib/LocaleLink'
 import ImageCardSlider from './ImageCardSlider'
 import { useLang } from '../lib/i18n'
-import heroImg from '../assets/photos/hero-main.jpg'
-import boothImg from '../assets/photos/booth.jpg'
-import vistaImg from '../assets/photos/lounge.jpg'
+const heroImg = 'hero-main'
+const boothImg = 'booth'
+const vistaImg = 'lounge'
 
 /* Language-aware defaults; pages that pass their own copy override these. */
 const T = {

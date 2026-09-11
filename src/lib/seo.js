@@ -10,9 +10,10 @@
  * not. A title or og:image set in a useEffect exists only in the browser and
  * would pass a DevTools check while every share still rendered blank.
  *
- * The Romanian strings are what ships in the static HTML, because the site
- * defaults to Romanian and <html lang="ro">. English has no URL of its own yet;
- * when it gets one, this table already carries the copy.
+ * Both languages ship. Every entry carries { ro, en } and the build writes two
+ * HTML files per route — Romanian at the bare path with <html lang="ro">,
+ * English under /en with <html lang="en"> — plus the hreflang pair that ties
+ * the two addresses together.
  */
 
 export const SITE = {
@@ -152,8 +153,8 @@ export const ROUTES = {
     title: { ro: 'Politica de cookie-uri — Extind', en: 'Cookie Policy — Extind' },
     ogTitle: { ro: 'Politica de cookie-uri', en: 'Cookie Policy' },
     description: {
-      ro: 'Acest site nu folosește cookie-uri de analiză, urmărire sau publicitate, și nu plasează niciun cookie propriu. De aceea nu vezi niciun banner.',
-      en: 'This site uses no analytics, tracking or advertising cookies, and sets none of its own. That is why you see no banner.',
+      ro: 'Acest site nu folosește cookie-uri de analiză, urmărire sau publicitate și nu stochează absolut nimic în browserul tău. De aceea nu vezi niciun banner.',
+      en: 'This site uses no analytics, tracking or advertising cookies and stores nothing at all in your browser — not one cookie. That is why you see no banner.',
     },
     image: og('home'),
     imageAlt: { ro: 'Spațiul de lucru deschis EXTIND din Palas Campus, Iași', en: 'The EXTIND open workspace at Palas Campus, Iași' },

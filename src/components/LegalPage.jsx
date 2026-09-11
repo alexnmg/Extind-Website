@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { Link } from '../lib/LocaleLink'
 
 /* Shared layout for the legal pages (privacy, cookies).
  *
