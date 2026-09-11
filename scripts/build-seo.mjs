@@ -28,6 +28,7 @@ import { readFileSync, writeFileSync, existsSync, statSync, mkdirSync, rmSync } 
 import path from 'node:path'
 import { SITE, ROUTES, ORGANIZATION_JSONLD } from '../src/lib/seo.js'
 import { localePath } from '../src/lib/paths.js'
+import { render } from '../dist-ssr/entry-server.js'
 
 const ROOT = path.resolve(import.meta.dirname, '..')
 const DIST = path.join(ROOT, 'dist')
@@ -39,6 +40,10 @@ const esc = (s) =>
 const shell = readFileSync(path.join(DIST, 'index.html'), 'utf8')
 if (!shell.includes('<title>')) {
   console.error('build-seo: dist/index.html has no <title> to replace')
+  process.exit(1)
+}
+if (!shell.includes('<div id="root"></div>')) {
+  console.error('build-seo: dist/index.html has no empty <div id="root"></div> to prerender into')
   process.exit(1)
 }
 
@@ -136,9 +141,24 @@ let written = 0
 for (const [route, meta] of Object.entries(ROUTES)) {
   for (const lang of ['ro', 'en']) {
     const p = localePath(route, lang)
+
+    /* Prerender the page body. Without this every URL shipped an empty
+     * <div id="root">: fine for Google, which renders JavaScript, and useless
+     * for the preview crawlers, several search engines and most AI crawlers,
+     * which do not. A render that throws fails the build rather than silently
+     * shipping an empty shell — that is the whole failure mode this guards. */
+    let body
+    try {
+      body = render(p)
+    } catch (err) {
+      errors.push(`${p}: prerender threw — ${err.message}`)
+      body = ''
+    }
+
     const html = shell
       .replace(/<title>[^<]*<\/title>/, head(route, meta, lang))
       .replace('<html lang="ro">', `<html lang="${lang}">`)
+      .replace('<div id="root"></div>', `<div id="root">${body}</div>`)
     // '/' -> index.html, '/en' -> en.html, '/en/coworking' -> en/coworking.html
     const name = p === '/' ? 'index.html' : `${p.slice(1)}.html`
     const file = path.join(DIST, name)
@@ -196,4 +216,7 @@ if (errors.length) {
   process.exit(1)
 }
 
-console.log(`build-seo: ${written} route pages (ro + en), robots.txt, sitemap.xml (${Object.keys(ROUTES).length * 2} urls)`)
+const emptyShells = written === 0 ? 0 : null
+console.log(
+  `build-seo: ${written} route pages (ro + en, prerendered), robots.txt, sitemap.xml (${Object.keys(ROUTES).length * 2} urls)`
+)

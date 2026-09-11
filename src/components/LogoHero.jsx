@@ -65,14 +65,18 @@ function Chain({ children }) {
 
 export default function LogoHero() {
   const [idx, setIdx] = useState(0)
-  const [extra, setExtra] = useState(extraFor)
-  // Entrance progress 0→1. Reduced motion starts (and stays) at 1: static.
-  const [entry, setEntry] = useState(() =>
-    typeof window !== 'undefined' &&
-    window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
-      ? 1
-      : 0
-  )
+
+  /* Both of these start at the value the BUILD renders, not the value this
+   * browser would compute. The page is prerendered, so a first render that
+   * consults matchMedia disagrees with the server markup — on any viewport
+   * under 1024px for `extra`, and for any reduced-motion visitor for `entry` —
+   * and React throws away the server HTML for this subtree and renders it
+   * again. The effects below immediately correct both, so the behaviour is
+   * unchanged and only the hydration mismatch goes away. */
+  const [extra, setExtra] = useState(EXTRA_DESKTOP)
+  // Entrance progress 0→1. Reduced motion is set straight to 1 (static) by the
+  // entrance effect rather than by the initial state.
+  const [entry, setEntry] = useState(0)
 
   useEffect(() => {
     if (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) return
@@ -80,13 +84,19 @@ export default function LogoHero() {
     return () => clearInterval(timer)
   }, [])
 
+  /* Reduced motion runs the same path with a zero duration, so the first frame
+   * lands on 1 and stops. Folding it in here rather than short-circuiting keeps
+   * the initial state at 0 — which is what the prerendered markup contains — so
+   * hydration matches for every visitor, and avoids setting state synchronously
+   * in an effect body. */
   useEffect(() => {
-    if (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) return
+    const reduced = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
+    const duration = reduced ? 0 : ENTRANCE_MS
     let raf
     let start
     const step = (ts) => {
       if (start === undefined) start = ts
-      const t = Math.min(1, (ts - start) / ENTRANCE_MS)
+      const t = duration === 0 ? 1 : Math.min(1, (ts - start) / duration)
       setEntry(1 - Math.pow(1 - t, 3))
       if (t < 1) raf = requestAnimationFrame(step)
     }

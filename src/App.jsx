@@ -86,10 +86,14 @@ const PAGES = [
   { path: '/cookies', element: <Cookies /> },
 ]
 
-export default function App() {
+/* Everything inside the router, so the same tree can be rendered by
+ * BrowserRouter in the browser and StaticRouter at build time. entry-server.jsx
+ * is the other caller — keep this free of anything router-implementation
+ * specific. */
+export function AppShell() {
   return (
-    <BrowserRouter>
-      {/* Inside the router: the provider reads the language off the pathname. */}
+    <>
+      {/* The provider reads the language off the pathname. */}
       <LanguageProvider>
         <ScrollToTop />
         <ScrollReveal />
@@ -105,22 +109,13 @@ export default function App() {
               {PAGES.filter((p) => !(isStoryblokEnabled && p.path === '/')).map(({ path, element }) => (
                 <Route key={path} path={path} element={element} />
               ))}
-              {PAGES.map(({ path, element }) => (
+              {PAGES.filter((p) => !(isStoryblokEnabled && p.path === '/')).map(({ path, element }) => (
                 <Route
                   key={localePath(path, 'en')}
                   path={localePath(path, 'en')}
                   element={element}
                 />
               ))}
-              {/* KNOWN GAP, tracked: setting VITE_STORYBLOK_TOKEN swaps this
-                  for StoryblokPage, which builds its slug from the raw
-                  pathname. It therefore asks for a story called 'en/…' on
-                  every English URL and waits on a loading placeholder forever,
-                  and because NotFound no longer mounts, unknown URLs go back to
-                  200 with no noindex. The fix belongs in StoryblokPage.jsx
-                  (basePath() for the slug, NotFound when the story is missing)
-                  and must land together with a '/' route that renders the CMS
-                  homepage. Do not set the token before that. */}
               {/* With Storyblok enabled the CMS owns '/' and '/en' too, so those explicit
                   routes are dropped — otherwise the Storyblok-authored homepage could
                   never render. */}
@@ -130,6 +125,14 @@ export default function App() {
           <Footer />
         </div>
       </LanguageProvider>
+    </>
+  )
+}
+
+export default function App() {
+  return (
+    <BrowserRouter>
+      <AppShell />
     </BrowserRouter>
   )
 }

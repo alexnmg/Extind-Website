@@ -39,3 +39,4 @@ print/
 
 # Wrangler's local dev cache
 .wrangler/
+dist-ssr
