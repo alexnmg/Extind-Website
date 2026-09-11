@@ -36,6 +36,14 @@ const json = (body, status = 200) =>
   })
 
 /* Anything that reaches a mail header must not carry line breaks. */
+/* Substring-matching the header let a cross-site POST through: a form with
+ * enctype="text/plain" sends a CORS-safelisted content type, so no preflight is
+ * made, no consent is needed, and the request arrives with the victim's IP —
+ * which also spends their share of the rate limit. Parsing the media type
+ * properly is what makes the browser demand a preflight our origin never grants. */
+const isJson = (request) =>
+  (request.headers.get('content-type') || '').split(';')[0].trim().toLowerCase() === 'application/json'
+
 const oneLine = (s, max) => String(s ?? '').replace(/[\r\n\t]+/g, ' ').trim().slice(0, max)
 
 function validate(d) {
@@ -56,8 +64,7 @@ function validate(d) {
 
 async function handleContact(request, env) {
   if (request.method !== 'POST') return json({ ok: false, error: 'method_not_allowed' }, 405)
-  if (!(request.headers.get('content-type') || '').includes('application/json'))
-    return json({ ok: false, error: 'bad_request' }, 400)
+  if (!isJson(request)) return json({ ok: false, error: 'bad_request' }, 400)
 
   let data
   try {
@@ -130,8 +137,7 @@ async function handleContact(request, env) {
  * neither does someone probing whether an address is already on the list. */
 async function handleNewsletter(request, env) {
   if (request.method !== 'POST') return json({ ok: false, error: 'method_not_allowed' }, 405)
-  if (!(request.headers.get('content-type') || '').includes('application/json'))
-    return json({ ok: false, error: 'bad_request' }, 400)
+  if (!isJson(request)) return json({ ok: false, error: 'bad_request' }, 400)
 
   let data
   try {

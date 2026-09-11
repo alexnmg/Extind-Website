@@ -1,5 +1,11 @@
 /* On-brand HTML for the two transactional emails.
  *
+ * The acknowledgement deliberately does NOT quote the sender's message back.
+ * /api/contact is public and unauthenticated, so echoing arbitrary text into a
+ * mail that is SPF-aligned and DKIM-signed as extind.ro turns the contact form
+ * into a way for anyone to send convincing mail from the client's domain to any
+ * address they choose. Confirming receipt does not require repeating content.
+ *
  * Email is a hostile target and the rules below are not stylistic — each one
  * exists because a named client breaks without it:
  *
@@ -172,7 +178,7 @@ const ACK = {
     eyebrow: 'Mesaj primit',
     greeting: (n) => (n ? `Salut, ${n}` : 'Salut'),
     body: 'Îți mulțumim că ne-ai scris. Am primit mesajul tău și îți răspundem în cel mult o zi lucrătoare.',
-    copy: 'Ce ne-ai trimis',
+    received: 'Mesajul tău a ajuns la noi în întregime — nu îl repetăm aici din motive de securitate.',
     signoff: 'O zi bună,<br>Echipa EXTIND',
     signoffText: 'O zi bună,\nEchipa EXTIND',
     addr: 'Strada Sfântul Andrei 39A, Palas Campus (clădirea B2), etaj 6, Iași',
@@ -184,7 +190,7 @@ const ACK = {
     eyebrow: 'Message received',
     greeting: (n) => (n ? `Hi ${n}` : 'Hi'),
     body: 'Thanks for reaching out. We’ve received your message and will reply within one business day.',
-    copy: 'What you sent',
+    received: 'Your message reached us in full — we do not repeat it here, for security reasons.',
     signoff: 'Best,<br>The EXTIND team',
     signoffText: 'Best,\nThe EXTIND team',
     addr: 'Strada Sfântul Andrei 39A, Palas Campus (building B2), 6th floor, Iași',
@@ -196,23 +202,15 @@ export function acknowledgementEmail(v, lang) {
   const t = ACK[lang] ?? ACK.ro
   const first = String(v.name || '').split(' ')[0]
 
-  const text = `${t.greeting(first)},\n\n${t.body}\n\n${t.copy}:\n${'-'.repeat(58)}\n${v.message}\n${'-'.repeat(
-    58
-  )}\n\n${t.signoffText}\n${t.addr}\n`
+  const text = `${t.greeting(first)},\n\n${t.body}\n\n${t.received}\n\n${t.signoffText}\n${t.addr}\n`
 
   const inner = [
     logoRow('EXTIND'),
     card(`          <p style="margin:0 0 4px 0;font-family:${SANS};font-size:12px;line-height:18px;color:${LABEL};text-transform:uppercase;letter-spacing:0.8px;">${esc(t.eyebrow)}</p>
           <h1 style="margin:0 0 16px 0;font-family:${SANS};font-size:24px;line-height:30px;color:${C.charcoal};font-weight:700;">${esc(t.greeting(first))},</h1>
           <p style="margin:0 0 24px 0;font-family:${SERIF};font-size:16px;line-height:27px;color:${C.charcoal};">${esc(t.body)}</p>
-          <p style="margin:0 0 8px 0;font-family:${SANS};font-size:12px;line-height:18px;color:${LABEL};text-transform:uppercase;letter-spacing:0.6px;">${esc(t.copy)}</p>
-          <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr>
-            <td width="3" bgcolor="${C.border}" style="background-color:${C.border};width:3px;font-size:0;line-height:0;">&nbsp;</td>
-            <td style="padding:2px 0 2px 16px;">
-              <p style="margin:0;font-family:${SERIF};font-size:15px;line-height:25px;color:${C.forest};">${escBody(v.message)}</p>
-            </td>
-          </tr></table>
-          <p style="margin:24px 0 0 0;font-family:${SERIF};font-size:16px;line-height:27px;color:${C.charcoal};">${t.signoff}</p>`),
+          <p style="margin:0 0 24px 0;font-family:${SANS};font-size:13px;line-height:20px;color:${LABEL};">${esc(t.received)}</p>
+          <p style="margin:0;font-family:${SERIF};font-size:16px;line-height:27px;color:${C.charcoal};">${t.signoff}</p>`),
     footRow([esc(t.addr), esc(t.auto)]),
   ].join('\n')
 

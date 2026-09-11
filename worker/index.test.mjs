@@ -355,6 +355,46 @@ const goodNl = (over = {}) => ({ email: 'Ana@Example.COM ', website: '', rendere
   ok('GET /api/newsletter -> 405', (await worker.fetch(new Request('https://extind.ro/api/newsletter'), env)).status === 405)
 }
 
+console.log('\n--- hardening regressions ---')
+{
+  // A cross-site form POST sends text/plain, which needs no preflight. The old
+  // substring check let it through.
+  const { env, calls } = mkEnv()
+  const res = await worker.fetch(
+    new Request('https://extind.ro/api/contact', {
+      method: 'POST',
+      headers: { 'content-type': 'text/plain' },
+      body: JSON.stringify(good()),
+    }), env)
+  ok('text/plain cross-site POST rejected on /api/contact', res.status === 400 && calls.send.length === 0)
+}
+{
+  const { env, calls } = mkEnv()
+  const res = await worker.fetch(
+    new Request('https://extind.ro/api/newsletter', {
+      method: 'POST',
+      headers: { 'content-type': 'text/plain' },
+      body: JSON.stringify(goodNl()),
+    }), env)
+  ok('text/plain cross-site POST rejected on /api/newsletter', res.status === 400 && calls.mc.length === 0)
+}
+{
+  // A charset parameter is legitimate and must still be accepted.
+  const { env, calls } = mkEnv()
+  const res = await worker.fetch(post(good(), { 'content-type': 'application/json; charset=utf-8' }), env)
+  ok('application/json; charset=utf-8 still accepted', res.status === 200 && calls.send.length === 2)
+}
+{
+  // The acknowledgement must not relay whatever the sender typed: it would be a
+  // way to send DKIM-signed mail from extind.ro carrying arbitrary text.
+  const { env, calls } = mkEnv()
+  const marker = 'CLICK-HERE-TO-RESET-YOUR-PASSWORD-attacker.example'
+  await worker.fetch(post(good({ message: marker })), env)
+  const ack = calls.send[1].mime
+  ok('acknowledgement does NOT echo the submitted message', !ack.includes(marker) && !ack.includes(btoa(marker).slice(0, 20)))
+  ok('the notification to staff still carries it', calls.send[0].mime.length > 0)
+}
+
 globalThis.fetch = realFetch
 console.log(`\n${pass} passed, ${fail} failed\n`)
 process.exit(fail ? 1 : 0)
