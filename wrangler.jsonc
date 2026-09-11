@@ -7,6 +7,11 @@
   // needs the Workers Paid plan. The service-account JSON lives ONLY as the
   // GOOGLE_SERVICE_ACCOUNT_KEY secret (wrangler secret put) — never in this file.
   "name": "extind",
+  // The *.workers.dev hostname served a byte-identical, fully indexable copy of
+  // every page with no canonical to disambiguate it — two hostnames competing
+  // for the same content on a domain with no history. Turning it off leaves
+  // extind.ro as the only address.
+  "workers_dev": false,
   "compatibility_date": "2026-08-31",
   "main": "./worker/index.js",
   "assets": {
