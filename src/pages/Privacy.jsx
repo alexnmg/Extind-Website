@@ -26,7 +26,7 @@ const T = {
         h: '2. What we collect, and why',
         p: [
           'Contact form. When you send us a message we process your name, email address, phone number and company (where you provide them) together with the content of your message, so that we can reply and discuss our spaces with you. Legal basis: your consent (Art. 6(1)(a) GDPR) and, where the message concerns a possible agreement, steps taken at your request prior to entering into a contract (Art. 6(1)(b)).',
-          'Newsletter. The subscription form in the site footer is not active yet — we are not currently collecting or storing email addresses through it. When we do activate it, we will process your address solely to send you news about EXTIND and about community events, on the basis of your consent, and every email will carry an unsubscribe link.',
+          'Newsletter. If you subscribe through the form in the site footer, we process your email address solely to send you news about EXTIND and about community events. Legal basis: your consent (Art. 6(1)(a) GDPR). Every newsletter carries an unsubscribe link, and you can also unsubscribe at any time by writing to office@extind.ro. Our newsletters record whether they were opened and which links were clicked, so we can tell what is worth writing about.',
           'Booking a visit. The booking form is provided by Cal.com. What you enter there — your name, email address, the slot you choose and any details you add — reaches both Cal.com and us, so that we can confirm and prepare your visit.',
           'Technical data. Like any website, the servers hosting it automatically log your IP address, browser type, the page requested and the time of the request. We use this to keep the site running and secure. Legal basis: our legitimate interest (Art. 6(1)(f)) in keeping the site available and protected.',
           'We do not use analytics tools, tracking pixels or advertising on this website. We do not profile you and we take no automated decisions about you.',
@@ -43,12 +43,14 @@ const T = {
           'Google Ireland Ltd. (Google Fonts) — the typefaces used in the design. Your browser downloads them directly from Google, which therefore receives your IP address.',
           'Google Ireland Ltd. (Google Workspace) — our email. A message you send through the contact form is delivered to, and kept in, our mailbox there.',
           'CARTO — the map on our contact page, built on OpenStreetMap data. Your browser loads the map tiles directly from CARTO, which therefore receives your IP address.',
+          'The Rocket Science Group LLC d/b/a Mailchimp (United States) — our newsletter. Your address is stored on Mailchimp’s servers in the United States, and they send the newsletters on our behalf. They receive nothing from this website unless you subscribe.',
         ],
         links: [
           { label: 'Cloudflare privacy policy', href: 'https://www.cloudflare.com/privacypolicy/' },
           { label: 'Cal.com privacy policy', href: 'https://cal.com/privacy' },
           { label: 'Google privacy policy', href: 'https://policies.google.com/privacy' },
           { label: 'CARTO privacy policy', href: 'https://carto.com/privacy/' },
+          { label: 'Mailchimp privacy policy', href: 'https://mailchimp.com/legal/privacy/' },
         ],
       },
       {
@@ -61,7 +63,7 @@ const T = {
         h: '5. How long we keep it',
         ul: [
           'Messages sent through the contact form: up to 2 years from our last exchange, if you do not become a client.',
-          'Newsletter email address: not collected at present; once the newsletter is active, until you unsubscribe.',
+          'Newsletter email address: until you unsubscribe.',
           'Bookings: for as long as we need to organise the visit, and afterwards in our commercial records.',
           'Server logs: short retention periods set by our hosting providers.',
         ],
@@ -122,7 +124,7 @@ const T = {
         h: '2. Ce date colectăm și de ce',
         p: [
           'Formularul de contact. Când ne trimiți un mesaj, prelucrăm numele, adresa de email, telefonul și compania (dacă le completezi), împreună cu conținutul mesajului, ca să îți putem răspunde și să discutăm despre spațiile noastre. Temei legal: consimțământul tău (art. 6 alin. (1) lit. a) GDPR) și, dacă mesajul privește o posibilă colaborare, demersurile făcute la cererea ta înainte de încheierea unui contract (art. 6 alin. (1) lit. b)).',
-          'Newsletter. Formularul de abonare din subsolul site-ului nu este încă activ — momentan nu colectăm și nu stocăm adrese de email prin el. Când îl vom activa, vom prelucra adresa ta exclusiv ca să îți trimitem noutăți despre EXTIND și despre evenimentele comunității, pe baza consimțământului tău, iar fiecare email va conține un link de dezabonare.',
+          'Newsletter. Dacă te abonezi prin formularul din subsolul site-ului, prelucrăm adresa ta de email exclusiv ca să îți trimitem noutăți despre EXTIND și despre evenimentele comunității. Temei legal: consimțământul tău (art. 6 alin. (1) lit. a) GDPR). Fiecare newsletter conține un link de dezabonare, iar te poți dezabona oricând și scriindu-ne la office@extind.ro. Newsletterele noastre înregistrează dacă au fost deschise și ce linkuri au fost accesate, ca să știm despre ce merită să scriem.',
           'Programarea unei vizite. Formularul de programare este pus la dispoziție de Cal.com. Ce completezi acolo — numele, adresa de email, intervalul ales și eventualele detalii adăugate — ajunge atât la Cal.com, cât și la noi, ca să confirmăm și să pregătim vizita.',
           'Date tehnice. Ca orice site, serverele care îl găzduiesc înregistrează automat adresa IP, tipul de browser, pagina cerută și momentul accesării. Le folosim ca să menținem site-ul funcțional și în siguranță. Temei legal: interesul nostru legitim (art. 6 alin. (1) lit. f)) de a păstra site-ul disponibil și protejat.',
           'Nu folosim instrumente de analiză a traficului, pixeli de urmărire sau publicitate pe acest site. Nu creăm profiluri și nu luăm decizii automate cu privire la tine.',
@@ -139,12 +141,14 @@ const T = {
           'Google Ireland Ltd. (Google Fonts) — fonturile folosite în design. Browserul tău le descarcă direct de la Google, care primește astfel adresa ta IP.',
           'Google Ireland Ltd. (Google Workspace) — emailul nostru. Mesajul pe care îl trimiți prin formularul de contact ajunge și rămâne în căsuța noastră poștală.',
           'CARTO — harta de pe pagina de contact, construită pe date OpenStreetMap. Browserul tău încarcă imaginile hărții direct de la CARTO, care primește astfel adresa ta IP.',
+          'The Rocket Science Group LLC d/b/a Mailchimp (Statele Unite) — newsletterul nostru. Adresa ta este stocată pe serverele Mailchimp din Statele Unite, iar ei trimit newsletterele în numele nostru. Nu primesc nimic de pe acest site dacă nu te abonezi.',
         ],
         links: [
           { label: 'Politica de confidențialitate Cloudflare', href: 'https://www.cloudflare.com/privacypolicy/' },
           { label: 'Politica de confidențialitate Cal.com', href: 'https://cal.com/privacy' },
           { label: 'Politica de confidențialitate Google', href: 'https://policies.google.com/privacy' },
           { label: 'Politica de confidențialitate CARTO', href: 'https://carto.com/privacy/' },
+          { label: 'Politica de confidențialitate Mailchimp', href: 'https://mailchimp.com/legal/privacy/' },
         ],
       },
       {
@@ -157,7 +161,7 @@ const T = {
         h: '5. Cât timp păstrăm datele',
         ul: [
           'Mesajele trimise prin formularul de contact: maximum 2 ani de la ultima comunicare, dacă nu devii client.',
-          'Adresa de email pentru newsletter: momentan nu este colectată; după activarea newsletterului, până când te dezabonezi.',
+          'Adresa de email pentru newsletter: până când te dezabonezi.',
           'Programările: cât este necesar pentru organizarea vizitei și, ulterior, în evidențele noastre comerciale.',
           'Jurnalele serverelor: perioade scurte, stabilite de furnizorii de găzduire.',
         ],

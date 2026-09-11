@@ -1,5 +1,20 @@
 import worker from './index.js'
 import { __resetTokenCache } from './gmail.js'
+import { createHash } from 'node:crypto'
+
+/* MD5 is a deliberate Cloudflare extension to WebCrypto — Workers supports it,
+ * Node does not, and mailchimp.js needs it for the subscriber hash. Shim it
+ * here so these tests can exercise the real hashing path. Production never
+ * touches this: only crypto.subtle.digest('MD5', ...) inside workerd.
+ * NOTE: that it passes here is NOT evidence it works in workerd. */
+const realDigest = crypto.subtle.digest.bind(crypto.subtle)
+crypto.subtle.digest = (alg, data) => {
+  const name = typeof alg === 'string' ? alg : alg?.name
+  if (String(name).toUpperCase() === 'MD5') {
+    return Promise.resolve(createHash('md5').update(Buffer.from(data)).digest().buffer)
+  }
+  return realDigest(alg, data)
+}
 
 let pass = 0, fail = 0
 const ok = (name, cond, extra = '') => {
@@ -34,8 +49,8 @@ const realFetch = globalThis.fetch
 
 /* Stub Google. Captures every outbound call so tests can assert on the real
  * JWT and the real MIME the Worker produced. */
-function mkEnv({ limit = true, tokenStatus = 200, sendStatus = 200, sendFailOn = null } = {}) {
-  const calls = { token: [], send: [] }
+function mkEnv({ limit = true, tokenStatus = 200, sendStatus = 200, sendFailOn = null, mcStatus = 200, mcBody = {} } = {}) {
+  const calls = { token: [], send: [], mc: [] }
   globalThis.fetch = async (url, opts) => {
     const u = String(url)
     if (u.includes('oauth2.googleapis.com/token')) {
@@ -44,6 +59,10 @@ function mkEnv({ limit = true, tokenStatus = 200, sendStatus = 200, sendFailOn =
         return new Response(JSON.stringify({ error: 'unauthorized_client', error_description: 'Client is unauthorized' }), { status: tokenStatus })
       }
       return new Response(JSON.stringify({ access_token: 'tok-123', expires_in: 3600 }), { status: 200 })
+    }
+    if (u.includes('api.mailchimp.com')) {
+      calls.mc.push({ url: u, method: opts.method, auth: opts.headers.authorization, body: JSON.parse(opts.body) })
+      return new Response(JSON.stringify(mcStatus === 200 ? { id: 'abc' } : mcBody), { status: mcStatus })
     }
     if (u.includes('gmail.googleapis.com')) {
       const body = JSON.parse(opts.body)
@@ -67,6 +86,10 @@ function mkEnv({ limit = true, tokenStatus = 200, sendStatus = 200, sendFailOn =
       CONTACT_FROM: 'office@extind.ro',
       CONTACT_FROM_NAME: 'EXTIND',
       CONTACT_TO: 'office@extind.ro',
+      MAILCHIMP_API_KEY: 'test-key',
+      MAILCHIMP_SERVER_PREFIX: 'us3',
+      MAILCHIMP_LIST_ID: 'f418861d6f',
+      MAILCHIMP_STATUS: 'subscribed',
       CONTACT_LIMITER: { limit: async () => ({ success: limit }) },
       ASSETS: { fetch: async () => new Response('asset', { status: 200 }) },
     },
@@ -233,6 +256,83 @@ console.log('\n--- routing ---')
   const assets = await worker.fetch(new Request('https://extind.ro/faq'), env)
   ok('non-API falls through to ASSETS', assets.status === 200 && (await assets.text()) === 'asset')
   ok('malformed JSON -> 400', (await worker.fetch(new Request('https://extind.ro/api/contact', { method: 'POST', headers: { 'content-type': 'application/json' }, body: '{oops' }), env)).status === 400)
+}
+
+
+console.log('\n--- newsletter ---')
+const nl = (body) =>
+  new Request('https://extind.ro/api/newsletter', {
+    method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(body),
+  })
+const goodNl = (over = {}) => ({ email: 'Ana@Example.COM ', website: '', renderedAt: Date.now() - 10_000, ...over })
+
+{
+  const { env, calls } = mkEnv()
+  const res = await worker.fetch(nl(goodNl()), env)
+  ok('subscribes -> 200 ok', res.status === 200 && (await res.json()).ok === true)
+  ok('one call to Mailchimp', calls.mc.length === 1)
+  ok('uses PUT (add-or-update), not POST', calls.mc[0].method === 'PUT', calls.mc[0].method)
+  ok('Basic auth header', calls.mc[0].auth === `Basic ${btoa('key:test-key')}`)
+  ok('hits the right list', calls.mc[0].url.includes('/lists/f418861d6f/members/'))
+  ok('server prefix in the host', calls.mc[0].url.startsWith('https://us3.api.mailchimp.com/'))
+
+  // The trap: hash and body must come from the SAME normalised string.
+  const sentHash = calls.mc[0].url.split('/members/')[1]
+  const expected = [...new Uint8Array(await crypto.subtle.digest('MD5', new TextEncoder().encode('ana@example.com')))]
+    .map((b) => b.toString(16).padStart(2, '0')).join('')
+  ok('hash is MD5 of the lowercased address', sentHash === expected, `${sentHash} vs ${expected}`)
+  ok('body address matches the hash exactly', calls.mc[0].body.email_address === 'ana@example.com', calls.mc[0].body.email_address)
+
+  ok('status_if_new honours the configured mode', calls.mc[0].body.status_if_new === 'subscribed')
+  ok('sends NOTHING else (PUT would overwrite an existing member)',
+    Object.keys(calls.mc[0].body).sort().join(',') === 'email_address,status_if_new', Object.keys(calls.mc[0].body).join(','))
+}
+{
+  const { env, calls } = mkEnv()
+  const res = await worker.fetch(nl(goodNl({ website: 'spam' })), env)
+  ok('honeypot: 200, no Mailchimp call', (await res.json()).ok === true && calls.mc.length === 0)
+}
+{
+  const { env, calls } = mkEnv()
+  await worker.fetch(nl(goodNl({ renderedAt: Date.now() })), env)
+  ok('instant submit dropped', calls.mc.length === 0)
+}
+{
+  const { env, calls } = mkEnv()
+  const res = await worker.fetch(nl(goodNl({ email: 'nope' })), env)
+  ok('bad address -> 400 before Mailchimp', res.status === 400 && calls.mc.length === 0)
+}
+{
+  const { env, calls } = mkEnv({ limit: false })
+  const res = await worker.fetch(nl(goodNl()), env)
+  ok('rate limited -> 429, no call', res.status === 429 && calls.mc.length === 0)
+}
+{
+  // Already on the list: must look identical to a fresh signup, or the form
+  // becomes an oracle for who is subscribed.
+  const { env } = mkEnv({ mcStatus: 400, mcBody: { title: 'Member Exists', detail: 'ana@example.com is already a list member', instance: '' } })
+  const res = await worker.fetch(nl(goodNl()), env)
+  ok('"Member Exists" -> indistinguishable 200 ok', res.status === 200 && (await res.json()).ok === true)
+}
+{
+  const { env } = mkEnv({ mcStatus: 400, mcBody: { title: 'Member In Compliance State', instance: '' } })
+  const res = await worker.fetch(nl(goodNl()), env)
+  ok('compliance state -> also indistinguishable 200', res.status === 200 && (await res.json()).ok === true)
+}
+{
+  const { env } = mkEnv({ mcStatus: 400, mcBody: { title: 'Invalid Resource', detail: 'looks fake', instance: '' } })
+  const res = await worker.fetch(nl(goodNl()), env)
+  const body = await res.json()
+  ok('"Invalid Resource" -> 400 validation (the one case worth telling them)', res.status === 400 && body.error === 'validation')
+}
+{
+  const { env } = mkEnv({ mcStatus: 401 })
+  const res = await worker.fetch(nl(goodNl()), env)
+  ok('bad API key -> 502, not a crash', res.status === 502 && (await res.json()).error === 'send_failed')
+}
+{
+  const { env } = mkEnv()
+  ok('GET /api/newsletter -> 405', (await worker.fetch(new Request('https://extind.ro/api/newsletter'), env)).status === 405)
 }
 
 globalThis.fetch = realFetch

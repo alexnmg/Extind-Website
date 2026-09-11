@@ -28,7 +28,15 @@
     // address, so it is both the sender and the notification recipient.
     "CONTACT_FROM": "office@extind.ro",
     "CONTACT_FROM_NAME": "EXTIND",
-    "CONTACT_TO": "office@extind.ro"
+    "CONTACT_TO": "office@extind.ro",
+    // Not secret: the prefix is visible in any logged-in Mailchimp URL, and the
+    // audience id identifies a list, not a person. Only MAILCHIMP_API_KEY is a
+    // secret, and it is set in the dashboard — never in this file.
+    "MAILCHIMP_SERVER_PREFIX": "us3",
+    "MAILCHIMP_LIST_ID": "f418861d6f",
+    // Single opt-in, by the client's choice — no confirmation email. Change to
+    // "pending" to switch on double opt-in; nothing else needs to change.
+    "MAILCHIMP_STATUS": "subscribed"
   },
   "ratelimits": [
     {

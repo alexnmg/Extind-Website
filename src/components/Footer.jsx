@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import brandMark from '../assets/brand-mark.svg'
 import iconEmail from '../assets/figma/icon-email.svg'
@@ -23,6 +24,11 @@ const T = {
     emailPlaceholder: 'Your Email',
     emailAria: 'Email address',
     subscribe: 'Subscribe',
+    subscribing: 'Subscribing…',
+    subscribed: 'You’re on the list. Thanks!',
+    nlErrorEmail: 'That address doesn’t look right.',
+    nlErrorRate: 'Too many tries just now — give it a minute.',
+    nlErrorGeneric: 'That didn’t work. Try again in a moment.',
     copyright: '© 2026 Extind. All rights reserved.',
     legalAria: 'Legal',
     legalLinks: [
@@ -49,6 +55,11 @@ const T = {
     emailPlaceholder: 'Emailul tău',
     emailAria: 'Adresa de email',
     subscribe: 'Abonează-te',
+    subscribing: 'Se trimite…',
+    subscribed: 'Gata, te-ai abonat. Mulțumim!',
+    nlErrorEmail: 'Adresa nu pare corectă.',
+    nlErrorRate: 'Prea multe încercări acum — mai așteaptă un minut.',
+    nlErrorGeneric: 'Nu a funcționat. Mai încearcă peste un moment.',
     copyright: '© 2026 Extind. Toate drepturile rezervate.',
     legalAria: 'Legal',
     legalLinks: [
@@ -89,6 +100,107 @@ const socials = [
   { label: 'Instagram', href: 'https://www.instagram.com/extind.ro/', Icon: InstagramIcon },
 ]
 
+
+/* Footer newsletter signup. Posts to the Worker at /api/newsletter, which adds
+ * the address to Mailchimp server-side — nothing from Mailchimp loads in the
+ * browser, so the published cookie policy stays true.
+ *
+ * Same defences as the contact form: a honeypot field and a dwell-time check
+ * (the server rejects anything submitted within seconds of the form rendering).
+ * Single opt-in by the client's choice, so no confirmation email. */
+function NewsletterForm({ t }) {
+  const [email, setEmail] = useState('')
+  const [website, setWebsite] = useState('') // honeypot
+  const [status, setStatus] = useState('idle') // idle | sending | done | error
+  const [errorKey, setErrorKey] = useState('nlErrorGeneric')
+  const renderedAt = useRef(0)
+  const doneRef = useRef(null)
+
+  useEffect(() => {
+    renderedAt.current = Date.now()
+  }, [])
+
+  useEffect(() => {
+    if (status === 'done') doneRef.current?.focus()
+  }, [status])
+
+  const onSubmit = async (e) => {
+    e.preventDefault()
+    if (status === 'sending') return
+
+    setStatus('sending')
+    try {
+      const res = await fetch('/api/newsletter', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ email, website, renderedAt: renderedAt.current }),
+      })
+      let body = {}
+      try {
+        body = await res.json()
+      } catch {
+        /* a non-JSON response is a failure whatever it says */
+      }
+
+      if (res.ok && body.ok) {
+        setStatus('done')
+        return
+      }
+      if (res.status === 429) setErrorKey('nlErrorRate')
+      else if (body.error === 'validation') setErrorKey('nlErrorEmail')
+      else setErrorKey('nlErrorGeneric')
+      setStatus('error')
+    } catch {
+      setErrorKey('nlErrorGeneric')
+      setStatus('error')
+    }
+  }
+
+  if (status === 'done') {
+    return (
+      <p className="newsletter__done" role="status" aria-live="polite" ref={doneRef} tabIndex={-1}>
+        {t.subscribed}
+      </p>
+    )
+  }
+
+  const sending = status === 'sending'
+
+  return (
+    <form className="email-row" onSubmit={onSubmit} noValidate>
+      <label className={`email-field${email ? ' is-filled' : ''}`}>
+        <img src={iconEmail} alt="" />
+        <input
+          type="email"
+          placeholder={t.emailPlaceholder}
+          aria-label={t.emailAria}
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+        />
+      </label>
+      {/* Hidden from people and from assistive tech; only a bot fills it in. */}
+      <div className="form-hp" aria-hidden="true">
+        <label htmlFor="nl-website">Website</label>
+        <input
+          id="nl-website"
+          type="text"
+          tabIndex={-1}
+          autoComplete="off"
+          value={website}
+          onChange={(e) => setWebsite(e.target.value)}
+        />
+      </div>
+      <button type="submit" className="btn btn--outline" disabled={sending} aria-busy={sending}>
+        {sending ? t.subscribing : t.subscribe}
+      </button>
+      <div role="alert" aria-live="assertive">
+        {status === 'error' && <p className="newsletter__error">{t[errorKey]}</p>}
+      </div>
+    </form>
+  )
+}
+
 export default function Footer() {
   const { lang } = useLang()
   const t = T[lang]
@@ -117,15 +229,7 @@ export default function Footer() {
           </div>
           <div className="footer__col footer__newsletter">
             <p className="footer__col-title">{t.newsletter}</p>
-            <form className="email-row" onSubmit={(e) => e.preventDefault()}>
-              <label className="email-field">
-                <img src={iconEmail} alt="" />
-                <input type="email" placeholder={t.emailPlaceholder} aria-label={t.emailAria} />
-              </label>
-              <button type="submit" className="btn btn--outline">
-                {t.subscribe}
-              </button>
-            </form>
+            <NewsletterForm t={t} />
           </div>
         </div>
       </div>

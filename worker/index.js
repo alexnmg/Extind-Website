@@ -16,6 +16,7 @@
  */
 
 import { sendMail } from './gmail.js'
+import { subscribe } from './mailchimp.js'
 
 const MAX = { name: 120, email: 254, company: 160, phone: 40, message: 5000 }
 
@@ -181,10 +182,57 @@ async function handleContact(request, env) {
   return json({ ok: true })
 }
 
+
+/* Newsletter signup from the footer. Same defences as the contact form, and
+ * the same deliberate silence: a bot learns nothing from the response, and
+ * neither does someone probing whether an address is already on the list. */
+async function handleNewsletter(request, env) {
+  if (request.method !== 'POST') return json({ ok: false, error: 'method_not_allowed' }, 405)
+  if (!(request.headers.get('content-type') || '').includes('application/json'))
+    return json({ ok: false, error: 'bad_request' }, 400)
+
+  let data
+  try {
+    data = await request.json()
+  } catch {
+    return json({ ok: false, error: 'bad_request' }, 400)
+  }
+
+  if (typeof data.website === 'string' && data.website.trim() !== '') {
+    console.log('newsletter: honeypot')
+    return json({ ok: true })
+  }
+
+  const dwell = Date.now() - Number(data.renderedAt || 0)
+  if (!Number.isFinite(dwell) || dwell < MIN_DWELL_MS || dwell > MAX_DWELL_MS) {
+    console.log('newsletter: dwell', { dwell })
+    return json({ ok: true })
+  }
+
+  const email = oneLine(data.email, MAX.email)
+  if (!email || !EMAIL_RE.test(email)) return json({ ok: false, error: 'validation', fields: ['email'] }, 400)
+
+  if (env.CONTACT_LIMITER) {
+    const ip = request.headers.get('cf-connecting-ip') || 'unknown'
+    const { success } = await env.CONTACT_LIMITER.limit({ key: `nl:${ip}` })
+    if (!success) return json({ ok: false, error: 'rate_limited' }, 429)
+  }
+
+  try {
+    const outcome = await subscribe(env, email)
+    if (outcome === 'invalid') return json({ ok: false, error: 'validation', fields: ['email'] }, 400)
+    return json({ ok: true })
+  } catch (err) {
+    console.error('newsletter: subscribe failed', err?.code, err?.title)
+    return json({ ok: false, error: 'send_failed' }, 502)
+  }
+}
+
 export default {
   async fetch(request, env) {
     const { pathname } = new URL(request.url)
     if (pathname === '/api/contact') return handleContact(request, env)
+    if (pathname === '/api/newsletter') return handleNewsletter(request, env)
     /* run_worker_first routes all of /api/* here; anything else we did not
      * define is not an endpoint. Hand the rest back to the asset server so the
      * SPA keeps behaving exactly as before. */
