@@ -24,6 +24,11 @@ const T = {
     emailAria: 'Email address',
     subscribe: 'Subscribe',
     copyright: '© 2026 Extind. All rights reserved.',
+    legalAria: 'Legal',
+    legalLinks: [
+      { label: 'Privacy Policy', to: '/privacy' },
+      { label: 'Cookie Policy', to: '/cookies' },
+    ],
     social: (label) => `Extind on ${label}`,
   },
   ro: {
@@ -45,6 +50,11 @@ const T = {
     emailAria: 'Adresa de email',
     subscribe: 'Abonează-te',
     copyright: '© 2026 Extind. Toate drepturile rezervate.',
+    legalAria: 'Legal',
+    legalLinks: [
+      { label: 'Politica de confidențialitate', to: '/privacy' },
+      { label: 'Politica de cookie-uri', to: '/cookies' },
+    ],
     social: (label) => `Extind pe ${label}`,
   },
 }
@@ -123,7 +133,16 @@ export default function Footer() {
       <div className="divider footer__divider" role="separator" />
 
       <div className="footer__bottom">
-        <p className="footer__copyright">{t.copyright}</p>
+        <div className="footer__legal">
+          <p className="footer__copyright">{t.copyright}</p>
+          <nav className="footer__legal-links" aria-label={t.legalAria}>
+            {t.legalLinks.map(({ label, to }) => (
+              <Link key={to} className="footer__link" to={to} viewTransition>
+                {label}
+              </Link>
+            ))}
+          </nav>
+        </div>
         <div className="footer__socials">
           {socials.map(({ label, href, Icon }) => (
             <a

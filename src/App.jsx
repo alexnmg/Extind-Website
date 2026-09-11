@@ -19,6 +19,8 @@ import EventDetail from './pages/EventDetail'
 // import BlogPost from './pages/BlogPost'
 import FaqPage from './pages/FaqPage'
 import BookAVisit from './pages/BookAVisit'
+import Privacy from './pages/Privacy'
+import Cookies from './pages/Cookies'
 import StoryblokPage from './components/storyblok/StoryblokPage'
 import { isStoryblokEnabled } from './lib/storyblok'
 import { LanguageProvider } from './lib/i18n'
@@ -58,6 +60,8 @@ export default function App() {
           {/* <Route path="/magazine/:slug" element={<BlogPost />} /> */}
           <Route path="/faq" element={<FaqPage />} />
           <Route path="/book-a-visit" element={<BookAVisit />} />
+          <Route path="/privacy" element={<Privacy />} />
+          <Route path="/cookies" element={<Cookies />} />
           <Route path="*" element={isStoryblokEnabled ? <StoryblokPage /> : <Home />} />
         </Routes>
         <Footer />

@@ -2069,6 +2069,36 @@ textarea.field__input {
   text-align: left;
 }
 
+/* The native checkbox is hidden but still focusable and still the element
+   screen readers announce; .checkbox-row__box is the drawn control. */
+.checkbox-row__input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* Hiding the input also hides the browser's focus ring, so put it back on
+   the row the keyboard user is actually looking at. */
+.checkbox-row:has(.checkbox-row__input:focus-visible) {
+  outline: 2px solid var(--brand-charcoal);
+  outline-offset: 2px;
+}
+
+.checkbox-row__link {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.checkbox-row__link:hover {
+  color: var(--accent);
+}
+
 .checkbox-row__box {
   width: 20px;
   height: 20px;
@@ -2495,6 +2525,22 @@ textarea.field__input {
   gap: 24px;
 }
 
+/* Copyright + legal links share the left half of the bottom row; they wrap
+   onto their own lines before the socials get pushed off. */
+.footer__legal {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 24px;
+  min-width: 0;
+}
+
+.footer__legal-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 24px;
+}
+
 .footer__socials {
   display: flex;
   gap: 4px;
@@ -2620,6 +2666,99 @@ textarea.field__input {
 }
 
 .email-field input::placeholder {
+  color: var(--text-secondary);
+}
+
+/* ---------- Legal pages (privacy, cookies) ---------- */
+.legal {
+  gap: 48px;
+  padding-bottom: 48px;
+}
+
+.legal__head {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 760px;
+  padding-top: 48px;
+}
+
+.legal__eyebrow {
+  font-size: var(--fs-14);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  color: var(--text-primary);
+}
+
+.legal__title {
+  font-size: var(--fs-48);
+  font-weight: 700;
+  line-height: var(--lh-heading);
+}
+
+.legal__updated {
+  font-size: var(--fs-12);
+  color: var(--text-secondary);
+  line-height: 20px;
+}
+
+/* One readable measure for the whole document — long legal copy is the one
+   place on the site where full-bleed text would be actively unpleasant. */
+.legal__body {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  max-width: 760px;
+}
+
+.legal__section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.legal__heading {
+  font-size: var(--fs-20);
+  font-weight: 700;
+  line-height: var(--lh-heading);
+}
+
+.legal__para,
+.legal__list {
+  font-family: var(--font-serif);
+  font-size: var(--fs-14);
+  color: var(--text-secondary);
+  line-height: 27px;
+}
+
+.legal__list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-left: 22px;
+  list-style: disc;
+}
+
+.legal__section a {
+  color: var(--text-primary);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.legal__section a:hover {
+  color: var(--accent);
+}
+
+.legal__links {
+  font-size: var(--fs-12);
+  line-height: 24px;
+  color: var(--text-secondary);
+}
+
+.legal__links-sep {
+  margin: 0 10px;
   color: var(--text-secondary);
 }
 
@@ -3006,6 +3145,14 @@ textarea.field__input {
   /* Compact the bar so the logo + CTA + burger fit on narrow phones */
   .navbar__right {
     gap: 12px;
+  }
+
+  /* The copyright alone wraps to two lines here, so the legal links + socials
+     get their own rows rather than fighting it for the same line. */
+  .footer__bottom {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
   }
   .lang-switch--bar {
     display: none;

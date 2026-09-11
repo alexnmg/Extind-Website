@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import { useLang } from '../lib/i18n'
 
 const T = {
@@ -14,7 +15,8 @@ const T = {
     companyPlaceholder: 'Enter text...',
     phone: 'Phone number',
     messagePlaceholder: 'Your message here...',
-    consent: 'I agree to the Terms and Privacy Policy',
+    consentBefore: 'I agree to the ',
+    consentLink: 'Privacy Policy',
     thanksTitle: (name) => `Thank you, ${name}!`,
     thanksFallbackName: 'friend',
     thanksBody: (email) => `Thanks for reaching out. We'll reply at ${email} within one business day.`,
@@ -32,7 +34,8 @@ const T = {
     companyPlaceholder: 'Introdu textul...',
     phone: 'Număr de telefon',
     messagePlaceholder: 'Mesajul tău aici...',
-    consent: 'Sunt de acord cu Termenii și Politica de confidențialitate',
+    consentBefore: 'Sunt de acord cu ',
+    consentLink: 'Politica de confidențialitate',
     thanksTitle: (name) => `Mulțumim, ${name}!`,
     thanksFallbackName: 'prietene',
     thanksBody: (email) => `Îți mulțumim că ne-ai scris. Îți răspundem la ${email} în cel mult o zi lucrătoare.`,
@@ -129,14 +132,18 @@ export default function ContactForm({ heading, messageLabel, submitLabel }) {
               required
             />
           </label>
-          <button
-            type="button"
-            className={`checkbox-row${agreed ? ' checkbox-row--checked' : ''}`}
-            onClick={() => setAgreed((v) => !v)}
-            role="checkbox"
-            aria-checked={agreed}
-          >
-            <span className="checkbox-row__box">
+          {/* A real checkbox inside a label, rather than the button+role this
+              used to be: the consent text now contains a link, and a link
+              cannot live inside a button. Link calls preventDefault before
+              navigating, which also cancels the label's toggle. */}
+          <label className={`checkbox-row${agreed ? ' checkbox-row--checked' : ''}`}>
+            <input
+              className="checkbox-row__input"
+              type="checkbox"
+              checked={agreed}
+              onChange={(e) => setAgreed(e.target.checked)}
+            />
+            <span className="checkbox-row__box" aria-hidden="true">
               {agreed && (
                 <svg viewBox="0 0 16 20" width="12" height="15" fill="none" aria-hidden="true">
                   <path
@@ -149,8 +156,13 @@ export default function ContactForm({ heading, messageLabel, submitLabel }) {
                 </svg>
               )}
             </span>
-            <span className="checkbox-row__label">{t.consent}</span>
-          </button>
+            <span className="checkbox-row__label">
+              {t.consentBefore}
+              <Link className="checkbox-row__link" to="/privacy" viewTransition>
+                {t.consentLink}
+              </Link>
+            </span>
+          </label>
           <div className="book-visit__footer">
             <button
               type="submit"
