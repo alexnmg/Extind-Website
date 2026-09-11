@@ -217,11 +217,22 @@ console.log('\n--- HTML escaping ---')
 {
   const { env, calls } = mkEnv()
   await worker.fetch(post(good({ name: '<img src=x onerror=alert(1)>', company: '"onload="evil()', message: '<script>bad()</script>' })), env)
-  const AUTHORED = new Set(['table', 'tr', 'td', 'strong', 'hr', 'div', 'blockquote', 'p'])
+  // The templates legitimately author a full HTML document now, so the
+  // interesting assertion is not "which tags exist" but "did anything the
+  // visitor typed become markup, and is the only image ours".
+  const AUTHORED = new Set([
+    'html', 'head', 'meta', 'title', 'style', 'body', 'div', 'table', 'tbody',
+    'tr', 'td', 'p', 'h1', 'span', 'img', 'br', 'strong', 'blockquote', 'hr',
+    'xml', 'o', 'v', // VML / Office namespace blocks for Outlook
+  ])
   const decoded = decodePart(calls.send[0].mime, 'text/html')
   const stray = [...decoded.matchAll(/<\/?([a-z][a-z0-9]*)/gi)].map((m) => m[1].toLowerCase()).filter((t) => !AUTHORED.has(t))
   ok('no injected tags in the HTML part', stray.length === 0, stray.join(','))
   ok('escaped instead', /&lt;script&gt;/.test(decoded))
+  ok('no script tag anywhere', !/<script/i.test(decoded))
+  ok('no anchor smuggled in', !/<a[\s>]/i.test(decoded))
+  const imgs = [...decoded.matchAll(/<img[^>]+src="([^"]*)"/gi)].map((m) => m[1])
+  ok('every image is our own logo', imgs.length > 0 && imgs.every((u) => u.startsWith('https://extind.tight-sunset-f416.workers.dev/brand/')), imgs.join(','))
 }
 
 console.log('\n--- rate limit & failures ---')
@@ -318,6 +329,15 @@ const goodNl = (over = {}) => ({ email: 'Ana@Example.COM ', website: '', rendere
   const { env } = mkEnv({ mcStatus: 400, mcBody: { title: 'Member In Compliance State', instance: '' } })
   const res = await worker.fetch(nl(goodNl()), env)
   ok('compliance state -> also indistinguishable 200', res.status === 200 && (await res.json()).ok === true)
+}
+{
+  // The regression that shipped: an earlier version answered 200 to EVERY 400,
+  // so a misconfigured audience reported success while nothing was ever added.
+  const { env } = mkEnv({ mcStatus: 400, mcBody: { title: 'Bad Request', detail: 'something is misconfigured', instance: '' } })
+  const res = await worker.fetch(nl(goodNl()), env)
+  const body = await res.json()
+  ok('an UNKNOWN 400 now fails loudly instead of faking success', res.status === 502 && body.ok !== true, JSON.stringify(body))
+  ok('and the 502 names the cause', body.reason === 'Bad Request', JSON.stringify(body))
 }
 {
   const { env } = mkEnv({ mcStatus: 400, mcBody: { title: 'Invalid Resource', detail: 'looks fake', instance: '' } })

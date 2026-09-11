@@ -17,6 +17,7 @@
 
 import { sendMail } from './gmail.js'
 import { subscribe } from './mailchimp.js'
+import { notificationEmail, acknowledgementEmail } from './email-templates.js'
 
 const MAX = { name: 120, email: 254, company: 160, phone: 40, message: 5000 }
 
@@ -34,30 +35,8 @@ const json = (body, status = 200) =>
     headers: { 'content-type': 'application/json; charset=utf-8', 'cache-control': 'no-store' },
   })
 
-const esc = (s) =>
-  String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c])
-
 /* Anything that reaches a mail header must not carry line breaks. */
 const oneLine = (s, max) => String(s ?? '').replace(/[\r\n\t]+/g, ' ').trim().slice(0, max)
-
-const T = {
-  ro: {
-    subject: 'Am primit mesajul tău — EXTIND',
-    greeting: (n) => (n ? `Salut, ${n},` : 'Salut,'),
-    body: 'Îți mulțumim că ne-ai scris. Am primit mesajul tău și îți răspundem în cel mult o zi lucrătoare.',
-    copy: 'Mai jos ai o copie a mesajului trimis:',
-    signoff: 'O zi bună,\nEchipa EXTIND',
-    addr: 'Strada Sfântul Andrei 39A, Palas Campus (clădirea B2), etaj 6, Iași',
-  },
-  en: {
-    subject: 'We received your message — EXTIND',
-    greeting: (n) => (n ? `Hi ${n},` : 'Hi,'),
-    body: "Thanks for reaching out. We've received your message and will reply within one business day.",
-    copy: 'Here is a copy of what you sent:',
-    signoff: 'Best,\nThe EXTIND team',
-    addr: 'Strada Sfântul Andrei 39A, Palas Campus (building B2), 6th floor, Iași',
-  },
-}
 
 function validate(d) {
   const errors = []
@@ -73,43 +52,6 @@ function validate(d) {
   if (d.consent !== true) errors.push('consent')
 
   return { errors, value: { name, email, company, phone, message } }
-}
-
-function notificationBody(v, meta) {
-  const rows = [
-    ['Nume', v.name],
-    ['Email', v.email],
-    ['Companie', v.company || '—'],
-    ['Telefon', v.phone || '—'],
-    ['Pagina', meta.source],
-    ['Limba', meta.lang],
-  ]
-  const text =
-    rows.map(([k, val]) => `${k}: ${val}`).join('\n') + `\n\n---\n\n${v.message}\n`
-  const html =
-    `<table style="border-collapse:collapse;font:14px/1.5 system-ui,sans-serif">` +
-    rows
-      .map(
-        ([k, val]) =>
-          `<tr><td style="padding:2px 12px 2px 0;color:#666">${esc(k)}</td><td style="padding:2px 0"><strong>${esc(val)}</strong></td></tr>`
-      )
-      .join('') +
-    `</table><hr style="border:none;border-top:1px solid #ddd;margin:16px 0">` +
-    `<div style="font:14px/1.6 system-ui,sans-serif;white-space:pre-wrap">${esc(v.message)}</div>`
-  return { text, html }
-}
-
-function autoReplyBody(v, lang) {
-  const t = T[lang] ?? T.ro
-  const first = v.name.split(' ')[0]
-  const text = `${t.greeting(first)}\n\n${t.body}\n\n${t.copy}\n\n---\n${v.message}\n---\n\n${t.signoff}\n${t.addr}\n`
-  const html =
-    `<div style="font:15px/1.6 system-ui,sans-serif;color:#1f2326">` +
-    `<p>${esc(t.greeting(first))}</p><p>${esc(t.body)}</p><p style="color:#666">${esc(t.copy)}</p>` +
-    `<blockquote style="margin:0;padding:12px 16px;border-left:3px solid #d1ccc4;color:#555;white-space:pre-wrap">${esc(v.message)}</blockquote>` +
-    `<p style="white-space:pre-line">${esc(t.signoff)}</p>` +
-    `<p style="color:#999;font-size:13px">${esc(t.addr)}</p></div>`
-  return { subject: t.subject, text, html }
 }
 
 async function handleContact(request, env) {
@@ -148,14 +90,14 @@ async function handleContact(request, env) {
 
   const lang = data.lang === 'en' ? 'en' : 'ro'
   const source = oneLine(data.source, 32) || 'contact'
-  const note = notificationBody(value, { source, lang })
+  const note = notificationEmail(value, { source, lang })
 
   /* The notification is the one that must not fail — it is the actual enquiry. */
   try {
     await sendMail(env, {
       to: env.CONTACT_TO,
       replyTo: value.email,
-      subject: `Mesaj nou de pe site — ${value.name}`,
+      subject: note.subject,
       text: note.text,
       html: note.html,
     })
@@ -167,7 +109,7 @@ async function handleContact(request, env) {
   /* The acknowledgement is best-effort: the enquiry is already safe, and
    * failing the request here would make the visitor send it twice. */
   try {
-    const reply = autoReplyBody(value, lang)
+    const reply = acknowledgementEmail(value, lang)
     await sendMail(env, {
       to: value.email,
       replyTo: env.CONTACT_TO,
@@ -224,7 +166,12 @@ async function handleNewsletter(request, env) {
     return json({ ok: true })
   } catch (err) {
     console.error('newsletter: subscribe failed', err?.code, err?.title)
-    return json({ ok: false, error: 'send_failed' }, 502)
+    /* `reason` is safe to return: every title that says something about one
+     * address's membership is handled before this point and answers as success,
+     * so what reaches here is only ever a configuration or contract fault.
+     * Naming it makes the endpoint diagnosable from outside without giving
+     * anyone a way to probe the list. */
+    return json({ ok: false, error: 'send_failed', reason: err?.title ?? err?.code ?? 'unknown' }, 502)
   }
 }
 

@@ -61,19 +61,31 @@ export async function subscribe(env, rawEmail) {
 
   if (res.ok) return 'ok'
 
-  /* Mailchimp publishes no machine-readable error codes, and three of the four
-   * titles people branch on appear nowhere in its spec. So the default is the
-   * contract, not the title list: every 400 we know of is a condition about one
-   * specific address — already a member, in a compliance state, previously
-   * forgotten — and answering differently for any of them would leak whether
-   * that address is on the list. Treat them all as success and log the reason.
-   * Only an address Mailchimp calls malformed is worth telling the visitor. */
+  /* Only these titles describe ONE address's membership state. Answering
+   * differently for them would let anyone type addresses into the public footer
+   * and learn who is on the list, so they answer exactly like success. */
+  const MEMBERSHIP_TITLES = new Set([
+    'member exists',
+    'member in compliance state',
+    'forgotten email not subscribed',
+  ])
+
   if (res.status === 400) {
     const title = String(body.title ?? '').trim().toLowerCase()
-    if (title === 'invalid resource') return 'invalid'
-    // Never log `detail` — Mailchimp echoes the submitted address into it.
+    // Never log or return `detail` — Mailchimp echoes the submitted address into it.
     console.warn('newsletter: mailchimp 400', { title: body.title, instance: body.instance || 'none' })
-    return 'ok'
+
+    if (MEMBERSHIP_TITLES.has(title)) return 'ok'
+    if (title === 'invalid resource') return 'invalid'
+
+    /* Anything else is a problem with our request or our configuration, not a
+     * fact about this address. An earlier version treated every 400 as success,
+     * which meant a misconfigured audience told visitors they were subscribed
+     * while Mailchimp silently refused every one. Fail loudly instead. */
+    const err = new Error(`mailchimp rejected the request: ${body.title ?? 'unknown'}`)
+    err.code = 'mc_rejected'
+    err.title = body.title
+    throw err
   }
 
   const err = new Error(`mailchimp ${res.status}`)
