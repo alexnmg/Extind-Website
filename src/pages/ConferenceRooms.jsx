@@ -4,7 +4,7 @@ import Hero from '../components/Hero'
 import SectionHeader from '../components/SectionHeader'
 import InfoGrid from '../components/InfoGrid'
 import { useLang } from '../lib/i18n'
-import pillarsImg from '../assets/photos/meeting-room.jpg'
+import pillarsImg from '../assets/photos/conference-slide-1.jpg'
 import vistaImg from '../assets/photos/lounge.jpg'
 import heroImg from '../assets/photos/coworking.jpg'
 
@@ -49,9 +49,9 @@ const T = {
   },
   ro: {
     docTitle: 'Săli de conferințe — Extind',
-    heroTitle: 'Săli pentru întâlnirile care contează.',
+    heroTitle: 'Săli pentru întâlnirile care contează',
     heroLede:
-      'Săli de întâlniri și o sală de conferințe la etajul 6 din Palas Campus — rezervabile cu ora, adaptate formatului tău și pregătite pentru conversațiile pe care nu le poți lăsa la voia întâmplării. Pentru evenimente mai mari, ai la dispoziție și Vista Lounge, spațiul panoramic.',
+      'Pentru o discuție cu un client, o prezentare, un workshop sau o sesiune de echipă, la EXTIND găsești spațiul potrivit, complet echipat și pregătit înainte de sosirea invitaților.\n\nAi la dispoziție săli de întâlniri, o sală de conferințe și, pentru evenimente cu mai mulți participanți, Vista Lounge, cu vedere panoramică asupra orașului. Adaptăm configurația în funcție de format și ne ocupăm de detalii, astfel încât întâlnirea ta să se desfășoare impecabil.',
     primaryLabel: 'Programează o vizită',
     secondaryLabel: 'Vezi ce este inclus →',
     heroSlides: [
@@ -62,7 +62,7 @@ const T = {
     hostEyebrow: 'Ce poți găzdui',
     hostTitle: 'Construite pentru conversații corporate',
     hostDesc:
-      'De la o sesiune concentrată de patru persoane la o ședință de board completă — potrivim sala cu întâlnirea, nu invers.',
+      'De la o sesiune simplă de patru persoane până la o ședință de board completă, noi îți potrivim sala cu întâlnirea.',
     hostable: [
       { icon: 'meeting', text: 'Ședințe de management și board' },
       { icon: 'lightbulb', text: 'Workshopuri și sesiuni de strategie' },
@@ -72,10 +72,10 @@ const T = {
       { icon: 'coffee', text: 'Networking și mic-dejunuri de business' },
     ],
     inclEyebrow: 'Incluse',
-    inclTitle: 'Tot ce are nevoie sala',
+    inclTitle: 'Dotările sălilor',
     included: [
       { icon: 'wifi', text: 'Internet 1 Gbps' },
-      { icon: 'presentation', text: 'Ecran și echipare pentru prezentări' },
+      { icon: 'presentation', text: 'Ecran și echipamente pentru prezentări' },
       { icon: 'sun', text: 'Lumină naturală și un cadru liniștit, îngrijit' },
       { icon: 'layout', text: 'Configurații flexibile pentru formatul de care ai nevoie' },
       { icon: 'coffee', text: 'Cafea, ceai și apă filtrată' },

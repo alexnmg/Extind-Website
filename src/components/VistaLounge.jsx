@@ -27,9 +27,9 @@ const T = {
     eyebrow: 'Vista Lounge',
     title: 'Comunitate & Evenimente',
     cardLabel: 'Vista Lounge',
-    cardTitle: 'Un spațiu panoramic de evenimente deasupra orașului',
+    cardTitle: 'Întâlniri și evenimente, cu orașul la picioare',
     description:
-      'Mai mult decât un lounge, Vista este locul unde comunitatea Extind se întâlnește. Găzduiește întâlniri informale, cunoaște alți profesioniști sau participă la evenimente de business selecte — toate cu vedere spre Palatul Culturii.',
+      'Vista Lounge este un spațiu primitor pentru întâlniri formale și informale, networking și evenimente de business. Un loc în care profesioniștii, echipele și companiile se întâlnesc într-o atmosferă relaxată, completată de vederea panoramică asupra orașului.',
     ctaLabel: 'Descoperă Vista Lounge',
     prev: 'Imaginea anterioară',
     next: 'Imaginea următoare',

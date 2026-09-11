@@ -1,7 +1,7 @@
 // Shared geometry for the EXTIND wordmark, drawn in the "expanded" logo's
 // coordinate space (viewBox 885×98). Both the animated navbar logo and the
 // static About-page hero mark are assembled from these pieces.
-import mask1 from '../assets/photos/coworking.jpg'
+import mask1 from '../assets/photos/about-logohero.jpg'
 import mask2 from '../assets/photos/lounge-2.jpg'
 import mask3 from '../assets/photos/meeting-room.jpg'
 import mask4 from '../assets/photos/panorama.jpg'

@@ -32,7 +32,7 @@ const T = {
     eyebrow: 'De ce Extind',
     title: 'Spaces to grow',
     description:
-      'Extind combină spații de lucru atent proiectate, ospitalitate și o comunitate de business selectă într-un ecosistem care ajută companiile să performeze, să construiască relații și să crească.',
+      'Extind combină spații de lucru atent proiectate, ospitalitate și o comunitate de business, astfel încât companiile să poată performa, să construiască relații și să crească.',
     cards: [
       {
         number: '01',
@@ -43,13 +43,13 @@ const T = {
       {
         number: '02',
         title: 'Suportul potrivit',
-        desc: 'Ospitalitatea, serviciile și operațiunile de zi cu zi funcționează discret în fundal, lăsând echipei tale mai mult timp pentru ceea ce contează cu adevărat.',
+        desc: 'Ospitalitatea, serviciile și operațiunile de zi cu zi funcționează discret, lăsând echipei tale mai mult timp pentru ceea ce contează cu adevărat.',
         variant: 'forest',
       },
       {
         number: '03',
         title: 'Conexiunile potrivite',
-        desc: 'O comunitate profesională prezentă atunci când o cauți și discretă atunci când ai nevoie de concentrare — conexiunile apar natural, fără networking forțat și fără obligația de a participa.',
+        desc: 'O comunitate profesională prezentă atunci când o cauți și discretă atunci când ai nevoie de concentrare. Conexiunile apar natural, fără networking forțat și fără obligația de a participa.',
         variant: 'dark',
       },
     ],

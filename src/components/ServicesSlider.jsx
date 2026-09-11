@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useLang } from '../lib/i18n'
-import pillarsImg from '../assets/photos/private-office.jpg'
+import pillarsImg from '../assets/photos/services-banner.jpg'
 import execImg from '../assets/photos/private-office-2.jpg'
 import heroImg from '../assets/photos/coworking.jpg'
 import vistaImg from '../assets/photos/lounge.jpg'

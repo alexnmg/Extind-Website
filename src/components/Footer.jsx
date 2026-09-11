@@ -76,7 +76,7 @@ function InstagramIcon() {
 const socials = [
   { label: 'Facebook', href: 'https://www.facebook.com/extind', Icon: FacebookIcon },
   { label: 'LinkedIn', href: 'https://www.linkedin.com/company/extind/', Icon: LinkedInIcon },
-  { label: 'Instagram', href: 'https://www.instagram.com/extindcowork/', Icon: InstagramIcon },
+  { label: 'Instagram', href: 'https://www.instagram.com/extind.ro/', Icon: InstagramIcon },
 ]
 
 export default function Footer() {

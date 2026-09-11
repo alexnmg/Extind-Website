@@ -22,9 +22,9 @@ const T = {
   },
   ro: {
     docTitle: 'Extind — Spaces to grow',
-    heroTitle: 'Spații de lucru premium, create pentru creșterea afacerii tale.',
+    heroTitle: 'Spații de lucru gândite pentru creșterea afacerii tale',
     centralIdea:
-      'EXTIND îți oferă experiența unui sediu corporate premium — fără investițiile, rigiditatea și administrarea unui birou convențional. Un spațiu gata de lucru în Palas Campus, adaptabil pentru proiecte confidențiale, vizite la nivel înalt și cerințe speciale de securitate, într-o comunitate prezentă, dar niciodată intruzivă.',
+      'EXTIND îți oferă experiența unui sediu corporate atent proiectat, fără investițiile, rigiditatea și grija administrării unui birou convențional. Un spațiu gata de lucru în Palas Campus, adaptabil pentru proiecte cu nevoi complexe, vizite corporate importante și cerințe speciale de securitate, într-un cadru care lasă loc și pentru concentrare, dar și pentru comunitatea din jur, în funcție de nevoile tale.',
     benefitsCta: 'Programează o vizită',
   },
 }

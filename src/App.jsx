@@ -13,8 +13,10 @@ import ConferenceRooms from './pages/ConferenceRooms'
 import VistaLounge from './pages/VistaLounge'
 import Events from './pages/Events'
 import EventDetail from './pages/EventDetail'
-import Magazine from './pages/Magazine'
-import BlogPost from './pages/BlogPost'
+// Magazine + BlogPost are hidden for now — imports commented out with their routes so the
+// unused-import lint stays quiet. Restore both lines when the magazine goes live.
+// import Magazine from './pages/Magazine'
+// import BlogPost from './pages/BlogPost'
 import FaqPage from './pages/FaqPage'
 import BookAVisit from './pages/BookAVisit'
 import StoryblokPage from './components/storyblok/StoryblokPage'
@@ -49,8 +51,11 @@ export default function App() {
           <Route path="/vista-lounge" element={<VistaLounge />} />
           <Route path="/events" element={<Events />} />
           <Route path="/events/:slug" element={<EventDetail />} />
-          <Route path="/magazine" element={<Magazine />} />
-          <Route path="/magazine/:slug" element={<BlogPost />} />
+          {/* Extind Magazine is hidden for now at the client's request (Sept 2026) — the pages and
+              content are kept intact. Re-enable by restoring these two routes and the navbar entry
+              in Navbar.jsx, plus the magazine block on the Vista Lounge page. */}
+          {/* <Route path="/magazine" element={<Magazine />} /> */}
+          {/* <Route path="/magazine/:slug" element={<BlogPost />} /> */}
           <Route path="/faq" element={<FaqPage />} />
           <Route path="/book-a-visit" element={<BookAVisit />} />
           <Route path="*" element={isStoryblokEnabled ? <StoryblokPage /> : <Home />} />

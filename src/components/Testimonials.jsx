@@ -36,7 +36,7 @@ const T = {
   },
   ro: {
     eyebrow: 'Testimoniale',
-    title: 'Confirmat de oamenii care lucrează aici.',
+    title: 'Confirmat de oamenii care lucrează aici',
     description:
       'Părerile fondatorilor, echipelor și profesioniștilor care au ales Extind ca locul unde lucrează, își întâlnesc clienții și își cresc afacerile.',
     stars: '5 din 5 stele',

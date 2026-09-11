@@ -19,7 +19,7 @@ const T = {
     eyebrow: 'Contact',
     title: 'Hai să vorbim',
     description:
-      'Întrebări despre spații, prețuri sau o vizită? Trimite-ne un mesaj sau contactează-ne direct — de obicei răspundem într-o zi lucrătoare.',
+      'Întrebări despre spații, prețuri sau o vizită? Trimite-ne un mesaj sau contactează-ne direct.',
     emailLabel: 'Email',
     visitLabel: 'Vizitează-ne',
   },

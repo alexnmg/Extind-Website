@@ -4,7 +4,7 @@ import Hero from '../components/Hero'
 import SectionHeader from '../components/SectionHeader'
 import InfoGrid from '../components/InfoGrid'
 import { useLang } from '../lib/i18n'
-import pillarsImg from '../assets/photos/private-office-2.jpg'
+import pillarsImg from '../assets/photos/exec-slide-1.jpg'
 import vistaImg from '../assets/photos/lounge.jpg'
 import heroImg from '../assets/photos/coworking.jpg'
 
@@ -56,9 +56,9 @@ const T = {
   },
   ro: {
     docTitle: 'Executive Day Office — Extind',
-    heroTitle: 'Un birou premium pentru vizite corporate.',
+    heroTitle: 'Un birou premium pentru zilele care contează',
     heroLede:
-      'Când compania ta găzduiește un partener important, o delegație internațională sau echipa de management, spațiul devine parte din impresia pe care o lași. Pentru una până la trei zile, EXTIND pregătește un birou privat, reprezentativ și complet funcțional — cu acces la săli de întâlniri, ospitalitate și o configurare adaptată programului tău.',
+      'Vizita unui partener important, o delegație internațională, o întâlnire a echipei de management sau un eveniment intern merită un cadru pe măsură.\n\nPentru o zi sau pentru întreaga durată a vizitei ori a proiectului, EXTIND îți pregătește un birou privat, reprezentativ și complet funcțional, cu acces la săli de întâlniri, servicii de ospitalitate și o configurație adaptată programului companiei tale. Ai imaginea și funcționalitatea unui sediu corporate premium, exact atunci când ai nevoie de ele.',
     primaryLabel: 'Pregătește o vizită corporate',
     secondaryLabel: 'Vezi ce este inclus →',
     heroSlides: [
@@ -67,12 +67,12 @@ const T = {
       { src: heroImg, caption: 'Coworking · Palas Campus', alt: 'Spațiul de coworking Extind' },
     ],
     useEyebrow: 'Când îl folosești',
-    useTitle: 'Pentru momentele care contează cel mai mult',
+    useTitle: 'Workshopuri, sesiuni de strategie și evenimente interne',
     useDesc:
-      'Nu un day pass și nu un contract de închiriere — un birou reprezentativ, pregătit pentru zilele pe care compania ta nu le poate lăsa la voia întâmplării.',
+      'Mai mult decât un Day Pass: un birou privat, pregătit în detaliu pentru întâlnirile și vizitele importante ale companiei tale.',
     useCases: [
       { icon: 'handshake', text: 'Vizite ale partenerilor strategici, investitorilor sau clienților-cheie' },
-      { icon: 'briefcase', text: 'Prezență temporară a CEO-ului sau a managementului' },
+      { icon: 'briefcase', text: 'Evenimente interne sau lucru de la birou pentru cei în regim hybrid' },
       { icon: 'search', text: 'Audituri și due diligence' },
       { icon: 'interview', text: 'Interviuri pentru roluri senior' },
       { icon: 'globe', text: 'Ședințe de board, negocieri sau delegații internaționale' },
@@ -81,7 +81,7 @@ const T = {
     prepEyebrow: 'Ce pregătim',
     prepTitle: 'Configurat în jurul vizitei tale',
     prepDesc:
-      'Fiecare solicitare se confirmă înainte de datele vizitei — spune-ne ocazia și construim configurarea în jurul ei.',
+      'Fiecare solicitare se confirmă înainte de datele vizitei. Spune-ne ocazia și construim soluția în jurul ei.',
     configurable: [
       { icon: 'desk', text: 'Un birou privat pregătit exclusiv pentru tine' },
       { icon: 'meeting', text: 'O sală de întâlniri dedicată' },
@@ -96,8 +96,8 @@ const T = {
     ],
     calloutLabel: 'Ce oferim de fapt',
     calloutText:
-      'Nu vindem folosirea temporară a unei încăperi. Vindem certitudinea că o întâlnire importantă se desfășoară într-un cadru impecabil — fără ca firma ta să închirieze și să administreze permanent un sediu de acest calibru.',
-    calloutCta: 'Pregătește o vizită corporate',
+      'Primești un birou pregătit în detaliu pentru compania și invitații tăi, fără să închiriezi și să administrezi permanent un sediu propriu.',
+    calloutCta: 'Rezervă o vizită',
   },
 }
 

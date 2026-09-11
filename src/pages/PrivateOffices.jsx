@@ -18,7 +18,7 @@ import {
   DeskIcon,
   VistaIcon,
 } from '../components/PillIcons'
-import heroImg from '../assets/photos/coworking.jpg'
+import heroImg from '../assets/photos/hero-main.jpg'
 import pillarsImg from '../assets/photos/private-office.jpg'
 import vistaImg from '../assets/photos/lounge.jpg'
 import meetingImg from '../assets/photos/meeting-room.jpg'
@@ -93,12 +93,12 @@ const T = {
   },
   ro: {
     docTitle: 'Birouri private — Extind',
-    heroTitle: 'Birouri private pentru echipe care construiesc ceva.',
+    heroTitle: 'Birouri private gândite pentru focus și colaborare',
     heroLede:
-      'Nouă birouri private cu ușă încuiabilă, complet administrate, la etajul 6 din Palas Campus — configurate pentru echipe de 2–12 persoane, în aproximativ 400 mp de spații de lucru, întâlniri și relaxare. Gândite pentru concentrare, construite pentru colaborare și pregătite pentru clienții pe care vrei să îi impresionezi.',
+      '9 birouri private, securizate individual, complet administrate, la etajul 6 din Palas Campus. Configurate pentru echipe de 2–12 persoane, în peste 400 mp de spații de lucru, întâlniri și relaxare, gândite pentru productivitate și construite pentru colaborare.',
     primaryLabel: 'Programează o vizită',
     secondaryLabel: 'Vezi ce este inclus →',
-    pills: ['Acces 24/7', 'Scaune ergonomice & birouri reglabile', 'Săli de întâlniri', 'Bucătărie complet echipată'],
+    pills: ['Acces 24/7', 'Mobilier ergonomic', 'Săli de întâlniri', 'Bucătărie complet echipată'],
     heroSlides: [
       { src: pillarsImg, caption: 'Birouri private · Palas Campus', alt: 'Birou privat la Extind' },
       { src: heroImg, caption: 'Coworking · Palas Campus', alt: 'Spațiul de coworking Extind' },
@@ -109,7 +109,7 @@ const T = {
         caption: 'Birouri private · Palas Campus',
         title: 'Complet mobilat, gata de lucru',
         description:
-          'Birouri inteligente, cu ușă încuiabilă și configurații personalizabile, livrate complet mobilate. Mută-te cu laptopul și începe lucrul chiar din prima dimineață.',
+          'Birouri private, cu acces controlat, mobilier inclus și configurații adaptabile nevoilor echipei tale. Vii cu laptopul și poți începe lucrul chiar din prima zi.',
       },
       {
         caption: 'Acces securizat · La orice oră',
@@ -137,9 +137,9 @@ const T = {
       },
     ],
     secEyebrow: 'Securitate & confidențialitate',
-    secTitle: 'Adaptat companiei tale',
+    secTitle: 'Când cerințele sunt stricte, spațiul trebuie să țină pasul',
     secDesc:
-      'Pentru proiecte confidențiale, echipe corporate sau activități cu cerințe speciale, putem configura măsuri suplimentare de confidențialitate, acces și conectivitate. Fiecare solicitare este analizată împreună cu echipa ta, iar soluția tehnică, termenul și eventualele costuri suplimentare se confirmă înainte de contract.',
+      'Unele proiecte au nevoie de mai mult decât un birou. Pentru echipele care lucrează cu informații sensibile, proceduri interne sau cerințe tehnice speciale, putem configura măsuri suplimentare de control al accesului, confidențialitate și conectivitate.\n\nAnalizăm solicitarea împreună cu echipa ta și îți prezentăm, înainte de contract, o soluție clară, cu măsurile disponibile, termenul de implementare și costurile aferente.',
     securityMeasures: [
       { icon: 'privacy', text: 'Folie de intimitate pe suprafețele vitrate' },
       { icon: 'key', text: 'Acces controlat și, unde este necesar, acces nominal' },
@@ -147,8 +147,8 @@ const T = {
       { icon: 'camera', text: 'Monitorizare video a accesului în zona de birouri' },
       { icon: 'log', text: 'Jurnalizarea accesului și intervale de acces configurate' },
       { icon: 'visitor', text: 'Reguli dedicate pentru primirea vizitatorilor' },
-      { icon: 'reserved', text: 'Spațiu rezervat exclusiv echipei tale' },
-      { icon: 'shield', text: 'NDA-uri, proceduri de confidențialitate sau cerințe de conformitate, analizate de la caz la caz' },
+      { icon: 'reserved', text: 'La cerere, configurații pregătite pentru audituri și certificări ISO' },
+      { icon: 'shield', text: 'NDA-uri, proceduri de confidențialitate, analizate de la caz la caz' },
     ],
   },
 }

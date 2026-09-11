@@ -41,32 +41,32 @@ const T = {
     ],
   },
   ro: {
-    eyebrow: 'Beneficii',
+    eyebrow: 'Avantaje',
     title: 'De ce companiile aleg Extind',
     cards: [
       {
-        title: 'Ospitalitate orientată spre business',
-        desc: 'Tot ce se întâmplă în culise este gândit să susțină felul în care lucrează afacerea ta — de la primirea clienților la pregătirea sălilor de întâlniri și grija pentru detaliile care îți țin ziua în mișcare.',
+        title: 'Ospitalitate gândită pentru business',
+        desc: 'Tot ce se întâmplă în culise este atent gândit pentru ca afacerea ta să funcționeze cât mai bine. De la felul în care îți primim clienții și pregătim sălile de întâlniri, până la toate detaliile care îți fac ziua mai ușoară.',
       },
       {
         title: 'Spațiu de lucru adaptat nevoilor tale',
-        desc: 'Fie că astăzi lucrezi pe cont propriu, fie că mâine îți extinzi echipa, Extind îți oferă opțiuni flexibile de spațiu care se adaptează pe măsură ce afacerea ta evoluează.',
+        desc: 'EXTIND îți oferă opțiuni flexibile de spațiu, care se adaptează pe măsură ce afacerea ta evoluează, fie că lucrezi pe cont propriu, fie că îți extinzi echipa.',
       },
       {
         title: 'Acces securizat 24/7',
-        desc: 'Spațiul tău de lucru ar trebui să se potrivească programului tău, nu invers. Bucură-te de acces securizat non-stop, oricând are nevoie afacerea ta.',
+        desc: 'Accesul în spațiul EXTIND este controlat și disponibil 24/7.',
       },
       {
         title: 'Spații profesionale pentru întâlniri',
-        desc: 'Găzduiește întâlniri cu clienții, prezentări și workshopuri în spații complet echipate, gândite astfel încât fiecare conversație să înceapă cu încredere.',
+        desc: 'Primește-ți clienții, susține prezentări și organizează workshopuri în spații complet echipate, atent pregătite pentru întâlnirile care contează.',
       },
       {
-        title: 'Locație premium în Palas Campus',
+        title: 'Locație reprezentativă în Palas Campus',
         desc: 'În inima districtului de business al Iașului, Extind îți aduce echipa aproape de companii importante, de facilități excelente și de una dintre cele mai bine conectate zone ale orașului.',
       },
       {
         title: 'Comunitate de business',
-        desc: 'Alătură-te unei rețele în creștere de antreprenori, profesioniști și companii, prin evenimente selecte, Vista Lounge și oportunități de zi cu zi de a construi relații de business autentice.',
+        desc: 'EXTIND aduce împreună antreprenori, profesioniști și companii. Evenimentele atent alese, întâlnirile din Vista Lounge și interacțiunile de zi cu zi creează contexte reale pentru idei, colaborări și relații profesionale valoroase.',
       },
     ],
   },

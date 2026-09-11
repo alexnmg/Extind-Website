@@ -9,7 +9,7 @@ const T = {
   },
   ro: {
     title: 'Vrei să vezi cum funcționează Extind?',
-    description: 'Cel mai bun mod de a înțelege Extind este să petreci timp aici. Programează o vizită, cunoaște echipa și descoperă mediul din spatele afacerii.',
+    description: 'Cel mai bun mod de a înțelege Extind este să petreci timp aici. Programează o vizită, cunoaște echipa și descoperă mediul.',
     ctaLabel: 'Vizitează-ne',
   },
 }

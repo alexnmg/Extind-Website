@@ -22,7 +22,6 @@ const T = {
     community: [
       { label: 'Vista Lounge', to: '/vista-lounge' },
       { label: 'Events', to: '/events' },
-      { label: 'Extind Magazine', to: '/magazine' },
     ],
     links: [
       { label: 'Coworking', to: '/coworking' },
@@ -50,7 +49,6 @@ const T = {
     community: [
       { label: 'Vista Lounge', to: '/vista-lounge' },
       { label: 'Evenimente', to: '/events' },
-      { label: 'Extind Magazine', to: '/magazine' },
     ],
     links: [
       { label: 'Coworking', to: '/coworking' },

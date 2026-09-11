@@ -2,9 +2,9 @@ import { Link } from 'react-router-dom'
 import SectionHeader from './SectionHeader'
 import { useLang } from '../lib/i18n'
 import checkDark from '../assets/figma/check-dark.svg'
-import officeImg from '../assets/photos/private-office.jpg'
-import comfortsImg from '../assets/photos/lounge.jpg'
-import beyondImg from '../assets/photos/kitchen.jpg'
+import officeImg from '../assets/photos/services-banner.jpg'
+import comfortsImg from '../assets/photos/benefit-banner-2.jpg'
+import beyondImg from '../assets/photos/about-logohero.jpg'
 
 /* Every private-office benefit, sorted into themed cards. Each group is led by
  * a relevant photo with its title set over the image, then the benefits list. */
@@ -57,7 +57,7 @@ const T = {
   ro: {
     eyebrow: 'Incluse',
     title: 'Tot ce vine împreună cu biroul tău',
-    description: 'Un singur preț lunar. Fără costuri de amenajare, fără surprize.',
+    description: 'Un singur preț lunar. Fără costuri de amenajare, fără surprize neplăcute.',
     groups: [
       {
         title: 'Biroul tău',
@@ -66,8 +66,8 @@ const T = {
           'Birouri cu înălțime reglabilă',
           'Scaune ergonomice premium',
           'Internet 1 Gbps',
-          'Acces controlat, extensibil la 24/7',
-          'Lumină naturală și priveliște asupra orașului',
+          'Acces controlat 24/7',
+          'Lumină naturală și priveliște spectaculoasă asupra orașului',
           'Spații personale de depozitare',
           'Curățenie și mentenanță zilnică',
         ],
@@ -77,21 +77,21 @@ const T = {
         items: [
           'Lounge și zonă de relaxare',
           'Coffee point',
-          'Cafea boabe, ceai și apă filtrată',
+          'Cafea de specialitate, ceai și apă filtrată',
           'Fructe proaspete și mici atenții periodice',
-          'Zone comune pentru lucru individual concentrat, în funcție de disponibilitate',
+          'Zone comune pentru lucru individual',
           'Acces la facilitățile Palas Campus',
         ],
       },
       {
         title: 'Dincolo de biroul tău',
         items: [
-          'Săli de întâlniri',
+          'Acces la Vista Lounge',
           'Sală de conferințe',
           'Acces la săli pe bază de rezervare, conform pachetului',
           'Primirea și îndrumarea oaspeților',
           'Administrare zilnică și suport operațional',
-          'Flexibilitate în configurare și durată',
+          'Flexibilitate în configurare',
           'Acces la comunitatea și evenimentele EXTIND',
         ],
       },

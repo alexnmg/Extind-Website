@@ -4,16 +4,16 @@ import LogoHero from '../components/LogoHero'
 import CentralIdea from '../components/CentralIdea'
 import Cta from '../components/Cta'
 import { useLang } from '../lib/i18n'
-import vistaImg from '../assets/photos/lounge.jpg'
-import heroImg from '../assets/photos/coworking.jpg'
-import pillarsImg from '../assets/photos/private-office.jpg'
-import founderImg from '../assets/photos/founder.jpg'
-import mask2 from '../assets/photos/library.jpg'
-import mask3 from '../assets/photos/wellness.jpg'
-import mask5 from '../assets/photos/kitchen.jpg'
+import social1 from '../assets/photos/social-1.jpg'
+import social2 from '../assets/photos/vista-hero.jpg'
+import social3 from '../assets/photos/hero-main.jpg'
+import founderImg from '../assets/photos/founder-2.jpg'
+import social4 from '../assets/photos/social-4.jpg'
+import social5 from '../assets/photos/social-5.jpg'
+import social6 from '../assets/photos/lounge-intro.jpg'
 
 // Until a live feed is wired, the gallery tiles open the profile itself
-const INSTAGRAM_URL = 'https://www.instagram.com/extindcowork/'
+const INSTAGRAM_URL = 'https://www.instagram.com/extind.ro/'
 
 const T = {
   en: {
@@ -38,24 +38,25 @@ const T = {
     docTitle: 'Despre — Extind',
     heroTitle: 'Spaces to grow.',
     eyebrow: 'Despre Extind',
-    lede: 'Extind a fost creat pentru companiile și profesioniștii cărora le pasă unde și cum lucrează. Din Palas Campus, Iași, combinăm birouri atent proiectate, ospitalitate autentică și o comunitate de business selectă — astfel încât echipele să se poată concentra pe munca ce contează.',
+    lede: 'EXTIND a fost creat pentru companiile și profesioniștii cărora le pasă unde și cum lucrează. La noi găsești birouri atent amenajate, servicii care îți fac ziua mai ușoară și un mediu în care apar idei, colaborări și oportunități. Un loc în care echipele lucrează bine, clienții sunt primiți impecabil, iar tu simți că ești exact unde trebuie.',
     centralIdeaTitle: 'Design care susține conexiunile',
     founderEyebrow: 'Fondator',
     founderTitle: 'Omul din spatele Extind',
     founderQuote:
-      'Am deschis EXTIND pentru că întâlneam mereu, în Iași, oameni care fac o muncă serioasă și ambițioasă din spații care nu erau pe măsura ei. Locul în care lucrezi modelează felul în care gândește o echipă, felul în care te văd clienții și starea cu care intri pe ușă luni dimineața. Am construit spațiul în care aș vrea să-mi aduc propriii clienți — și în care e ușor să te simți parte din comunitate.',
+      'Sunt economistă, MBA, și am peste 25 de ani de experiență în banking, management și business. Lucrând de-a lungul anilor cu organizații, antreprenori și echipe, am înțeles cât de mult contează spațiul în care lucrezi: pentru felul în care gândești, pentru energia echipei și pentru impresia pe care o lași clienților.\n\nAm creat EXTIND pentru companiile și profesioniștii cărora le pasă unde și cum lucrează. Un spațiu premium, flexibil și atent administrat, în care să-ți poți construi afacerea cu liniște, să-ți primești impecabil clienții și să simți, în fiecare zi că ești exact unde trebuie.',
     founderName: 'Catrinel Gradu',
     founderRole: 'Fondatoare, Extind',
     founderAlt: 'Catrinel Gradu, fondatoarea Extind',
     igEyebrow: 'Instagram',
-    igTitle: 'Ultimele de la @extind',
+    igTitle: 'Din viața Extind. Spații, oameni și momente',
+    igDesc: 'Urmărește-ne pe Instagram @extind.ro',
     igAria: 'Deschide postarea pe Instagram',
     igPill: 'Vezi pe Instagram',
   },
 }
 
 // Latest-posts gallery — placeholder tiles until a live Instagram feed is wired
-const posts = [heroImg, mask2, pillarsImg, mask5, vistaImg, mask3]
+const posts = [social1, social2, social3, social4, social5, social6]
 
 export default function About() {
   const { lang } = useLang()
@@ -131,7 +132,7 @@ export default function About() {
       </section>
 
       <section className="section">
-        <SectionHeader eyebrow={t.igEyebrow} title={t.igTitle} />
+        <SectionHeader eyebrow={t.igEyebrow} title={t.igTitle} description={t.igDesc} />
         <div className="social-grid">
           {posts.map((src, i) => (
             <a

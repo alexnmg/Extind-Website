@@ -4,11 +4,11 @@ import Hero from '../components/Hero'
 import SectionHeader from '../components/SectionHeader'
 import { VistaIcon, ClockIcon, MeetingIcon } from '../components/PillIcons'
 import { useLang } from '../lib/i18n'
-import vistaImg from '../assets/photos/lounge.jpg'
+import vistaImg from '../assets/photos/lounge-intro.jpg'
 import lounge2Img from '../assets/photos/lounge-2.jpg'
 import lounge3Img from '../assets/photos/lounge-3.jpg'
-import heroImg from '../assets/photos/coworking.jpg'
-import pillarsImg from '../assets/photos/meeting-room.jpg'
+import heroImg from '../assets/photos/vista-hero.jpg'
+// import pillarsImg from '../assets/photos/meeting-room.jpg' // only used by the hidden magazine block
 
 // Extra line icons in the shared 24×24 / 1.5-weight style.
 const iconBase = {
@@ -116,9 +116,9 @@ const T = {
   },
   ro: {
     docTitle: 'Vista Lounge — Extind',
-    heroTitle: 'Un spațiu panoramic de evenimente deasupra orașului.',
+    heroTitle: 'Un lounge cu vedere spre oraș, creat pentru întâlniri memorabile ale comunității',
     heroLede:
-      'La etajul șase, cu vedere spre Palatul Culturii — casa comunității Extind și cel mai bun loc din clădire pentru o cafea, o discuție sau un eveniment de seară.',
+      'La etajul 6, cu vedere spre Palatul Culturii, Vista Lounge este locul potrivit pentru o cafea, o conversație relaxată sau un eveniment de business. Un spațiu primitor, care aduce oamenii împreună, iar orașul completează atmosfera.',
     primaryLabel: 'Programează o vizită',
     secondaryLabel: 'Explorează lounge-ul →',
     slides: [
@@ -126,45 +126,45 @@ const T = {
       { src: vistaImg, caption: 'Lounge panoramic · etajul 6', alt: 'Vista Lounge cu vedere asupra orașului' },
       { src: lounge3Img, caption: 'Coffee point & zonă socială', alt: 'Coffee point-ul din Vista Lounge' },
     ],
-    featEyebrow: 'Spațiul',
-    featTitle: 'Gândit pentru momentele dintre sesiunile de lucru concentrat',
+    featEyebrow: 'Vista Lounge',
+    featTitle: 'Spațiul dintre o ședință și următoarea idee',
     featDesc:
-      'Vista este locul unde comunitatea se adună — pentru o schimbare de decor în timpul zilei și pentru discuțiile și serile care aduc pe toată lumea împreună după program.',
+      'Pe parcursul zilei, Vista Lounge este spațiul potrivit pentru o cafea, o discuție sau câteva momente de respiro. Seara, devine cadrul ideal pentru evenimente, conversații și relații profesionale care continuă dincolo de o simplă întâlnire.',
     features: [
       {
         title: 'Priveliște panoramică',
-        desc: 'Ferestre de la podea la tavan, cu orașul vechi și râul în cadru. Genul de priveliște care face un apel lung să pară mai scurt.',
+        desc: 'Suprafețe vitrate generoase care transformă vederea spre oraș în sursa ta de inspirație.',
       },
       {
-        title: 'Cafea serioasă',
-        desc: 'Un bar de cafea de specialitate, ceai și băuturi răcoritoare pe tot parcursul zilei — motorul neoficial al comunității.',
+        title: 'Cafea de specialitate',
+        desc: 'Cafea de specialitate, ceai și apă filtrată.',
       },
       {
         title: 'Loc să respiri',
-        desc: 'Canapele confortabile, colțuri liniștite și lumină caldă. Un loc unde să gândești, să citești sau să iei un apel departe de birou.',
+        desc: 'Canapele confortabile, colțuri liniștite și lumină naturală, pentru momentele în care vrei să schimbi ritmul: să gândești, să citești sau să porți o conversație departe de birou.',
       },
       {
-        title: 'Construit pentru întâlniri',
-        desc: 'Seara, lounge-ul devine spațiu de evenimente și găzduiește conferințe, mic-dejunuri și seri de comunitate deasupra orașului.',
+        title: 'Creat pentru întâlniri și evenimente',
+        desc: 'Pe parcursul zilei și seara, Vista Lounge găzduiește conferințe, brunch-uri de business, întâlniri private și evenimente de comunitate, într-un cadru panoramic deasupra orașului.',
       },
       {
-        title: 'Deschis fiecărui membru',
-        desc: 'Vista face parte din fiecare abonament Extind. Urcă oricând ai nevoie de o schimbare de decor — fără rezervare.',
+        title: 'Inclus în fiecare abonament',
+        desc: 'Accesul la Vista Lounge este inclus în toate abonamentele EXTIND. Vino aici pentru o cafea, o conversație sau o pauză care îți limpezește ideile.',
       },
       {
-        title: 'Ora de aur, în fiecare seară',
-        desc: 'Sticla orientată spre vest colorează întreaga încăpere în chihlimbar la apus. Programează-ți o pauză atunci; merită drumul până sus.',
+        title: 'Cadre care nu au nevoie de filtru',
+        desc: 'Lumina naturală, designul interior și priveliștea spre Palatul Culturii fac din Vista Lounge un decor „instagramabil” pentru ședințe foto, evenimente și conținut de brand.',
       },
     ],
     eventsEyebrow: 'Evenimente',
-    eventsTitle: 'Aproape în fiecare săptămână se întâmplă ceva',
+    eventsTitle: 'Mereu un motiv să participi',
     eventsDesc:
-      'Mic-dejunuri pentru fondatori, meetupuri, paneluri și seri de pitch — lounge-ul este locul unde comunitatea Extind chiar se întâlnește. Majoritatea evenimentelor sunt gratuite și deschise invitaților, așa că există mereu un motiv să urci.',
+      'Meetupuri, paneluri, seri de pitch și întâlniri de comunitate. Aici, profesioniștii, antreprenorii și companiile se întâlnesc, fac schimb de idei și construiesc relații care continuă dincolo de eveniment.',
     eventsCta: 'Vezi evenimentele viitoare →',
     magEyebrow: 'Extind Magazine',
     magTitle: 'Ghiduri pentru alegerea spațiului de lucru',
     magDesc:
-      'Lecturi practice, la obiect, despre birouri private, coworking și săli de întâlniri în Iași — ce costă, ce este inclus și cum alegi.',
+      'Ghiduri clare despre birouri private, coworking și săli de întâlniri în Iași. În ce spațiu să învestești, vezi ce este inclus și cum alegi.',
     magCta: 'Citește revista →',
   },
 }
@@ -235,7 +235,10 @@ export default function VistaLounge() {
         </article>
       </section>
 
-      <section className="section">
+      {/* Extind Magazine block hidden for now at the client's request (Sept 2026). The magTitle /
+          magDesc / magCta strings are kept in T above so this can be restored by uncommenting,
+          together with the /magazine routes in App.jsx and the navbar entry. */}
+      {/* <section className="section">
         <article className="lounge-intro lounge-intro--reverse" data-reveal>
           <div className="lounge-intro__media">
             <img src={pillarsImg} alt="" />
@@ -249,7 +252,7 @@ export default function VistaLounge() {
             </Link>
           </div>
         </article>
-      </section>
+      </section> */}
     </>
   )
 }

@@ -2,7 +2,7 @@ import { Fragment, useLayoutEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import ImageCardSlider from './ImageCardSlider'
 import { useLang } from '../lib/i18n'
-import heroImg from '../assets/photos/coworking.jpg'
+import heroImg from '../assets/photos/hero-main.jpg'
 import boothImg from '../assets/photos/booth.jpg'
 import vistaImg from '../assets/photos/lounge.jpg'
 
@@ -21,11 +21,11 @@ const T = {
   },
   ro: {
     title: 'Spații atent gândite pentru creșterea afacerii tale.',
-    lede: 'Birouri private și o comunitate de business pentru companiile și profesioniștii care caută creștere, colaborare și zile de lucru fără fricțiuni.',
+    lede: 'Birouri private și o comunitate de business pentru companii și profesioniști care își doresc zile de lucru liniștite, productivitate reală și colaborări care se leagă de la sine.',
     primaryLabel: 'Programează o vizită',
     secondaryLabel: 'Descoperă comunitatea →',
     slides: [
-      { src: heroImg, caption: 'Coworking · Palas Campus', alt: 'Spațiul de coworking Extind din Palas Campus' },
+      { src: heroImg, caption: 'Workspace', alt: 'Spațiul de coworking Extind din Palas Campus' },
       { src: vistaImg, caption: 'Vista Lounge — vedere panoramică', alt: 'Vedere panoramică din Vista Lounge' },
       { src: boothImg, caption: 'Săli de întâlniri & focus', alt: 'Cabină de întâlniri și focus la Extind' },
     ],

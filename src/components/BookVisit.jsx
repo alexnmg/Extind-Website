@@ -17,7 +17,7 @@ const T = {
     title: 'Programează o vizită',
     subtitle: 'Vizitează Extind',
     description:
-      'Programează o vizită ghidată pentru a explora spațiile alături de gazda noastră. Alege data și ora care ți se potrivesc — cafeaua e din partea noastră!',
+      'Programează o vizită ghidată pentru a explora spațiile alături de gazda noastră. Alege data și ora care ți se potrivesc. Cafeaua e din partea noastră!',
     ctaLabel: 'Programează o vizită',
   },
 }

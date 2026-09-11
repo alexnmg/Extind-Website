@@ -4,7 +4,7 @@ import Hero from '../components/Hero'
 import SectionHeader from '../components/SectionHeader'
 import InfoGrid from '../components/InfoGrid'
 import { useLang } from '../lib/i18n'
-import heroImg from '../assets/photos/coworking.jpg'
+import heroImg from '../assets/photos/coworking-hero.jpg'
 import vistaImg from '../assets/photos/lounge-2.jpg'
 import pillarsImg from '../assets/photos/meeting-room-2.jpg'
 
@@ -63,20 +63,20 @@ const T = {
   },
   ro: {
     docTitle: 'Coworking — Extind',
-    heroTitle: 'O bază premium, în zilele în care ai nevoie de ea.',
+    heroTitle: 'Ritmul tău de lucru se schimbă. Spațiul tău se adaptează.',
     heroLede:
-      'Birouri flexibile într-un spațiu comun atent proiectat, la etajul 6 din Palas Campus — cu cafeaua, liniștea și comunitatea oamenilor cărora le pasă de munca lor. Vino pentru o zi sau fă din el baza ta lunară.',
+      'Birouri flexibile într-un spațiu comun atent proiectat, la etajul 6 din Palas Campus, cu liniștea, cafeaua și comunitatea oamenilor cărora le pasă de munca lor. Vino pentru o zi sau transformă-l în noul tău sediu.',
     primaryLabel: 'Programează o vizită',
-    secondaryLabel: 'Vezi prețurile →',
+    secondaryLabel: 'Vezi tarife →',
     heroSlides: [
       { src: heroImg, caption: 'Coworking · Palas Campus', alt: 'Spațiul de coworking Extind' },
       { src: pillarsImg, caption: 'Săli de întâlniri & focus', alt: 'Sală de întâlniri la Extind' },
       { src: vistaImg, caption: 'Lounge panoramic · etajul 6', alt: 'Vista Lounge' },
     ],
-    priceEyebrow: 'Prețuri',
+    priceEyebrow: 'Tarife',
     priceTitle: 'Coworking potrivit felului în care lucrezi',
     priceDesc:
-      'Prețurile nu includ TVA. Nu știi care ți se potrivește? Programează o vizită și te îndrumăm noi.',
+      'Nu știi care ți se potrivește? Programează o vizită și te ajutăm să alegi.',
     plans: [
       { name: 'Day Pass', price: '40 €', unit: '+ TVA / zi', note: 'O zi pe etajul de coworking.' },
       { name: 'Explore EXTIND', price: '400 €', unit: '+ TVA', note: '20 de zile la 20 € + TVA/zi.' },
@@ -86,20 +86,20 @@ const T = {
     inclEyebrow: 'Incluse',
     inclTitle: 'Ce include fiecare abonament',
     amenities: [
-      { icon: 'desk', text: 'Un loc de lucru într-un spațiu premium' },
+      { icon: 'desk', text: 'Un loc de lucru într-un spațiu atent proiectat' },
       { icon: 'chair', text: 'Mobilier ergonomic' },
       { icon: 'wifi', text: 'Internet 1 Gbps' },
       { icon: 'coffee', text: 'Cafea boabe, ceai și apă filtrată' },
       { icon: 'lounge', text: 'Acces la lounge și coffee point' },
       { icon: 'users', text: 'Utilizarea zonelor comune' },
       { icon: 'calendar', text: 'Acces la săli pe bază de rezervare, conform pachetului' },
-      { icon: 'community', text: 'Comunitatea EXTIND și evenimentele aplicabile' },
+      { icon: 'community', text: 'Comunitatea EXTIND și evenimentele organizate în spațiu' },
       { icon: 'clock', text: 'Acces conform programului sau abonamentului tău' },
     ],
     memEyebrow: 'Membri',
     memTitle: 'Beneficiile membrilor',
     memDesc:
-      'Anumite beneficii la lansare. Accesul prioritar și tarifele speciale se oferă în funcție de eveniment.',
+      'Avantaje gândite pentru cei care aleg să lucreze în comunitatea Extind',
     memberBenefits: [
       { icon: 'door', text: 'Acces la spațiul contractat și la zonele comune' },
       { icon: 'wifi', text: 'Internet 1 Gbps' },
@@ -109,7 +109,7 @@ const T = {
       { icon: 'ticket', text: 'Acces la evenimentele EXTIND, când sunt incluse sau deschise' },
       { icon: 'support', text: 'Comunicare directă și suport operațional' },
       { icon: 'visitor', text: 'Primește-ți oaspeții într-un cadru profesional' },
-      { icon: 'card', text: 'Card de partener Palas — acces la reducerile partenerilor din ansamblul Palas' },
+      { icon: 'card', text: 'Card de partener Palas cu acces la reducerile partenerilor din ansamblul Palas' },
     ],
     cta: 'Programează o vizită',
   },
