@@ -16,7 +16,7 @@
  */
 
 import { sendMail } from './gmail.js'
-import { subscribe, whoami } from './mailchimp.js'
+import { subscribe } from './mailchimp.js'
 import { notificationEmail, acknowledgementEmail } from './email-templates.js'
 
 const MAX = { name: 120, email: 254, company: 160, phone: 40, message: 5000 }
@@ -129,10 +129,6 @@ async function handleContact(request, env) {
  * the same deliberate silence: a bot learns nothing from the response, and
  * neither does someone probing whether an address is already on the list. */
 async function handleNewsletter(request, env) {
-  // TEMPORARY: see whoami() in mailchimp.js. Remove once signup is confirmed.
-  if (new URL(request.url).searchParams.get('debug') === 'whoami') {
-    return json({ ok: true, whoami: await whoami(env) })
-  }
   if (request.method !== 'POST') return json({ ok: false, error: 'method_not_allowed' }, 405)
   if (!(request.headers.get('content-type') || '').includes('application/json'))
     return json({ ok: false, error: 'bad_request' }, 400)
@@ -165,13 +161,8 @@ async function handleNewsletter(request, env) {
   }
 
   try {
-    const { outcome, debug } = await subscribe(env, email)
+    const outcome = await subscribe(env, email)
     if (outcome === 'invalid') return json({ ok: false, error: 'validation', fields: ['email'] }, 400)
-    /* TEMPORARY, and only when explicitly asked for: ?debug=1 echoes which
-     * audience Mailchimp wrote to and the resulting member state. It reports
-     * only on the address just submitted by the caller, so it reveals nothing
-     * about anyone else. Remove once the signup path is confirmed. */
-    if (new URL(request.url).searchParams.get('debug') === '1') return json({ ok: true, debug })
     return json({ ok: true })
   } catch (err) {
     console.error('newsletter: subscribe failed', err?.code, err?.title)

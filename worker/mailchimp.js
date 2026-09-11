@@ -60,16 +60,12 @@ export async function subscribe(env, rawEmail) {
   }
 
   if (res.ok) {
-    /* Mailchimp echoes back which audience it wrote to and the resulting state.
-     * Logging them turns "the form says yes but nothing appears" — which is
-     * otherwise invisible from outside — into one readable line. */
-    console.log('newsletter: mailchimp ok', {
-      status: res.status,
-      list_id: body.list_id,
-      member_status: body.status,
-      web_id: body.web_id,
-    })
-    return { outcome: 'ok', debug: { status: res.status, list_id: body.list_id, member_status: body.status } }
+    /* Logged on success too. When the dashboard and reality disagree — as they
+     * did on 2026-09-11, where the API reported six members and the Contacts
+     * view showed one — this line is the only record of what actually happened.
+     * No address is logged. */
+    console.log('newsletter: mailchimp ok', { list_id: body.list_id, member_status: body.status })
+    return 'ok'
   }
 
   /* Only these titles describe ONE address's membership state. Answering
@@ -86,8 +82,8 @@ export async function subscribe(env, rawEmail) {
     // Never log or return `detail` — Mailchimp echoes the submitted address into it.
     console.warn('newsletter: mailchimp 400', { title: body.title, instance: body.instance || 'none' })
 
-    if (MEMBERSHIP_TITLES.has(title)) return { outcome: 'ok', debug: { status: 400, title: body.title } }
-    if (title === 'invalid resource') return { outcome: 'invalid' }
+    if (MEMBERSHIP_TITLES.has(title)) return 'ok'
+    if (title === 'invalid resource') return 'invalid'
 
     /* Anything else is a problem with our request or our configuration, not a
      * fact about this address. An earlier version treated every 400 as success,
@@ -105,35 +101,3 @@ export async function subscribe(env, rawEmail) {
   throw err
 }
 
-/* TEMPORARY DIAGNOSTIC. Asks Mailchimp which account the key belongs to and
- * what it thinks the configured audience contains. Returns no addresses and no
- * account email — just enough to tell "wrong account / wrong audience" apart
- * from "right place, UI disagrees". Remove with the ?debug hook in index.js. */
-export async function whoami(env) {
-  const base = `https://${env.MAILCHIMP_SERVER_PREFIX}.api.mailchimp.com/3.0`
-  const auth = `Basic ${btoa(`key:${env.MAILCHIMP_API_KEY}`)}`
-  const get = async (path) => {
-    const r = await fetch(`${base}${path}`, { headers: { authorization: auth } })
-    return { status: r.status, body: await r.json().catch(() => ({})) }
-  }
-
-  const root = await get('/')
-  const list = await get(`/lists/${env.MAILCHIMP_LIST_ID}`)
-  const lists = await get('/lists?count=20&fields=lists.id,lists.name,lists.stats.member_count')
-
-  return {
-    account: root.body?.account_name ?? `(${root.status})`,
-    total_subscribers: root.body?.total_subscribers,
-    configured_list: {
-      id: env.MAILCHIMP_LIST_ID,
-      status: list.status,
-      name: list.body?.name,
-      member_count: list.body?.stats?.member_count,
-    },
-    all_lists_in_this_account: (lists.body?.lists ?? []).map((l) => ({
-      id: l.id,
-      name: l.name,
-      members: l.stats?.member_count,
-    })),
-  }
-}
