@@ -5,14 +5,29 @@
 cross-session record; this file covers hosting only. Keep it current — when a
 step is done, mark it done here in the same commit.
 
-_Last updated 2026-08-31. Status: **repo prepared, nothing deployed yet.**_
+_Last updated 2026-09-11, on top of commit `64e3822`._
+
+> **STATUS: LIVE.** The nameserver cutover happened on 2026-09-11. `extind.ro`
+> now serves this repo from Cloudflare Workers Static Assets. Everything below
+> that reads as a plan has been carried out — it is kept as the record of what
+> was done and why, not as work outstanding.
+>
+> **Two things are still open**, both in the Cloudflare dashboard and both
+> Alex's: `www.extind.ro` has no DNS record and does not resolve, and
+> `http://extind.ro` serves the site unencrypted with no redirect (SSL/TLS →
+> Edge Certificates → Always Use HTTPS).
 
 ---
 
 ## The decision
 
-**Cloudflare Pages, in a Cloudflare account that belongs to the client, free
-tier.** Decided 2026-08-31.
+**Cloudflare Workers Static Assets, in a Cloudflare account that belongs to the
+client, free tier.** Decided 2026-08-31 as Pages; corrected to Workers Static
+Assets the same week when Cloudflare's dashboard turned out to route
+"Connect to Git" to a Worker rather than a Pages project. Everything below about
+*why Cloudflare* and *why the client's own account* still holds — only the
+product name changed. See "Hosting is Workers Static Assets, not Pages" below,
+which is the authoritative section.
 
 - **Vercel's Hobby plan cannot legally host this.** Vercel restricts Hobby to
   non-commercial personal use and counts a paid consultant writing the code as
@@ -325,11 +340,19 @@ not work through an HTTP proxy) and should simply be dropped.
 Cloudflare's dashboard now routes "Connect to Git" to a **Worker**, not a Pages
 project — the setup screen says *"Configure your Worker project"* and prefills
 `npx wrangler deploy`. Pages is effectively the legacy path, so this project
-uses **Workers Static Assets**. Cost is identical: the Workers pricing page
-states plainly that **requests to static assets are free and unlimited**, and
-this project ships **no Worker script at all**, so every request is a free
-asset request. (The dashboard's "Requests today 0 / 100,000" counter tracks
-billable Worker invocations, which this project does not generate.)
+uses **Workers Static Assets**.
+
+**This project DOES ship a Worker script.** `worker/index.js` handles the
+contact form and the newsletter, and is reached only via
+`assets.run_worker_first: ["/api/*"]` in `wrangler.jsonc`. Requests to static
+assets remain free and unlimited; only `/api/*` is a billable Worker
+invocation, which for two forms is a handful a day.
+
+> An earlier version of this section said the project ships *no Worker script at
+> all*. That was true when it was written and is now the most dangerous sentence
+> this file has ever contained: acting on it means deleting `main` and
+> `run_worker_first` from `wrangler.jsonc`, which silently removes the entire
+> mail backend. See [`MAIL-BACKEND.md`](./MAIL-BACKEND.md).
 
 That path needs [`wrangler.jsonc`](../wrangler.jsonc) in the repo root — without
 it `npx wrangler deploy` has nothing to deploy and the build fails after a
@@ -416,11 +439,19 @@ exclusions — never the naive catch-all.
   the console, report measurements. Note the preview-pane quirks in
   `SESSION-HANDOFF.md` — `[data-reveal]` sits at `opacity: 0` and must be
   forced visible before screenshotting.
-- **After cutover:** verify the domain resolves to Pages, certificates are
+- **After cutover:** verify the domain resolves to the Worker, certificates are
   valid, every route hard-loads, and **both DKIM records plus SPF and MX
   resolve identically to the audit**.
-- **On request:** run `wrangler pages deploy dist` once Wrangler is
-  authenticated locally.
+- **Deploys happen automatically** on push to `main` via Cloudflare Workers
+  Builds (git-connected, configured in the dashboard). There is normally nothing
+  to run by hand.
+  - If deploying manually is ever needed, the command is **`npx wrangler deploy`**,
+    never `wrangler pages deploy dist` — that would create a *separate Pages
+    project*, print a success URL, and leave `extind.ro` untouched. A deploy that
+    appears to work and changes nothing is the worst failure mode available here.
+  - Note the local wrangler is authenticated to **Alex@namogo.com's** account,
+    while the Worker lives in **Office@extind.ro's**. A manual deploy or
+    `wrangler secret put` from Alex's machine targets the wrong account.
 
 ---
 

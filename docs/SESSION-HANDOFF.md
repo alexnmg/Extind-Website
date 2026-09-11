@@ -5,17 +5,19 @@ cross-session record of how this site is built, which decisions are already
 settled, and what is still open. Keep it current: when a round changes
 something described here, update it in the same commit.
 
-_Last updated 2026-09-01, on top of commit `9974f5e`._
+_Last updated 2026-09-11, on top of commit `64e3822`._
 
-> **Launch has no date. It waits on the client delivering the remaining site
-> content** (decided 2026-09-01; the 2026-09-02 date is void). Until it is set,
-> nothing that affects the live `extind.ro`. The cutover sequence, its two
-> hazards and the abort path are in [`DEPLOY-RUNBOOK.md`](./DEPLOY-RUNBOOK.md)
-> — read its launch plan before touching anything DNS-related.
+> **THE SITE IS LIVE.** `extind.ro` has served this repo since the nameserver
+> cutover on 2026-09-11. Both blockers that used to sit here — client content,
+> and control of the ROTLD account — are resolved.
 >
-> Two blockers, in order: **content from the client**, then **who controls the
-> ROTLD account**. The Cloudflare side is staged and verified; nothing there is
-> waiting on us.
+> **The contact form and the newsletter both work**, via the Gmail API and
+> Mailchimp respectively. Read [`MAIL-BACKEND.md`](./MAIL-BACKEND.md) before
+> touching anything under `worker/`.
+>
+> **Two things are still open, both Alex's, both in the Cloudflare dashboard:**
+> `www.extind.ro` has no DNS record and does not resolve, and `http://extind.ro`
+> serves unencrypted with no redirect to HTTPS.
 
 ---
 
@@ -29,11 +31,17 @@ Romania. This repo is its marketing site.
 - **Branch:** `main`, pushed straight to `origin/main`.
 - **Stack:** React 19, Vite 8, react-router-dom v7 (`BrowserRouter`,
   `<Link viewTransition>`). Node v24.18.0 via nvm.
-- **Scripts:** `npm run dev` (5173), `npm run build`, `npm run lint`. There is
-  **no test suite** — verification is building plus driving the site in a
-  browser.
-- **`npm run lint` is red on a clean tree — 38 pre-existing errors.** 32 are
-  `react-refresh/only-export-components` from `InfoIcons.jsx`, 2 more from
+- **Scripts:** `npm run dev`, `npm run build` (vite build **plus**
+  `scripts/build-seo.mjs`, which generates the per-route HTML, robots.txt and
+  sitemap), `npm run lint`, `npm run test:worker` (75 tests over the mail
+  backend), `npm run og` and `npm run images` (regenerate social images and
+  responsive photo variants; committed output, not build steps).
+- **`npm run test:worker` is the only pre-deploy check on the API.** `vite dev`
+  has no Worker behind it, so locally the forms can only be driven as far as
+  their error branch. Everything else is verified by building plus driving the
+  site in a browser.
+- **`npm run lint` is red on a clean tree — 37 pre-existing errors.** 32 are
+  `react-refresh/only-export-components` from `InfoIcons.jsx`, 1 more from
   `i18n.jsx`, 1 `set-state-in-effect` in `Navbar.jsx`, and **3
   `react-hooks/immutability` flagging the site-wide `prop = prop ?? t.default`
   i18n pattern that every component uses deliberately — do not "fix" that to
@@ -41,12 +49,18 @@ Romania. This repo is its marketing site.
   the check that must stay clean (~250ms).
 - **Dev server:** use the preview tool with the `extind-dev` config in
   `.claude/launch.json`. Never start dev servers through Bash.
-- **Deployment: Cloudflare Pages, on the client's Cloudflare account, free
-  tier** — decided 2026-08-31. **[`DEPLOY-RUNBOOK.md`](./DEPLOY-RUNBOOK.md) is
-  the file to read before touching hosting**; it carries the cutover steps, the
-  do-not-touch DNS records, and the rollback. Nothing is deployed yet, and the
-  site currently live at `extind.ro` is a **different, older one-page site** on
-  a Hetzner box — not this repo.
+- **Deployment: Cloudflare Workers Static Assets**, on the client's Cloudflare
+  account (*Office@extind.ro's Account*), free tier. **Live at `extind.ro` since
+  2026-09-11.** Deploys happen automatically on push to `main` via Cloudflare
+  Workers Builds. **[`DEPLOY-RUNBOOK.md`](./DEPLOY-RUNBOOK.md) is the file to
+  read before touching hosting.**
+  - **This project ships one Worker script**, `worker/index.js`, reached only on
+    `/api/*` via `run_worker_first`. Static asset requests stay free; only the
+    two form endpoints are billable invocations. Do not remove `main` or
+    `run_worker_first` from `wrangler.jsonc` — that deletes the mail backend.
+  - **Secrets go in the Cloudflare dashboard, not `wrangler secret put`.** The
+    local wrangler is authenticated to Alex's own account, not the one holding
+    this Worker.
   - This is a client-rendered SPA with `BrowserRouter`, so **every host needs a
     catch-all rewrite** or each non-root URL (`/faq`, `/magazine/:slug`, …)
     404s on a hard load while working perfectly in dev. `vercel.json` provides
@@ -225,30 +239,35 @@ rather than trusting them if Cal ships a redesign.
    (flip `CAL_EVENT`; remember there is no redirect from the old slug).
 4. Whether to pay for **Cal Teams** to drop the watermark and get reminder
    workflows.
-5. ~~Where the site is deployed.~~ **Answered 2026-08-31: Cloudflare Pages, in
-   a Cloudflare account belonging to the client** — see
-   [`DEPLOY-RUNBOOK.md`](./DEPLOY-RUNBOOK.md). One question still gates the
-   launch: **does the client hold the ROTLD account for `extind.ro`?** Alex
-   already controls the Google Workspace (all `@extind.ro` mail) and the
-   current server's cPanel, and the Cloudflare zone is being rebuilt from an
-   external audit rather than negotiated out of Sigmatic — so the registrar is
-   the only remaining dependency.
+5. ~~Where the site is deployed.~~ **Settled and done.** Cloudflare Workers
+   Static Assets in the client's own account; nameservers cut over to
+   `kira.ns` / `trace.ns` on 2026-09-11 and `extind.ro` is live. The ROTLD
+   question that used to gate this is resolved.
 
 ## Known blockers, still open
 
-- **Both forms discard submissions.** `ContactForm.jsx` (used on `/contact` and
-  `/events`) shows a thank-you state promising a reply within one business day,
-  then throws the data away. The **footer newsletter form** is worse —
-  `onSubmit={(e) => e.preventDefault()}` on an uncontrolled, unnamed input with
-  no feedback at all, and it is on every page.
-- **The consent checkbox names Terms and a Privacy Policy that do not exist —
-  and does not even link to them.** The consent strings in `ContactForm.jsx` are
-  plain unlinked text, and there are no `/privacy` or `/terms` routes. Note the
-  catch-all: if you link the text before creating the pages, those URLs will
-  render the **homepage**, not a 404.
+- **`www.extind.ro` does not resolve** (no DNS record) and **`http://extind.ro`
+  serves the site unencrypted with no redirect**. Both are dashboard toggles and
+  both are Alex's.
 - The **About founder quote is an invented placeholder** awaiting Catrinel
   Gradu's real words. About's Instagram tiles link to the profile until a live
   feed exists.
+- **Page body copy is still client-rendered.** Per-route metadata, canonicals,
+  hreflang and OG tags are baked into static HTML at build time, so every
+  crawler sees those — but the visible text arrives via JavaScript. Google
+  renders it; Bing and the AI crawlers are less reliable. Prerendering the body
+  is a separate job, not yet done.
+
+### Resolved 2026-09-11, kept because the reasoning still matters
+
+- ~~Both forms discard submissions.~~ Both work. See
+  [`MAIL-BACKEND.md`](./MAIL-BACKEND.md).
+- ~~The consent checkbox names Terms and a Privacy Policy that do not exist.~~
+  `/privacy` and `/cookies` exist and the checkbox links the policy.
+  **There is deliberately no Terms page** — Alex chose to drop the reference
+  rather than write one. Do not "restore" it.
+- ~~Unknown URLs render the homepage.~~ There is a real 404 page now
+  (`src/pages/NotFound.jsx`) which also injects `noindex`.
 - A **custom booking system** (secure admin panel, email plus push/SMS
   notifications) was fully analysed and costed, then parked on the backlog in
   favour of Cal.com. Don't restart that analysis unless asked.
