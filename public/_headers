@@ -11,15 +11,19 @@
   # Nothing on this site needs any of these.
   Permissions-Policy: geolocation=(), camera=(), microphone=(), payment=(), usb=(), interest-cohort=()
   # Origins below are the ones the site actually loads from, verified against the
-  # live pages — Google Fonts for the two brand faces, CARTO for the contact-page
-  # map tiles, Cal.com for the booking embed and its iframe. 'unsafe-inline' is
+  # live pages — CARTO for the contact-page map tiles, Cal.com for the booking
+  # embed and its iframe. Fonts are self-hosted, so no font origin is allowed. 'unsafe-inline' is
   # needed for style only: React style attributes and Leaflet both inject them.
   # Scripts carry no such exception. frame-ancestors replaces X-Frame-Options and
   # is what stops the contact form and booker being framed by anyone else.
-  Content-Security-Policy: default-src 'self'; script-src 'self' https://app.cal.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob: https://*.basemaps.cartocdn.com; connect-src 'self' https://app.cal.com; frame-src https://app.cal.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'
+  Content-Security-Policy: default-src 'self'; script-src 'self' https://app.cal.com; style-src 'self' 'unsafe-inline'; font-src 'self' data:; img-src 'self' data: blob: https://*.basemaps.cartocdn.com; connect-src 'self' https://app.cal.com; frame-src https://app.cal.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'
 
 # Vite fingerprints these filenames, so the content at a given URL never changes.
 /assets/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Font files never change without a filename change.
+/fonts/*
   Cache-Control: public, max-age=31536000, immutable
 
 # Width and format are in the filename, so a given URL's bytes never change.

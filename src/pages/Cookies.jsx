@@ -39,12 +39,10 @@ const T = {
         ],
         ul: [
           'Cal.com — the booking widget on the home page, Private offices, FAQ and Book a visit. It loads only once you scroll down to it, and Cal.com may set its own cookies inside the widget in order to make the booking work.',
-          'Google Fonts — the typefaces used across the site. Google does not set cookies for font files, but it does receive your IP address.',
           'CARTO and OpenStreetMap — the map on the contact page. The map tiles are loaded directly from CARTO.',
         ],
         links: [
           { label: 'Cal.com privacy policy', href: 'https://cal.com/privacy' },
-          { label: 'Google privacy policy', href: 'https://policies.google.com/privacy' },
           { label: 'CARTO privacy policy', href: 'https://carto.com/privacy/' },
         ],
       },
@@ -97,12 +95,10 @@ const T = {
         ],
         ul: [
           'Cal.com — widgetul de programare de pe pagina principală, Birouri private, Întrebări frecvente și Programează o vizită. Se încarcă doar când ajungi cu derularea la el, iar Cal.com poate plasa cookie-uri proprii în interiorul widgetului, necesare funcționării programării.',
-          'Google Fonts — fonturile folosite pe tot site-ul. Google nu plasează cookie-uri pentru fișierele de font, dar primește adresa ta IP.',
           'CARTO și OpenStreetMap — harta de pe pagina de contact. Imaginile hărții sunt încărcate direct de la CARTO.',
         ],
         links: [
           { label: 'Politica de confidențialitate Cal.com', href: 'https://cal.com/privacy' },
-          { label: 'Politica de confidențialitate Google', href: 'https://policies.google.com/privacy' },
           { label: 'Politica de confidențialitate CARTO', href: 'https://carto.com/privacy/' },
         ],
       },

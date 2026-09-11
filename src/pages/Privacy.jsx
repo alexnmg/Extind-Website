@@ -40,8 +40,7 @@ const T = {
         ul: [
           'Cloudflare, Inc. — hosting and delivery of this website.',
           'Cal.com, Inc. — the visit booking form.',
-          'Google Ireland Ltd. (Google Fonts) — the typefaces used in the design. Your browser downloads them directly from Google, which therefore receives your IP address.',
-          'Google Ireland Ltd. (Google Workspace) — our email. A message you send through the contact form is delivered to, and kept in, our mailbox there.',
+          'Google Ireland Ltd. (Google Workspace) — our email. A message you send through the contact form is delivered to, and kept in, our mailbox there. The typefaces this site uses are served from our own server, so reading a page sends nothing to Google.',
           'CARTO — the map on our contact page, built on OpenStreetMap data. Your browser loads the map tiles directly from CARTO, which therefore receives your IP address.',
           'The Rocket Science Group LLC d/b/a Mailchimp (United States) — our newsletter. Your address is stored on Mailchimp’s servers in the United States, and they send the newsletters on our behalf. They receive nothing from this website unless you subscribe.',
         ],
@@ -138,8 +137,7 @@ const T = {
         ul: [
           'Cloudflare, Inc. — găzduirea și livrarea acestui site.',
           'Cal.com, Inc. — formularul de programare a vizitelor.',
-          'Google Ireland Ltd. (Google Fonts) — fonturile folosite în design. Browserul tău le descarcă direct de la Google, care primește astfel adresa ta IP.',
-          'Google Ireland Ltd. (Google Workspace) — emailul nostru. Mesajul pe care îl trimiți prin formularul de contact ajunge și rămâne în căsuța noastră poștală.',
+          'Google Ireland Ltd. (Google Workspace) — emailul nostru. Mesajul pe care îl trimiți prin formularul de contact ajunge și rămâne în căsuța noastră poștală. Fonturile site-ului sunt servite de pe serverul nostru, așa că simpla citire a unei pagini nu trimite nimic către Google.',
           'CARTO — harta de pe pagina de contact, construită pe date OpenStreetMap. Browserul tău încarcă imaginile hărții direct de la CARTO, care primește astfel adresa ta IP.',
           'The Rocket Science Group LLC d/b/a Mailchimp (Statele Unite) — newsletterul nostru. Adresa ta este stocată pe serverele Mailchimp din Statele Unite, iar ei trimit newsletterele în numele nostru. Nu primesc nimic de pe acest site dacă nu te abonezi.',
         ],

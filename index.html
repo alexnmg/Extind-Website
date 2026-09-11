@@ -4,12 +4,10 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Libre+Baskerville&display=swap"
-      rel="stylesheet"
-    />
+    <!-- Fonts are self-hosted (see src/index.css). These two carry the text that
+         paints first, so they are preloaded rather than discovered in the CSS. -->
+    <link rel="preload" href="/fonts/instrument-sans-700-latin.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/libre-baskerville-400-latin.woff2" as="font" type="font/woff2" crossorigin />
     <title>Extind — Spaces to grow</title>
   </head>
   <body>

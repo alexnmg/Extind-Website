@@ -91,7 +91,9 @@ function StarIcon() {
 function TestimonialCard({ quote, name, role, starsLabel }) {
   return (
     <article className="testimonial-card">
-      <div className="testimonial-card__stars" aria-label={starsLabel}>
+      {/* role="img" so the aria-label is legal: a bare div may not carry one,
+          and the five stars are one graphic conveying a rating, not five icons. */}
+      <div className="testimonial-card__stars" role="img" aria-label={starsLabel}>
         {Array.from({ length: 5 }, (_, i) => (
           <StarIcon key={i} />
         ))}
