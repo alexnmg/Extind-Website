@@ -18,7 +18,7 @@ export default function LegalPage({ docTitle, eyebrow, title, updatedLabel, sect
   }, [docTitle])
 
   return (
-    <main className="section legal">
+    <div className="section legal">
       <header className="legal__head" data-reveal>
         <p className="legal__eyebrow">{eyebrow}</p>
         <h1 className="legal__title">{title}</h1>
@@ -67,6 +67,6 @@ export default function LegalPage({ docTitle, eyebrow, title, updatedLabel, sect
           </section>
         ))}
       </div>
-    </main>
+    </div>
   )
 }

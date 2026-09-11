@@ -1,7 +1,9 @@
-import { useEffect } from 'react'
+import { lazy, Suspense, useEffect } from 'react'
 import SectionHeader from '../components/SectionHeader'
 import ContactForm from '../components/ContactForm'
-import LocationMap from '../components/LocationMap'
+/* Leaflet plus its CSS is ~165 kB and was in the entry chunk on all 14 routes;
+ * only this one has a map. */
+const LocationMap = lazy(() => import('../components/LocationMap'))
 import { useLang } from '../lib/i18n'
 
 const T = {
@@ -75,7 +77,8 @@ export default function Contact() {
 
   return (
     <section className="section">
-      <SectionHeader eyebrow={t.eyebrow} title={t.title} description={t.description} />
+      <SectionHeader eyebrow={t.eyebrow} title={t.title} description={t.description} as="h1"
+          />
       <div className="contact">
         <div className="contact__info" data-reveal>
           <div className="contact__details">
@@ -100,7 +103,9 @@ export default function Contact() {
               )
             })}
           </div>
-          <LocationMap />
+          <Suspense fallback={<div className="contact__map" aria-hidden="true" />}>
+            <LocationMap />
+          </Suspense>
         </div>
         <ContactForm />
       </div>

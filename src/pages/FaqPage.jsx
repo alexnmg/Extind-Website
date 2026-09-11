@@ -41,6 +41,7 @@ export default function FaqPage() {
         description={t.description}
         items={faqItems}
         columns={2}
+        headingAs="h1"
       />
       <BookVisit />
     </>

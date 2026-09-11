@@ -23,8 +23,14 @@ import Privacy from './pages/Privacy'
 import Cookies from './pages/Cookies'
 import StoryblokPage from './components/storyblok/StoryblokPage'
 import { isStoryblokEnabled } from './lib/storyblok'
-import { LanguageProvider } from './lib/i18n'
+import { LanguageProvider, useLang } from './lib/i18n'
 import './App.css'
+
+/* Rendered inside the provider so it can read the language. */
+function SkipLabel() {
+  const { lang } = useLang()
+  return lang === 'en' ? 'Skip to content' : 'Sari la conținut'
+}
 
 function ScrollToTop() {
   const { pathname } = useLocation()
@@ -42,7 +48,13 @@ export default function App() {
       <ScrollToTop />
       <ScrollReveal />
       <div className="page">
+        {/* First focusable thing on every page. Without it a keyboard user
+            traverses ~14 nav controls before reaching content. */}
+        <a className="skip-link" href="#main">
+          <SkipLabel />
+        </a>
         <Navbar />
+        <main id="main" tabIndex={-1}>
         <Routes>
           <Route path="/about" element={<About />} />
           <Route path="/private-offices" element={<PrivateOffices />} />
@@ -64,6 +76,7 @@ export default function App() {
           <Route path="/cookies" element={<Cookies />} />
           <Route path="*" element={isStoryblokEnabled ? <StoryblokPage /> : <Home />} />
         </Routes>
+        </main>
         <Footer />
       </div>
     </BrowserRouter>

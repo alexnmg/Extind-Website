@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useId, useState } from 'react'
 import { Link } from 'react-router-dom'
 import SectionHeader from './SectionHeader'
 import { useLang } from '../lib/i18n'
@@ -18,6 +18,7 @@ export default function Faq({
   columns = 1,
   moreHref,
   moreLabel,
+  headingAs,
 }) {
   const { lang } = useLang()
   const t = T[lang]
@@ -25,6 +26,8 @@ export default function Faq({
   title = title ?? t.title
   moreLabel = moreLabel ?? t.more
   const [openIndex, setOpenIndex] = useState(-1)
+  // Two FAQ blocks can appear on one page, so aria-controls needs a unique root.
+  const id = useId()
 
   // Data items carry { q: {en,ro}, a: {en,ro} } — resolve for this language.
   const resolved = items.map((item) => ({ q: item.q[lang] ?? item.q, a: item.a[lang] ?? item.a }))
@@ -42,12 +45,18 @@ export default function Faq({
           type="button"
           className="faq-item__question"
           aria-expanded={open}
+          aria-controls={`faq-answer-${id}-${i}`}
           onClick={() => setOpenIndex(open ? -1 : i)}
         >
           <span className="faq-item__question-text">{q}</span>
           <img className="faq-item__chevron" src={chevronDown} alt="" />
         </button>
-        <div className="faq-item__answer-wrap">
+        {/* A collapsed answer was only clipped by max-height, so a screen
+            reader read every answer aloud while the button said it was
+            collapsed. visibility:hidden in the CSS is what removes it from the
+            accessibility tree — unlike `hidden`/display:none it still allows
+            the height transition. */}
+        <div className="faq-item__answer-wrap" id={`faq-answer-${id}-${i}`}>
           <div className="faq-item__answer-inner">
             <p className="faq-item__answer">{a}</p>
           </div>
@@ -82,7 +91,7 @@ export default function Faq({
 
   return (
     <section className="section faq">
-      <SectionHeader eyebrow={eyebrow} title={title} description={description} />
+      <SectionHeader eyebrow={eyebrow} title={title} description={description} as={headingAs} />
       {body}
       {moreHref && (
         <Link className="faq__more" to={moreHref} viewTransition data-reveal>

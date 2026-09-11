@@ -77,7 +77,8 @@ export default function Events() {
   return (
     <>
       <section className="section">
-        <SectionHeader eyebrow={t.eyebrow} title={t.title} description={t.description} />
+        <SectionHeader eyebrow={t.eyebrow} title={t.title} description={t.description} as="h1"
+          />
         <div className="events-empty" data-reveal>
           <span className="events-empty__eyebrow">{t.emptyEyebrow}</span>
           <h3 className="events-empty__title">{t.emptyTitle}</h3>

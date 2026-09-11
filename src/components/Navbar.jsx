@@ -284,7 +284,10 @@ export default function Navbar() {
           </div>
         </div>
 
-        <div className="navbar__mobile">
+        {/* inert when closed: the panel is only clipped visually, so without
+            this its six controls stay in the tab order at desktop width — a
+            keyboard user hits focus stops they cannot see. */}
+        <div className="navbar__mobile" inert={!mobileOpen}>
           <div className="navbar__mobile-inner">
             <div className={`navbar__mobile-panels${mobileSub ? ' is-sub' : ''}`}>
               {/* Root level */}
