@@ -104,3 +104,36 @@ export async function subscribe(env, rawEmail) {
   err.title = body.title
   throw err
 }
+
+/* TEMPORARY DIAGNOSTIC. Asks Mailchimp which account the key belongs to and
+ * what it thinks the configured audience contains. Returns no addresses and no
+ * account email — just enough to tell "wrong account / wrong audience" apart
+ * from "right place, UI disagrees". Remove with the ?debug hook in index.js. */
+export async function whoami(env) {
+  const base = `https://${env.MAILCHIMP_SERVER_PREFIX}.api.mailchimp.com/3.0`
+  const auth = `Basic ${btoa(`key:${env.MAILCHIMP_API_KEY}`)}`
+  const get = async (path) => {
+    const r = await fetch(`${base}${path}`, { headers: { authorization: auth } })
+    return { status: r.status, body: await r.json().catch(() => ({})) }
+  }
+
+  const root = await get('/')
+  const list = await get(`/lists/${env.MAILCHIMP_LIST_ID}`)
+  const lists = await get('/lists?count=20&fields=lists.id,lists.name,lists.stats.member_count')
+
+  return {
+    account: root.body?.account_name ?? `(${root.status})`,
+    total_subscribers: root.body?.total_subscribers,
+    configured_list: {
+      id: env.MAILCHIMP_LIST_ID,
+      status: list.status,
+      name: list.body?.name,
+      member_count: list.body?.stats?.member_count,
+    },
+    all_lists_in_this_account: (lists.body?.lists ?? []).map((l) => ({
+      id: l.id,
+      name: l.name,
+      members: l.stats?.member_count,
+    })),
+  }
+}

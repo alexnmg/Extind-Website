@@ -16,7 +16,7 @@
  */
 
 import { sendMail } from './gmail.js'
-import { subscribe } from './mailchimp.js'
+import { subscribe, whoami } from './mailchimp.js'
 import { notificationEmail, acknowledgementEmail } from './email-templates.js'
 
 const MAX = { name: 120, email: 254, company: 160, phone: 40, message: 5000 }
@@ -129,6 +129,10 @@ async function handleContact(request, env) {
  * the same deliberate silence: a bot learns nothing from the response, and
  * neither does someone probing whether an address is already on the list. */
 async function handleNewsletter(request, env) {
+  // TEMPORARY: see whoami() in mailchimp.js. Remove once signup is confirmed.
+  if (new URL(request.url).searchParams.get('debug') === 'whoami') {
+    return json({ ok: true, whoami: await whoami(env) })
+  }
   if (request.method !== 'POST') return json({ ok: false, error: 'method_not_allowed' }, 405)
   if (!(request.headers.get('content-type') || '').includes('application/json'))
     return json({ ok: false, error: 'bad_request' }, 400)
