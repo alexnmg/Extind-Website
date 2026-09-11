@@ -59,7 +59,18 @@ export async function subscribe(env, rawEmail) {
     clearTimeout(timer)
   }
 
-  if (res.ok) return 'ok'
+  if (res.ok) {
+    /* Mailchimp echoes back which audience it wrote to and the resulting state.
+     * Logging them turns "the form says yes but nothing appears" — which is
+     * otherwise invisible from outside — into one readable line. */
+    console.log('newsletter: mailchimp ok', {
+      status: res.status,
+      list_id: body.list_id,
+      member_status: body.status,
+      web_id: body.web_id,
+    })
+    return { outcome: 'ok', debug: { status: res.status, list_id: body.list_id, member_status: body.status } }
+  }
 
   /* Only these titles describe ONE address's membership state. Answering
    * differently for them would let anyone type addresses into the public footer
@@ -75,8 +86,8 @@ export async function subscribe(env, rawEmail) {
     // Never log or return `detail` — Mailchimp echoes the submitted address into it.
     console.warn('newsletter: mailchimp 400', { title: body.title, instance: body.instance || 'none' })
 
-    if (MEMBERSHIP_TITLES.has(title)) return 'ok'
-    if (title === 'invalid resource') return 'invalid'
+    if (MEMBERSHIP_TITLES.has(title)) return { outcome: 'ok', debug: { status: 400, title: body.title } }
+    if (title === 'invalid resource') return { outcome: 'invalid' }
 
     /* Anything else is a problem with our request or our configuration, not a
      * fact about this address. An earlier version treated every 400 as success,

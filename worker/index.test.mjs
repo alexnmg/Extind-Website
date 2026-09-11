@@ -62,7 +62,7 @@ function mkEnv({ limit = true, tokenStatus = 200, sendStatus = 200, sendFailOn =
     }
     if (u.includes('api.mailchimp.com')) {
       calls.mc.push({ url: u, method: opts.method, auth: opts.headers.authorization, body: JSON.parse(opts.body) })
-      return new Response(JSON.stringify(mcStatus === 200 ? { id: 'abc' } : mcBody), { status: mcStatus })
+      return new Response(JSON.stringify(mcStatus === 200 ? { id: 'abc', list_id: 'f418861d6f', status: 'subscribed' } : mcBody), { status: mcStatus })
     }
     if (u.includes('gmail.googleapis.com')) {
       const body = JSON.parse(opts.body)

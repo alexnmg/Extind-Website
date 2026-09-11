@@ -161,8 +161,13 @@ async function handleNewsletter(request, env) {
   }
 
   try {
-    const outcome = await subscribe(env, email)
+    const { outcome, debug } = await subscribe(env, email)
     if (outcome === 'invalid') return json({ ok: false, error: 'validation', fields: ['email'] }, 400)
+    /* TEMPORARY, and only when explicitly asked for: ?debug=1 echoes which
+     * audience Mailchimp wrote to and the resulting member state. It reports
+     * only on the address just submitted by the caller, so it reveals nothing
+     * about anyone else. Remove once the signup path is confirmed. */
+    if (new URL(request.url).searchParams.get('debug') === '1') return json({ ok: true, debug })
     return json({ ok: true })
   } catch (err) {
     console.error('newsletter: subscribe failed', err?.code, err?.title)
