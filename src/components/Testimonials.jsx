@@ -2,8 +2,9 @@ import { useEffect, useRef, useState } from 'react'
 import SectionHeader from './SectionHeader'
 import { useLang } from '../lib/i18n'
 
-/* The Romanian quotes are the clients' original words; English is the
- * translation. */
+/* The Romanian quotes are the clients' own words, verbatim; English is the
+ * translation. `role` is optional — omit it rather than inventing a job title
+ * for a real, named person. */
 const T = {
   en: {
     eyebrow: 'Testimonials',
@@ -16,21 +17,13 @@ const T = {
     items: [
       {
         quote:
-          '“The best coworking space in Iași. The atmosphere is extraordinary, the facilities are top-notch, and the community motivates you every day.”',
-        name: 'Alexandru M.',
-        role: 'Software Developer, Freelancer',
+          '“We have privacy, individually partitioned offices, and when we want lunch or a coffee we are glad to run into people from other companies. The community here is a young one. We have been here a year now. We pay a monthly membership and everything is included.”',
+        name: 'Răzvan C.',
       },
       {
         quote:
-          '“I moved my 8-person team to Extind six months ago. We haven’t looked back since — the private office boosted our productivity enormously.”',
-        name: 'Ioana P.',
-        role: 'CEO, Startup IT',
-      },
-      {
-        quote:
-          '“I ran two workshops at Extind. The room is perfect, the equipment works flawlessly, and their team is extremely professional.”',
-        name: 'Radu D.',
-        role: 'Trainer & Consultant',
+          '“There are also spaces where we can unwind — there is a massage chair. It is an airy space; you do not feel boxed in. I am not thinking of going anywhere else.”',
+        name: 'Ludovic K.',
       },
     ],
   },
@@ -45,21 +38,13 @@ const T = {
     items: [
       {
         quote:
-          '„Cel mai bun spațiu de coworking din Iași. Atmosfera este extraordinară, facilitățile sunt top, iar comunitatea te motivează zilnic.”',
-        name: 'Alexandru M.',
-        role: 'Software Developer, Freelancer',
+          '„Avem intimitate, birouri individual compartimentate, iar când dorim să servim masa sau cafeaua, ne întâlnim cu drag cu colegi din alte firme. Comunitatea de aici este una tânără. Suntem aici de 1 an de zile. Plătim un abonament lunar și beneficiem de toate utilitățile.”',
+        name: 'Răzvan C.',
       },
       {
         quote:
-          '„Am mutat echipa mea de 8 persoane la Extind acum 6 luni. Nu ne-am mai uitat înapoi. Spațiul privat ne-a crescut productivitatea enorm.”',
-        name: 'Ioana P.',
-        role: 'CEO, Startup IT',
-      },
-      {
-        quote:
-          '„Am organizat două workshopuri la Extind. Sala este perfectă, echipamentele funcționează impecabil, iar echipa lor este extrem de profesionistă.”',
-        name: 'Radu D.',
-        role: 'Trainer & Consultant',
+          '„Avem și spații unde ne putem relaxa, un scaun cu masaj. Un spațiu aerisit, nu te simți ca într-o cutiuță. Nu mă gândesc să schimb.”',
+        name: 'Ludovic K.',
       },
     ],
   },
@@ -116,7 +101,7 @@ function TestimonialCard({ quote, name, role, starsLabel }) {
         <span className="testimonial-card__avatar" aria-hidden="true">{initials(name)}</span>
         <div className="testimonial-card__meta">
           <p className="testimonial-card__name">{name}</p>
-          <p className="testimonial-card__role">{role}</p>
+          {role && <p className="testimonial-card__role">{role}</p>}
         </div>
       </div>
     </article>
@@ -280,7 +265,11 @@ export default function Testimonials({ eyebrow, title, description, items }) {
     return (
       <section className="section testimonials">
         <SectionHeader eyebrow={eyebrow} title={title} description={description} />
-        <div className="testimonials__grid" data-reveal>
+        <div
+          className="testimonials__grid"
+          style={{ '--cols': Math.min(items.length, 3) }}
+          data-reveal
+        >
           {items.map((item, i) => (
             <TestimonialCard key={item.name + i} {...item} starsLabel={t.stars} />
           ))}

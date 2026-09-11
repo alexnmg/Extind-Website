@@ -992,11 +992,16 @@
 }
 
 /* Static layout for a small number of testimonials (no carousel) */
+/* Column count follows the number of cards (--cols, set inline), and the grid
+   is capped to the carousel's own 420px card width so two testimonials read as
+   two cards rather than two banners. */
 .testimonials__grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(var(--cols, 3), minmax(0, 1fr));
   gap: 24px;
   align-items: start;
+  max-width: calc(var(--cols, 3) * 420px + (var(--cols, 3) - 1) * 24px);
+  margin-inline: auto;
 }
 .testimonials__grid .testimonial-card {
   flex: none;
@@ -3492,6 +3497,18 @@ textarea.field__input {
   font-size: 20px;
   font-weight: 500;
   transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+/* Leaflet rounds only the OUTER corners of the bar — square top on the first
+   button, square bottom on the last — which is right for its stacked default
+   but wrong here, where the two buttons are separated by a 6px gap. Its
+   .leaflet-touch rules land at the same specificity as the rule above and win
+   on source order, so the .leaflet-bar class is spelled out to outrank them
+   (and .leaflet-touch is applied on desktop too, whenever the browser reports
+   any touch capability). */
+.contact__map .leaflet-control-zoom.leaflet-bar a:first-child,
+.contact__map .leaflet-control-zoom.leaflet-bar a:last-child {
+  border-radius: var(--radius-lg);
 }
 
 .contact__map .leaflet-control-zoom a:hover {
