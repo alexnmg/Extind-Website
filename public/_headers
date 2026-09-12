@@ -11,12 +11,18 @@
   # Nothing on this site needs any of these.
   Permissions-Policy: geolocation=(), camera=(), microphone=(), payment=(), usb=(), interest-cohort=()
   # Origins below are the ones the site actually loads from, verified against the
-  # live pages — CARTO for the contact-page map tiles, Cal.com for the booking
+  # live pages — OpenFreeMap for the contact-page map, Cal.com for the booking
   # embed and its iframe. Fonts are self-hosted, so no font origin is allowed. 'unsafe-inline' is
-  # needed for style only: React style attributes and Leaflet both inject them.
+  # needed for style only: React style attributes and MapLibre both inject them.
   # Scripts carry no such exception. frame-ancestors replaces X-Frame-Options and
   # is what stops the contact form and booker being framed by anyone else.
-  Content-Security-Policy: default-src 'self'; script-src 'self' https://app.cal.com; style-src 'self' 'unsafe-inline'; font-src 'self' data:; img-src 'self' data: blob: https://*.basemaps.cartocdn.com; connect-src 'self' https://app.cal.com; frame-src https://app.cal.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'
+  #
+  # The map needs three of these entries, and misses fail silently as a blank
+  # box: connect-src for the style JSON, vector tiles, glyphs and sprite sheet;
+  # img-src for the sprite image and the Natural Earth raster underlay; and
+  # worker-src blob:, because MapLibre builds its tile workers from a blob URL —
+  # without it the workers are blocked and nothing ever renders.
+  Content-Security-Policy: default-src 'self'; script-src 'self' https://app.cal.com; worker-src 'self' blob:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; img-src 'self' data: blob: https://tiles.openfreemap.org; connect-src 'self' https://app.cal.com https://tiles.openfreemap.org; frame-src https://app.cal.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'
 
 # Vite fingerprints these filenames, so the content at a given URL never changes.
 /assets/*

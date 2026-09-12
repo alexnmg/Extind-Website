@@ -836,8 +836,15 @@
 /* Full-bleed image with a white CTA card floating at top-left (Figma
    "Services Slider": image 1552×650, card 517×434 at 40/40, caption
    bottom-right, arrows inside the card's lower-left). */
+/* Carries its own top separation, the way .section does with padding-top, so
+   the block sits in the page's 48px rhythm instead of butting straight into
+   whatever precedes it — the hero's pill row on /private-offices, a section on
+   the homepage. Margin rather than padding: the height is fixed and the
+   contents are absolutely positioned inside a rounded, clipped box, so padding
+   would crop the image instead of moving the block. */
 .services {
   position: relative;
+  margin-top: 48px;
   height: 650px;
   border-radius: var(--radius-2xl);
   overflow: hidden;
@@ -3550,62 +3557,98 @@ textarea.field__input {
   background: var(--brand-cream);
 }
 
-/* ----- Leaflet: minimal, brand-styled controls & pin ----- */
-.leaflet-container {
+/* Shown when the Leaflet chunk cannot be fetched (see LocationMap.jsx). The
+   address is what the visitor came to this block for, so it stays legible
+   whether or not the map itself ever arrives. */
+.contact__map--fallback {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 8px;
+  padding: 32px;
+}
+
+.contact__map-heading {
+  font-size: var(--fs-14);
+  font-weight: 700;
+  color: var(--text-secondary);
+}
+
+.contact__map-address {
+  font-size: var(--fs-18);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.contact__map-link {
+  align-self: flex-start;
+  margin-top: 8px;
+  font-size: var(--fs-16);
+  font-weight: 600;
+  color: var(--accent);
+}
+
+/* ----- MapLibre: minimal, brand-styled controls & pin ----- */
+.maplibregl-map {
   font-family: var(--font-sans);
   background: var(--brand-cream);
 }
 
-.contact__map .leaflet-control-zoom {
+.contact__map .maplibregl-ctrl-group {
   border: none;
   box-shadow: none;
+  background: none;
   margin: 12px;
   display: flex;
   flex-direction: column;
   gap: 6px;
 }
 
-.contact__map .leaflet-control-zoom a {
+.contact__map .maplibregl-ctrl-group button {
   width: 36px;
   height: 36px;
-  line-height: 34px;
   border: 1.5px solid var(--border);
   border-radius: var(--radius-lg);
   background: var(--surface);
   color: var(--text-primary);
-  font-size: 20px;
-  font-weight: 500;
-  transition: background-color 0.15s ease, color 0.15s ease;
+  transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
 }
 
-/* Leaflet rounds only the OUTER corners of the bar — square top on the first
-   button, square bottom on the last — which is right for its stacked default
-   but wrong here, where the two buttons are separated by a 6px gap. Its
-   .leaflet-touch rules land at the same specificity as the rule above and win
-   on source order, so the .leaflet-bar class is spelled out to outrank them
-   (and .leaflet-touch is applied on desktop too, whenever the browser reports
-   any touch capability). */
-.contact__map .leaflet-control-zoom.leaflet-bar a:first-child,
-.contact__map .leaflet-control-zoom.leaflet-bar a:last-child {
+/* MapLibre rounds only the OUTER corners of a control group and draws a divider
+   between stacked buttons — right for its default, wrong here, where the two
+   buttons are separated by a 6px gap. */
+.contact__map .maplibregl-ctrl-group button:first-child,
+.contact__map .maplibregl-ctrl-group button:last-child {
   border-radius: var(--radius-lg);
 }
 
-.contact__map .leaflet-control-zoom a:hover {
+.contact__map .maplibregl-ctrl-group button + button {
+  border-top: 1.5px solid var(--border);
+}
+
+.contact__map .maplibregl-ctrl-group button:hover {
   background: var(--text-primary);
   color: var(--surface);
   border-color: var(--text-primary);
 }
 
-.contact__map .leaflet-control-attribution {
+/* The +/- glyphs are inline-SVG icons painted by a hardcoded dark fill, so they
+   stay invisible against the hover fill unless they follow currentColor. */
+.contact__map .maplibregl-ctrl-group button .maplibregl-ctrl-icon {
+  filter: none;
+}
+
+.contact__map .maplibregl-ctrl-attrib {
   background: rgba(255, 255, 255, 0.72);
   color: var(--text-secondary);
   font-size: 10px;
   line-height: 1.4;
   padding: 2px 6px;
   border-radius: var(--radius-sm) 0 0 0;
+  margin: 0;
 }
 
-.contact__map .leaflet-control-attribution a {
+.contact__map .maplibregl-ctrl-attrib a {
   color: var(--text-secondary);
 }
 
