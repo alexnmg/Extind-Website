@@ -25,9 +25,13 @@ import { useLang } from '../lib/i18n'
  * one with a blocked-access tile. OpenFreeMap serves the same Positron styling,
  * so the map looks essentially as it did before. */
 
-// Palas Campus, Iași
-const LAT = 47.1566
-const LON = 27.5885
+/* Extind Cowork+, Palas Campus, Iași — taken from the business's own Google
+ * Maps listing. The previous pair put the pin 516 m east of the building, out
+ * past the far side of Palas, because the longitude was wrong in the third
+ * decimal. If these ever need changing, read them off the listing rather than
+ * from a search result for the street. */
+const LAT = 47.1568045
+const LON = 27.5816947
 
 const STYLE_URL = 'https://tiles.openfreemap.org/styles/positron'
 
@@ -143,7 +147,7 @@ export default function LocationMap() {
         <p className="contact__map-address">{ADDRESS}</p>
         <a
           className="contact__map-link"
-          href={`https://www.openstreetmap.org/?mlat=${LAT}&mlon=${LON}#map=17/${LAT}/${LON}`}
+          href={`https://www.google.com/maps/search/?api=1&query=${LAT},${LON}`}
           target="_blank"
           rel="noreferrer"
         >
