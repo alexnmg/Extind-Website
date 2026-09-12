@@ -177,7 +177,7 @@ function NavDropdown({ label, items }) {
     <div className="navbar__dropdown-wrap" ref={ref}>
       <button
         type="button"
-        className={`navbar__link${open ? ' is-active' : ''}`}
+        className={`navbar__link${open ? ' navbar__link--open' : ''}`}
         aria-haspopup="true"
         aria-expanded={open}
         onClick={() => setOpen((v) => !v)}

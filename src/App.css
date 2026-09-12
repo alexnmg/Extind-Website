@@ -247,16 +247,19 @@
   transition: background-color 0.15s ease, color 0.15s ease;
 }
 
-/* Nav Link states from Figma: hover = cream pill + Forest Green,
-   active = cream pill + semibold charcoal */
+/* Nav Link states from Figma: hover = cream pill + Forest Green */
 .navbar__link:hover {
   background: var(--background);
   color: var(--accent);
 }
 
-.navbar__link.is-active {
+/* A dropdown trigger keeps the cream pill for as long as its menu is open.
+   Deliberately NOT a weight change: .navbar__links sets gap: 0 and every label
+   is nowrap, so going 500 -> 600 widens this button and shoves every item to
+   its right sideways on the click that opens the menu. The open panel below is
+   the real affordance anyway. */
+.navbar__link--open {
   background: var(--background);
-  font-weight: 600;
 }
 
 /* About us dropdown */
