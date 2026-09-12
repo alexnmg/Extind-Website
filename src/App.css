@@ -681,13 +681,16 @@
   }
 }
 
+/* The photograph settles out of a slight zoom but never fades from nothing.
+   data-animate lands at hydration, a second or more after the prerendered page
+   has painted on a slow connection — an opacity ramp there would un-paint the
+   largest thing on screen and restart the Largest Contentful Paint clock at the
+   end of the animation. A transform cannot do that: it never blanks the pixel. */
 @keyframes hero-media-in {
   from {
-    opacity: 0;
     transform: scale(1.04);
   }
   to {
-    opacity: 1;
     transform: none;
   }
 }

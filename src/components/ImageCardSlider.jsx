@@ -31,9 +31,25 @@ export default function ImageCardSlider({ slides, className }) {
       <div className="slider-track" style={{ transform: `translateX(-${index * 100}%)` }}>
         {/* Each slide clips its own image so the Ken Burns zoom can't bleed
             into the neighbouring slide inside the track */}
-        {slides.map(({ src, alt }) => (
+        {slides.map(({ src, alt }, i) => (
           <div key={src} className="slider-slide">
-            <Photo className="slider-slide__img" name={src} alt={alt} sizes="(max-width: 1024px) 100vw, 50vw" />
+            {/* The slider only ever runs as a hero (Hero.jsx is its one caller),
+                so the first slide is the largest thing above the fold on every
+                page — the LCP element. Without the hints the browser finds it in
+                the markup readily enough and then queues it behind the
+                stylesheet, the bundle and eight fonts.
+
+                The other slides sit off to the side INSIDE the viewport rect, so
+                loading="lazy" never defers them — only a low priority hint keeps
+                them from racing the one slide anybody can see. */}
+            <Photo
+              className="slider-slide__img"
+              name={src}
+              alt={alt}
+              sizes="(max-width: 1024px) 100vw, 50vw"
+              loading={i === 0 ? 'eager' : 'lazy'}
+              fetchPriority={i === 0 ? 'high' : 'low'}
+            />
           </div>
         ))}
       </div>
