@@ -3627,7 +3627,15 @@ textarea.field__input {
   border-radius: var(--radius-lg);
 }
 
-.contact__map .maplibregl-ctrl-group button:hover {
+/* :not(:disabled) is here for two reasons. It is correct — MapLibre disables
+   the button at min/max zoom, and a disabled control should not light up under
+   the cursor. And it is necessary: MapLibre's own
+   `.maplibregl-ctrl button:not(:disabled):hover { background-color }` scores
+   exactly the same as a plain `.contact__map .maplibregl-ctrl-group
+   button:hover`, and its stylesheet is injected at runtime, so an even match
+   goes to MapLibre. That tie is why the fill stayed pale while the border and
+   the icon — which nothing competes for — changed. */
+.contact__map .maplibregl-ctrl.maplibregl-ctrl-group button:not(:disabled):hover {
   background: var(--text-primary);
   color: var(--surface);
   border-color: var(--text-primary);
@@ -3635,8 +3643,10 @@ textarea.field__input {
 
 /* The +/- glyphs are background-image SVGs with a dark fill baked into the data
    URI, so they cannot follow currentColor and would disappear against the dark
-   hover fill. Inverting the whole icon is the only lever the markup gives us. */
-.contact__map .maplibregl-ctrl-group button:hover .maplibregl-ctrl-icon {
+   hover fill. Inverting the whole icon is the only lever the markup gives us —
+   and it must be scoped to exactly the state that darkens the button, or it
+   turns the glyph white on a white button. */
+.contact__map .maplibregl-ctrl.maplibregl-ctrl-group button:not(:disabled):hover .maplibregl-ctrl-icon {
   filter: invert(1);
 }
 
