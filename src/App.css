@@ -2172,6 +2172,19 @@ textarea.field__input {
 }
 
 /* ---------- CTA ---------- */
+/* A block that paints its own background cannot separate itself with padding —
+   the background starts at the box edge, so 64px of padding is 64px of dark
+   block, not 64px of air. Like .services it takes a margin instead.
+
+   Scoped to a following sibling rather than set outright, because /book-a-visit
+   OPENS with .book-visit and would otherwise start 48px lower than every other
+   page. The .sr-only exclusion is that page: the only thing before the block
+   there is the visually hidden h1, which is a real previous sibling. */
+:not(.sr-only) + .cta,
+:not(.sr-only) + .book-visit {
+  margin-top: 48px;
+}
+
 .cta {
   background: var(--text-primary);
   border-radius: var(--radius-2xl);

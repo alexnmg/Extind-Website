@@ -37,13 +37,31 @@ const STYLE_URL = 'https://tiles.openfreemap.org/styles/positron'
 
 const ADDRESS = 'Strada Sfântul Andrei 39A, Palas Campus (clădirea B2), etaj 6, Iași'
 
+/* MapLibre's own UI strings. Only the cooperative-gestures hints are listed:
+   they are the only chrome that shows words rather than an icon. */
+const LOCALE = {
+  en: {
+    'CooperativeGesturesHandler.WindowsHelpText': 'Use ctrl + scroll to zoom the map',
+    'CooperativeGesturesHandler.MacHelpText': 'Use ⌘ + scroll to zoom the map',
+    'CooperativeGesturesHandler.MobileHelpText': 'Use two fingers to move the map',
+    'NavigationControl.ZoomIn': 'Zoom in',
+    'NavigationControl.ZoomOut': 'Zoom out',
+  },
+  ro: {
+    'CooperativeGesturesHandler.WindowsHelpText': 'Folosește ctrl + scroll pentru a mări harta',
+    'CooperativeGesturesHandler.MacHelpText': 'Folosește ⌘ + scroll pentru a mări harta',
+    'CooperativeGesturesHandler.MobileHelpText': 'Folosește două degete pentru a muta harta',
+    'NavigationControl.ZoomIn': 'Apropie harta',
+    'NavigationControl.ZoomOut': 'Depărtează harta',
+  },
+}
+
 const T = {
-  en: { heading: 'Find us', action: 'Open in Maps →', zoomIn: 'Zoom in', zoomOut: 'Zoom out' },
+  en: { heading: 'Find us', action: 'Open in Maps →', mapLabel: 'Map showing Extind at Palas Campus, Iași' },
   ro: {
     heading: 'Ne găsești aici',
     action: 'Deschide în Hărți →',
-    zoomIn: 'Apropie harta',
-    zoomOut: 'Depărtează harta',
+    mapLabel: 'Harta cu Extind în Palas Campus, Iași',
   },
 }
 
@@ -55,8 +73,8 @@ const PIN_SVG = `
   <circle cx="16" cy="15" r="5.2" fill="var(--brand-white)"/>
 </svg>`
 
-/* Minimal, brand-styled interactive map. Scroll-wheel zoom is off so the map
- * never hijacks page scrolling — zoom is via the styled controls or pinch. The
+/* Minimal, brand-styled interactive map. Gestures are cooperative so the map
+ * never hijacks a scroll meant for the page — see the constructor below. The
  * zoom buttons, attribution and pin are restyled in App.css to match the site. */
 export default function LocationMap() {
   const containerRef = useRef(null)
@@ -89,7 +107,16 @@ export default function LocationMap() {
         style: STYLE_URL,
         center: [LON, LAT], // MapLibre takes lng,lat — the opposite of Leaflet
         zoom: 15,
-        scrollZoom: false,
+        /* The map must never capture a gesture the reader meant for the page.
+           Left to itself MapLibre sets touch-action:none on the canvas, so on a
+           phone one finger dragging across a 343x257 map pans the map and the
+           page stops scrolling — the reader is stuck. Cooperative gestures give
+           the page one-finger scrolling back and reserve two fingers for the
+           map, and on desktop replace silent do-nothing wheel scrolling with a
+           hint plus ctrl/cmd + scroll to zoom. It supersedes scrollZoom:false,
+           which only ever addressed the desktop half of this. */
+        cooperativeGestures: true,
+        locale: LOCALE[lang],
         attributionControl: false,
       })
       mapRef.current = map
@@ -138,7 +165,12 @@ export default function LocationMap() {
       cancelled = true
       cleanup()
     }
-  }, [])
+    /* Rebuilt on a language switch: MapLibre reads `locale` once, at
+       construction, so the gesture hint and the zoom labels would otherwise
+       stay in whichever language the page first loaded in. Cleanup nulls the
+       ref, so the guard at the top does not block the rebuild, and the tiles
+       come from cache. */
+  }, [lang])
 
   if (failed) {
     return (
@@ -161,7 +193,7 @@ export default function LocationMap() {
     <div
       ref={containerRef}
       className="contact__map"
-      aria-label="Map showing Extind at Palas Campus, Iași"
+      aria-label={t.mapLabel}
     />
   )
 }
