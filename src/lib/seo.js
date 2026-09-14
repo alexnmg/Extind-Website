@@ -153,8 +153,8 @@ export const ROUTES = {
     title: { ro: 'Politica de cookie-uri — Extind', en: 'Cookie Policy — Extind' },
     ogTitle: { ro: 'Politica de cookie-uri', en: 'Cookie Policy' },
     description: {
-      ro: 'Măsurăm folosirea site-ului cu Microsoft Clarity, dar numai dacă accepți. Ce se înregistrează, ce cookie-uri se pun și cum îți retragi acordul.',
-      en: 'We measure how this site is used with Microsoft Clarity, but only if you accept. What it records, which cookies it sets, and how to withdraw consent.',
+      ro: 'Măsurăm folosirea site-ului doar dacă accepți. Ce instrumente folosim, ce cookie-uri se pun, cât durează și cum îți retragi acordul oricând.',
+      en: 'We measure how this site is used only if you accept. Which tools we use, which cookies they set, how long they last and how to withdraw at any time.',
     },
     image: og('home'),
     imageAlt: { ro: 'Spațiul de lucru deschis EXTIND din Palas Campus, Iași', en: 'The EXTIND open workspace at Palas Campus, Iași' },

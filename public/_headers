@@ -47,7 +47,13 @@
   # it by adding clarity.ms or bing.com to img-src. Clarity is unaffected —
   # verified with it blocked: sessions upload to *.clarity.ms/collect and both
   # _clck and _clsk are set.
-  Content-Security-Policy: default-src 'self'; script-src 'self' https://app.cal.com https://*.clarity.ms; worker-src 'self' blob:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; img-src 'self' data: blob: https://tiles.openfreemap.org; connect-src 'self' https://app.cal.com https://tiles.openfreemap.org https://*.clarity.ms; frame-src https://app.cal.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'
+  #
+  # Google Analytics 4 loads gtag.js from googletagmanager.com and then beacons
+  # to google-analytics.com; GA4 also uses regional endpoints of the form
+  # region1.analytics.google.com, hence the two wildcards in connect-src. Like
+  # Clarity it is injected from the bundle after an explicit accept, never
+  # inlined, so script-src still needs no 'unsafe-inline'.
+  Content-Security-Policy: default-src 'self'; script-src 'self' https://app.cal.com https://*.clarity.ms https://www.googletagmanager.com; worker-src 'self' blob:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; img-src 'self' data: blob: https://tiles.openfreemap.org; connect-src 'self' https://app.cal.com https://tiles.openfreemap.org https://*.clarity.ms https://www.google-analytics.com https://*.analytics.google.com https://*.google-analytics.com https://www.googletagmanager.com; frame-src https://app.cal.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'
 
 # Vite fingerprints these filenames, so the content at a given URL never changes.
 /assets/*
