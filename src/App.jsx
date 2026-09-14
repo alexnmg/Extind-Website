@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import ScrollReveal from './components/ScrollReveal'
+import ConsentBanner from './components/ConsentBanner'
 import Home from './pages/Home'
 import About from './pages/About'
 import PrivateOffices from './pages/PrivateOffices'
@@ -123,6 +124,8 @@ export function AppShell() {
             </Routes>
           </main>
           <Footer />
+          {/* Renders nothing once the visitor has answered; see lib/consent.js */}
+          <ConsentBanner />
         </div>
       </LanguageProvider>
     </>

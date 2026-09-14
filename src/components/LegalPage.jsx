@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import { Link } from '../lib/LocaleLink'
+import { withdrawConsent } from '../lib/consent'
 
 /* Shared layout for the legal pages (privacy, cookies).
  *
@@ -46,6 +47,16 @@ export default function LegalPage({ docTitle, eyebrow, title, updatedLabel, sect
                 {para}
               </p>
             ))}
+            {/* A section carrying consentLabel gets the control the cookie page
+                promises: it records a refusal, clears Clarity's cookies and
+                reloads, after which nothing loads Clarity again. */}
+            {s.consentLabel && (
+              <p className="legal__para">
+                <button type="button" className="btn btn--ghost" onClick={withdrawConsent}>
+                  {s.consentLabel}
+                </button>
+              </p>
+            )}
             {s.links && (
               <p className="legal__links">
                 {s.links.map((link, j) => (

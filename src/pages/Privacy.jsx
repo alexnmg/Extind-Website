@@ -2,11 +2,11 @@ import LegalPage from '../components/LegalPage'
 import { useLang } from '../lib/i18n'
 
 /* Privacy policy. The facts here are meant to match what the site actually
- * does — no analytics, no advertising, no tracking — so if a third-party
+ * does — measurement only behind consent, no advertising, no tracking — so if a third-party
  * script, a form endpoint or a measurement tool is ever added, this copy has
  * to be updated in the same change. See also Cookies.jsx. */
 
-const UPDATED = { en: 'Last updated: 11 September 2026', ro: 'Ultima actualizare: 11 septembrie 2026' }
+const UPDATED = { en: 'Last updated: 14 September 2026', ro: 'Ultima actualizare: 14 septembrie 2026' }
 
 const T = {
   en: {
@@ -29,7 +29,8 @@ const T = {
           'Newsletter. If you subscribe through the form in the site footer, we process your email address solely to send you news about EXTIND and about community events. Legal basis: your consent (Art. 6(1)(a) GDPR). Every newsletter carries an unsubscribe link, and you can also unsubscribe at any time by writing to office@extind.ro. Our newsletters record whether they were opened and which links were clicked, so we can tell what is worth writing about.',
           'Booking a visit. The booking form is provided by Cal.com. What you enter there — your name, email address, the slot you choose and any details you add — reaches both Cal.com and us, so that we can confirm and prepare your visit.',
           'Technical data. Like any website, the servers hosting it automatically log your IP address, browser type, the page requested and the time of the request. We use this to keep the site running and secure. Legal basis: our legitimate interest (Art. 6(1)(f)) in keeping the site available and protected.',
-          'We do not use analytics tools, tracking pixels or advertising on this website. We do not profile you and we take no automated decisions about you.',
+          'Usage measurement, only with your consent. If you accept on the cookie banner, Microsoft Clarity records which pages you open, where you click and how far you scroll, and replays it as an anonymous session so we can see where the site is confusing. It is not loaded at all unless you accept, and you can withdraw at any time on the Cookie Policy page. Legal basis: your consent (Art. 6(1)(a) GDPR).',
+          'We use no advertising and no retargeting on this website. We do not profile you and we take no automated decisions about you.',
         ],
       },
       {
@@ -41,14 +42,16 @@ const T = {
           'Cloudflare, Inc. — hosting and delivery of this website.',
           'Cal.com, Inc. — the visit booking form.',
           'Google Ireland Ltd. (Google Workspace) — our email. A message you send through the contact form is delivered to, and kept in, our mailbox there. The typefaces this site uses are served from our own server, so reading a page sends nothing to Google.',
-          'CARTO — the map on our contact page, built on OpenStreetMap data. Your browser loads the map tiles directly from CARTO, which therefore receives your IP address.',
+          'OpenFreeMap — the map on our contact page, built on OpenStreetMap data. Your browser loads the map directly from OpenFreeMap, which therefore receives your IP address.',
+          'Microsoft Ireland Operations Ltd. (Microsoft Clarity) — usage measurement, and only if you accepted it. Microsoft processes the recorded sessions on our behalf.',
           'The Rocket Science Group LLC d/b/a Mailchimp (United States) — our newsletter. Your address is stored on Mailchimp’s servers in the United States, and they send the newsletters on our behalf. They receive nothing from this website unless you subscribe.',
         ],
         links: [
           { label: 'Cloudflare privacy policy', href: 'https://www.cloudflare.com/privacypolicy/' },
           { label: 'Cal.com privacy policy', href: 'https://cal.com/privacy' },
           { label: 'Google privacy policy', href: 'https://policies.google.com/privacy' },
-          { label: 'CARTO privacy policy', href: 'https://carto.com/privacy/' },
+          { label: 'OpenFreeMap', href: 'https://openfreemap.org/' },
+          { label: 'Microsoft privacy statement', href: 'https://privacy.microsoft.com/privacystatement' },
           { label: 'Mailchimp privacy policy', href: 'https://mailchimp.com/legal/privacy/' },
         ],
       },
@@ -126,7 +129,8 @@ const T = {
           'Newsletter. Dacă te abonezi prin formularul din subsolul site-ului, prelucrăm adresa ta de email exclusiv ca să îți trimitem noutăți despre EXTIND și despre evenimentele comunității. Temei legal: consimțământul tău (art. 6 alin. (1) lit. a) GDPR). Fiecare newsletter conține un link de dezabonare, iar te poți dezabona oricând și scriindu-ne la office@extind.ro. Newsletterele noastre înregistrează dacă au fost deschise și ce linkuri au fost accesate, ca să știm despre ce merită să scriem.',
           'Programarea unei vizite. Formularul de programare este pus la dispoziție de Cal.com. Ce completezi acolo — numele, adresa de email, intervalul ales și eventualele detalii adăugate — ajunge atât la Cal.com, cât și la noi, ca să confirmăm și să pregătim vizita.',
           'Date tehnice. Ca orice site, serverele care îl găzduiesc înregistrează automat adresa IP, tipul de browser, pagina cerută și momentul accesării. Le folosim ca să menținem site-ul funcțional și în siguranță. Temei legal: interesul nostru legitim (art. 6 alin. (1) lit. f)) de a păstra site-ul disponibil și protejat.',
-          'Nu folosim instrumente de analiză a traficului, pixeli de urmărire sau publicitate pe acest site. Nu creăm profiluri și nu luăm decizii automate cu privire la tine.',
+          'Măsurarea utilizării, doar cu acordul tău. Dacă accepți în bannerul de cookie-uri, Microsoft Clarity înregistrează ce pagini deschizi, unde dai clic și cât derulezi, apoi reia totul ca sesiune anonimă, ca să vedem unde este confuz site-ul. Nu se încarcă deloc dacă nu accepți, iar acordul poate fi retras oricând din pagina Politica de cookie-uri. Temei legal: consimțământul tău (art. 6 alin. (1) lit. a) GDPR).',
+          'Nu folosim publicitate și nici retargetare pe acest site. Nu creăm profiluri și nu luăm decizii automate cu privire la tine.',
         ],
       },
       {
@@ -138,14 +142,16 @@ const T = {
           'Cloudflare, Inc. — găzduirea și livrarea acestui site.',
           'Cal.com, Inc. — formularul de programare a vizitelor.',
           'Google Ireland Ltd. (Google Workspace) — emailul nostru. Mesajul pe care îl trimiți prin formularul de contact ajunge și rămâne în căsuța noastră poștală. Fonturile site-ului sunt servite de pe serverul nostru, așa că simpla citire a unei pagini nu trimite nimic către Google.',
-          'CARTO — harta de pe pagina de contact, construită pe date OpenStreetMap. Browserul tău încarcă imaginile hărții direct de la CARTO, care primește astfel adresa ta IP.',
+          'OpenFreeMap — harta de pe pagina de contact, construită pe date OpenStreetMap. Browserul tău încarcă harta direct de la OpenFreeMap, care primește astfel adresa ta IP.',
+          'Microsoft Ireland Operations Ltd. (Microsoft Clarity) — măsurarea utilizării, doar dacă ai acceptat. Microsoft prelucrează sesiunile înregistrate în numele nostru.',
           'The Rocket Science Group LLC d/b/a Mailchimp (Statele Unite) — newsletterul nostru. Adresa ta este stocată pe serverele Mailchimp din Statele Unite, iar ei trimit newsletterele în numele nostru. Nu primesc nimic de pe acest site dacă nu te abonezi.',
         ],
         links: [
           { label: 'Politica de confidențialitate Cloudflare', href: 'https://www.cloudflare.com/privacypolicy/' },
           { label: 'Politica de confidențialitate Cal.com', href: 'https://cal.com/privacy' },
           { label: 'Politica de confidențialitate Google', href: 'https://policies.google.com/privacy' },
-          { label: 'Politica de confidențialitate CARTO', href: 'https://carto.com/privacy/' },
+          { label: 'OpenFreeMap', href: 'https://openfreemap.org/' },
+          { label: 'Declarația de confidențialitate Microsoft', href: 'https://privacy.microsoft.com/privacystatement' },
           { label: 'Politica de confidențialitate Mailchimp', href: 'https://mailchimp.com/legal/privacy/' },
         ],
       },
