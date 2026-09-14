@@ -293,6 +293,16 @@
     ],
     "fallback": 800
   },
+  "private-office-wide": {
+    "w": 1600,
+    "h": 1067,
+    "widths": [
+      800,
+      1200,
+      1600
+    ],
+    "fallback": 1600
+  },
   "private-office": {
     "w": 1600,
     "h": 1067,

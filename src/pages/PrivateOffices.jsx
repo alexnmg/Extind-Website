@@ -18,7 +18,6 @@ import {
   DeskIcon,
   VistaIcon,
 } from '../components/PillIcons'
-const pillarsImg = 'private-office'
 const vistaImg = 'lounge'
 const meetingImg = 'meeting-room'
 const mask1 = 'corridor'
@@ -34,10 +33,10 @@ const mask4 = 'open-office'
  * filenames twice is exactly how a Romanian caption ends up on an English
  * slide's photograph. */
 const HERO_PHOTOS = [
+  'private-office-glass', // Foto_033 — glass walls, Palatul Culturii beyond
   'private-office-room', // Foto_029 — the full room, park view
   'private-office-art', // Foto_017 — desks, monitors, artwork
   'private-office-desks', // Foto_009 — desks and city view
-  'private-office-glass', // Foto_033 — glass walls, Palatul Culturii beyond
   'private-office-palas', // Foto_034 — desk facing Palatul Culturii
   'private-office-storage', // Foto_027 — artwork above the storage unit
   'private-office-screen', // Foto_011 — presentation screen
@@ -49,7 +48,11 @@ const heroSlides = (captions) => captions.map((c, i) => ({ src: HERO_PHOTOS[i], 
 
 const PILL_ICONS = [<ClockIcon key="c" />, <ChairIcon key="ch" />, <MeetingIcon key="m" />, <KitchenIcon key="k" />]
 const SLIDE_ICONS = [<DeskIcon key="d" />, <ClockIcon key="c" />, <ChairIcon key="ch" />, <MeetingIcon key="m" />, <VistaIcon key="v" />]
-const SLIDE_IMAGES = [pillarsImg, mask1, mask4, meetingImg, vistaImg]
+/* The background of the block under the hero. It is a crossfade, not a single
+   image — one photograph per benefit slide — so only the first is swapped: that
+   is the one on screen when the section arrives, and the other four still belong
+   to the slides they illustrate. */
+const SLIDE_IMAGES = ['private-office-wide', mask1, mask4, meetingImg, vistaImg]
 const SLIDE_VARIANTS = ['light', 'cream', 'dark', 'light', 'cream']
 
 const T = {
@@ -62,10 +65,10 @@ const T = {
     secondaryLabel: "See what's included →",
     pills: ['24/7 access', 'Ergonomic chairs & adjustable desks', 'Meeting rooms', 'Fully equipped kitchen'],
     heroSlides: heroSlides([
+      { caption: 'Private offices · 6th floor', alt: 'A glass-walled private office with the Palace of Culture beyond' },
       { caption: 'Private offices · Palas Campus', alt: 'A furnished Extind private office looking out over the park' },
       { caption: 'Private offices · Palas Campus', alt: 'Desks, monitors and a painting in an Extind private office' },
       { caption: 'Private offices · Palas Campus', alt: 'Desks with table lamps beside a window over Iași' },
-      { caption: 'Private offices · 6th floor', alt: 'A glass-walled private office with the Palace of Culture beyond' },
       { caption: 'View of the Palace of Culture · 6th floor', alt: 'A desk facing the Palace of Culture in Iași' },
       { caption: 'Private offices · Palas Campus', alt: 'A painting above the storage unit in a private office' },
       { caption: 'Meetings & presentations · 6th floor', alt: 'A private office with a wall-mounted presentation screen' },
@@ -127,10 +130,10 @@ const T = {
     secondaryLabel: 'Vezi ce este inclus →',
     pills: ['Acces 24/7', 'Mobilier ergonomic', 'Săli de întâlniri', 'Bucătărie complet echipată'],
     heroSlides: heroSlides([
+      { caption: 'Birouri private · etajul 6', alt: 'Birou privat cu pereți de sticlă și Palatul Culturii în fundal' },
       { caption: 'Birouri private · Palas Campus', alt: 'Birou privat Extind, mobilat, cu vedere spre parc' },
       { caption: 'Birouri private · Palas Campus', alt: 'Birouri, monitoare și o lucrare de artă într-un birou privat Extind' },
       { caption: 'Birouri private · Palas Campus', alt: 'Birouri cu veioze, lângă fereastra cu vedere spre Iași' },
-      { caption: 'Birouri private · etajul 6', alt: 'Birou privat cu pereți de sticlă și Palatul Culturii în fundal' },
       { caption: 'Vedere spre Palatul Culturii · etajul 6', alt: 'Birou cu vedere spre Palatul Culturii din Iași' },
       { caption: 'Birouri private · Palas Campus', alt: 'Lucrare de artă deasupra dulapului dintr-un birou privat' },
       { caption: 'Întâlniri & prezentări · etajul 6', alt: 'Birou privat cu ecran de prezentare montat pe perete' },

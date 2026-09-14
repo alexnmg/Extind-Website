@@ -1012,7 +1012,10 @@
   display: grid;
   grid-template-columns: repeat(var(--cols, 3), minmax(0, 1fr));
   gap: 24px;
-  align-items: start;
+  /* stretch, not start: a short quote beside a long one should still produce
+     two cards of the same height. The carousel variant already does this via
+     .testimonials__track's align-items. */
+  align-items: stretch;
   max-width: calc(var(--cols, 3) * 420px + (var(--cols, 3) - 1) * 24px);
   margin-inline: auto;
 }
@@ -1057,11 +1060,17 @@
   color: var(--text-primary);
 }
 
+/* margin-top: auto pins the author to the bottom of the card. The card is a
+   flex column, so once the cards are the same height the spare space collects
+   above this block instead of trailing under it — which is what made the
+   shorter quote's avatar sit halfway up the card. Harmless where a card hugs
+   its content (the carousel below 1024px): there is no spare space to absorb. */
 .testimonial-card__author {
   display: flex;
   gap: 12px;
   align-items: center;
   width: 100%;
+  margin-top: auto;
 }
 
 .testimonial-card__avatar {
