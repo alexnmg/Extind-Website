@@ -12,8 +12,6 @@ const T = {
       'Talks, breakfasts and business evenings hosted in the Vista Lounge and across Palas Campus.',
     emptyEyebrow: 'No events scheduled right now',
     emptyTitle: 'Nothing on the calendar this week',
-    emptyDesc:
-      'We only list real events — with a confirmed date, organiser and a way to sign up. When the next one is set, it’ll appear here. In the meantime, the Vista Lounge is available to host yours.',
     hostEyebrow: 'Host your event',
     hostTitle: 'Organise an event at EXTIND',
     hostDesc:
@@ -40,8 +38,6 @@ const T = {
       'Conferințe, brunch-uri și seri de business găzduite în Vista Lounge și în Palas Campus.',
     emptyEyebrow: 'Niciun eveniment programat momentan',
     emptyTitle: 'Nimic în calendar săptămâna aceasta',
-    emptyDesc:
-      'Listăm doar evenimente reale — cu dată confirmată, organizator și posibilitate de înscriere. Când următorul este stabilit, va apărea aici. Între timp, Vista Lounge este disponibil pentru a-l găzdui pe al tău.',
     hostEyebrow: 'Găzduiește-ți evenimentul',
     hostTitle: 'Organizează evenimentul tău la EXTIND',
     hostDesc:
@@ -82,7 +78,6 @@ export default function Events() {
         <div className="events-empty" data-reveal>
           <span className="events-empty__eyebrow">{t.emptyEyebrow}</span>
           <h3 className="events-empty__title">{t.emptyTitle}</h3>
-          <p className="events-empty__desc">{t.emptyDesc}</p>
         </div>
       </section>
 

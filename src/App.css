@@ -4514,13 +4514,6 @@ textarea.field__input {
   font-weight: 700;
   color: var(--text-primary);
 }
-.events-empty__desc {
-  font-family: var(--font-serif);
-  font-size: var(--fs-16);
-  line-height: 1.55;
-  color: var(--text-secondary);
-  max-width: 54ch;
-}
 .events-types { gap: 16px; }
 .events-types__label {
   font-size: var(--fs-12);
