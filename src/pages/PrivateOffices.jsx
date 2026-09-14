@@ -18,12 +18,34 @@ import {
   DeskIcon,
   VistaIcon,
 } from '../components/PillIcons'
-const heroImg = 'hero-main'
 const pillarsImg = 'private-office'
 const vistaImg = 'lounge'
 const meetingImg = 'meeting-room'
 const mask1 = 'corridor'
 const mask4 = 'open-office'
+
+/* Hero slider photographs, in the order they appear. The client picked these
+ * eight out of the September 2026 shoot — the trailing comment on each line is
+ * its number in the Figma photo library, so a slide can be traced back to the
+ * original file.
+ *
+ * The order is shared by both languages rather than repeated in each, because
+ * the two caption lists below are matched to it by position: repeating eight
+ * filenames twice is exactly how a Romanian caption ends up on an English
+ * slide's photograph. */
+const HERO_PHOTOS = [
+  'private-office-room', // Foto_029 — the full room, park view
+  'private-office-art', // Foto_017 — desks, monitors, artwork
+  'private-office-desks', // Foto_009 — desks and city view
+  'private-office-glass', // Foto_033 — glass walls, Palatul Culturii beyond
+  'private-office-palas', // Foto_034 — desk facing Palatul Culturii
+  'private-office-storage', // Foto_027 — artwork above the storage unit
+  'private-office-screen', // Foto_011 — presentation screen
+  'private-office-detail', // Foto_012 — vase and lamp, close up
+]
+
+/* Pairs each caption with the photo at the same index. */
+const heroSlides = (captions) => captions.map((c, i) => ({ src: HERO_PHOTOS[i], ...c }))
 
 const PILL_ICONS = [<ClockIcon key="c" />, <ChairIcon key="ch" />, <MeetingIcon key="m" />, <KitchenIcon key="k" />]
 const SLIDE_ICONS = [<DeskIcon key="d" />, <ClockIcon key="c" />, <ChairIcon key="ch" />, <MeetingIcon key="m" />, <VistaIcon key="v" />]
@@ -39,11 +61,16 @@ const T = {
     primaryLabel: 'Book a visit',
     secondaryLabel: "See what's included →",
     pills: ['24/7 access', 'Ergonomic chairs & adjustable desks', 'Meeting rooms', 'Fully equipped kitchen'],
-    heroSlides: [
-      { src: pillarsImg, caption: 'Private offices · Palas Campus', alt: 'Private office at Extind' },
-      { src: heroImg, caption: 'Coworking · Palas Campus', alt: 'Extind coworking space' },
-      { src: vistaImg, caption: 'Panoramic Lounge · 6th floor', alt: 'Vista Lounge' },
-    ],
+    heroSlides: heroSlides([
+      { caption: 'Private offices · Palas Campus', alt: 'A furnished Extind private office looking out over the park' },
+      { caption: 'Private offices · Palas Campus', alt: 'Desks, monitors and a painting in an Extind private office' },
+      { caption: 'Private offices · Palas Campus', alt: 'Desks with table lamps beside a window over Iași' },
+      { caption: 'Private offices · 6th floor', alt: 'A glass-walled private office with the Palace of Culture beyond' },
+      { caption: 'View of the Palace of Culture · 6th floor', alt: 'A desk facing the Palace of Culture in Iași' },
+      { caption: 'Private offices · Palas Campus', alt: 'A painting above the storage unit in a private office' },
+      { caption: 'Meetings & presentations · 6th floor', alt: 'A private office with a wall-mounted presentation screen' },
+      { caption: 'Details · Palas Campus', alt: 'A ceramic vase and a table lamp on a wooden ledge' },
+    ]),
     benefitSlides: [
       {
         caption: 'Private offices · Palas Campus',
@@ -99,11 +126,16 @@ const T = {
     primaryLabel: 'Programează o vizită',
     secondaryLabel: 'Vezi ce este inclus →',
     pills: ['Acces 24/7', 'Mobilier ergonomic', 'Săli de întâlniri', 'Bucătărie complet echipată'],
-    heroSlides: [
-      { src: pillarsImg, caption: 'Birouri private · Palas Campus', alt: 'Birou privat la Extind' },
-      { src: heroImg, caption: 'Coworking · Palas Campus', alt: 'Spațiul de coworking Extind' },
-      { src: vistaImg, caption: 'Lounge panoramic · etajul 6', alt: 'Vista Lounge' },
-    ],
+    heroSlides: heroSlides([
+      { caption: 'Birouri private · Palas Campus', alt: 'Birou privat Extind, mobilat, cu vedere spre parc' },
+      { caption: 'Birouri private · Palas Campus', alt: 'Birouri, monitoare și o lucrare de artă într-un birou privat Extind' },
+      { caption: 'Birouri private · Palas Campus', alt: 'Birouri cu veioze, lângă fereastra cu vedere spre Iași' },
+      { caption: 'Birouri private · etajul 6', alt: 'Birou privat cu pereți de sticlă și Palatul Culturii în fundal' },
+      { caption: 'Vedere spre Palatul Culturii · etajul 6', alt: 'Birou cu vedere spre Palatul Culturii din Iași' },
+      { caption: 'Birouri private · Palas Campus', alt: 'Lucrare de artă deasupra dulapului dintr-un birou privat' },
+      { caption: 'Întâlniri & prezentări · etajul 6', alt: 'Birou privat cu ecran de prezentare montat pe perete' },
+      { caption: 'Detalii · Palas Campus', alt: 'Vază ceramică și veioză pe un raft de lemn' },
+    ]),
     benefitSlides: [
       {
         caption: 'Birouri private · Palas Campus',

@@ -221,6 +221,78 @@
     ],
     "fallback": 1600
   },
+  "private-office-art": {
+    "w": 1600,
+    "h": 1067,
+    "widths": [
+      800,
+      1200,
+      1600
+    ],
+    "fallback": 1600
+  },
+  "private-office-desks": {
+    "w": 1067,
+    "h": 1600,
+    "widths": [
+      800
+    ],
+    "fallback": 800
+  },
+  "private-office-detail": {
+    "w": 1600,
+    "h": 1067,
+    "widths": [
+      800,
+      1200,
+      1600
+    ],
+    "fallback": 1600
+  },
+  "private-office-glass": {
+    "w": 1067,
+    "h": 1600,
+    "widths": [
+      800
+    ],
+    "fallback": 800
+  },
+  "private-office-palas": {
+    "w": 1067,
+    "h": 1600,
+    "widths": [
+      800
+    ],
+    "fallback": 800
+  },
+  "private-office-room": {
+    "w": 1600,
+    "h": 1067,
+    "widths": [
+      800,
+      1200,
+      1600
+    ],
+    "fallback": 1600
+  },
+  "private-office-screen": {
+    "w": 1600,
+    "h": 1067,
+    "widths": [
+      800,
+      1200,
+      1600
+    ],
+    "fallback": 1600
+  },
+  "private-office-storage": {
+    "w": 1067,
+    "h": 1600,
+    "widths": [
+      800
+    ],
+    "fallback": 800
+  },
   "private-office": {
     "w": 1600,
     "h": 1067,
