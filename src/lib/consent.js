@@ -64,11 +64,25 @@ function loadClarity() {
   s.async = true
   s.src = `https://www.clarity.ms/tag/${CLARITY_ID}`
   document.head.appendChild(s)
+
+  /* Clarity keeps itself cookieless until it is told consent was given, so
+   * without this it records but cannot recognise a returning visit. The call is
+   * queued on window.clarity above and runs once the library arrives. We only
+   * ever reach here after an explicit accept, so signalling it is honest —
+   * and it is what makes the two cookies the cookie policy names actually
+   * appear. Withdrawing calls the same API with false before clearing. */
+  window.clarity('consent')
 }
 
 /** Deletes what Clarity left behind. Best effort — see withdrawConsent. */
 function clearClarityStorage() {
   if (typeof document === 'undefined') return
+  // Tell Clarity first, so it stops writing before we delete what it wrote.
+  try {
+    window.clarity?.('consent', false)
+  } catch {
+    /* library never loaded — nothing to tell */
+  }
   for (const name of CLARITY_COOKIES) {
     // Clarity sets these first-party, so clearing on the current host is enough;
     // the leading-dot variant covers the cookie set against the registrable domain.
