@@ -143,8 +143,8 @@ export const ROUTES = {
     title: { ro: 'Politica de confidențialitate — Extind', en: 'Privacy Policy — Extind' },
     ogTitle: { ro: 'Politica de confidențialitate', en: 'Privacy Policy' },
     description: {
-      ro: 'Ce date colectăm prin acest site, de ce, cui le transmitem și ce drepturi ai. Fără analiză de trafic, fără publicitate, fără urmărire.',
-      en: 'What data we collect through this site, why, who receives it and what rights you have. No analytics, no advertising, no tracking.',
+      ro: 'Ce date colectăm prin acest site, de ce, cui le transmitem și ce drepturi ai. Măsurăm folosirea doar cu acordul tău; fără publicitate și fără profilare.',
+      en: 'What data we collect through this site, why, who receives it and what rights you have. Measurement only with your consent; no advertising, no profiling.',
     },
     image: og('home'),
     imageAlt: { ro: 'Spațiul de lucru deschis EXTIND din Palas Campus, Iași', en: 'The EXTIND open workspace at Palas Campus, Iași' },
@@ -153,8 +153,8 @@ export const ROUTES = {
     title: { ro: 'Politica de cookie-uri — Extind', en: 'Cookie Policy — Extind' },
     ogTitle: { ro: 'Politica de cookie-uri', en: 'Cookie Policy' },
     description: {
-      ro: 'Acest site nu folosește cookie-uri de analiză, urmărire sau publicitate și nu stochează absolut nimic în browserul tău. De aceea nu vezi niciun banner.',
-      en: 'This site uses no analytics, tracking or advertising cookies and stores nothing at all in your browser — not one cookie. That is why you see no banner.',
+      ro: 'Măsurăm folosirea site-ului cu Microsoft Clarity, dar numai dacă accepți. Ce se înregistrează, ce cookie-uri se pun și cum îți retragi acordul.',
+      en: 'We measure how this site is used with Microsoft Clarity, but only if you accept. What it records, which cookies it sets, and how to withdraw consent.',
     },
     image: og('home'),
     imageAlt: { ro: 'Spațiul de lucru deschis EXTIND din Palas Campus, Iași', en: 'The EXTIND open workspace at Palas Campus, Iași' },
