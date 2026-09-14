@@ -3,20 +3,25 @@ import { Link } from '../lib/LocaleLink'
 import { useLang } from '../lib/i18n'
 import { readConsent, setConsent, applyStoredConsent, subscribeConsent } from '../lib/consent'
 
+/* Deliberately names no tool. The banner states what happens — cookies, for
+ * measurement, nothing before you accept — and the cookie policy behind the link
+ * carries the detail: which tools, which cookies, how long they last. That way
+ * adding or swapping a measurement tool is a change to one page, not to the
+ * sentence every visitor reads. */
 const T = {
   en: {
     label: 'Cookie consent',
-    body: 'We would like to measure how this site is used, with Microsoft Clarity. It records pages viewed, clicks and scrolling, and needs cookies to do it. Nothing loads unless you accept.',
+    body: 'We use cookies to measure how this site is used, so we can make it better. Nothing is loaded until you accept, and refusing changes nothing about how the site works.',
     accept: 'Accept',
     decline: 'Refuse',
-    more: 'What this records',
+    more: 'Cookie policy',
   },
   ro: {
     label: 'Acord pentru cookie-uri',
-    body: 'Vrem să măsurăm cum este folosit site-ul, cu Microsoft Clarity. Înregistrează paginile vizitate, clicurile și derularea, iar pentru asta are nevoie de cookie-uri. Nu se încarcă nimic dacă nu accepți.',
+    body: 'Folosim cookie-uri ca să măsurăm cum este folosit site-ul și să îl putem îmbunătăți. Nu se încarcă nimic până nu accepți, iar dacă refuzi site-ul funcționează exact la fel.',
     accept: 'Accept',
     decline: 'Refuz',
-    more: 'Ce se înregistrează',
+    more: 'Politica de cookie-uri',
   },
 }
 
