@@ -285,6 +285,16 @@
     ],
     "fallback": 1600
   },
+  "sali-de-intalniri": {
+    "w": 1600,
+    "h": 1067,
+    "widths": [
+      800,
+      1200,
+      1600
+    ],
+    "fallback": 1600
+  },
   "services-banner": {
     "w": 1600,
     "h": 1067,
@@ -328,5 +338,15 @@
       800
     ],
     "fallback": 800
+  },
+  "vista-lounge-new": {
+    "w": 1600,
+    "h": 1067,
+    "widths": [
+      800,
+      1200,
+      1600
+    ],
+    "fallback": 1600
   }
 }

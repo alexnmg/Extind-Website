@@ -3,8 +3,8 @@ import { Link } from '../lib/LocaleLink'
 import ImageCardSlider from './ImageCardSlider'
 import { useLang } from '../lib/i18n'
 const heroImg = 'hero-main'
-const boothImg = 'booth'
-const vistaImg = 'lounge'
+const boothImg = 'sali-de-intalniri'
+const vistaImg = 'vista-lounge-new'
 
 /* Language-aware defaults; pages that pass their own copy override these. */
 const T = {
@@ -16,7 +16,7 @@ const T = {
     slides: [
       { src: heroImg, caption: 'Coworking · Palas Campus', alt: 'Extind coworking space at Palas Campus' },
       { src: vistaImg, caption: 'Vista Lounge Panoramic View', alt: 'Panoramic view from Vista Lounge' },
-      { src: boothImg, caption: 'Meeting & Focus Rooms', alt: 'Meeting and focus booth at Extind' },
+      { src: boothImg, caption: 'Meeting & Focus Rooms', alt: 'Meeting room at Extind' },
     ],
   },
   ro: {
@@ -27,7 +27,7 @@ const T = {
     slides: [
       { src: heroImg, caption: 'Workspace', alt: 'Spațiul de coworking Extind din Palas Campus' },
       { src: vistaImg, caption: 'Vista Lounge — vedere panoramică', alt: 'Vedere panoramică din Vista Lounge' },
-      { src: boothImg, caption: 'Săli de întâlniri & focus', alt: 'Cabină de întâlniri și focus la Extind' },
+      { src: boothImg, caption: 'Săli de întâlniri & focus', alt: 'Sală de întâlniri la Extind' },
     ],
   },
 }
