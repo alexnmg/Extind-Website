@@ -18,7 +18,7 @@ const T = {
     secondaryLabel: "See what's included →",
     heroSlides: [
       { src: pillarsImg, caption: 'Private office · Palas Campus', alt: 'Private office at Extind' },
-      { src: vistaImg, caption: 'Panoramic Lounge · 6th floor', alt: 'Vista Lounge' },
+      { src: vistaImg, caption: 'Panoramic Lounge · 6th floor', alt: 'EXTIND Lounge' },
       { src: heroImg, caption: 'Coworking · Palas Campus', alt: 'Coworking space at Extind' },
     ],
     useEyebrow: "When you'd use it",
@@ -63,7 +63,7 @@ const T = {
     secondaryLabel: 'Vezi ce este inclus →',
     heroSlides: [
       { src: pillarsImg, caption: 'Birou privat · Palas Campus', alt: 'Birou privat la Extind' },
-      { src: vistaImg, caption: 'Lounge panoramic · etajul 6', alt: 'Vista Lounge' },
+      { src: vistaImg, caption: 'Lounge panoramic · etajul 6', alt: 'EXTIND Lounge' },
       { src: heroImg, caption: 'Coworking · Palas Campus', alt: 'Spațiul de coworking Extind' },
     ],
     useEyebrow: 'Când îl folosești',

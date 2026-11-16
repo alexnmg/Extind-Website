@@ -13,12 +13,12 @@ const T = {
     docTitle: 'Conference Rooms — Extind',
     heroTitle: 'Rooms for the meetings that matter.',
     heroLede:
-      'Meeting rooms and a conference room on the 6th floor of Palas Campus — bookable by the hour, matched to your format, and ready for the conversations you can’t leave to chance. For larger gatherings, the panoramic Vista Lounge is available too.',
+      'Meeting rooms and a conference room on the 6th floor of Palas Campus — bookable by the hour, matched to your format, and ready for the conversations you can’t leave to chance. For larger gatherings, the panoramic EXTIND Lounge is available too.',
     primaryLabel: 'Book a visit',
     secondaryLabel: "See what's included →",
     heroSlides: [
       { src: pillarsImg, caption: 'Meeting & Focus Rooms', alt: 'Meeting room at Extind' },
-      { src: vistaImg, caption: 'Panoramic Lounge · 6th floor', alt: 'Vista Lounge' },
+      { src: vistaImg, caption: 'Panoramic Lounge · 6th floor', alt: 'EXTIND Lounge' },
       { src: heroImg, caption: 'Coworking · Palas Campus', alt: 'Coworking space at Extind' },
     ],
     hostEyebrow: 'What you can host',
@@ -51,12 +51,12 @@ const T = {
     docTitle: 'Săli de conferințe — Extind',
     heroTitle: 'Săli pentru întâlnirile care contează',
     heroLede:
-      'Pentru o discuție cu un client, o prezentare, un workshop sau o sesiune de echipă, la EXTIND găsești spațiul potrivit, complet echipat și pregătit înainte de sosirea invitaților.\n\nAi la dispoziție săli de întâlniri, o sală de conferințe și, pentru evenimente cu mai mulți participanți, Vista Lounge, cu vedere panoramică asupra orașului. Adaptăm configurația în funcție de format și ne ocupăm de detalii, astfel încât întâlnirea ta să se desfășoare impecabil.',
+      'Pentru o discuție cu un client, o prezentare, un workshop sau o sesiune de echipă, la EXTIND găsești spațiul potrivit, complet echipat și pregătit înainte de sosirea invitaților.\n\nAi la dispoziție săli de întâlniri, o sală de conferințe și, pentru evenimente cu mai mulți participanți, EXTIND Lounge, cu vedere panoramică asupra orașului. Adaptăm configurația în funcție de format și ne ocupăm de detalii, astfel încât întâlnirea ta să se desfășoare impecabil.',
     primaryLabel: 'Programează o vizită',
     secondaryLabel: 'Vezi ce este inclus →',
     heroSlides: [
       { src: pillarsImg, caption: 'Săli de întâlniri & focus', alt: 'Sală de întâlniri la Extind' },
-      { src: vistaImg, caption: 'Lounge panoramic · etajul 6', alt: 'Vista Lounge' },
+      { src: vistaImg, caption: 'Lounge panoramic · etajul 6', alt: 'EXTIND Lounge' },
       { src: heroImg, caption: 'Coworking · Palas Campus', alt: 'Spațiul de coworking Extind' },
     ],
     hostEyebrow: 'Ce poți găzdui',

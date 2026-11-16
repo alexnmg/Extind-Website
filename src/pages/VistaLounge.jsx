@@ -63,21 +63,21 @@ const FEATURE_ICONS = [
 
 const T = {
   en: {
-    docTitle: 'Vista Lounge — Extind',
+    docTitle: 'EXTIND Lounge — Extind',
     heroTitle: 'A panoramic event space above the city.',
     heroLede:
       'Six floors up, overlooking the Palace of Culture — the home of the Extind community, and the best seat in the building for a coffee, a catch-up, or an evening event.',
     primaryLabel: 'Book a visit',
     secondaryLabel: 'Explore the lounge →',
     slides: [
-      { src: lounge2Img, caption: 'Room for events & gatherings', alt: 'Vista Lounge event space' },
-      { src: vistaImg, caption: 'Panoramic Lounge · 6th floor', alt: 'Vista Lounge overlooking the city' },
-      { src: lounge3Img, caption: 'Coffee point & social area', alt: 'Vista Lounge coffee point' },
+      { src: lounge2Img, caption: 'Room for events & gatherings', alt: 'EXTIND Lounge event space' },
+      { src: vistaImg, caption: 'Panoramic Lounge · 6th floor', alt: 'EXTIND Lounge overlooking the city' },
+      { src: lounge3Img, caption: 'Coffee point & social area', alt: 'EXTIND Lounge coffee point' },
     ],
     featEyebrow: 'The space',
     featTitle: 'Designed for the moments between focused work',
     featDesc:
-      'Vista is where the community gathers — for a change of scene during the day, and for the talks and evenings that bring everyone together after hours.',
+      'EXTIND Lounge is where the community gathers — for a change of scene during the day, and for the talks and evenings that bring everyone together after hours.',
     features: [
       {
         title: 'Panoramic views',
@@ -97,7 +97,7 @@ const T = {
       },
       {
         title: 'Open to every member',
-        desc: 'Vista is part of every Extind membership. Come up whenever you need a change of scene — no booking required.',
+        desc: 'EXTIND Lounge is part of every Extind membership. Come up whenever you need a change of scene — no booking required.',
       },
       {
         title: 'Golden hour, every evening',
@@ -116,21 +116,21 @@ const T = {
     magCta: 'Read the magazine →',
   },
   ro: {
-    docTitle: 'Vista Lounge — Extind',
+    docTitle: 'EXTIND Lounge — Extind',
     heroTitle: 'Un lounge cu vedere spre oraș, creat pentru întâlniri memorabile ale comunității',
     heroLede:
-      'La etajul 6, cu vedere spre Palatul Culturii, Vista Lounge este locul potrivit pentru o cafea, o conversație relaxată sau un eveniment de business. Un spațiu primitor, care aduce oamenii împreună, iar orașul completează atmosfera.',
+      'La etajul 6, cu vedere spre Palatul Culturii, EXTIND Lounge este locul potrivit pentru o cafea, o conversație relaxată sau un eveniment de business. Un spațiu primitor, care aduce oamenii împreună, iar orașul completează atmosfera.',
     primaryLabel: 'Programează o vizită',
     secondaryLabel: 'Explorează lounge-ul →',
     slides: [
-      { src: lounge2Img, caption: 'Spațiu pentru evenimente și întâlniri', alt: 'Spațiul de evenimente din Vista Lounge' },
-      { src: vistaImg, caption: 'Lounge panoramic · etajul 6', alt: 'Vista Lounge cu vedere asupra orașului' },
-      { src: lounge3Img, caption: 'Coffee point & zonă socială', alt: 'Coffee point-ul din Vista Lounge' },
+      { src: lounge2Img, caption: 'Spațiu pentru evenimente și întâlniri', alt: 'Spațiul de evenimente din EXTIND Lounge' },
+      { src: vistaImg, caption: 'Lounge panoramic · etajul 6', alt: 'EXTIND Lounge cu vedere asupra orașului' },
+      { src: lounge3Img, caption: 'Coffee point & zonă socială', alt: 'Coffee point-ul din EXTIND Lounge' },
     ],
-    featEyebrow: 'Vista Lounge',
+    featEyebrow: 'EXTIND Lounge',
     featTitle: 'Spațiul dintre o ședință și următoarea idee',
     featDesc:
-      'Pe parcursul zilei, Vista Lounge este spațiul potrivit pentru o cafea, o discuție sau câteva momente de respiro. Seara, devine cadrul ideal pentru evenimente, conversații și relații profesionale care continuă dincolo de o simplă întâlnire.',
+      'Pe parcursul zilei, EXTIND Lounge este spațiul potrivit pentru o cafea, o discuție sau câteva momente de respiro. Seara, devine cadrul ideal pentru evenimente, conversații și relații profesionale care continuă dincolo de o simplă întâlnire.',
     features: [
       {
         title: 'Priveliște panoramică',
@@ -146,15 +146,15 @@ const T = {
       },
       {
         title: 'Creat pentru întâlniri și evenimente',
-        desc: 'Pe parcursul zilei și seara, Vista Lounge găzduiește conferințe, brunch-uri de business, întâlniri private și evenimente de comunitate, într-un cadru panoramic deasupra orașului.',
+        desc: 'Pe parcursul zilei și seara, EXTIND Lounge găzduiește conferințe, brunch-uri de business, întâlniri private și evenimente de comunitate, într-un cadru panoramic deasupra orașului.',
       },
       {
         title: 'Inclus în fiecare abonament',
-        desc: 'Accesul la Vista Lounge este inclus în toate abonamentele EXTIND. Vino aici pentru o cafea, o conversație sau o pauză care îți limpezește ideile.',
+        desc: 'Accesul la EXTIND Lounge este inclus în toate abonamentele EXTIND. Vino aici pentru o cafea, o conversație sau o pauză care îți limpezește ideile.',
       },
       {
         title: 'Cadre care nu au nevoie de filtru',
-        desc: 'Lumina naturală, designul interior și priveliștea spre Palatul Culturii fac din Vista Lounge un decor „instagramabil” pentru ședințe foto, evenimente și conținut de brand.',
+        desc: 'Lumina naturală, designul interior și priveliștea spre Palatul Culturii fac din EXTIND Lounge un decor „instagramabil” pentru ședințe foto, evenimente și conținut de brand.',
       },
     ],
     eventsEyebrow: 'Evenimente',

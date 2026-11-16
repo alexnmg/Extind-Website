@@ -15,7 +15,7 @@ const T = {
     secondaryLabel: 'Discover our community →',
     slides: [
       { src: heroImg, caption: 'Coworking · Palas Campus', alt: 'Extind coworking space at Palas Campus' },
-      { src: vistaImg, caption: 'Vista Lounge Panoramic View', alt: 'Panoramic view from Vista Lounge' },
+      { src: vistaImg, caption: 'EXTIND Lounge Panoramic View', alt: 'Panoramic view from EXTIND Lounge' },
       { src: boothImg, caption: 'Meeting & Focus Rooms', alt: 'Meeting room at Extind' },
     ],
   },
@@ -26,7 +26,7 @@ const T = {
     secondaryLabel: 'Descoperă comunitatea →',
     slides: [
       { src: heroImg, caption: 'Workspace', alt: 'Spațiul de coworking Extind din Palas Campus' },
-      { src: vistaImg, caption: 'Vista Lounge — vedere panoramică', alt: 'Vedere panoramică din Vista Lounge' },
+      { src: vistaImg, caption: 'EXTIND Lounge — vedere panoramică', alt: 'Vedere panoramică din EXTIND Lounge' },
       { src: boothImg, caption: 'Săli de întâlniri & focus', alt: 'Sală de întâlniri la Extind' },
     ],
   },

@@ -101,7 +101,7 @@ const T = {
       },
       {
         caption: 'Panoramic Lounge · 6th floor',
-        title: 'Vista Lounge and a business community',
+        title: 'EXTIND Lounge and a business community',
         description:
           'Step away from your office into a panoramic lounge, beautifully designed coworking spaces, and a calendar of community and networking evenings.',
       },
@@ -166,7 +166,7 @@ const T = {
       },
       {
         caption: 'Lounge panoramic · etajul 6',
-        title: 'Vista Lounge și o comunitate de business',
+        title: 'EXTIND Lounge și o comunitate de business',
         description:
           'Ieși din birou într-un lounge panoramic, spații de coworking atent amenajate și un calendar de seri de comunitate și networking.',
       },

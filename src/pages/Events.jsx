@@ -9,13 +9,13 @@ const T = {
     eyebrow: 'Events',
     title: 'Events at EXTIND',
     description:
-      'Talks, breakfasts and business evenings hosted in the Vista Lounge and across Palas Campus.',
+      'Talks, breakfasts and business evenings hosted in the EXTIND Lounge and across Palas Campus.',
     emptyEyebrow: 'No events scheduled right now',
     emptyTitle: 'Nothing on the calendar this week',
     hostEyebrow: 'Host your event',
     hostTitle: 'Organise an event at EXTIND',
     hostDesc:
-      'Have something in mind? Tell us the format and the numbers, and we’ll help you make it happen — in the panoramic Vista Lounge or a space matched to your event.',
+      'Have something in mind? Tell us the format and the numbers, and we’ll help you make it happen — in the panoramic EXTIND Lounge or a space matched to your event.',
     whatWeHost: 'What we host',
     types: [
       'Management meetings & board sessions',
@@ -35,13 +35,13 @@ const T = {
     eyebrow: 'Evenimente',
     title: 'Evenimente la EXTIND',
     description:
-      'Conferințe, brunch-uri și seri de business găzduite în Vista Lounge și în Palas Campus.',
+      'Conferințe, brunch-uri și seri de business găzduite în EXTIND Lounge și în Palas Campus.',
     emptyEyebrow: 'Niciun eveniment programat momentan',
     emptyTitle: 'Nimic în calendar săptămâna aceasta',
     hostEyebrow: 'Găzduiește-ți evenimentul',
     hostTitle: 'Organizează evenimentul tău la EXTIND',
     hostDesc:
-      'Spune-ne ce pregătești, câți participanți ai și cum vrei să se desfășoare. Îți recomandăm spațiul potrivit și îl configurăm pentru evenimentul tău, fie că alegi Vista Lounge, sala de conferințe sau una dintre sălile de întâlniri.',
+      'Spune-ne ce pregătești, câți participanți ai și cum vrei să se desfășoare. Îți recomandăm spațiul potrivit și îl configurăm pentru evenimentul tău, fie că alegi EXTIND Lounge, sala de conferințe sau una dintre sălile de întâlniri.',
     whatWeHost: 'Ce poți organiza',
     types: [
       'Ședințe de management & board',

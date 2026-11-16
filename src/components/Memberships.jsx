@@ -70,7 +70,7 @@ const defaultOffice = {
     'Fully equipped shared kitchen',
     'Complimentary meeting room hours',
     'Beautifully designed coworking spaces',
-    'Vista Lounge access',
+    'EXTIND Lounge access',
     'Community events and networking evenings',
     'Workshop and event space discounts',
     'High-speed Wi-Fi',

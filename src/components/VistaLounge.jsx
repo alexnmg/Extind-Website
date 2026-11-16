@@ -9,35 +9,35 @@ const lounge3Img = 'lounge-3'
 
 const T = {
   en: {
-    eyebrow: 'Vista Lounge',
+    eyebrow: 'EXTIND Lounge',
     title: 'Community & Events',
-    cardLabel: 'Vista Lounge',
+    cardLabel: 'EXTIND Lounge',
     cardTitle: 'A panoramic event space above the city',
     description:
-      'More than a lounge, Vista is where the Extind community comes together. Host informal meetings, connect with other professionals or attend curated business events—all overlooking the Palace of Culture.',
-    ctaLabel: 'Discover Vista Lounge',
+      'EXTIND Lounge is where the Extind community comes together. Host informal meetings, connect with other professionals or attend curated business events—all overlooking the Palace of Culture.',
+    ctaLabel: 'Discover EXTIND Lounge',
     prev: 'Previous image',
     next: 'Next image',
     slides: [
-      { src: lounge2Img, caption: 'Room for events & gatherings', alt: 'Vista Lounge event and gathering space' },
-      { src: vistaImg, caption: 'Panoramic Lounge · 6th floor', alt: 'Vista Lounge with panoramic city view' },
-      { src: lounge3Img, caption: 'Coffee point & social area', alt: 'Vista Lounge coffee point and social area' },
+      { src: lounge2Img, caption: 'Room for events & gatherings', alt: 'EXTIND Lounge event and gathering space' },
+      { src: vistaImg, caption: 'Panoramic Lounge · 6th floor', alt: 'EXTIND Lounge with panoramic city view' },
+      { src: lounge3Img, caption: 'Coffee point & social area', alt: 'EXTIND Lounge coffee point and social area' },
     ],
   },
   ro: {
-    eyebrow: 'Vista Lounge',
+    eyebrow: 'EXTIND Lounge',
     title: 'Comunitate & Evenimente',
-    cardLabel: 'Vista Lounge',
+    cardLabel: 'EXTIND Lounge',
     cardTitle: 'Întâlniri și evenimente, cu orașul la picioare',
     description:
-      'Vista Lounge este un spațiu primitor pentru întâlniri formale și informale, networking și evenimente de business. Un loc în care profesioniștii, echipele și companiile se întâlnesc într-o atmosferă relaxată, completată de vederea panoramică asupra orașului.',
-    ctaLabel: 'Descoperă Vista Lounge',
+      'EXTIND Lounge este un spațiu primitor pentru întâlniri formale și informale, networking și evenimente de business. Un loc în care profesioniștii, echipele și companiile se întâlnesc într-o atmosferă relaxată, completată de vederea panoramică asupra orașului.',
+    ctaLabel: 'Descoperă EXTIND Lounge',
     prev: 'Imaginea anterioară',
     next: 'Imaginea următoare',
     slides: [
-      { src: lounge2Img, caption: 'Spațiu pentru evenimente și întâlniri', alt: 'Spațiul de evenimente din Vista Lounge' },
-      { src: vistaImg, caption: 'Lounge panoramic · etajul 6', alt: 'Vista Lounge cu vedere panoramică asupra orașului' },
-      { src: lounge3Img, caption: 'Coffee point & zonă socială', alt: 'Coffee point-ul și zona socială din Vista Lounge' },
+      { src: lounge2Img, caption: 'Spațiu pentru evenimente și întâlniri', alt: 'Spațiul de evenimente din EXTIND Lounge' },
+      { src: vistaImg, caption: 'Lounge panoramic · etajul 6', alt: 'EXTIND Lounge cu vedere panoramică asupra orașului' },
+      { src: lounge3Img, caption: 'Coffee point & zonă socială', alt: 'Coffee point-ul și zona socială din EXTIND Lounge' },
     ],
   },
 }

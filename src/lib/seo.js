@@ -73,8 +73,8 @@ export const ROUTES = {
     title: { ro: 'Coworking — Extind', en: 'Coworking — Extind' },
     ogTitle: { ro: 'Coworking în Palas Campus, Iași', en: 'Coworking at Palas Campus, Iași' },
     description: {
-      ro: 'Birou în spațiul comun EXTIND, cu abonament lunar sau acces cu ziua. Internet rapid, cafea de specialitate și acces la Vista Lounge.',
-      en: 'A desk in the EXTIND shared space, monthly or by the day. Fast internet, specialty coffee and access to Vista Lounge.',
+      ro: 'Birou în spațiul comun EXTIND, cu abonament lunar sau acces cu ziua. Internet rapid, cafea de specialitate și acces la EXTIND Lounge.',
+      en: 'A desk in the EXTIND shared space, monthly or by the day. Fast internet, specialty coffee and access to EXTIND Lounge.',
     },
     image: og('coworking'),
     imageAlt: { ro: 'Zona de coworking EXTIND cu birouri comune', en: 'The EXTIND coworking area with shared desks' },
@@ -90,24 +90,24 @@ export const ROUTES = {
     imageAlt: { ro: 'Sală de conferințe EXTIND cu masă lungă și ecran', en: 'An EXTIND conference room with a long table and screen' },
   },
   '/vista-lounge': {
-    title: { ro: 'Vista Lounge — Extind', en: 'Vista Lounge — Extind' },
-    ogTitle: { ro: 'Vista Lounge — etajul 6, cu vedere spre oraș', en: 'Vista Lounge — 6th floor, overlooking the city' },
+    title: { ro: 'EXTIND Lounge — Extind', en: 'EXTIND Lounge — Extind' },
+    ogTitle: { ro: 'EXTIND Lounge — etajul 6, cu vedere spre oraș', en: 'EXTIND Lounge — 6th floor, overlooking the city' },
     description: {
       ro: 'Lounge panoramic la etajul 6, cu vedere spre Palatul Culturii. Cafea, conversații și evenimente de comunitate, incluse în orice abonament EXTIND.',
       en: 'A panoramic lounge on the 6th floor, overlooking the Palace of Culture. Coffee, conversation and community events, included in every EXTIND membership.',
     },
     image: og('vista-lounge'),
-    imageAlt: { ro: 'Vedere panoramică spre Iași din Vista Lounge', en: 'The panoramic view over Iași from Vista Lounge' },
+    imageAlt: { ro: 'Vedere panoramică spre Iași din EXTIND Lounge', en: 'The panoramic view over Iași from EXTIND Lounge' },
   },
   '/events': {
     title: { ro: 'Evenimente — Extind', en: 'Events — Extind' },
     ogTitle: { ro: 'Evenimentele comunității EXTIND', en: 'EXTIND community events' },
     description: {
-      ro: 'Meetupuri, paneluri și întâlniri de comunitate în Vista Lounge. Majoritatea sunt gratuite și deschise și celor din afara EXTIND.',
-      en: 'Meetups, panels and community gatherings in Vista Lounge. Most are free and open to guests as well as members.',
+      ro: 'Meetupuri, paneluri și întâlniri de comunitate în EXTIND Lounge. Majoritatea sunt gratuite și deschise și celor din afara EXTIND.',
+      en: 'Meetups, panels and community gatherings in EXTIND Lounge. Most are free and open to guests as well as members.',
     },
     image: og('events'),
-    imageAlt: { ro: 'Spațiul de evenimente din Vista Lounge', en: 'The event space in Vista Lounge' },
+    imageAlt: { ro: 'Spațiul de evenimente din EXTIND Lounge', en: 'The event space in EXTIND Lounge' },
   },
   '/contact': {
     title: { ro: 'Contact — Extind', en: 'Contact — Extind' },
@@ -123,8 +123,8 @@ export const ROUTES = {
     title: { ro: 'Programează o vizită — Extind', en: 'Book a visit — Extind' },
     ogTitle: { ro: 'Programează o vizită', en: 'Book a visit' },
     description: {
-      ro: 'Vino să vezi spațiul. Alege-ți un interval și îți arătăm birourile, sălile de conferințe și Vista Lounge, fără nicio obligație.',
-      en: 'Come and see the space. Pick a slot and we will show you the offices, the conference rooms and Vista Lounge, with no obligation.',
+      ro: 'Vino să vezi spațiul. Alege-ți un interval și îți arătăm birourile, sălile de conferințe și EXTIND Lounge, fără nicio obligație.',
+      en: 'Come and see the space. Pick a slot and we will show you the offices, the conference rooms and EXTIND Lounge, with no obligation.',
     },
     image: og('visit'),
     imageAlt: { ro: 'Holul de la intrarea în EXTIND', en: 'The entrance corridor at EXTIND' },

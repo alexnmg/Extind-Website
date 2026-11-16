@@ -41,7 +41,7 @@ const T = {
       {
         title: 'Beyond your office',
         items: [
-          'Vista Lounge access',
+          'EXTIND Lounge access',
           'Conference room',
           'Meeting-room access by booking, per package',
           'Guest reception and guidance',
@@ -84,7 +84,7 @@ const T = {
       {
         title: 'Dincolo de biroul tău',
         items: [
-          'Acces la Vista Lounge',
+          'Acces la EXTIND Lounge',
           'Sală de conferințe',
           'Acces la săli pe bază de rezervare, conform pachetului',
           'Primirea și îndrumarea oaspeților',

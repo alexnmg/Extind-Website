@@ -19,7 +19,7 @@ const T = {
     heroSlides: [
       { src: heroImg, caption: 'Coworking · Palas Campus', alt: 'Extind coworking space' },
       { src: pillarsImg, caption: 'Meeting & Focus Rooms', alt: 'Meeting room at Extind' },
-      { src: vistaImg, caption: 'Panoramic Lounge · 6th floor', alt: 'Vista Lounge' },
+      { src: vistaImg, caption: 'Panoramic Lounge · 6th floor', alt: 'EXTIND Lounge' },
     ],
     priceEyebrow: 'Pricing',
     priceTitle: 'Coworking that fits how you work',
@@ -71,7 +71,7 @@ const T = {
     heroSlides: [
       { src: heroImg, caption: 'Coworking · Palas Campus', alt: 'Spațiul de coworking Extind' },
       { src: pillarsImg, caption: 'Săli de întâlniri & focus', alt: 'Sală de întâlniri la Extind' },
-      { src: vistaImg, caption: 'Lounge panoramic · etajul 6', alt: 'Vista Lounge' },
+      { src: vistaImg, caption: 'Lounge panoramic · etajul 6', alt: 'EXTIND Lounge' },
     ],
     priceEyebrow: 'Tarife',
     priceTitle: 'Coworking potrivit felului în care lucrezi',

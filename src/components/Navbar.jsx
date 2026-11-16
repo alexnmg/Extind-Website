@@ -22,7 +22,7 @@ const T = {
       { label: 'Executive Day Office', to: '/executive-day-office' },
     ],
     community: [
-      { label: 'Vista Lounge', to: '/vista-lounge' },
+      { label: 'EXTIND Lounge', to: '/vista-lounge' },
       { label: 'Events', to: '/events' },
     ],
     links: [
@@ -49,7 +49,7 @@ const T = {
       { label: 'Executive Day Office', to: '/executive-day-office' },
     ],
     community: [
-      { label: 'Vista Lounge', to: '/vista-lounge' },
+      { label: 'EXTIND Lounge', to: '/vista-lounge' },
       { label: 'Evenimente', to: '/events' },
     ],
     links: [

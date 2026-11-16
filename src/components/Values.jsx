@@ -36,7 +36,7 @@ const T = {
       },
       {
         title: 'Business Community',
-        desc: 'Join a growing network of entrepreneurs, professionals and companies through curated events, Vista Lounge and everyday opportunities to build meaningful business relationships.',
+        desc: 'Join a growing network of entrepreneurs, professionals and companies through curated events, EXTIND Lounge and everyday opportunities to build meaningful business relationships.',
       },
     ],
   },
@@ -66,7 +66,7 @@ const T = {
       },
       {
         title: 'Comunitate de business',
-        desc: 'EXTIND aduce împreună antreprenori, profesioniști și companii. Evenimentele atent alese, întâlnirile din Vista Lounge și interacțiunile de zi cu zi creează contexte reale pentru idei, colaborări și relații profesionale valoroase.',
+        desc: 'EXTIND aduce împreună antreprenori, profesioniști și companii. Evenimentele atent alese, întâlnirile din EXTIND Lounge și interacțiunile de zi cu zi creează contexte reale pentru idei, colaborări și relații profesionale valoroase.',
       },
     ],
   },
